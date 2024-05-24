@@ -1,15 +1,16 @@
 package admin.test;
 
-import admin.pages.AuthorizationPage;
-import admin.pages.CardDoctorPage;
-import admin.pages.DoctorsPage;
-import admin.pages.HeaderBar;
+import admin.pages.*;
 import admin.pages.calendar.Calendar;
+import admin.pages.modalWindowAdministration.UpdateLegalDocWindow;
 import admin.pages.modalWindowDoctors.*;
 import admin.utils.DataHelper;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import admin.data.DataInfo;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 
@@ -17,10 +18,8 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Epic("Врачи")
 public class DoctorsPageTest {
-    private HeaderBar headerBar;
-    private DoctorsPage doctorsPage;
 
 
     @BeforeAll
@@ -43,276 +42,298 @@ public class DoctorsPageTest {
         AuthorizationPage authorizationPage = new AuthorizationPage();
         DataInfo dataInfo = new DataInfo("SUPER_ADMIN", "Qqqq123#");
         authorizationPage.authorizationAdminPanel(dataInfo);
-        headerBar = new HeaderBar();
+        HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
     }
 
-
+    @Feature("Фотография врача")
+    @Story("Успешная смена фотографии врачу в формате Jpeg")
     @Test
-    @Order(1)
     void changePhotoDoctorLess4mbJpeg_11553() {
-        doctorsPage=headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor=doctorsPage.openCardDoctor();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        EditPhotoDoctorWindow editPhoto=cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
-        String srcOriginalPhoto=cardDoctor.getSrcPhoto();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadValidPhoto("src/test/resources/Photo 3,7mbJpeg.jpg");
-        assertNotEquals(srcOriginalPhoto,cardDoctor.getSrcPhoto());
+        assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
     }
 
+    @Feature("Фотография врача")
+    @Story("Успешная смена фотографии врачу в формате Png")
     @Test
-    @Order(2)
     void changePhotoDoctorLess4mbPng_12100() {
-        doctorsPage=headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor=doctorsPage.openCardDoctor();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        EditPhotoDoctorWindow editPhoto=cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
-        String srcOriginalPhoto=cardDoctor.getSrcPhoto();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadValidPhoto("src/test/resources/Photo 3,2mbPng.png");
-        assertNotEquals(srcOriginalPhoto,cardDoctor.getSrcPhoto());
+        assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
     }
 
+    @Feature("Фотография врача")
+    @Story("Cмена фотографии врачу с файлом весом более 4mb")
     @Test
-    @Order(3)
     void changePhotoDoctorMore4mb_9265() {
-        doctorsPage=headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor=doctorsPage.openCardDoctor();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        EditPhotoDoctorWindow editPhoto=cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
-        String srcOriginalPhoto=cardDoctor.getSrcPhoto();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadInvalidPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
-        assertEquals("Допускаются файлы размером не выше 4Мб",cardDoctor.getNotification());
-        assertEquals(srcOriginalPhoto,cardDoctor.getSrcPhoto());
+        assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getNotification());
+        assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
     }
+
+    @Feature("Фотография врача")
+    @Story("Cмена фотографии врачу с файлом в формате Docx")
     @Test
-    @Order(4)
     void changePhotoDoctorInvalidFormatDocx_9268() {
-        doctorsPage=headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor=doctorsPage.openCardDoctor();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        EditPhotoDoctorWindow editPhoto=cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
-        String srcOriginalPhoto=cardDoctor.getSrcPhoto();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadInvalidPhoto("src/test/resources/Оферта,Политика обработки docx.docx");
-        assertEquals("Допускаются файлы с расширением jpg jpeg png",cardDoctor.getNotification());
-        assertEquals(srcOriginalPhoto,cardDoctor.getSrcPhoto());
+        assertEquals("Допускаются файлы с расширением jpg jpeg png", cardDoctor.getNotification());
+        assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
     }
 
+    @Feature("Фотография врача")
+    @Story("Cмена фотографии врачу с файлом в формате Xlsx")
     @Test
-    @Order(5)
     void changePhotoDoctorInvalidFormatXlsx_12098() {
-        doctorsPage=headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor=doctorsPage.openCardDoctor();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        EditPhotoDoctorWindow editPhoto=cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
-        String srcOriginalPhoto=cardDoctor.getSrcPhoto();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadInvalidPhoto("src/test/resources/Оферта, Политика обработки .xlsx.xlsx");
-        assertEquals("Допускаются файлы с расширением jpg jpeg png",cardDoctor.getNotification());
-        assertEquals(srcOriginalPhoto,cardDoctor.getSrcPhoto());
+        assertEquals("Допускаются файлы с расширением jpg jpeg png", cardDoctor.getNotification());
+        assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
     }
 
+    @Feature("Фотография врача")
+    @Story("Cмена фотографии врачу с файлом в формате PDF")
     @Test
-    @Order(6)
     void changePhotoDoctorInvalidFormatPDF_12099() {
-        doctorsPage=headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor=doctorsPage.openCardDoctor();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        EditPhotoDoctorWindow editPhoto=cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
-        String srcOriginalPhoto=cardDoctor.getSrcPhoto();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadInvalidPhoto("src/test/resources/Оферта.pdf");
-        assertEquals("Допускаются файлы с расширением jpg jpeg png",cardDoctor.getNotification());
-        assertEquals(srcOriginalPhoto,cardDoctor.getSrcPhoto());
+        assertEquals("Допускаются файлы с расширением jpg jpeg png", cardDoctor.getNotification());
+        assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
     }
 
+    @Feature("Фотография врача")
+    @Story("Закрытие окна смены фотографии")
     @Test
-    @Order(7)
     void closeWindowEditPhoto() {
-        doctorsPage=headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor=doctorsPage.openCardDoctor();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        EditPhotoDoctorWindow editPhoto=cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
         editPhoto.closeWindowEditPhoto();
     }
 
+    @Feature("Фотография врача")
+    @Story("Успешное удаление фотографии врача")
     @Test
-    @Order(8)
     void deletePhoto_11554() {
-        doctorsPage = headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         cardDoctor.deletePhoto();
-        assertEquals("https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg",cardDoctor.getSrcPhoto());
+        assertEquals("https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg", cardDoctor.getSrcPhoto());
 
     }
 
+    @Feature("Фотография врача")
+    @Story("Удаление дефолтной фотографии врача")
     @Test
-    @Order(9)
     void deleteDefaultPhoto_11774() {
-        doctorsPage = headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         cardDoctor.deletePhoto();
-        assertEquals("Конфликт (409)",cardDoctor.getNotification());
+        assertEquals("Конфликт (409)", cardDoctor.getNotification());
     }
 
+    @Feature("Информация о враче")
+    @Story("Успешное добавление раздела в инфо о враче")
     @Test
-    @Order(10)
-    void addingSection_9218(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void addingSection_9218() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        AddIntelligenceWindow intelligenceWindow=cardDoctor.openWindowAddSection();
+        AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.addIntelligenceWindow();
         Section section = intelligenceWindow.addSection("Образова");
         section.sectionEmpty();
-        assertEquals("Образова",section.getSectionName());
+        assertEquals("Образова", section.getSectionName());
     }
 
+    @Feature("Информация о враче")
+    @Story("Добавление пустого раздела в инфо о враче")
     @Test
-    @Order(11)
-    void addSectionEmptyField(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void addSectionEmptyField() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        AddIntelligenceWindow intelligenceWindow=cardDoctor.openWindowAddSection();
+        AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.saveValueSectionDescription();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
 
+    @Feature("Информация о враче")
+    @Story("Отмена добавления раздела в инфо о враче")
     @Test
-    @Order(12)
-    void clearFieldWindowAddSection_9291(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void cancellationWindowAddSection_() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        AddIntelligenceWindow intelligenceWindow=cardDoctor.openWindowAddSection();
-        intelligenceWindow.fillingFieldSectionDescription("Образование");
-        intelligenceWindow.clearFieldSectionDescription();
-        assertEquals("",intelligenceWindow.getValueSectionDescription());
-    }
-
-    @Test
-    @Order(13)
-    void cancellationWindowAddSection_(){
-        doctorsPage = headerBar.doctorsTabOpen();
-        doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.cardDoctorPage();
-        AddIntelligenceWindow intelligenceWindow=cardDoctor.openWindowAddSection();
+        AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.fillingFieldSectionDescription("Образование");
         intelligenceWindow.cancellationAddSectionDescription();
-        AddIntelligenceWindow intelligenceWindowOver=cardDoctor.openWindowAddSection();
-        assertEquals("",intelligenceWindowOver.getValueSectionDescription());
+        AddIntelligenceWindow intelligenceWindowOver = cardDoctor.openWindowAddSection();
+        assertEquals("", intelligenceWindowOver.getValueSectionDescription());
     }
 
-
+    @Feature("Информация о враче")
+    @Story("Успешное редактирование раздела в инфо о враче")
     @Test
-    @Order(14)
-    void editSection_(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void editSection_() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         Section section = cardDoctor.getSection();
         section.sectionEmpty();
         section.editTitle("ние");
-        assertEquals("Образование",section.getSectionName());
+        assertEquals("Образование", section.getSectionName());
     }
 
+    @Feature("Информация о враче")
+    @Story("Успешное удаление раздела в инфо о враче")
     @Test
-    @Order(15)
-    void addingDescription_9296(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void deleteSection_9301() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
+        doctorsPage.doctorsPage();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        cardDoctor.cardDoctorPage();
+        Section section = cardDoctor.getSection();
+        section.deleteTitle();
+    }
+
+    @Feature("Информация о враче")
+    @Story("Успешное добавление описания к разделу в инфо о враче")
+    @Test
+    void addingDescription_9296() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         Section section = cardDoctor.getSection();
         section.sectionEmpty();
-        AddIntelligenceWindow intelligenceWindow= section.openWindowAddDescription();
+        AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
         intelligenceWindow.addIntelligenceWindow();
-        Description description=intelligenceWindow.addDescription("2022, по специальности \"Лечебное дело\" в ФГБОУ СамГМУ Минздрава Российской Феде");
+        Description description = intelligenceWindow.addDescription("2022, по специальности \"Лечебное дело\" в ФГБОУ СамГМУ Минздрава Российской Феде");
         description.description();
         section.sectionNotEmpty();
-        assertEquals("2022, по специальности \"Лечебное дело\" в ФГБОУ СамГМУ Минздрава Российской Феде",description.getDescriptionName());
+        assertEquals("2022, по специальности \"Лечебное дело\" в ФГБОУ СамГМУ Минздрава Российской Феде", description.getDescriptionName());
     }
 
+    @Feature("Информация о враче")
+    @Story("Добавление пустого описания к разделу в инфо о враче")
     @Test
-    @Order(16)
-    void addDescriptionEmptyField(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void addDescriptionEmptyField() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         Section section = cardDoctor.getSection();
-        AddIntelligenceWindow intelligenceWindow= section.openWindowAddDescription();
+        AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
         intelligenceWindow.saveValueSectionDescription();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
 
+    @Feature("Информация о враче")
+    @Story("Отмена добавления описания к разделу в инфо о враче")
     @Test
-    @Order(17)
-    void clearFieldWindowAddDescription_9291(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void cancellationWindowAddDescription() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         Section section = cardDoctor.getSection();
-        AddIntelligenceWindow intelligenceWindow= section.openWindowAddDescription();
-        intelligenceWindow.fillingFieldSectionDescription("2023, Получение дополнительного образования за рубежом");
-        intelligenceWindow.clearFieldSectionDescription();
-        assertEquals("",intelligenceWindow.getValueSectionDescription());
-    }
-    @Test
-    @Order(18)
-    void cancellationWindowAddDescription(){
-        doctorsPage = headerBar.doctorsTabOpen();
-        doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.cardDoctorPage();
-        Section section = cardDoctor.getSection();
-        AddIntelligenceWindow intelligenceWindow= section.openWindowAddDescription();
+        AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
         intelligenceWindow.fillingFieldSectionDescription("2023, Получение дополнительного образования за рубежом");
         intelligenceWindow.cancellationAddSectionDescription();
-        AddIntelligenceWindow intelligenceWindowOver= section.openWindowAddDescription();
-        assertEquals("",intelligenceWindowOver.getValueSectionDescription());
+        AddIntelligenceWindow intelligenceWindowOver = section.openWindowAddDescription();
+        assertEquals("", intelligenceWindowOver.getValueSectionDescription());
 
     }
 
+    @Feature("Информация о враче")
+    @Story("Успешное редактирование описания к разделу в инфо о враче")
     @Test
-    @Order(19)
-    void editDescription_(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void editDescription_() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         Description description = cardDoctor.getDescription();
         description.editDescription("рации");
-        assertEquals("2022, по специальности \"Лечебное дело\" в ФГБОУ СамГМУ Минздрава Российской Федерации",description.getDescriptionName());
+        assertEquals("2022, по специальности \"Лечебное дело\" в ФГБОУ СамГМУ Минздрава Российской Федерации", description.getDescriptionName());
 
     }
 
+    @Feature("Информация о враче")
+    @Story("Успешное удаление описания к разделу в инфо о враче")
     @Test
-    @Order(20)
-    void deleteDescription_9303(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void deleteDescription_9303() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
@@ -322,20 +343,13 @@ public class DoctorsPageTest {
         section.sectionEmpty();
 
     }
+
+    @Feature("Отзывы о враче")
+    @Story("Успешное добавление отзыва о враче текущей датой")
     @Test
-    @Order(21)
-    void deleteSection_9301(){
-        doctorsPage = headerBar.doctorsTabOpen();
-        doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.cardDoctorPage();
-        Section section = cardDoctor.getSection();
-        section.deleteTitle();
-    }
-    @Test
-    @Order(22)
     void addFeedbackToday() {
-        doctorsPage = headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
@@ -358,10 +372,12 @@ public class DoctorsPageTest {
         assertEquals("Очень хороший врач", feedback.getTextFeedback());
     }
 
+    @Feature("Отзывы о враче")
+    @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
     @Test
-    @Order(22)
     void addFeedbackCurrentMonth_9219() {
-        doctorsPage = headerBar.doctorsTabOpen();
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
@@ -384,25 +400,27 @@ public class DoctorsPageTest {
         assertEquals("Очень хороший врач", feedback.getTextFeedback());
     }
 
+    @Feature("Отзывы о враче")
+    @Story("Успешное добавление отзыва о враче датой в следующем месяце")
     @Test
-    @Order(23)
-    void addFeedbackFutureMonth_9305(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void addFeedbackFutureMonth_9305() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         cardDoctor.publishedCheckbox();
-        AddFeedbackWindow feedbackWindow=cardDoctor.openWindowAddFeedback();
+        AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
         feedbackWindow.addFeedbackWindow();
         assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
         feedbackWindow.fillingFieldFio("Федоров Федор Федорович");
         feedbackWindow.fillingFieldTextFeedback("Так себе врач");
-        Calendar calendar= feedbackWindow.openCalendarSelectDate();
+        Calendar calendar = feedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.switchFutureMonth();
         calendar.selectDateActivation();
         feedbackWindow.clickPublishButton();
-        assertEquals("Отзыв успешно добавлен",cardDoctor.getNotification());
+        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         cardDoctor.unpublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
@@ -413,25 +431,27 @@ public class DoctorsPageTest {
 
     }
 
+    @Feature("Отзывы о враче")
+    @Story("Успешное добавление отзыва о враче датой в предыдущем месяце")
     @Test
-    @Order(24)
-    void addFeedbackPreviousMonth_9305(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void addFeedbackPreviousMonth_9305() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         cardDoctor.publishedCheckbox();
-        AddFeedbackWindow feedbackWindow=cardDoctor.openWindowAddFeedback();
+        AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
         feedbackWindow.addFeedbackWindow();
         assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
         feedbackWindow.fillingFieldFio("Степанов Степан Степанович");
         feedbackWindow.fillingFieldTextFeedback("Обязательно приду еще на прием к этому врачу");
-        Calendar calendar= feedbackWindow.openCalendarSelectDate();
+        Calendar calendar = feedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.switchPreviousMonth();
         calendar.selectDateActivation();
         feedbackWindow.clickPublishButton();
-        assertEquals("Отзыв успешно добавлен",cardDoctor.getNotification());
+        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         cardDoctor.unpublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
@@ -440,32 +460,36 @@ public class DoctorsPageTest {
         assertEquals("Обязательно приду еще на прием к этому врачу", feedback.getTextFeedback());
     }
 
+    @Feature("Отзывы о враче")
+    @Story("Успешное редактирование неопубликованного отзыва о враче")
     @Test
-    @Order(25)
-    void editUnpublishedFeedback_9314(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void editUnpublishedFeedback_9314() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         cardDoctor.publishedCheckbox();
         cardDoctor.switchUnpublishedFeedback();
-       Feedback feedback = cardDoctor.getFeedback();
-       feedback.feedbackUnpublished();
-       ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
-       changeFeedback.changeFeedbackWindow();
-       changeFeedback.clearFieldText();
-       changeFeedback.fillingFieldText("Внимательно отнесся к моей проблеме");
-       changeFeedback.saveChanges();
-       assertEquals("Отзыв успешно изменен",cardDoctor.getNotification());
-       feedback.feedbackUnpublished();
-       cardDoctor.unpublishedCheckbox();
-       assertEquals("Внимательно отнесся к моей проблеме", feedback.getTextFeedback());
+        Feedback feedback = cardDoctor.getFeedback();
+        feedback.feedbackUnpublished();
+        ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
+        changeFeedback.changeFeedbackWindow();
+        changeFeedback.clearFieldText();
+        changeFeedback.fillingFieldText("Внимательно отнесся к моей проблеме");
+        changeFeedback.saveChanges();
+        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
+        feedback.feedbackUnpublished();
+        cardDoctor.unpublishedCheckbox();
+        assertEquals("Внимательно отнесся к моей проблеме", feedback.getTextFeedback());
     }
 
+    @Feature("Отзывы о враче")
+    @Story("Успешная публикация неопубликованного отзыва о враче")
     @Test
-    @Order(26)
-    void publicationUnpublishedFeedback_9309(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void publicationUnpublishedFeedback_9309() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
@@ -474,15 +498,17 @@ public class DoctorsPageTest {
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         feedback.publicationFeedback();
-        assertEquals("Отзыв успешно изменен",cardDoctor.getNotification());
+        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         feedback.feedbackPublished();
         cardDoctor.publishedCheckbox();
     }
 
+    @Feature("Отзывы о враче")
+    @Story("Успешное редактирование опубликованного отзыва о враче")
     @Test
-    @Order(27)
-    void editPublishedFeedback_9313(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void editPublishedFeedback_9313() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
@@ -494,16 +520,18 @@ public class DoctorsPageTest {
         changeFeedback.clearFieldText();
         changeFeedback.fillingFieldText("Прием у этого врача прошел замечательно");
         changeFeedback.saveChanges();
-        assertEquals("Отзыв успешно изменен",cardDoctor.getNotification());
+        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         assertEquals("Прием у этого врача прошел замечательно", feedback.getTextFeedback());
         feedback.feedbackPublished();
         cardDoctor.publishedCheckbox();
     }
 
+    @Feature("Отзывы о враче")
+    @Story("Успешное снятие с публикации опубликованного отзыва о враче")
     @Test
-    @Order(28)
-    void withdrawalPublicationFeedback_9311(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void withdrawalPublicationFeedback_9311() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
@@ -511,15 +539,17 @@ public class DoctorsPageTest {
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackPublished();
         feedback.withdrawalPublication();
-        assertEquals("Отзыв успешно изменен",cardDoctor.getNotification());
+        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         cardDoctor.unpublishedCheckbox();
         feedback.feedbackUnpublished();
     }
 
+    @Feature("Отзывы о враче")
+    @Story("Успешное удаление неопубликованного отзыва о враче")
     @Test
-    @Order(29)
-    void deleteUnpublishedFeedback_9310(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void deleteUnpublishedFeedback_9310() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
@@ -528,27 +558,75 @@ public class DoctorsPageTest {
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         feedback.deleteFeedback();
-        assertEquals("Отзыв успешно удален",cardDoctor.getNotification());
+        assertEquals("Отзыв успешно удален", cardDoctor.getNotification());
         cardDoctor.unpublishedCheckbox();
     }
 
+    @Feature("Отзывы о враче")
+    @Story("Сортировка неопубликованных отзывов о враче")
     @Test
-    @Order(30)
-    void sotringUnpublishedFeedbacks_9221(){
-        doctorsPage = headerBar.doctorsTabOpen();
+    void sotringUnpublishedFeedbacks_9221() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         cardDoctor.publishedCheckbox();
         cardDoctor.switchUnpublishedFeedback();
-
     }
 
+    @Story("Возврат на страницу Врачи с карточки врача")
+    @Test
+    void returnToDoctorsPageFromCardDoctorPage() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
+        doctorsPage.doctorsPage();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        cardDoctor.cardDoctorPage();
+        cardDoctor.comebackDoctorsPage();
+        doctorsPage.doctorsPage();
+    }
 
+    @Story("Возврат к хэдеру страницы врачей")
+    @Test
+    void returnToStartPageDoctors() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
+        doctorsPage.doctorsPage();
+        doctorsPage.scrollPageToBottom();
+        doctorsPage.returnToStartPage();
+        doctorsPage.returnButtonDisappears();
+    }
 
+    @Story("Возврат к хэдеру страницы карточки врача")
+    @Test
+    void returnToStartPageCardDoctor() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
+        doctorsPage.doctorsPage();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        cardDoctor.cardDoctorPage();
+        cardDoctor.scrollPageToBottom();
+        cardDoctor.returnToStartPage();
+        cardDoctor.returnButtonDisappears();
+    }
 
-
-
+    @Story("Закрытие уведомления на странице карточки врача")
+    @Test
+    void closeNotification() {
+        HeaderBar headerBar = new HeaderBar();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
+        doctorsPage.doctorsPage();
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        cardDoctor.cardDoctorPage();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
+        editPhoto.editPhotoDoctorWindow();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
+        editPhoto.uploadInvalidPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
+        assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getNotification());
+        assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
+        cardDoctor.closeNotification();
+    }
 
 
 }

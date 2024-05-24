@@ -15,15 +15,16 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 
 import org.junit.jupiter.api.Assertions;
-import user.pages.AuthPage;
-import user.pages.HeaderBarLK;
-import user.pages.HomePage;
-import user.pages.ServicesPageLK;
+import user.AuthPage;
+import user.HeaderBarLK;
+import user.HomePage;
+import user.ServicesPageLK;
 import user.pages.modalWindowServices.Rule;
 import user.pages.modalWindowServices.RulesPreparingWindowLK;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @Epic("Услуги")
 @Feature("Управление услугами")
 public class ServicesPageTest {
@@ -98,12 +99,12 @@ public class ServicesPageTest {
         ServicesPageLK servicesPageLK = headerBarLK.servicesTabOpen();
         servicesPageLK.servicesPageLK();
         servicesPageLK.openSectionListLaboratories();
-        RulesPreparingWindowLK rulesPreparingWindow=servicesPageLK.openRulesPreparingCategory();
+        RulesPreparingWindowLK rulesPreparingWindow = servicesPageLK.openRulesPreparingCategory();
         rulesPreparingWindow.rulesPreparingWindow();
-        Rule rule=rulesPreparingWindow.openRule();
+        Rule rule = rulesPreparingWindow.openRule();
         rule.rule();
         assertEquals("Правило подготовки 1", rule.getHeaderRule());
-        assertEquals("Текст правила подготовки к категории",rule.getDescriptionRule());
+        assertEquals("Текст правила подготовки к категории", rule.getDescriptionRule());
     }
 
 

@@ -21,7 +21,6 @@ public class DoctorsPage {
     private final SelenideElement footerDoctorsPage = $x("//span[text()='@ Самарский государственный медицинский университет']");
     private final SelenideElement returnToStartButton = $x("//div[@class='_x1E']");
 
-
     public void doctorsPage() {
         tabNameDoctors.shouldBe(Condition.visible, Duration.ofSeconds(10));
         searchDoctors.shouldBe(Condition.visible, Duration.ofSeconds(10));

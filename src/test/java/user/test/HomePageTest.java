@@ -1,16 +1,14 @@
-package user.pages.test;
+package user.test;
 
-import admin.pages.SettingPage;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.chrome.ChromeOptions;
-import user.pages.AuthPage;
-import user.pages.HeaderBarLK;
-import user.pages.HomePage;
+import user.AuthPage;
+import user.HeaderBarLK;
+import user.HomePage;
 import user.pages.modalWindowReportBug.ReportBug;
 
 import static com.codeborne.selenide.Selenide.*;

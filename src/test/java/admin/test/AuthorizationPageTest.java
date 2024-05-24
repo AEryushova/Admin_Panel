@@ -44,6 +44,7 @@ public class AuthorizationPageTest {
         AuthorizationPage authorizationPage = new AuthorizationPage();
 
     }
+
     @Story("Успешная авторизация супер-админа")
     @Test
     void authorizationSuperAdmin_11777() {
@@ -53,7 +54,7 @@ public class AuthorizationPageTest {
         doctorPage.doctorsPage();
         HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
-        assertEquals("Супер-Администратор",headerBar.checkProfileInfoUser());
+        assertEquals("Супер-Администратор", headerBar.checkProfileInfoUser());
     }
 
     @Story("Успешная авторизация админа")
@@ -65,7 +66,7 @@ public class AuthorizationPageTest {
         doctorPage.doctorsPage();
         HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarAdmin();
-        assertEquals("Администратор",headerBar.checkProfileInfoUser());
+        assertEquals("Администратор", headerBar.checkProfileInfoUser());
     }
 
     @Story("Авторизация админа с неверным паролем")
@@ -76,8 +77,9 @@ public class AuthorizationPageTest {
         authorizationPage.fillingPasswordField("WWqq123456!78");
         authorizationPage.subAuthorizationButton();
         authorizationPage.authorizationPage();
-        assertEquals("Неверный логин или пароль",authorizationPage.getNotification());
+        assertEquals("Неверный логин или пароль", authorizationPage.getNotification());
     }
+
     @Story("Авторизация админа с логином на кириллице")
     @Test
     void authorizationAdminInvalidLogin_11776() {
@@ -89,6 +91,7 @@ public class AuthorizationPageTest {
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", authorizationPage.getNotification());
 
     }
+
     @Story("Авторизация админа с паролем с кириллицей")
     @Test
     void authorizationAdminInvalidPassword_11775() {
@@ -99,6 +102,7 @@ public class AuthorizationPageTest {
         authorizationPage.authorizationPage();
         assertEquals("1 цифра, 1 спецсимвол, 1 латинская буква в верхнем и нижнем регистре", authorizationPage.getNotification());
     }
+
     @Story("Авторизация несуществующего админа")
     @Test
     void authorizationAdminNonExistent_8605() {
@@ -109,6 +113,7 @@ public class AuthorizationPageTest {
         authorizationPage.authorizationPage();
         assertEquals("AuthorizationAdminClient::SignIn: Ошибка авторизации.", authorizationPage.getNotification());
     }
+
     @Story("Авторизация админа с паролем из 7 символов")
     @Test
     void authorizationAdminMinimalSymbol_11688() {
@@ -117,8 +122,9 @@ public class AuthorizationPageTest {
         authorizationPage.fillingPasswordField("WwQ12!");
         authorizationPage.subAuthorizationButton();
         authorizationPage.authorizationPage();
-        assertEquals("Минимум 8 символов",authorizationPage.getNotification());
+        assertEquals("Минимум 8 символов", authorizationPage.getNotification());
     }
+
     @Story("Авторизация админа без логина")
     @Test
     void authorizationAdminNotLogin_9335() {
@@ -128,6 +134,7 @@ public class AuthorizationPageTest {
         authorizationPage.authorizationPage();
         assertEquals("Что-то пошло не по плану...", authorizationPage.getNotification());
     }
+
     @Story("Авторизация админа без пароля")
     @Test
     void authorizationAdminNotPassword_8672() {
@@ -137,6 +144,7 @@ public class AuthorizationPageTest {
         authorizationPage.authorizationPage();
         assertEquals("Что-то пошло не по плану...", authorizationPage.getNotification());
     }
+
     @Story("Авторизация админа с пустыми полями")
     @Test
     void authorizationAdminEmptyFields_8673() {
@@ -172,7 +180,7 @@ public class AuthorizationPageTest {
 
     @Story("Отображение введенного пароля в поле пароля")
     @Test
-    void showPasswordValue_8663(){
+    void showPasswordValue_8663() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.fillingPasswordField("WWqq123456!");
         authorizationPage.showPasswordClickButton();
@@ -205,7 +213,7 @@ public class AuthorizationPageTest {
 
     @Story("Ввод валидного логина из 31 символа")
     @Test
-    void authorizationAdminLogin31Symbol(){
+    void authorizationAdminLogin31Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.fillingLoginField("ANNA_TEST_ADMIN123456789_ANNA_1");
         authorizationPage.clickPasswordField();
@@ -216,7 +224,7 @@ public class AuthorizationPageTest {
 
     @Story("Ввод валидного логина из 32 символов")
     @Test
-    void authorizationAdminLogin32Symbol(){
+    void authorizationAdminLogin32Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.fillingLoginField("ANNA_TEST_ADMIN123456789_ANNA_12");
         authorizationPage.clickPasswordField();
@@ -227,7 +235,7 @@ public class AuthorizationPageTest {
 
     @Story("Ввод не валидного логина из 33 символов")
     @Test
-    void authorizationAdminLogin33Symbol(){
+    void authorizationAdminLogin33Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.fillingLoginField("ANNA_TEST_ADMIN123456789_ANNA_123");
         authorizationPage.clickPasswordField();
@@ -238,7 +246,7 @@ public class AuthorizationPageTest {
 
     @Story("Ввод не валидного логина на кириллице")
     @Test
-    void authorizationAdminLoginCyrillicValue(){
+    void authorizationAdminLoginCyrillicValue() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.fillingLoginField("АННА_ТЕСТ");
         authorizationPage.clickPasswordField();
@@ -249,7 +257,7 @@ public class AuthorizationPageTest {
 
     @Story("Ввод не валидного логина, начинающегося с цифры")
     @Test
-    void authorizationAdminLoginNumberBegin(){
+    void authorizationAdminLoginNumberBegin() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.fillingLoginField("1ANNA_TEST");
         authorizationPage.clickPasswordField();
@@ -267,7 +275,7 @@ public class AuthorizationPageTest {
         authorizationPage.hoverLoginField();
         authorizationPage.authorizationPage();
         assertEquals("Доступны только числа, латиница и \"_\"", authorizationPage.getErrorFieldLogin());
-}
+    }
 
     @Story("Ввод не валидного логина с пробелом")
     @Test
@@ -410,7 +418,6 @@ public class AuthorizationPageTest {
         assertEquals("Что-то пошло не по плану...", authorizationPage.getNotification());
         authorizationPage.closeNotification();
     }
-
 
 
 }

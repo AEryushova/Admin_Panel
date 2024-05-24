@@ -1,4 +1,4 @@
-package user.pages;
+package user;
 
 public class FaqPage {
 }

@@ -17,6 +17,7 @@ import admin.pages.HeaderBar;
 import admin.pages.modalWindowAdministration.*;
 import admin.pages.calendar.Calendar;
 import admin.utils.DataHelper;
+
 import java.io.File;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -25,8 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Администрирование")
 public class AdministrationPageTest {
-
-
 
     @BeforeAll
     static void setUpAllAllure() {
@@ -58,16 +57,16 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdmin_8613() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ADMIN_TESTUI_2");
         newAdminWindow.fillingFieldNewAdminPassword("WwSs12345#");
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.clickAddButton();
         adminPage.getAdminCard();
-        assertEquals("Новый администратор ADMIN_TESTUI_2 успешно создан",adminPage.getNotification());
+        assertEquals("Новый администратор ADMIN_TESTUI_2 успешно создан", adminPage.getNotification());
     }
 
     @Feature("Добавление нового админа")
@@ -75,15 +74,15 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminAlreadyExisting_9334() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ADMIN_TESTUI_2");
         newAdminWindow.fillingFieldNewAdminPassword("WwSs12345#");
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.clickAddButton();
-        assertEquals("{\"error\":\"Пользователь уже существует, логин: ADMIN_TESTUI_2\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}",adminPage.getNotification());
+        assertEquals("{\"error\":\"Пользователь уже существует, логин: ADMIN_TESTUI_2\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}", adminPage.getNotification());
     }
 
     @Feature("Добавление нового админа")
@@ -91,9 +90,9 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminEmptyFieldsLogin_8670() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("WwSs12345#");
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
@@ -105,14 +104,14 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminEmptyFieldsPassword_8671() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ADMIN_TESTUI_2");
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.newAdminWindow();
-        assertEquals("Не соответствует паролю",newAdminWindow.getErrorFieldConfirmPassword());
+        assertEquals("Не соответствует паролю", newAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -120,9 +119,9 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminEmptyFieldsConfirmPassword_8672() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ADMIN_TESTUI_2");
         newAdminWindow.fillingFieldNewAdminPassword("WwSs12345#");
@@ -135,13 +134,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminEmptyFieldsLoginPassword_8674() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.newAdminWindow();
-        assertEquals("Не соответствует паролю",newAdminWindow.getErrorFieldConfirmPassword());
+        assertEquals("Не соответствует паролю", newAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -149,9 +148,9 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminEmptyFieldsLoginConfirmPassword_8675() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("WwSs12345#");
         newAdminWindow.newAdminWindow();
@@ -162,9 +161,9 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminEmptyFieldsPasswordConfirmPassword_8676() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ADMIN_TESTUI_2");
         newAdminWindow.newAdminWindow();
@@ -175,17 +174,17 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminInvalidValue_8688() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("АННА_ТЕСТ");
         newAdminWindow.fillingFieldNewAdminPassword("WwSs12345");
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.newAdminWindow();
-        assertEquals("Первый символ должен быть латинской буквой или \"_\"",newAdminWindow.getErrorFieldLogin());
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
-        assertEquals("Не соответствует паролю",newAdminWindow.getErrorFieldConfirmPassword());
+        assertEquals("Первый символ должен быть латинской буквой или \"_\"", newAdminWindow.getErrorFieldLogin());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
+        assertEquals("Не соответствует паролю", newAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -193,7 +192,7 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminObligatoryFields_8681() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
@@ -201,9 +200,9 @@ public class AdministrationPageTest {
         newAdminWindow.clickFieldNewAdminPassword();
         newAdminWindow.clickFieldNewAdminConfirmPassword();
         newAdminWindow.newAdminWindow();
-        assertEquals("Обязательное поле",newAdminWindow.getErrorFieldLogin());
-        assertEquals("Обязательное поле",newAdminWindow.getErrorFieldPassword());
-        assertEquals("Обязательное поле",newAdminWindow.getErrorFieldConfirmPassword());
+        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldLogin());
+        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldPassword());
+        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -211,9 +210,9 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminLogin31Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_1");
         newAdminWindow.newAdminWindow();
@@ -225,9 +224,9 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminLogin32Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_12");
         newAdminWindow.newAdminWindow();
@@ -239,13 +238,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminLogin33Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_123");
         newAdminWindow.newAdminWindow();
-        assertEquals("Максимальная длина 32 символа",newAdminWindow.getErrorFieldLogin());
+        assertEquals("Максимальная длина 32 символа", newAdminWindow.getErrorFieldLogin());
     }
 
     @Feature("Добавление нового админа")
@@ -253,13 +252,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminLoginCyrillicValue() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("АННА_ТЕСТ");
         newAdminWindow.newAdminWindow();
-        assertEquals("Первый символ должен быть латинской буквой или \"_\"",newAdminWindow.getErrorFieldLogin());
+        assertEquals("Первый символ должен быть латинской буквой или \"_\"", newAdminWindow.getErrorFieldLogin());
     }
 
     @Feature("Добавление нового админа")
@@ -267,13 +266,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminLoginNumberBegin() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("1ANNA_TEST");
         newAdminWindow.newAdminWindow();
-        assertEquals("Первый символ должен быть латинской буквой или \"_\"",newAdminWindow.getErrorFieldLogin());
+        assertEquals("Первый символ должен быть латинской буквой или \"_\"", newAdminWindow.getErrorFieldLogin());
     }
 
     @Feature("Добавление нового админа")
@@ -281,13 +280,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminLoginLatinBeginCyrillicValue() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("AННА_ТЕСТ");
         newAdminWindow.newAdminWindow();
-        assertEquals("Доступны только числа, латиница и \"_\"",newAdminWindow.getErrorFieldLogin());
+        assertEquals("Доступны только числа, латиница и \"_\"", newAdminWindow.getErrorFieldLogin());
     }
 
     @Feature("Добавление нового админа")
@@ -295,13 +294,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminLoginWithSpace() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ANNA TEST");
         newAdminWindow.newAdminWindow();
-        assertEquals("Доступны только числа, латиница и \"_\"",newAdminWindow.getErrorFieldLogin());
+        assertEquals("Доступны только числа, латиница и \"_\"", newAdminWindow.getErrorFieldLogin());
     }
 
     @Feature("Добавление нового админа")
@@ -309,13 +308,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPassword7Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("Wwqq12#");
         newAdminWindow.newAdminWindow();
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -323,9 +322,10 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPassword8Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();;
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
+        ;
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("WwSs145#");
         newAdminWindow.newAdminWindow();
@@ -337,9 +337,9 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPassword9Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("WwSs1234#");
         newAdminWindow.newAdminWindow();
@@ -351,9 +351,9 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPassword24Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("Wwqq123456789#QQgg123456");
         newAdminWindow.newAdminWindow();
@@ -365,9 +365,9 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPassword25Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("Wwqq123456789#QQgg1234567");
         newAdminWindow.newAdminWindow();
@@ -379,13 +379,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPassword26Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("Wwqq123456789#QQgg12345678");
         newAdminWindow.newAdminWindow();
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -393,13 +393,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPasswordNotLatinValue() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("123456789!");
         newAdminWindow.newAdminWindow();
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -407,13 +407,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPasswordNotSymbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("Wwqq1234567");
         newAdminWindow.newAdminWindow();
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -421,13 +421,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPasswordNotToLowerCase() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("WWQQ123456#");
         newAdminWindow.newAdminWindow();
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -435,13 +435,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPasswordNotToUpperCase() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("wwqq123456#");
         newAdminWindow.newAdminWindow();
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -449,13 +449,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPasswordNotNumber() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("Wwqqwq#@#@");
         newAdminWindow.newAdminWindow();
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -463,13 +463,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPasswordCyrillicValue() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("Ффыы123456#");
         newAdminWindow.newAdminWindow();
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -477,13 +477,13 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminPasswordWithSpace() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminPassword("Wwqq 123456 #");
         newAdminWindow.newAdminWindow();
-        assertEquals("Пароль не валиден",newAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -491,15 +491,15 @@ public class AdministrationPageTest {
     @Test
     void addedNewAdminMismatchedPasswords_8680() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ADMIN_TESTUI_2");
         newAdminWindow.fillingFieldNewAdminPassword("WwSs12345#");
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs125#");
         newAdminWindow.newAdminWindow();
-        assertEquals("Не соответствует паролю",newAdminWindow.getErrorFieldConfirmPassword());
+        assertEquals("Не соответствует паролю", newAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -507,9 +507,9 @@ public class AdministrationPageTest {
     @Test
     void clearFieldsThroughButtonClear() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ADMIN_TESTUI_2");
         newAdminWindow.clearButtonLoginField();
@@ -518,12 +518,12 @@ public class AdministrationPageTest {
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.clearButtonConfirmPasswordField();
         newAdminWindow.newAdminWindow();
-        assertEquals("",newAdminWindow.getValueLoginField());
-        assertEquals("Обязательное поле",newAdminWindow.getErrorFieldLogin());
-        assertEquals("",newAdminWindow.getValuePasswordField());
-        assertEquals("Обязательное поле",newAdminWindow.getErrorFieldPassword());
-        assertEquals("",newAdminWindow.getValueConfirmPasswordField());
-        assertEquals("Обязательное поле",newAdminWindow.getErrorFieldConfirmPassword());
+        assertEquals("", newAdminWindow.getValueLoginField());
+        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldLogin());
+        assertEquals("", newAdminWindow.getValuePasswordField());
+        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldPassword());
+        assertEquals("", newAdminWindow.getValueConfirmPasswordField());
+        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Добавление нового админа")
@@ -531,19 +531,19 @@ public class AdministrationPageTest {
     @Test
     void closeWindowAddedNewAdmin_8651() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        NewAdminWindow newAdminWindow=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillingFieldNewAdminLogin("ADMIN_TESTUI_2");
         newAdminWindow.fillingFieldNewAdminPassword("WwSs12345#");
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.closeWindowAddedAdmin();
-        NewAdminWindow newAdminWindowOpen=adminPage.openWindowAddedNewAdmin();
+        NewAdminWindow newAdminWindowOpen = adminPage.openWindowAddedNewAdmin();
         newAdminWindowOpen.newAdminWindow();
-        assertEquals("",newAdminWindowOpen.getValueLoginField());
-        assertEquals("",newAdminWindowOpen.getValuePasswordField());
-        assertEquals("",newAdminWindowOpen.getValueConfirmPasswordField());
+        assertEquals("", newAdminWindowOpen.getValueLoginField());
+        assertEquals("", newAdminWindowOpen.getValuePasswordField());
+        assertEquals("", newAdminWindowOpen.getValueConfirmPasswordField());
     }
 
     @Feature("Смена пароля админу")
@@ -551,15 +551,15 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdmin_8617() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("WwQq98765*");
         changePasswordAdminWindow.fillingFieldConfirmPassword("WwQq98765*");
         changePasswordAdminWindow.clickSaveNewPasswordButton();
         adminPage.getAdminCard();
-        assertEquals("Админ ADMIN_TESTUI_2 успешно изменен",adminPage.getNotification());
+        assertEquals("Админ ADMIN_TESTUI_2 успешно изменен", adminPage.getNotification());
         headerBar.openAndCloseProfileAdmin();
         headerBar.exitAdminPanel();
         AuthorizationPage authorizationPage = new AuthorizationPage();
@@ -575,13 +575,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminEmptyFieldsPassword_8879() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldConfirmPassword("WwSs12345#");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Не соответствует паролю",changePasswordAdminWindow.getErrorFieldConfirmPassword());
+        assertEquals("Не соответствует паролю", changePasswordAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -589,9 +589,9 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminEmptyFieldsConfirmPassword_8618() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.fillingFieldNewPassword("WwSs12345#");
         changePasswordAdminWindow.changePasswordAdminWindow();
     }
@@ -601,15 +601,15 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminObligatoryFields_() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.clickFieldNewPassword();
         changePasswordAdminWindow.clickFieldConfirmPassword();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Обязательное поле",changePasswordAdminWindow.getErrorFieldPassword());
-        assertEquals("Обязательное поле",changePasswordAdminWindow.getErrorFieldConfirmPassword());
+        assertEquals("Обязательное поле", changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Обязательное поле", changePasswordAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -617,16 +617,16 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminEmptyFieldsPassword_12080() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.clickFieldNewPassword();
         changePasswordAdminWindow.fillingFieldNewPassword("WwSs12345#");
         changePasswordAdminWindow.fillingFieldConfirmPassword("WwSs1234567#");
         changePasswordAdminWindow.clickFieldNewPassword();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Не соответствует паролю",changePasswordAdminWindow.getErrorFieldConfirmPassword());
+        assertEquals("Не соответствует паролю", changePasswordAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -634,13 +634,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdmin7Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqq12#");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Пароль не валиден",changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -648,9 +648,9 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdmin8Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqq123#");
         changePasswordAdminWindow.changePasswordAdminWindow();
@@ -662,9 +662,9 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdmin9Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqq1234#");
         changePasswordAdminWindow.changePasswordAdminWindow();
@@ -676,9 +676,9 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdmin24Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqq123456789#QQgg123456");
         changePasswordAdminWindow.changePasswordAdminWindow();
@@ -691,9 +691,9 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdmin25Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqq123456789#QQgg1234567");
         changePasswordAdminWindow.changePasswordAdminWindow();
@@ -705,13 +705,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdmin26Symbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqq123456789#QQgg12345678");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Пароль не валиден",changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -719,13 +719,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminNotToUpperCase() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("wwqq123456#");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Пароль не валиден",changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -733,13 +733,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminNotToLowerCase() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("WWQQ123456#");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Пароль не валиден",changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -747,13 +747,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminCyrillicValue() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Ффыы123456#");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Пароль не валиден",changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -761,13 +761,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminNotNumber() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqqwq#@#@");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Пароль не валиден",changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -775,13 +775,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminNotSymbol() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqq1234567");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Пароль не валиден",changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -789,13 +789,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminNotLatinValue() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("123456789!");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Пароль не валиден",changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -803,13 +803,13 @@ public class AdministrationPageTest {
     @Test
     void changePasswordAdminWithSpace() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqq 123456 #");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        assertEquals("Пароль не валиден",changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
     @Feature("Смена пароля админу")
@@ -817,17 +817,17 @@ public class AdministrationPageTest {
     @Test
     void closeWindowChangePasswordAdmin_8880() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        ChangePasswordAdminWindow changePasswordAdminWindow=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.fillingFieldNewPassword("Wwqq123456#");
         changePasswordAdminWindow.fillingFieldConfirmPassword("Wwqq123456#");
         changePasswordAdminWindow.closeWindowChangePasswordAdmin();
-        ChangePasswordAdminWindow changePasswordAdminWindowOpen=adminPage.openWindowChangedPasswordAdmin();
+        ChangePasswordAdminWindow changePasswordAdminWindowOpen = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindowOpen.changePasswordAdminWindow();
-        assertEquals("",changePasswordAdminWindowOpen.getValuePasswordField());
-        assertEquals("",changePasswordAdminWindowOpen.getValueConfirmPasswordField());
+        assertEquals("", changePasswordAdminWindowOpen.getValuePasswordField());
+        assertEquals("", changePasswordAdminWindowOpen.getValueConfirmPasswordField());
 
     }
 
@@ -836,7 +836,7 @@ public class AdministrationPageTest {
     @Test
     void cancelDeleteAdmin() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
         adminPage.openWindowDeleteAdmin();
         adminPage.cancelDeleteAdmin();
@@ -848,7 +848,7 @@ public class AdministrationPageTest {
     @Test
     void deleteAdmin() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
         adminPage.deleteAdmin();
         adminPage.getNotExistAdminCard();
@@ -858,41 +858,41 @@ public class AdministrationPageTest {
     @Feature("Документация")
     @Story("Успешное обновление оферты")
     @Test
-    void updateOffer_11737(){
+    void updateOffer_11737() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateOffer();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateOffer();
         updateLegalDocWindow.uploadDocWindow();
         String srcDoc = updateLegalDocWindow.getSrcDoc();
         updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта.pdf");
         UpdateLegalDocWindow updateLegalDocWindowOver = adminPage.updateOffer();
-        assertEquals(srcDoc,updateLegalDocWindowOver.getSrcDoc()) ;
+        assertEquals(srcDoc, updateLegalDocWindowOver.getSrcDoc());
     }
 
     @Feature("Документация")
     @Story("Успешное обновление политики обработки")
     @Test
-    void updateProcessingPolicy_11739(){
+    void updateProcessingPolicy_11739() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateProcessingPolicy();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadDocWindow();
         String srcDoc = updateLegalDocWindow.getSrcDoc();
         updateLegalDocWindow.uploadValidDoc("src/test/resources/Политика обработки персональных данных.pdf");
-        UpdateLegalDocWindow updateLegalDocWindowOver=adminPage.updateProcessingPolicy();
-        assertEquals(srcDoc,updateLegalDocWindowOver.getSrcDoc());
+        UpdateLegalDocWindow updateLegalDocWindowOver = adminPage.updateProcessingPolicy();
+        assertEquals(srcDoc, updateLegalDocWindowOver.getSrcDoc());
     }
 
     @Feature("Документация")
     @Story("Закрытие окна обновления оферты")
     @Test
-    void closeWindowUpdateOffer_11740(){
+    void closeWindowUpdateOffer_11740() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateOffer();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateOffer();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.closeWindowUpdateLegalDoc();
     }
@@ -902,7 +902,7 @@ public class AdministrationPageTest {
     @Test
     void closeWindowUpdateProcessingPolicy_11742() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadDocWindow();
@@ -913,101 +913,101 @@ public class AdministrationPageTest {
     @Feature("Документация")
     @Story("Успешное обновление приказа с даты в текущем месяце")
     @Test
-    void updateOrderCurrentMonth_11278(){
+    void updateOrderCurrentMonth_11278() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
-        Calendar calendar= updateOrderWindow.openCalendarUpdateOrder();
+        Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен",adminPage.getNotification());
+        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Успешное обновление приказа с даты в следующем месяце")
     @Test
-    void updateOrderFutureMonth(){
+    void updateOrderFutureMonth() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
-        Calendar calendar= updateOrderWindow.openCalendarUpdateOrder();
+        Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.switchFutureMonth();
-        assertEquals(DataHelper.getFutureMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getFutureMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен",adminPage.getNotification());
+        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Успешное обновление приказа с даты в прошлом месяце")
     @Test
-    void updateOrderPreviousMonth(){
+    void updateOrderPreviousMonth() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
-        Calendar calendar= updateOrderWindow.openCalendarUpdateOrder();
+        Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.switchPreviousMonth();
-        assertEquals(DataHelper.getPreviousMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getPreviousMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен",adminPage.getNotification());
+        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Успешное обновление приказа с текущей даты")
     @Test
-    void updateOrderToday(){
+    void updateOrderToday() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
-        Calendar calendar= updateOrderWindow.openCalendarUpdateOrder();
+        Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivationToday();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен",adminPage.getNotification());
+        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Успешное обновление приказа с текущей даты без использования календаря")
     @Test
-    void updateOrderTodayNotUseCalendar(){
+    void updateOrderTodayNotUseCalendar() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен",adminPage.getNotification());
+        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Закрытие окна обновления приказа")
     @Test
-    void closeWindowUpdateOrder_11754(){
+    void closeWindowUpdateOrder_11754() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
         updateOrderWindow.closeWindowUpdateOrder();
@@ -1016,101 +1016,101 @@ public class AdministrationPageTest {
     @Feature("Документация")
     @Story("Успешное обновление прайса с даты в текущем месяце ")
     @Test
-    void updatePriceCurrentMonth_8929(){
+    void updatePriceCurrentMonth_8929() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен",adminPage.getNotification());
+        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Успешное обновление прайса с даты в следующем месяце")
     @Test
-    void updatePriceFutureMonth(){
+    void updatePriceFutureMonth() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.switchFutureMonth();
-        assertEquals(DataHelper.getFutureMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getFutureMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен",adminPage.getNotification());
+        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Успешное обновление прайса с даты в прошлом месяце")
     @Test
-    void updatePricePreviousMonth(){
+    void updatePricePreviousMonth() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.switchPreviousMonth();
-        assertEquals(DataHelper.getPreviousMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getPreviousMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен",adminPage.getNotification());
+        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Успешное обновление прайса с текущей даты")
     @Test
-    void updatePriceToday(){
+    void updatePriceToday() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivationToday();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен",adminPage.getNotification());
+        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Успешное обновление прайса с текущей даты без использования календаря")
     @Test
-    void updatePriceTodayNotUseCalendar(){
+    void updatePriceTodayNotUseCalendar() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен",adminPage.getNotification());
+        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Закрытие окна обновления прайса")
     @Test
-    void closeWindowUpdatePrice_9163(){
+    void closeWindowUpdatePrice_9163() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
         updatePriceWindow.closeWindowUpdatePrice();
@@ -1119,180 +1119,180 @@ public class AdministrationPageTest {
     @Feature("Документация")
     @Story("Обновление офферты с невалидным файлом в формате Docx")
     @Test
-    void updateOfferFormatDocx_11752(){
+    void updateOfferFormatDocx_11752() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateOffer();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateOffer();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта,Политика обработки docx.docx");
-        assertEquals("Допускаются файлы с расширением PDF",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление офферты с невалидным файлом в формате Xlsx")
     @Test
-    void updateOfferFormatXlsx_11762(){
+    void updateOfferFormatXlsx_11762() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateOffer();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateOffer();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки .xlsx.xlsx");
-        assertEquals("Допускаются файлы с расширением PDF",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление офферты с невалидным файлом в формате Jpeg")
     @Test
-    void updateOfferFormatJpeg_11765(){
+    void updateOfferFormatJpeg_11765() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateOffer();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateOffer();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");
-        assertEquals("Допускаются файлы с расширением PDF",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление политики обработки с невалидным файлом в формате Docx")
     @Test
-    void updateProcessingPolicyFormatDocx_11756(){
+    void updateProcessingPolicyFormatDocx_11756() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateProcessingPolicy();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта,Политика обработки docx.docx");
-        assertEquals("Допускаются файлы с расширением PDF",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление политики обработки с невалидным файлом в формате Xlsx")
     @Test
-    void updateProcessingPolicyFormatXlsx_11764(){
+    void updateProcessingPolicyFormatXlsx_11764() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateProcessingPolicy();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки .xlsx.xlsx");
-        assertEquals("Допускаются файлы с расширением PDF",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление политики обработки с невалидным файлом в формате Jpeg")
     @Test
-    void updateProcessingPolicyFormatJpeg_11767(){
+    void updateProcessingPolicyFormatJpeg_11767() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateProcessingPolicy();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");
-        assertEquals("Допускаются файлы с расширением PDF",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление приказа с ошибкой в строке")
     @Test
-    void updateOrderStringError_11895(){
+    void updateOrderStringError_11895() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
         updateOrderWindow.uploadOrder("src/test/resources/Приказ с ошибкой в строке 10858.xlsx");
-        assertEquals("Ошибка в 10858 строке",adminPage.getNotification());
+        assertEquals("Ошибка в 10858 строке", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление приказа с невалидным файлом в формате Docx")
     @Test
-    void updateOrderFormatDocx_11753(){
+    void updateOrderFormatDocx_11753() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
-        Calendar calendar= updateOrderWindow.openCalendarUpdateOrder();
+        Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Оферта,Политика обработки docx.docx");
-        assertEquals("Допускаются файлы с расширением xlsx",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление приказа с невалидным файлом в формате Jpeg")
     @Test
-    void updateOrderFormatJpeg_11760(){
+    void updateOrderFormatJpeg_11760() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
-        Calendar calendar= updateOrderWindow.openCalendarUpdateOrder();
+        Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Оферта, Политика обработки jpeg.jpg");
-        assertEquals("Допускаются файлы с расширением xlsx",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление приказа с невалидным файлом в формате PDF")
     @Test
-    void updateOrderFormatPDF_11761(){
+    void updateOrderFormatPDF_11761() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateOrderWindow updateOrderWindow =adminPage.updateOrder();
+        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
         assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
-        Calendar calendar= updateOrderWindow.openCalendarUpdateOrder();
+        Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Оферта.pdf");
-        assertEquals("Допускаются файлы с расширением xlsx",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление прайса с ошибкой в строке")
     @Test
-    void updatePriceCurrentMonthStringError_11757(){
+    void updatePriceCurrentMonthStringError_11757() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс с ошибкой в строке 1398.xlsx");
-        assertEquals("Ошибка в 1398 строке",adminPage.getNotification());
+        assertEquals("Ошибка в 1398 строке", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление прайса с ошибкой формата стоимости услуги")
     @Test
-    void updatePriceCurrentMonthFormatError(){
+    void updatePriceCurrentMonthFormatError() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
         assertEquals("Ошибка формата стоимости услуги, код: 'А26.30.004.002', стоимость: '1000'.", updatePriceWindow.getErrorInfo());
@@ -1301,71 +1301,71 @@ public class AdministrationPageTest {
     @Feature("Документация")
     @Story("Обновление прайса с невалидным файлом в формате Docx")
     @Test
-    void updatePriceFormatDocx_8940(){
+    void updatePriceFormatDocx_8940() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Оферта,Политика обработки docx.docx");
-        assertEquals("Допускаются файлы с расширением xlsx",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление прайса с невалидным файлом в формате Jpeg")
     @Test
-    void updatePriceFormatJpeg_11758(){
+    void updatePriceFormatJpeg_11758() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Оферта, Политика обработки jpeg.jpg");
-        assertEquals("Допускаются файлы с расширением xlsx",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
     }
 
     @Feature("Документация")
     @Story("Обновление прайса с невалидным файлом в формате PDF")
     @Test
-    void updatePriceFormatPDF_11759(){
+    void updatePriceFormatPDF_11759() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Оферта.pdf");
-        assertEquals("Допускаются файлы с расширением xlsx",adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
     }
 
 
     @Feature("Документация")
     @Story("Открытие и закрытие правил корректирования")
     @Test
-    void openCloseAdjustmentRules(){
+    void openCloseAdjustmentRules() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
-        Calendar calendar= updatePriceWindow.openCalendarUpdatePrice();
+        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.calendar();
-        assertEquals(DataHelper.getCurrentMonthYear(),calendar.getCurrentMonthCalendar());
+        assertEquals(DataHelper.getCurrentMonthYear(), calendar.getCurrentMonthCalendar());
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
         assertEquals("Ошибка формата стоимости услуги, код: 'А26.30.004.002', стоимость: '1000'.", updatePriceWindow.getErrorInfo());
@@ -1373,12 +1373,12 @@ public class AdministrationPageTest {
         updatePriceWindow.closeInfoErrorWindow();
     }
 
-    @Feature("Документация")
-    @Story("Возврат к хэдеру страницы")
+
+    @Story("Возврат к хэдеру страницы администрирования")
     @Test
-    void returnToStartPage(){
+    void returnToStartPage() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
         adminPage.scrollPageToBottom();
         adminPage.returnToStartPage();
@@ -1389,9 +1389,9 @@ public class AdministrationPageTest {
     @Test
     void closeNotification() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdateLegalDocWindow updateLegalDocWindow=adminPage.updateProcessingPolicy();
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");
         assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
@@ -1401,11 +1401,11 @@ public class AdministrationPageTest {
     @Feature("Документация")
     @Story("Загрузка файла с прайсом")
     @Test
-    void downloadPrice(){
+    void downloadPrice() {
         HeaderBar headerBar = new HeaderBar();
-        AdministrationPage adminPage=headerBar.administrationTabOpen();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
-        UpdatePriceWindow updatePriceWindow =adminPage.updatePrice();
+        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         File downloadedFile = updatePriceWindow.downloadPriceDateActivation();
     }
