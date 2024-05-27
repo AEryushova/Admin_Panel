@@ -12,7 +12,7 @@ public class DoctorsPage {
 
     private final SelenideElement tabNameDoctors=$x("//div[@class='wYqZ']/span[text()='Врачи']");
     private final SelenideElement searchDoctors= $x("//input[@placeholder='Поиск по врачам']");
-    private final SelenideElement editDoctorInfo = $x("//span[text()='Fer3 Копия Тест']/parent::div/following-sibling::button[text()='Редактировать']\n");
+    private final SelenideElement editDoctorInfo = $x("//span[text()='Fer3 Копия Тест']/parent::div/following-sibling::button[text()='Редактировать']");
     private final SelenideElement dropDownPhoto = $x("//div[@class='uTSS']");
     private final SelenideElement optionAll=$x("//div[@class='U2Xk']/div[text()='Все']");
     private final SelenideElement optionNo=$x("//div[@class='U2Xk']/div[text()='Нет']");

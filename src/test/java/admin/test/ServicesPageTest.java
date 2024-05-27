@@ -73,6 +73,7 @@ public class ServicesPageTest {
         Assertions.assertEquals(sequenceSecondCategory, sequenceSecondCategory1);
     }
 
+
     @Story("Добавление правила подоготовки к категории")
     @Test
     void addRulePreparingCategory() {
@@ -106,6 +107,4 @@ public class ServicesPageTest {
         assertEquals("Правило подготовки 1", rule.getHeaderRule());
         assertEquals("Текст правила подготовки к категории", rule.getDescriptionRule());
     }
-
-
 }

@@ -61,6 +61,7 @@ public class HeaderBar {
         return new SettingPage();
     }
     public void openAndCloseProfileAdmin(){
+
         profileButton.click();
     }
 

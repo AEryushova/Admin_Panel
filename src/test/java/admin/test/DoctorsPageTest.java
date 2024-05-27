@@ -2,8 +2,8 @@ package admin.test;
 
 import admin.pages.*;
 import admin.pages.calendar.Calendar;
-import admin.pages.modalWindowAdministration.UpdateLegalDocWindow;
 import admin.pages.modalWindowDoctors.*;
+import admin.utils.DataBaseUtils;
 import admin.utils.DataHelper;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
@@ -14,6 +14,7 @@ import io.qameta.allure.Story;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 
+import static admin.utils.DataBaseUtils.selectFeedback;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -348,6 +349,7 @@ public class DoctorsPageTest {
     @Story("Успешное добавление отзыва о враче текущей датой")
     @Test
     void addFeedbackToday() {
+        DataBaseUtils.clearAllFeedback();
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -358,7 +360,7 @@ public class DoctorsPageTest {
         feedbackWindow.addFeedbackWindow();
         assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
         feedbackWindow.fillingFieldFio("Иванов Иван Иванович");
-        feedbackWindow.fillingFieldTextFeedback("Очень хороший врач");
+        feedbackWindow.fillingFieldTextFeedback("Тестовый отзыв");
         Calendar calendar = feedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.selectDateActivationToday();
@@ -369,13 +371,17 @@ public class DoctorsPageTest {
         feedback.feedbackUnpublished();
         assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
         assertEquals("Иванов Иван Иванович", feedback.getAuthorFeedback());
-        assertEquals("Очень хороший врач", feedback.getTextFeedback());
+        assertEquals("Тестовый отзыв", feedback.getTextFeedback());
+        assertEquals("Иванов Иван Иванович", selectFeedback().getAuthor());
+        assertEquals("Тестовый отзыв", selectFeedback().getContent());
+        assertEquals(false,selectFeedback().getIs_published());
     }
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
     @Test
     void addFeedbackCurrentMonth_9219() {
+        DataBaseUtils.clearAllFeedback();
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -385,7 +391,7 @@ public class DoctorsPageTest {
         AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
         feedbackWindow.addFeedbackWindow();
         assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
-        feedbackWindow.fillingFieldFio("Иванов Иван Иванович");
+        feedbackWindow.fillingFieldFio("Степанов Степан Степанович");
         feedbackWindow.fillingFieldTextFeedback("Очень хороший врач");
         Calendar calendar = feedbackWindow.openCalendarSelectDate();
         calendar.calendar();
@@ -396,8 +402,14 @@ public class DoctorsPageTest {
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         assertEquals(DataHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
-        assertEquals("Иванов Иван Иванович", feedback.getAuthorFeedback());
+        assertEquals("Степанов Степан Степанович", feedback.getAuthorFeedback());
         assertEquals("Очень хороший врач", feedback.getTextFeedback());
+        assertEquals("Степанов Степан Степанович", selectFeedback().getAuthor());
+        assertEquals("Очень хороший врач", selectFeedback().getContent());
+        assertEquals(false,selectFeedback().getIs_published());
+        assertEquals(DataHelper.convertDateForDB(), DataHelper.trimDateStringToDay(selectFeedback().getCreated_at()));
+
+
     }
 
     @Feature("Отзывы о враче")

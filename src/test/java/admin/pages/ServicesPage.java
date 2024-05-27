@@ -28,18 +28,13 @@ public class ServicesPage {
     private final SelenideElement dentistry= $x("//span[text()='Стоматология']//parent::div");
 
 
-    private final SelenideElement expandCategory;
-    private final SelenideElement rulesPreparing= $x("//span[text()='Лаборатория']//parent::div/following-sibling::div[@class='Ie41']");
-
-
+    private final SelenideElement expandCategoryLaboratory= $x("//span[text()='Лаборатория']//parent::div/following-sibling::div[@class='gm_s']");
+    private final SelenideElement rulesPreparingLaboratory= $x("//span[text()='Лаборатория']//parent::div/following-sibling::div[@class='Ie41']");
     private final SelenideElement notification=$x("//div[@role='alert']/div//following-sibling::div");
     private final SelenideElement closeNotification = $x("//button[@aria-label='close']");
     private final SelenideElement footerServicesPage = $x("//span[text()='@ Самарский государственный медицинский университет']");
     private final SelenideElement returnToStartButton = $x("//div[@class='_x1E']");
 
-    public ServicesPage() {
-        this.expandCategory = $x("//span[text()='Лаборатория']//parent::div/following-sibling::div[@class='gm_s']");
-    }
 
     public void servicesPage() {
         tabNameService.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -52,15 +47,16 @@ public class ServicesPage {
         dentistry.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public CategoryWindow openDentistryCategory(){
-        expandCategory.click();
+    public CategoryWindow openCategory(){
+        expandCategoryLaboratory.click();
         return new CategoryWindow();
     }
 
     public RulesPreparingWindow openRulesPreparing(){
-        rulesPreparing.click();
+        rulesPreparingLaboratory.click();
         return new RulesPreparingWindow();
     }
+
 
     public int getCategoryIndexByName(String categoryName) {
         List<SelenideElement> categoryElements = containerCategory;

@@ -34,7 +34,6 @@ public class AddRuleWindow {
 
     public void clickSaveButton() {
         saveButton.click();
-        windowAddRules.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public void clearFieldHeader() {

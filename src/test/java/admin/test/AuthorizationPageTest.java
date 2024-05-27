@@ -60,6 +60,7 @@ public class AuthorizationPageTest {
     @Story("Успешная авторизация админа")
     @Test
     void authorizationAdmin_8594() {
+
         var dataInfo = new DataInfo("ADMIN_TESTUI", "WWqq123456!");
         AuthorizationPage authorizationPage = new AuthorizationPage();
         DoctorsPage doctorPage = authorizationPage.authorizationAdminPanel(dataInfo);
@@ -419,5 +420,18 @@ public class AuthorizationPageTest {
         authorizationPage.closeNotification();
     }
 
+    @Story("Выход из админ-панели")
+    @Test
+    void exitPersonalArea() {
+        DataInfo dataInfo = new DataInfo("SUPER_ADMIN", "Qqqq123#");
+        AuthorizationPage authorizationPage = new AuthorizationPage();
+        DoctorsPage doctorPage = authorizationPage.authorizationAdminPanel(dataInfo);
+        doctorPage.doctorsPage();
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.headerBarSuperAdmin();
+        headerBar.openAndCloseProfileAdmin();
+        headerBar.exitAdminPanel();
+        authorizationPage.authorizationPage();
+    }
 
 }

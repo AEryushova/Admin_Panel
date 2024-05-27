@@ -78,7 +78,7 @@ public class SettingPageTest {
         settingPage.settingPage();
         assertEquals("Федоров Федор Федорович", settingPage.getTextByElement("author"));
         assertEquals("Test@mail.ru", settingPage.getTextByElement("emailAuthor"));
-        assertEquals(DataHelper.getCurrentDateRu(), settingPage.getTextByElement("date"));
+        assertEquals(DataHelper.getCurrentDateRuYear(), settingPage.getTextByElement("date"));
         assertEquals("Не могу записаться к врачу", settingPage.getTextByElement("text"));
     }
 
