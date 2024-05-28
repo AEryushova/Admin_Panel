@@ -20,7 +20,7 @@
       <console name="Connection 1" type="STANDARD" schema="" session="Main" />
     </connection>
     <connection id="1ae4e2e5-5b95-4cfc-a0af-62b0ec4797c8">
-      <console name="Connection" type="STANDARD" schema="" session="Main" />
+      <console name="freeze_cab_lab_collection" type="STANDARD" schema="" session="Main" />
     </connection>
     <connection id="718c037c-682e-4671-b68c-49b9029ae1af">
       <console name="freeze_processor_medical_record" type="STANDARD" schema="" session="Main" />

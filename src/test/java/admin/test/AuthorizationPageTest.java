@@ -1,5 +1,7 @@
 package admin.test;
 
+import admin.utils.DataBaseUtils;
+import admin.utils.TestSetup;
 import com.codeborne.selenide.Configuration;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
@@ -41,8 +43,6 @@ public class AuthorizationPageTest {
         open("http://192.168.6.48:8083");
         localStorage().setItem("Environment", "demo");
         clearBrowserCookies();
-        AuthorizationPage authorizationPage = new AuthorizationPage();
-
     }
 
     @Story("Успешная авторизация супер-админа")
@@ -55,30 +55,39 @@ public class AuthorizationPageTest {
         HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         assertEquals("Супер-Администратор", headerBar.checkProfileInfoUser());
+        assertEquals("0", DataBaseUtils.selectSuperAdmin().getRole_id());
     }
 
     @Story("Успешная авторизация админа")
     @Test
     void authorizationAdmin_8594() {
-
-        var dataInfo = new DataInfo("ADMIN_TESTUI", "WWqq123456!");
+        DataInfo dataInfoSuperAdmin = new DataInfo("SUPER_ADMIN", "Qqqq123#");
+        TestSetup.authRequest(dataInfoSuperAdmin);
+        DataInfo dataInfoAdmin = new DataInfo("ADMIN_TESTUI", "WWqq123456!");
+        TestSetup.createAdmin(dataInfoAdmin);
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        DoctorsPage doctorPage = authorizationPage.authorizationAdminPanel(dataInfo);
+        DoctorsPage doctorPage = authorizationPage.authorizationAdminPanel(dataInfoAdmin);
         doctorPage.doctorsPage();
         HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarAdmin();
         assertEquals("Администратор", headerBar.checkProfileInfoUser());
+        TestSetup.deleteAdmin(dataInfoAdmin.getLogin());
     }
 
     @Story("Авторизация админа с неверным паролем")
     @Test
     void authorizationAdminWrongPassword_8603() {
+        DataInfo dataInfoSuperAdmin = new DataInfo("SUPER_ADMIN", "Qqqq123#");
+        TestSetup.authRequest(dataInfoSuperAdmin);
+        DataInfo dataInfoAdmin = new DataInfo("ADMIN_TESTUI", "WWqq123456!");
+        TestSetup.createAdmin(dataInfoAdmin);
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.fillingLoginField("ADMIN_TESTUI");
         authorizationPage.fillingPasswordField("WWqq123456!78");
         authorizationPage.subAuthorizationButton();
         authorizationPage.authorizationPage();
         assertEquals("Неверный логин или пароль", authorizationPage.getNotification());
+        TestSetup.deleteAdmin(dataInfoAdmin.getLogin());
     }
 
     @Story("Авторизация админа с логином на кириллице")

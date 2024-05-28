@@ -1,6 +1,8 @@
 package admin.test;
 
 import admin.pages.AuthorizationPage;
+import admin.utils.DataBaseUtils;
+import admin.utils.TestSetup;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import admin.data.DataInfo;
@@ -67,12 +69,20 @@ public class AdministrationPageTest {
         newAdminWindow.clickAddButton();
         adminPage.getAdminCard();
         assertEquals("Новый администратор ADMIN_TESTUI_2 успешно создан", adminPage.getNotification());
+        assertEquals("1", DataBaseUtils.selectAdmin().getRole_id());
+        DataInfo dataInfoSuperAdmin = new DataInfo("SUPER_ADMIN", "Qqqq123#");
+        TestSetup.authRequest(dataInfoSuperAdmin);
+        TestSetup.deleteAdmin("ADMIN_TESTUI_2");
     }
 
     @Feature("Добавление нового админа")
     @Story("Добавление нового админа с уже существующим логином")
     @Test
     void addedNewAdminAlreadyExisting_9334() {
+        DataInfo dataInfoSuperAdmin = new DataInfo("SUPER_ADMIN", "Qqqq123#");
+        TestSetup.authRequest(dataInfoSuperAdmin);
+        DataInfo dataInfoAdmin = new DataInfo("ADMIN_TESTUI_2", "WWqq123456!");
+        TestSetup.createAdmin(dataInfoAdmin);
         HeaderBar headerBar = new HeaderBar();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
@@ -83,6 +93,7 @@ public class AdministrationPageTest {
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.clickAddButton();
         assertEquals("{\"error\":\"Пользователь уже существует, логин: ADMIN_TESTUI_2\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}", adminPage.getNotification());
+        TestSetup.deleteAdmin("ADMIN_TESTUI_2");
     }
 
     @Feature("Добавление нового админа")
@@ -323,7 +334,6 @@ public class AdministrationPageTest {
     void addedNewAdminPassword8Symbol() {
         HeaderBar headerBar = new HeaderBar();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
-        ;
         adminPage.administrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
@@ -550,6 +560,10 @@ public class AdministrationPageTest {
     @Story("Успешная смена пароля админу")
     @Test
     void changePasswordAdmin_8617() {
+        DataInfo dataInfoSuperAdmin = new DataInfo("SUPER_ADMIN", "Qqqq123#");
+        TestSetup.authRequest(dataInfoSuperAdmin);
+        DataInfo dataInfoAdmin = new DataInfo("ADMIN_TESTUI_2", "WWqq123456!");
+        TestSetup.createAdmin(dataInfoAdmin);
         HeaderBar headerBar = new HeaderBar();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();

@@ -32,6 +32,9 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
     testImplementation 'org.postgresql:postgresql:42.6.0'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
+    testImplementation 'io.rest-assured:rest-assured:5.3.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
 
 
 }

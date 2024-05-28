@@ -1,5 +1,6 @@
 package admin.pages;
 
+import admin.data.DataInfo;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import admin.pages.modalWindowAdministration.*;
@@ -27,6 +28,7 @@ public class AdministrationPage {
     private final SelenideElement closeNotification = $x("//button[@aria-label='close']");
     private final SelenideElement footerAdministrationPage = $x("//span[text()='@ Самарский государственный медицинский университет']");
     private final SelenideElement returnToStartButton = $x("//div[@class='_x1E']");
+
 
     public void administrationPage() {
         tabNameAdministration.shouldBe(Condition.visible, Duration.ofSeconds(10));

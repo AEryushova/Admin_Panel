@@ -14,13 +14,11 @@ public class Calendar {
     private final SelenideElement switchLeftMonthButton = $x("(//div[@class='pickerHeaderButton__b3f8'])[1]");
     private final SelenideElement switchRightMonthButton = $x("(//div[@class='pickerHeaderButton__b3f8'])[2]");
     private final SelenideElement dateActivation;
+    private final SelenideElement todayButton = $x("//div[text()='Сегодня']");
 
     public Calendar() {
         this.dateActivation = $x("//div[@class='pickerDateUnit__f5d7' and text()='" + DataHelper.generateFutureDayCurrentMonth() + "']");
     }
-
-    private final SelenideElement todayButton = $x("//div[text()='Сегодня']");
-
 
     public void calendar() {
         headerCurrentMonth.shouldBe(Condition.visible, Duration.ofSeconds(10));
