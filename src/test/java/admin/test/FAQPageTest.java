@@ -1,8 +1,7 @@
 package admin.test;
 
-import admin.data.DataInfo;
+import admin.data.DataTest;
 import admin.pages.AdministrationPage;
-import admin.pages.AuthorizationPage;
 import admin.pages.FaqPage;
 import admin.pages.HeaderBar;
 import admin.pages.modalWindowAdministration.UpdateLegalDocWindow;
@@ -10,7 +9,7 @@ import admin.pages.modalWindowFAQ.AddQuestionWindow;
 import admin.pages.modalWindowFAQ.ChangeQuestionWindow;
 import admin.pages.modalWindowFAQ.Question;
 import admin.utils.DataBaseUtils;
-import com.codeborne.selenide.Configuration;
+import admin.utils.TestSetupAuthAdminPanel;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -22,7 +21,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static admin.utils.DataBaseUtils.selectFaq;
-import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -43,16 +41,7 @@ public class FAQPageTest {
 
     @BeforeEach
     void setUp() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1920x1080";
-        open("http://192.168.6.48:8083");
-        localStorage().setItem("Environment", "demo");
-        clearBrowserCookies();
-        AuthorizationPage authorizationPage = new AuthorizationPage();
-        DataInfo dataInfo = new DataInfo("SUPER_ADMIN", "Qqqq123#");
-        authorizationPage.authorizationAdminPanel(dataInfo);
-        HeaderBar headerBar = new HeaderBar();
-        headerBar.headerBarSuperAdmin();
+        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
     }
 
     @Feature("Добавление нового faq-вопроса")

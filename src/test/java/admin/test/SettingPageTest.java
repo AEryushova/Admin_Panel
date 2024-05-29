@@ -1,9 +1,9 @@
 package admin.test;
 
-import admin.data.DataInfo;
+import admin.data.DataTest;
 import admin.pages.*;
-import admin.pages.modalWindowAdministration.UpdateLegalDocWindow;
 import admin.utils.DataHelper;
+import admin.utils.TestSetupAuthAdminPanel;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
@@ -14,9 +14,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.chrome.ChromeOptions;
-import user.AuthPage;
-import user.HomePage;
+import user.pages.AuthPage;
+import user.pages.HomePage;
 import user.pages.modalWindowReportBug.ReportBug;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -39,16 +38,7 @@ public class SettingPageTest {
 
     @BeforeEach
     void setUp() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1920x1080";
-        open("http://192.168.6.48:8083");
-        localStorage().setItem("Environment", "demo");
-        clearBrowserCookies();
-        AuthorizationPage authorizationPage = new AuthorizationPage();
-        DataInfo dataInfo = new DataInfo("SUPER_ADMIN", "Qqqq123#");
-        authorizationPage.authorizationAdminPanel(dataInfo);
-        HeaderBar headerBar = new HeaderBar();
-        headerBar.headerBarSuperAdmin();
+        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
     }
 
 

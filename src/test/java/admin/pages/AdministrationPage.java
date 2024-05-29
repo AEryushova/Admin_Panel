@@ -1,6 +1,7 @@
 package admin.pages;
 
 import admin.data.DataInfo;
+import admin.data.DataTest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import admin.pages.modalWindowAdministration.*;
@@ -18,9 +19,9 @@ public class AdministrationPage {
     private final SelenideElement updateOrder = $x("//span[text()='Обновить приказ' ]//parent::div//parent::button");
     private final SelenideElement updatePrice = $x("//span[text()='Обновить прайс' ]//parent::div//parent::button");
     private final SelenideElement addedAdminButton = $x("//span[text()='Добавить админа']//parent::div//parent::button");
-    private final SelenideElement cardAdmin = $x("//input[@name='login' and @value='ADMIN_TESTUI_2']");
-    private final SelenideElement changePasswordButtonAdmin = $x("//div[.//input[contains(@value, 'ADMIN_TESTUI_2')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
-    private final SelenideElement deleteButtonAdmin = $x("//div[.//input[contains(@value, 'ADMIN_TESTUI_2')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
+    private final SelenideElement cardAdmin = $x("//input[@name='login' and @value='" + DataTest.getLoginAdminTest() + "']");
+    private final SelenideElement changePasswordButtonAdmin = $x("//div[.//input[contains(@value, '" + DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
+    private final SelenideElement deleteButtonAdmin = $x("//div[.//input[contains(@value, '" + DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
     private final SelenideElement deleteWindowAdmin = $x("//span[contains(text(), 'хотите удалить администратора')]//parent::div//parent::div//parent::div[@class='eV2Y']");
     private final SelenideElement yesButtonDelete = $x("//button[text()='Да']");
     private final SelenideElement noButtonDelete = $x("//button[text()='Нет']");

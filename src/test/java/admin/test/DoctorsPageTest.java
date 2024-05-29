@@ -1,13 +1,13 @@
 package admin.test;
 
+import admin.data.DataTest;
 import admin.pages.*;
 import admin.pages.calendar.Calendar;
 import admin.pages.modalWindowDoctors.*;
 import admin.utils.DataBaseUtils;
 import admin.utils.DataHelper;
-import com.codeborne.selenide.Configuration;
+import admin.utils.TestSetupAuthAdminPanel;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import admin.data.DataInfo;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -15,7 +15,6 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 
 import static admin.utils.DataBaseUtils.selectFeedback;
-import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -35,16 +34,7 @@ public class DoctorsPageTest {
 
     @BeforeEach
     void setUp() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1920x1080";
-        open("http://192.168.6.48:8083");
-        localStorage().setItem("Environment", "demo");
-        clearBrowserCookies();
-        AuthorizationPage authorizationPage = new AuthorizationPage();
-        DataInfo dataInfo = new DataInfo("SUPER_ADMIN", "Qqqq123#");
-        authorizationPage.authorizationAdminPanel(dataInfo);
-        HeaderBar headerBar = new HeaderBar();
-        headerBar.headerBarSuperAdmin();
+        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
     }
 
     @Feature("Фотография врача")

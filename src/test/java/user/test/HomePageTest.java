@@ -6,9 +6,9 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import user.AuthPage;
-import user.HeaderBarLK;
-import user.HomePage;
+import user.pages.AuthPage;
+import user.pages.HeaderBarLK;
+import user.pages.HomePage;
 import user.pages.modalWindowReportBug.ReportBug;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -41,7 +41,6 @@ public class HomePageTest {
         homePage.homePage();
         HeaderBarLK headerBar = new HeaderBarLK();
         headerBar.headerBarLK();
-
     }
 
     static void addBugReport() {

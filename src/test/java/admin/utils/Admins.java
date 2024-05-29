@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Admin {
+public class Admins {
     private String id;
     private String username;
     private String is_blocked;

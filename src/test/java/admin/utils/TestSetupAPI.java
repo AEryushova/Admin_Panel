@@ -7,13 +7,13 @@ import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
-public class TestSetup {
+public class TestSetupAPI {
     private static final String baseUri = "http://192.168.6.48:8083";
     private static final Gson gson = new Gson();
     private static String token;
 
-    private static void tokenAuthRequest(DataInfo dataInfo) {
-        String dataInfoJson = getDataInfoJson(dataInfo);
+    private static void tokenAuthRequest(String login, String password) {
+        String dataInfoJson = getDataInfoJson(login,password);
         Response response = given()
                 .baseUri(baseUri)
                 .contentType(ContentType.JSON)
@@ -28,8 +28,8 @@ public class TestSetup {
         token = response.getBody().jsonPath().getString("accessToken");
     }
 
-    public static void authRequest(DataInfo dataInfo) {
-        tokenAuthRequest(dataInfo);
+    public static void authRequest(String login, String password) {
+        tokenAuthRequest(login, password);
         given()
                 .baseUri(baseUri)
                 .header("Authorization", "Bearer " + token)
@@ -39,17 +39,31 @@ public class TestSetup {
                 .statusCode(200);
     }
 
-    private static String getDataInfoJson(DataInfo dataInfo) {
+    private static String getDataInfoJson(String login, String password) {
+        DataInfo dataInfo = new DataInfo(login, password);
         return gson.toJson(dataInfo);
     }
 
 
-    public static void createAdmin(DataInfo dataInfo) {
-        String dataInfoJson = getDataInfoJson(dataInfo);
+    public static void createAdmin(String login, String password) {
+        String dataInfoJson = getDataInfoJson(login, password);
         given()
                 .baseUri(baseUri)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token)
+                .body(dataInfoJson)
+                .when()
+                .post("/api/admins/sign-up")
+                .then()
+                .statusCode(201);
+    }
+
+    public static void createAdminCookie(String login, String password) {
+        String dataInfoJson = getDataInfoJson(login, password);
+        given()
+                .baseUri(baseUri)
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + CookieUtils.getToken())
                 .body(dataInfoJson)
                 .when()
                 .post("/api/admins/sign-up")
@@ -63,6 +77,18 @@ public class TestSetup {
                 .queryParam("login", login)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token)
+                .when()
+                .delete("/api/admins")
+                .then()
+                .statusCode(204);
+    }
+
+    public static void deleteAdminCookie(String login) {
+        given()
+                .baseUri(baseUri)
+                .queryParam("login", login)
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + CookieUtils.getToken())
                 .when()
                 .delete("/api/admins")
                 .then()

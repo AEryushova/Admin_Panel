@@ -1,5 +1,6 @@
 package admin.pages;
 
+import admin.data.DataTest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import admin.data.DataInfo;
@@ -28,9 +29,9 @@ public class AuthorizationPage {
         toComeInButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
     }
 
-    public DoctorsPage authorizationAdminPanel(DataInfo dataInfo) {
-        loginField.setValue(dataInfo.getLogin());
-        passwordField.setValue(dataInfo.getPassword());
+    public DoctorsPage authorizationAdminPanel(String login, String password) {
+        loginField.setValue(login);
+        passwordField.setValue(password);
         toComeInButton.click();
         loader.shouldBe(Condition.visible, Duration.ofSeconds(10));
         return new DoctorsPage();

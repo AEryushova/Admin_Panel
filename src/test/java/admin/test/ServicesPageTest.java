@@ -1,11 +1,11 @@
 package admin.test;
 
-import admin.data.DataInfo;
-import admin.pages.AuthorizationPage;
+import admin.data.DataTest;
 import admin.pages.HeaderBar;
 import admin.pages.ServicesPage;
 import admin.pages.modalWindowServices.AddRuleWindow;
 import admin.pages.modalWindowServices.RulesPreparingWindow;
+import admin.utils.TestSetupAuthAdminPanel;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
@@ -15,10 +15,10 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 
 import org.junit.jupiter.api.Assertions;
-import user.AuthPage;
-import user.HeaderBarLK;
-import user.HomePage;
-import user.ServicesPageLK;
+import user.pages.AuthPage;
+import user.pages.HeaderBarLK;
+import user.pages.HomePage;
+import user.pages.ServicesPageLK;
 import user.pages.modalWindowServices.Rule;
 import user.pages.modalWindowServices.RulesPreparingWindowLK;
 
@@ -46,16 +46,7 @@ public class ServicesPageTest {
 
     @BeforeEach
     void setUp() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1920x1080";
-        open("http://192.168.6.48:8083");
-        localStorage().setItem("Environment", "demo");
-        clearBrowserCookies();
-        AuthorizationPage authorizationPage = new AuthorizationPage();
-        DataInfo dataInfo = new DataInfo("SUPER_ADMIN", "Qqqq123#");
-        authorizationPage.authorizationAdminPanel(dataInfo);
-        headerBar = new HeaderBar();
-        headerBar.headerBarSuperAdmin();
+        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
     }
 
     @Story("Смена последовательности категорий")

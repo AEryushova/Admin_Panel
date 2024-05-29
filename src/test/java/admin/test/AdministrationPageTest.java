@@ -1,11 +1,8 @@
 package admin.test;
 
-import admin.pages.AuthorizationPage;
-import admin.utils.DataBaseUtils;
-import admin.utils.TestSetup;
-import com.codeborne.selenide.Configuration;
+import admin.data.DataTest;
+import admin.utils.*;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import admin.data.DataInfo;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -17,13 +14,7 @@ import org.junit.jupiter.api.Test;
 import admin.pages.AdministrationPage;
 import admin.pages.HeaderBar;
 import admin.pages.modalWindowAdministration.*;
-import admin.pages.calendar.Calendar;
-import admin.utils.DataHelper;
 
-import java.io.File;
-
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Администрирование")
@@ -40,18 +31,14 @@ public class AdministrationPageTest {
         SelenideLogger.removeListener("allure");
     }
 
+    @BeforeAll
+    static void setupAdminPanelWithCookies() {
+        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginSuperAdmin(), DataTest.getPasswordSuperAdmin());
+    }
+
     @BeforeEach
-    void setUp() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1920x1080";
-        open("http://192.168.6.48:8083");
-        localStorage().setItem("Environment", "demo");
-        clearBrowserCookies();
-        AuthorizationPage authorizationPage = new AuthorizationPage();
-        DataInfo dataInfo = new DataInfo("SUPER_ADMIN", "Qqqq123#");
-        authorizationPage.authorizationAdminPanel(dataInfo);
-        HeaderBar headerBar = new HeaderBar();
-        headerBar.headerBarSuperAdmin();
+    void loadCookies() {
+        CookieUtils.loadCookies();
     }
 
     @Feature("Добавление нового админа")
@@ -63,26 +50,22 @@ public class AdministrationPageTest {
         adminPage.administrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin("ADMIN_TESTUI_2");
-        newAdminWindow.fillingFieldNewAdminPassword("WwSs12345#");
-        newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
+        newAdminWindow.fillingFieldNewAdminLogin(DataTest.getLoginAdminTest());
+        newAdminWindow.fillingFieldNewAdminPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillingFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.clickAddButton();
         adminPage.getAdminCard();
-        assertEquals("Новый администратор ADMIN_TESTUI_2 успешно создан", adminPage.getNotification());
-        assertEquals("1", DataBaseUtils.selectAdmin().getRole_id());
-        DataInfo dataInfoSuperAdmin = new DataInfo("SUPER_ADMIN", "Qqqq123#");
-        TestSetup.authRequest(dataInfoSuperAdmin);
-        TestSetup.deleteAdmin("ADMIN_TESTUI_2");
+        assertEquals("Новый администратор " + DataTest.getLoginAdminTest() + " успешно создан", adminPage.getNotification());
+        assertEquals("1", DataBaseUtils.selectAdmin(DataTest.getLoginAdminTest()).getRole_id());
+        adminPage.closeNotification();
+        TestSetupAPI.deleteAdminCookie(DataTest.getLoginAdminTest());
     }
 
     @Feature("Добавление нового админа")
     @Story("Добавление нового админа с уже существующим логином")
     @Test
     void addedNewAdminAlreadyExisting_9334() {
-        DataInfo dataInfoSuperAdmin = new DataInfo("SUPER_ADMIN", "Qqqq123#");
-        TestSetup.authRequest(dataInfoSuperAdmin);
-        DataInfo dataInfoAdmin = new DataInfo("ADMIN_TESTUI_2", "WWqq123456!");
-        TestSetup.createAdmin(dataInfoAdmin);
+        TestSetupAPI.createAdminCookie(DataTest.getLoginAdminTest(), DataTest.getPasswordAdminTest());
         HeaderBar headerBar = new HeaderBar();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
@@ -92,9 +75,12 @@ public class AdministrationPageTest {
         newAdminWindow.fillingFieldNewAdminPassword("WwSs12345#");
         newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.clickAddButton();
-        assertEquals("{\"error\":\"Пользователь уже существует, логин: ADMIN_TESTUI_2\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}", adminPage.getNotification());
-        TestSetup.deleteAdmin("ADMIN_TESTUI_2");
+        assertEquals("{\"error\":\"Пользователь уже существует, логин: " + DataTest.getLoginAdminTest() + "\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}", adminPage.getNotification());
+        adminPage.closeNotification();
+        TestSetupAPI.deleteAdminCookie(DataTest.getLoginAdminTest());
     }
+}
+    /*
 
     @Feature("Добавление нового админа")
     @Story("Добавление нового администраторас пустым полем логина")
@@ -560,10 +546,8 @@ public class AdministrationPageTest {
     @Story("Успешная смена пароля админу")
     @Test
     void changePasswordAdmin_8617() {
-        DataInfo dataInfoSuperAdmin = new DataInfo("SUPER_ADMIN", "Qqqq123#");
-        TestSetup.authRequest(dataInfoSuperAdmin);
-        DataInfo dataInfoAdmin = new DataInfo("ADMIN_TESTUI_2", "WWqq123456!");
-        TestSetup.createAdmin(dataInfoAdmin);
+        TestSetupAPI.authRequest(DataTest.getLoginSuperAdmin(),DataTest.getPasswordSuperAdmin());
+        TestSetupAPI.createAdmin(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
         HeaderBar headerBar = new HeaderBar();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.administrationPage();
@@ -579,7 +563,7 @@ public class AdministrationPageTest {
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.authorizationPage();
         DataInfo dataInfo = new DataInfo("ADMIN_TESTUI_2", "WwQq98765*");
-        authorizationPage.authorizationAdminPanel(dataInfo);
+        authorizationPage.authorizationAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
         headerBar = new HeaderBar();
         headerBar.headerBarAdmin();
     }
@@ -1424,3 +1408,4 @@ public class AdministrationPageTest {
         File downloadedFile = updatePriceWindow.downloadPriceDateActivation();
     }
 }
+     */

@@ -47,13 +47,6 @@ public class ReportBug {
         clearFieldEmailButton.click();
     }
 
-    public void clearFieldTextReportBug() {textFieldReportBug.clear();
-    }
-
-    public void clearFieldEmailReportBug() {
-        emailFieldReportBug.clear();
-    }
-
     public void closeWindowReportBug() {
         closeWindowButton.click();
         windowReportBug.shouldBe(Condition.hidden, Duration.ofSeconds(5));
