@@ -244,7 +244,7 @@ public class FAQPageTest {
     void closeNotification() {
         HeaderBar headerBar = new HeaderBar();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
-        adminPage.administrationPage();
+        adminPage.adminPage();
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");

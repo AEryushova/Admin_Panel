@@ -50,7 +50,7 @@ public class DoctorsPageTest {
         HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
-        adminPage.administrationPage();
+        adminPage.adminPage();
     }
 
     @Feature("Переключение между вкладками")

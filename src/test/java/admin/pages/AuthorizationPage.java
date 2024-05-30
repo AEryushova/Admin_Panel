@@ -1,11 +1,10 @@
 package admin.pages;
 
-import admin.data.DataTest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import admin.data.DataInfo;
 
 import java.time.Duration;
+import java.util.Objects;
 
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.*;
@@ -23,13 +22,13 @@ public class AuthorizationPage {
     private final SelenideElement errorFieldPassword = $x("//input[@type='password']//following-sibling::div");
 
 
-    public void authorizationPage() {
+    public void authPage() {
         loginField.shouldBe(Condition.visible, Duration.ofSeconds(5));
         passwordField.shouldBe(Condition.visible, Duration.ofSeconds(5));
         toComeInButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public DoctorsPage authorizationAdminPanel(String login, String password) {
+    public DoctorsPage authorization(String login, String password) {
         loginField.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(login);
@@ -43,19 +42,19 @@ public class AuthorizationPage {
         return new DoctorsPage();
     }
 
-    public void fillingLoginField(String login) {
+    public void fillLoginField(String login) {
         loginField.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(login);
     }
 
-    public void fillingPasswordField(String password) {
+    public void fillPasswordField(String password) {
         passwordField.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(password);
     }
 
-    public void subAuthorizationButton() {
+    public void subAuthButton() {
         toComeInButton.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -103,11 +102,11 @@ public class AuthorizationPage {
         return loginField.getValue();
     }
 
-    public void showPasswordClickButton() {
+    public boolean showPassword() {
         showPasswordButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();
-        passwordField.shouldBe(attribute("type", "text"));
+        return Objects.equals(passwordField.getAttribute("type"), "text");
     }
 
     public String getNotification() {
@@ -129,8 +128,8 @@ public class AuthorizationPage {
         return errorFieldLogin.getText();
     }
 
-    public void hiddenErrorFieldLogin() {
-        errorFieldLogin.shouldBe(Condition.hidden);
+    public boolean isErrorLoginAppear() {
+        return errorFieldLogin.exists();
     }
 
     public String getErrorFieldPassword() {
@@ -139,12 +138,11 @@ public class AuthorizationPage {
         return errorFieldPassword.getText();
     }
 
-    public void hiddenErrorFieldPassword() {
-        errorFieldPassword.shouldBe(Condition.hidden);
+    public boolean isErrorPasswordAppear() {
+        return errorFieldPassword.exists();
     }
 
-    public void notificationDisappears() {
-        notification.shouldBe(Condition.hidden, Duration.ofSeconds(7));
+    public boolean notificationDisappears() {
+        return notification.exists();
     }
-
 }

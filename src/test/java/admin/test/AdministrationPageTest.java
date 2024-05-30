@@ -87,7 +87,7 @@ public class AdministrationPageTest {
         HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
-        adminPage.administrationPage();
+        adminPage.adminPage();
     }
 
     @Feature("Добавление нового админа")

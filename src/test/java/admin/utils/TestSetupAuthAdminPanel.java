@@ -1,9 +1,7 @@
 package admin.utils;
 
 import admin.data.DataTest;
-import admin.pages.AdministrationPage;
 import admin.pages.AuthorizationPage;
-import admin.pages.DoctorsPage;
 import admin.pages.HeaderBar;
 import com.codeborne.selenide.Configuration;
 
@@ -26,7 +24,7 @@ public class TestSetupAuthAdminPanel {
         localStorage().setItem("Environment", "demo");
         clearBrowserCookies();
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationAdminPanel(login,password);
+        authorizationPage.authorization(login,password);
         CookieUtils.saveCookies();
     }
 

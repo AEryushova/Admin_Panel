@@ -18,7 +18,7 @@ import admin.pages.AuthorizationPage;
 import admin.pages.DoctorsPage;
 import admin.pages.HeaderBar;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Авторизация")
 @Feature("Вход в админ-панель")
@@ -43,8 +43,8 @@ public class AuthorizationPageTest {
     @Test
     void authorizationSuperAdmin_11777() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        DoctorsPage doctorPage = authorizationPage.authorizationAdminPanel(DataTest.getLoginSuperAdmin(),DataTest.getPasswordSuperAdmin());
+        authorizationPage.authPage();
+        DoctorsPage doctorPage = authorizationPage.authorization(DataTest.getLoginSuperAdmin(),DataTest.getPasswordSuperAdmin());
         doctorPage.doctorsPage();
         HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
@@ -59,8 +59,8 @@ public class AuthorizationPageTest {
         TestSetupAPI.authRequest(DataTest.getLoginSuperAdmin(),DataTest.getPasswordSuperAdmin());
         TestSetupAPI.createAdmin(DataTest.getLoginAdminTest(),DataTest.getPasswordAdminTest());
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        DoctorsPage doctorPage = authorizationPage.authorizationAdminPanel(DataTest.getLoginAdminTest(),DataTest.getPasswordAdminTest());
+        authorizationPage.authPage();
+        DoctorsPage doctorPage = authorizationPage.authorization(DataTest.getLoginAdminTest(),DataTest.getPasswordAdminTest());
         doctorPage.doctorsPage();
         HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarAdmin();
@@ -76,11 +76,11 @@ public class AuthorizationPageTest {
         TestSetupAPI.authRequest(DataTest.getLoginSuperAdmin(),DataTest.getPasswordSuperAdmin());
         TestSetupAPI.createAdmin(DataTest.getLoginAdminTest(),DataTest.getPasswordAdminTest());
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField(DataTest.getLoginAdminTest());
-        authorizationPage.fillingPasswordField("WWqq123456!78");
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField(DataTest.getLoginAdminTest());
+        authorizationPage.fillPasswordField("WWqq123456!78");
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("Неверный логин или пароль", authorizationPage.getNotification());
         TestSetupAPI.deleteAdmin(DataTest.getLoginAdminTest());
     }
@@ -89,11 +89,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminInvalidLogin_11776() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField("Админ_25");
-        authorizationPage.fillingPasswordField(DataTest.getPasswordAdminTest());
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField("Админ_25");
+        authorizationPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", authorizationPage.getNotification());
     }
 
@@ -101,11 +101,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminInvalidPassword_11775() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField(DataTest.getLoginAdminTest());
-        authorizationPage.fillingPasswordField("ЫЫйй123456!");
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField(DataTest.getLoginAdminTest());
+        authorizationPage.fillPasswordField("ЫЫйй123456!");
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("1 цифра, 1 спецсимвол, 1 латинская буква в верхнем и нижнем регистре", authorizationPage.getNotification());
     }
 
@@ -113,11 +113,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminNonExistent_8605() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField(DataTest.getLoginAdminTest());
-        authorizationPage.fillingPasswordField(DataTest.getPasswordAdminTest());
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField(DataTest.getLoginAdminTest());
+        authorizationPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("AuthorizationAdminClient::SignIn: Ошибка авторизации.", authorizationPage.getNotification());
     }
 
@@ -125,11 +125,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminMinimalSymbol_11688() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField(DataTest.getLoginAdminTest());
-        authorizationPage.fillingPasswordField("WwQ12!");
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField(DataTest.getLoginAdminTest());
+        authorizationPage.fillPasswordField("WwQ12!");
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("Минимум 8 символов", authorizationPage.getNotification());
 
     }
@@ -138,10 +138,10 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminNotLogin_9335() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField(DataTest.getPasswordAdminTest());
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("Что-то пошло не по плану...", authorizationPage.getNotification());;
     }
 
@@ -149,10 +149,10 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminNotPassword_8672() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField(DataTest.getLoginAdminTest());
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField(DataTest.getLoginAdminTest());
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("Что-то пошло не по плану...", authorizationPage.getNotification());
     }
 
@@ -160,9 +160,9 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminEmptyFields_8673() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("Что-то пошло не по плану...", authorizationPage.getNotification());
     }
 
@@ -170,13 +170,13 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminEmptyFieldLoginAfterClear_8673() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField(DataTest.getLoginAdminTest());
-        authorizationPage.fillingPasswordField(DataTest.getPasswordAdminTest());
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField(DataTest.getLoginAdminTest());
+        authorizationPage.fillPasswordField(DataTest.getPasswordAdminTest());
         authorizationPage.clearLoginClickButton();
         authorizationPage.clearPasswordField();
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("Обязательное поле", authorizationPage.getNotification());
     }
 
@@ -184,10 +184,10 @@ public class AuthorizationPageTest {
     @Test
     void clearLoginFieldThroughButtonClear_11778() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField(DataTest.getLoginAdminTest());
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField(DataTest.getLoginAdminTest());
         authorizationPage.clearLoginClickButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("", authorizationPage.getValueLoginField());
         assertEquals("Обязательное поле", authorizationPage.getErrorFieldLogin());
     }
@@ -196,21 +196,21 @@ public class AuthorizationPageTest {
     @Test
     void showPasswordValue_8663() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField(DataTest.getPasswordAdminTest());
-        authorizationPage.showPasswordClickButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        assertTrue(authorizationPage.showPassword());
+        authorizationPage.authPage();
     }
 
     @Story("Отображение уведомления об обязательности поля логина")
     @Test
     void authorizationAdminObligatoryLoginField_11905() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         authorizationPage.clickLoginField();
         authorizationPage.clickPasswordField();
         authorizationPage.hoverLoginField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("Обязательное поле", authorizationPage.getErrorFieldLogin());
     }
 
@@ -218,12 +218,12 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminObligatoryLoginPassword_11906() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.authPage();
         authorizationPage.clickPasswordField();
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("Обязательное поле", authorizationPage.getErrorFieldPassword());
     }
 
@@ -231,35 +231,35 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminLogin31Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField("ANNA_TEST_ADMIN123456789_ANNA_1");
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField("ANNA_TEST_ADMIN123456789_ANNA_1");
         authorizationPage.clickPasswordField();
         authorizationPage.hoverLoginField();
-        authorizationPage.authorizationPage();
-        authorizationPage.hiddenErrorFieldLogin();
+        authorizationPage.authPage();
+        assertFalse(authorizationPage.isErrorLoginAppear());
     }
 
     @Story("Ввод валидного логина из 32 символов")
     @Test
     void authorizationAdminLogin32Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField("ANNA_TEST_ADMIN123456789_ANNA_12");
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField("ANNA_TEST_ADMIN123456789_ANNA_12");
         authorizationPage.clickPasswordField();
         authorizationPage.hoverLoginField();
-        authorizationPage.authorizationPage();
-        authorizationPage.hiddenErrorFieldLogin();
+        authorizationPage.authPage();
+        assertFalse(authorizationPage.isErrorLoginAppear());
     }
 
     @Story("Ввод не валидного логина из 33 символов")
     @Test
     void authorizationAdminLogin33Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField("ANNA_TEST_ADMIN123456789_ANNA_123");
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField("ANNA_TEST_ADMIN123456789_ANNA_123");
         authorizationPage.clickPasswordField();
         authorizationPage.hoverLoginField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("Максимальная длина 32 символа", authorizationPage.getErrorFieldLogin());
     }
 
@@ -267,11 +267,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminLoginCyrillicValue() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField("АННА_ТЕСТ");
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField("АННА_ТЕСТ");
         authorizationPage.clickPasswordField();
         authorizationPage.hoverLoginField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", authorizationPage.getErrorFieldLogin());
     }
 
@@ -279,11 +279,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminLoginNumberBegin() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField("1ANNA_TEST");
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField("1ANNA_TEST");
         authorizationPage.clickPasswordField();
         authorizationPage.hoverLoginField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", authorizationPage.getErrorFieldLogin());
     }
 
@@ -291,11 +291,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminLoginLatinBeginCyrillicValue() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField("AННА_ТЕСТ");
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField("AННА_ТЕСТ");
         authorizationPage.clickPasswordField();
         authorizationPage.hoverLoginField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("Доступны только числа, латиница и \"_\"", authorizationPage.getErrorFieldLogin());
     }
 
@@ -303,11 +303,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminLoginWithSpace() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingLoginField("ANNA TEST");
+        authorizationPage.authPage();
+        authorizationPage.fillLoginField("ANNA TEST");
         authorizationPage.clickPasswordField();
         authorizationPage.hoverLoginField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("Доступны только числа, латиница и \"_\"", authorizationPage.getErrorFieldLogin());
     }
 
@@ -315,11 +315,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminPassword7Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("Wwqq12#");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("Wwqq12#");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("Минимум 8 символов", authorizationPage.getErrorFieldPassword());
     }
 
@@ -327,59 +327,59 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminPassword8Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("Wwqq123#");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("Wwqq123#");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
-        authorizationPage.hiddenErrorFieldPassword();
+        authorizationPage.authPage();
+        assertFalse(authorizationPage.isErrorPasswordAppear());
     }
 
     @Story("Ввод валидного пароля из 9 символов")
     @Test
     void authorizationAdminPassword9Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("Wwqq1234#");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("Wwqq1234#");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
-        authorizationPage.hiddenErrorFieldPassword();
+        authorizationPage.authPage();
+        assertFalse(authorizationPage.isErrorPasswordAppear());
     }
 
     @Story("Ввод валидного пароля из 24 символов")
     @Test
     void authorizationAdminPassword24Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("Wwqq123456789#QQgg123456");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("Wwqq123456789#QQgg123456");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
-        authorizationPage.hiddenErrorFieldPassword();
+        authorizationPage.authPage();
+        assertFalse(authorizationPage.isErrorPasswordAppear());
     }
 
     @Story("Ввод валидного пароля из 25 символов")
     @Test
     void authorizationAdminPassword25Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("Wwqq123456789#QQgg1234567");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("Wwqq123456789#QQgg1234567");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
-        authorizationPage.hiddenErrorFieldPassword();
+        authorizationPage.authPage();
+        assertFalse(authorizationPage.isErrorPasswordAppear());
     }
 
     @Story("Ввод не валидного пароля из 26 символов")
     @Test
     void authorizationAdminPassword26Symbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("Wwqq123456789#QQgg12345678");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("Wwqq123456789#QQgg12345678");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("Максимум 25 символов", authorizationPage.getErrorFieldPassword());
     }
 
@@ -387,11 +387,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminPasswordNotLatinValue() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("123456789!");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("123456789!");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("1 цифра, 1 спецсимвол, 1 латинская буква в верхнем и нижнем регистре", authorizationPage.getErrorFieldPassword());
     }
 
@@ -399,11 +399,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminPasswordNotSymbol() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("123456789Ss");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("123456789Ss");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("1 цифра, 1 спецсимвол, 1 латинская буква в верхнем и нижнем регистре", authorizationPage.getErrorFieldPassword());
     }
 
@@ -411,11 +411,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminPasswordNotToUpperCase() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("123456789!ss");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("123456789!ss");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("1 цифра, 1 спецсимвол, 1 латинская буква в верхнем и нижнем регистре", authorizationPage.getErrorFieldPassword());
     }
 
@@ -423,11 +423,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminPasswordNotToLowerCase() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("123456789!SS");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("123456789!SS");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("1 цифра, 1 спецсимвол, 1 латинская буква в верхнем и нижнем регистре", authorizationPage.getErrorFieldPassword());
     }
 
@@ -435,34 +435,36 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminPasswordNotNumber() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.fillingPasswordField("WwqqLLpp!!");
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField("WwqqLLpp!!");
         authorizationPage.clickLoginField();
         authorizationPage.hoverPasswordField();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         assertEquals("1 цифра, 1 спецсимвол, 1 латинская буква в верхнем и нижнем регистре", authorizationPage.getErrorFieldPassword());
     }
 
     @Story("Закрытие уведомления на странице авторизации по таймауту")
     @Test
-    void closeNotificationTimeout() {
+    void closeNotificationTimeout() throws InterruptedException {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("Что-то пошло не по плану...", authorizationPage.getNotification());
-        authorizationPage.notificationDisappears();
+        Thread.sleep(6000);
+        assertFalse(authorizationPage.notificationDisappears());
     }
 
     @Story("Закрытие уведомления на странице авторизации")
     @Test
     void closeNotification() {
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        authorizationPage.subAuthorizationButton();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.subAuthButton();
+        authorizationPage.authPage();
         assertEquals("Что-то пошло не по плану...", authorizationPage.getNotification());
         authorizationPage.closeNotification();
+        assertFalse(authorizationPage.notificationDisappears());
     }
 
     @Story("Выход из админ-панели")
@@ -471,15 +473,14 @@ public class AuthorizationPageTest {
         TestSetupAPI.authRequest(DataTest.getLoginSuperAdmin(),DataTest.getPasswordSuperAdmin());
         TestSetupAPI.createAdmin(DataTest.getLoginAdminTest(),DataTest.getPasswordAdminTest());
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorizationPage();
-        DoctorsPage doctorPage = authorizationPage.authorizationAdminPanel(DataTest.getLoginAdminTest(),DataTest.getPasswordAdminTest());
+        authorizationPage.authPage();
+        DoctorsPage doctorPage = authorizationPage.authorization(DataTest.getLoginAdminTest(),DataTest.getPasswordAdminTest());
         doctorPage.doctorsPage();
         HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarAdmin();
         headerBar.openAndCloseProfileAdmin();
         headerBar.exitAdminPanel();
-        authorizationPage.authorizationPage();
+        authorizationPage.authPage();
         TestSetupAPI.deleteAdmin(DataTest.getLoginAdminTest());
     }
-
 }

@@ -28,7 +28,7 @@ public class AdministrationPage {
     private final SelenideElement returnToStartButton = $x("//div[@class='_x1E']");
 
 
-    public void administrationPage() {
+    public void adminPage() {
         tabNameAdministration.shouldBe(Condition.visible, Duration.ofSeconds(5));
         updateOffer.shouldBe(Condition.visible, Duration.ofSeconds(5));
         updateProcessingPolicy.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -126,10 +126,12 @@ public class AdministrationPage {
     }
 
     public void returnButtonDisappears() {
+
         returnToStartButton.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public void notificationDisappears() {
+
         notification.shouldBe(Condition.hidden, Duration.ofSeconds(7));
     }
 
