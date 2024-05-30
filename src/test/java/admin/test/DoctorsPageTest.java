@@ -4,6 +4,7 @@ import admin.data.DataTest;
 import admin.pages.*;
 import admin.pages.calendar.Calendar;
 import admin.pages.modalWindowDoctors.*;
+import admin.utils.CookieUtils;
 import admin.utils.DataBaseUtils;
 import admin.utils.DataHelper;
 import admin.utils.TestSetupAuthAdminPanel;
@@ -32,9 +33,64 @@ public class DoctorsPageTest {
         SelenideLogger.removeListener("allure");
     }
 
+    @BeforeAll
+    static void setupAdminPanelWithCookies() {
+        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginSuperAdmin(), DataTest.getPasswordSuperAdmin());
+    }
+
     @BeforeEach
-    void setUp() {
-        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
+    void loadCookies() {
+        CookieUtils.loadCookies();
+    }
+
+    @Feature("Переключение между вкладками")
+    @Story("Переход на вкладку администрирование")
+    @Test
+    void openAdministrationPage() {
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.headerBarSuperAdmin();
+        AdministrationPage adminPage = headerBar.administrationTabOpen();
+        adminPage.administrationPage();
+    }
+
+    @Feature("Переключение между вкладками")
+    @Story("Переход на вкладку услуг")
+    @Test
+    void openServicesPage() {
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.headerBarSuperAdmin();
+        ServicesPage servicesPage = headerBar.servicesTabOpen();
+        servicesPage.servicesPage();
+    }
+
+    @Feature("Переключение между вкладками")
+    @Story("Переход на вкладку faq")
+    @Test
+    void openFaqPage() {
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.headerBarSuperAdmin();
+        FaqPage faqPage = headerBar.faqTabOpen();
+        faqPage.faqPage();
+    }
+
+    @Feature("Переключение между вкладками")
+    @Story("Переход на вкладку настроек")
+    @Test
+    void openSettingPage() {
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.headerBarSuperAdmin();
+        SettingPage settingPage = headerBar.settingTabOpen();
+        settingPage.settingPage();
+    }
+
+    @Feature("Переключение между вкладками")
+    @Story("Сохранение состояния страницы при клике по вкладке докторов")
+    @Test
+    void clickDoctorsPage() {
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.headerBarSuperAdmin();
+        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
+        doctorsPage.doctorsPage();
     }
 
     @Feature("Фотография врача")

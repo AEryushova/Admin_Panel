@@ -36,7 +36,7 @@ public class AuthorizationPageTest {
 
     @BeforeEach
     void setUp() {
-        TestSetupAuthAdminPanel.openAuthPageAdminPanel();
+        TestSetupAuthAdminPanel.openAuthPage();
     }
 
     @Story("Успешная авторизация супер-админа")
@@ -441,6 +441,17 @@ public class AuthorizationPageTest {
         authorizationPage.hoverPasswordField();
         authorizationPage.authorizationPage();
         assertEquals("1 цифра, 1 спецсимвол, 1 латинская буква в верхнем и нижнем регистре", authorizationPage.getErrorFieldPassword());
+    }
+
+    @Story("Закрытие уведомления на странице авторизации по таймауту")
+    @Test
+    void closeNotificationTimeout() {
+        AuthorizationPage authorizationPage = new AuthorizationPage();
+        authorizationPage.authorizationPage();
+        authorizationPage.subAuthorizationButton();
+        authorizationPage.authorizationPage();
+        assertEquals("Что-то пошло не по плану...", authorizationPage.getNotification());
+        authorizationPage.notificationDisappears();
     }
 
     @Story("Закрытие уведомления на странице авторизации")

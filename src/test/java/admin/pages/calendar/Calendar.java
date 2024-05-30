@@ -29,24 +29,33 @@ public class Calendar {
     }
 
     public void selectDateActivation() {
-        dateActivation.click();
+        dateActivation.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void switchFutureMonth() {
-        switchRightMonthButton.click();
+        switchRightMonthButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void switchPreviousMonth() {
-        switchLeftMonthButton.click();
+        switchLeftMonthButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void selectDateActivationToday() {
-        todayButton.click();
+        todayButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public String getCurrentMonthCalendar() {
+        headerCurrentMonth.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         return headerCurrentMonth.getText();
     }
-
 
 }

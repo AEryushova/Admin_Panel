@@ -36,31 +36,34 @@ public class HeaderBar {
         profileButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public AdministrationPage administrationTabOpen(){
-        administrationButton.click();
+    public AdministrationPage administrationTabOpen() {
+        administrationButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new AdministrationPage();
     }
 
-    public DoctorsPage doctorsTabOpen(){
+    public DoctorsPage doctorsTabOpen() {
         doctorButton.click();
         return new DoctorsPage();
     }
 
-    public FaqPage faqTabOpen(){
+    public FaqPage faqTabOpen() {
         faqButton.click();
         return new FaqPage();
     }
 
-    public ServicesPage servicesTabOpen(){
+    public ServicesPage servicesTabOpen() {
         servicesButton.click();
         return new ServicesPage();
     }
 
-    public SettingPage settingTabOpen(){
+    public SettingPage settingTabOpen() {
         settingButton.click();
         return new SettingPage();
     }
-    public void openAndCloseProfileAdmin(){
+
+    public void openAndCloseProfileAdmin() {
         profileButton.click();
     }
 

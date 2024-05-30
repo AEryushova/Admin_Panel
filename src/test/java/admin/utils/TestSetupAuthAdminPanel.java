@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class TestSetupAuthAdminPanel {
 
-    public static void openAuthPageAdminPanel() {
+    public static void openAuthPage() {
         Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
         open(DataTest.getUriAdminPanel());
@@ -27,10 +27,36 @@ public class TestSetupAuthAdminPanel {
         clearBrowserCookies();
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.authorizationAdminPanel(login,password);
-        DoctorsPage doctorsPage=new DoctorsPage();
-        doctorsPage.doctorsPage();
         CookieUtils.saveCookies();
     }
+
+    public static void openAdministrationPage() {
+        Configuration.holdBrowserOpen = true;
+        Configuration.browserSize = "1920x1080";
+        open(DataTest.getUriAdminPanel() + "/admins");
+        localStorage().setItem("Environment", "demo");
+        CookieUtils.loadCookies();
+    }
+
+    public static void openServicesPage() {
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.servicesTabOpen();
+    }
+
+    public static void openFaqPage() {
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.faqTabOpen();
+    }
+
+    public static void openSettingPage() {
+        HeaderBar headerBar = new HeaderBar();
+        headerBar.settingTabOpen();
+    }
+
+
+
+
+
 
 
 }

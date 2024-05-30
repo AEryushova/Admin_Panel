@@ -22,9 +22,6 @@ public class AdministrationPage {
     private final SelenideElement cardAdmin = $x("//input[@name='login' and @value='" + DataTest.getLoginAdminTest() + "']");
     private final SelenideElement changePasswordButtonAdmin = $x("//div[.//input[contains(@value, '" + DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
     private final SelenideElement deleteButtonAdmin = $x("//div[.//input[contains(@value, '" + DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
-    private final SelenideElement deleteWindowAdmin = $x("//span[contains(text(), 'хотите удалить администратора')]//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement yesButtonDelete = $x("//button[text()='Да']");
-    private final SelenideElement noButtonDelete = $x("//button[text()='Нет']");
     private final SelenideElement notification = $x("//div[@role='alert']/div//following-sibling::div");
     private final SelenideElement closeNotification = $x("//button[@aria-label='close']");
     private final SelenideElement footerAdministrationPage = $x("//span[text()='@ Самарский государственный медицинский университет']");
@@ -32,45 +29,56 @@ public class AdministrationPage {
 
 
     public void administrationPage() {
-        tabNameAdministration.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        updateOffer.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        updateProcessingPolicy.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        updateOrder.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        updatePrice.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        addedAdminButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        tabNameAdministration.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        updateOffer.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        updateProcessingPolicy.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        updateOrder.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        updatePrice.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        addedAdminButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public NewAdminWindow openWindowAddedNewAdmin() {
-        addedAdminButton.click();
+        addedAdminButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new NewAdminWindow();
     }
 
     public ChangePasswordAdminWindow openWindowChangedPasswordAdmin() {
         cardAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        changePasswordButtonAdmin.click();
+        changePasswordButtonAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.enabled)
+                .click();
         return new ChangePasswordAdminWindow();
     }
 
     public UpdateLegalDocWindow updateOffer() {
-        updateOffer.click();
+        updateOffer.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new UpdateLegalDocWindow();
     }
 
     public UpdateLegalDocWindow updateProcessingPolicy() {
-        updateProcessingPolicy.click();
+        updateProcessingPolicy.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new UpdateLegalDocWindow();
     }
 
     public UpdateOrderWindow updateOrder() {
-        updateOrder.click();
+        updateOrder.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new UpdateOrderWindow();
     }
 
     public UpdatePriceWindow updatePrice() {
-        updatePrice.click();
+        updatePrice.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new UpdatePriceWindow();
     }
-
 
     public void getAdminCard() {
         cardAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -84,51 +92,45 @@ public class AdministrationPage {
         deleteButtonAdmin.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
-    public void deleteAdmin() {
+    public DeleteAdminWindow openWindowDeleteAdmin() {
         cardAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        deleteButtonAdmin.click();
-        deleteWindowAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        yesButtonDelete.click();
-        cardAdmin.shouldBe(Condition.hidden);
-        changePasswordButtonAdmin.shouldBe(Condition.hidden);
-        deleteButtonAdmin.shouldBe(Condition.hidden);
-    }
-
-    public void openWindowDeleteAdmin() {
-        deleteButtonAdmin.click();
-    }
-
-    public void cancelDeleteAdmin() {
-        deleteWindowAdmin.shouldBe(Condition.visible,Duration.ofSeconds(5));
-        noButtonDelete.click();
-        cardAdmin.shouldBe(Condition.visible);
-        changePasswordButtonAdmin.shouldBe(Condition.visible);
-        deleteButtonAdmin.shouldBe(Condition.visible);
+        deleteButtonAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.enabled)
+                .click();
+        return new DeleteAdminWindow();
     }
 
 
     public String getNotification() {
-        notification.shouldBe(Condition.visible);
+        notification.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist);
         return notification.getText();
     }
 
     public void closeNotification() {
-        closeNotification.click();
+        closeNotification.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.enabled)
+                .click();
         notification.shouldBe(Condition.hidden);
     }
+
 
     public void scrollPageToBottom() {
         footerAdministrationPage.scrollTo();
     }
 
     public void returnToStartPage() {
-        returnToStartButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        returnToStartButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.enabled);
         returnToStartButton.click();
     }
 
-    public void returnButtonDisappears(){
+    public void returnButtonDisappears() {
         returnToStartButton.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    public void notificationDisappears() {
+        notification.shouldBe(Condition.hidden, Duration.ofSeconds(7));
+    }
 
 }

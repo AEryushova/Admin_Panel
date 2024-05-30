@@ -24,89 +24,127 @@ public class AuthorizationPage {
 
 
     public void authorizationPage() {
-        loginField.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        passwordField.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        toComeInButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        loginField.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        passwordField.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        toComeInButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public DoctorsPage authorizationAdminPanel(String login, String password) {
-        loginField.setValue(login);
-        passwordField.setValue(password);
-        toComeInButton.click();
+        loginField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(login);
+        passwordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(password);
+        toComeInButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         loader.shouldBe(Condition.visible, Duration.ofSeconds(10));
         return new DoctorsPage();
     }
 
     public void fillingLoginField(String login) {
-        loginField.setValue(login);
+        loginField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(login);
     }
 
     public void fillingPasswordField(String password) {
-        passwordField.setValue(password);
+        passwordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(password);
     }
 
     public void subAuthorizationButton() {
-        toComeInButton.click();
+        toComeInButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void clearPasswordField() {
-        passwordField.clear();
+        passwordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .clear();
     }
 
     public void clickLoginField() {
-        loginField.click();
+        loginField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void clickPasswordField() {
-        passwordField.click();
+        passwordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void hoverLoginField() {
-        loginField.hover();
+        loginField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .hover();
     }
 
     public void hoverPasswordField() {
-        passwordField.hover();
+        passwordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .hover();
     }
 
     public void clearLoginClickButton() {
-        clearButtonLogin.click();
+        clearButtonLogin.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public String getValueLoginField() {
+        loginField.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         return loginField.getValue();
     }
 
     public void showPasswordClickButton() {
-        showPasswordButton.click();
+        showPasswordButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.enabled)
+                .click();
         passwordField.shouldBe(attribute("type", "text"));
     }
 
     public String getNotification() {
-        notification.shouldBe(Condition.visible);
+        notification.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist);
         return notification.getText();
     }
+
     public void closeNotification() {
-        closeNotification.click();
+        closeNotification.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.enabled)
+                .click();
         notification.shouldBe(Condition.hidden);
     }
 
     public String getErrorFieldLogin() {
-        errorFieldLogin.shouldBe(Condition.visible);
+        errorFieldLogin.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist);
         return errorFieldLogin.getText();
     }
 
     public void hiddenErrorFieldLogin() {
-        errorFieldLogin.shouldNotBe(Condition.visible);
+        errorFieldLogin.shouldBe(Condition.hidden);
     }
 
     public String getErrorFieldPassword() {
-        errorFieldPassword.shouldBe(Condition.visible);
+        errorFieldPassword.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist);
         return errorFieldPassword.getText();
     }
 
     public void hiddenErrorFieldPassword() {
-        errorFieldPassword.shouldNotBe(Condition.visible);
+        errorFieldPassword.shouldBe(Condition.hidden);
+    }
+
+    public void notificationDisappears() {
+        notification.shouldBe(Condition.hidden, Duration.ofSeconds(7));
     }
 
 }

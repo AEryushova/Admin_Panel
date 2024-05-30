@@ -36,12 +36,6 @@ public class DataBaseUtils {
     }
 
     @SneakyThrows
-    public static void addAdmin() {
-        var connection = getConnection("platform_db");
-        queryRunner("platform_db").execute(connection, "INSERT INTO feedbacks_employees (employees_id,author,content,created_at,updated_at,is_published ) VALUES ('787a79cc-daa6-11ee-ae4c-572334db0f4a','Федоров Ф. Ф.','Это тестовый коммент','2024-05-27 12:28:49.000', '2024-05-27 12:28:49.000', 'false'");
-    }
-
-    @SneakyThrows
     public static Admins selectAdmin(String role) {
         var selectAdminRequest = "SELECT * FROM platform.users INNER JOIN platform.users_roles ON users.id=users_roles.user_id WHERE username = ?";
         var connection = getConnection("platform_db");
@@ -69,6 +63,13 @@ public class DataBaseUtils {
     public static void addFeedback() {
         var connection = getConnection("cab_lab_db");
         queryRunner("cab_lab_db").execute(connection, "INSERT INTO feedbacks_employees (employees_id,author,content,created_at,updated_at,is_published ) VALUES ('787a79cc-daa6-11ee-ae4c-572334db0f4a','Федоров Ф. Ф.','Это тестовый коммент','2024-05-27 12:28:49.000', '2024-05-27 12:28:49.000', 'false'");
+    }
+
+    @SneakyThrows
+    public static void deleteFeedback() {
+        var connection = getConnection("cab_lab_db");
+        var feedback = DataTest.getLoginSuperAdmin();
+        queryRunner("cab_lab_db").execute(connection, "DELETE FROM feedbacks_employees WHERE username = ?");
     }
 
     @SneakyThrows
