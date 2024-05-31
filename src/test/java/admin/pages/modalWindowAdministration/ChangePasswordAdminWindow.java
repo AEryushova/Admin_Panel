@@ -28,38 +28,53 @@ public class ChangePasswordAdminWindow {
         closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public void fillingFieldNewPassword(String newPassword) {
-        newPasswordField.setValue(newPassword);
+    public void fillFieldNewPassword(String newPassword) {
+        newPasswordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(newPassword);
     }
 
-    public void fillingFieldConfirmPassword(String confirmPassword) {
-        confirmPasswordField.setValue(confirmPassword);
+    public void fillFieldConfirmPassword(String confirmPassword) {
+        confirmPasswordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(confirmPassword);
     }
 
     public void clickSaveNewPasswordButton() {
-        buttonSaveNewPasswordAdmin.shouldBe(Condition.enabled);
-        buttonSaveNewPasswordAdmin.click();
-        windowChangePasswordAdmin.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+        buttonSaveNewPasswordAdmin.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+
     }
+
     public void clickFieldNewPassword() {
-        newPasswordField.click();
+        newPasswordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void clickFieldConfirmPassword() {
-        confirmPasswordField.click();
+        confirmPasswordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public String getValuePasswordField() {
+        newPasswordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
         return newPasswordField.getValue();
     }
 
     public String getValueConfirmPasswordField() {
+        confirmPasswordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
         return confirmPasswordField.getValue();
     }
 
     public void closeWindowChangePasswordAdmin() {
-        closeWindowButton.click();
-        windowChangePasswordAdmin.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+        closeWindowButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public String getErrorFieldPassword() {
@@ -67,8 +82,8 @@ public class ChangePasswordAdminWindow {
         return errorFieldPassword.getText();
     }
 
-    public void hiddenErrorFieldPassword() {
-        errorFieldPassword.shouldBe(Condition.hidden);
+    public boolean isErrorPasswordAppear() {
+        return errorFieldPassword.exists();
     }
 
     public String getErrorFieldConfirmPassword() {
@@ -76,4 +91,7 @@ public class ChangePasswordAdminWindow {
         return errorFieldConfirmPassword.getText();
     }
 
+    public boolean isWindowAppear() {
+        return windowChangePasswordAdmin.exists();
+    }
 }

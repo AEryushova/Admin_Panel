@@ -8,7 +8,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class DoctorsPage {
+public class DoctorsPage extends BasePage {
 
     private final SelenideElement tabNameDoctors=$x("//div[@class='wYqZ']/span[text()='Врачи']");
     private final SelenideElement searchDoctors= $x("//input[@placeholder='Поиск по врачам']");
@@ -18,8 +18,7 @@ public class DoctorsPage {
     private final SelenideElement optionNo=$x("//div[@class='U2Xk']/div[text()='Нет']");
     private final SelenideElement optionYes=$x("//div[@class='U2Xk']/div[text()='Есть']");
     private final SelenideElement buttonShowDoctorsWithoutDescription=$x("//span[text()='Показать']//parent::button");
-    private final SelenideElement footerDoctorsPage = $x("//span[text()='@ Самарский государственный медицинский университет']");
-    private final SelenideElement returnToStartButton = $x("//div[@class='_x1E']");
+
 
     public void doctorsPage() {
         tabNameDoctors.shouldBe(Condition.visible, Duration.ofSeconds(10));
@@ -52,18 +51,6 @@ public class DoctorsPage {
         buttonShowDoctorsWithoutDescription.click();
     }
 
-    public void scrollPageToBottom() {
-        footerDoctorsPage.scrollTo();
-    }
-
-    public void returnToStartPage() {
-        returnToStartButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        returnToStartButton.click();
-    }
-
-    public void returnButtonDisappears(){
-        returnToStartButton.shouldBe(Condition.hidden, Duration.ofSeconds(5));
-    }
 
     public void searchDoctor(String doctorName) {
         searchDoctors.setValue(doctorName);

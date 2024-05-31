@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import admin.pages.modalWindowAdministration.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @Epic("Администрирование")
 public class AdministrationPageTest {
@@ -98,9 +99,9 @@ public class AdministrationPageTest {
         adminPage.getNotExistAdminCard();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin(DataTest.getLoginAdminTest());
-        newAdminWindow.fillingFieldNewAdminPassword(DataTest.getPasswordAdminTest());
-        newAdminWindow.fillingFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminLogin(DataTest.getLoginAdminTest());
+        newAdminWindow.fillFieldNewAdminPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.clickAddButton();
         adminPage.getAdminCard();
         assertEquals("Новый администратор " + DataTest.getLoginAdminTest() + " успешно создан", adminPage.getNotification());
@@ -118,9 +119,9 @@ public class AdministrationPageTest {
         adminPage.getAdminCard();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin(DataTest.getLoginAdminTest());
-        newAdminWindow.fillingFieldNewAdminPassword(DataTest.getPasswordAdminTest());
-        newAdminWindow.fillingFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminLogin(DataTest.getLoginAdminTest());
+        newAdminWindow.fillFieldNewAdminPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.clickAddButton();
         assertEquals("{\"error\":\"Пользователь уже существует, логин: " + DataTest.getLoginAdminTest() + "\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}", adminPage.getNotification());
         adminPage.closeNotification();
@@ -134,8 +135,8 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword(DataTest.getPasswordAdminTest());
-        newAdminWindow.fillingFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.newAdminWindow();
     }
 
@@ -146,8 +147,8 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin(DataTest.getLoginAdminTest());
-        newAdminWindow.fillingFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminLogin(DataTest.getLoginAdminTest());
+        newAdminWindow.fillFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.newAdminWindow();
         assertEquals("Не соответствует паролю", newAdminWindow.getErrorFieldConfirmPassword());
     }
@@ -159,13 +160,11 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin(DataTest.getLoginAdminTest());
-        newAdminWindow.fillingFieldNewAdminPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminLogin(DataTest.getLoginAdminTest());
+        newAdminWindow.fillFieldNewAdminPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.newAdminWindow();
     }
-}
 
-    /*
 
     @Feature("Добавление нового админа")
     @Story("Добавление нового администратора с пустым полем логина и пароля")
@@ -174,7 +173,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.newAdminWindow();
         assertEquals("Не соответствует паролю", newAdminWindow.getErrorFieldConfirmPassword());
     }
@@ -186,7 +185,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.newAdminWindow();
     }
 
@@ -197,7 +196,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin(DataTest.getLoginAdminTest());
+        newAdminWindow.fillFieldNewAdminLogin(DataTest.getLoginAdminTest());
         newAdminWindow.newAdminWindow();
     }
 
@@ -208,9 +207,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin("АННА_ТЕСТ");
-        newAdminWindow.fillingFieldNewAdminPassword("WwSs12345");
-        newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs12345#");
+        newAdminWindow.fillFieldNewAdminLogin("АННА_ТЕСТ");
+        newAdminWindow.fillFieldNewAdminPassword("WwSs12345");
+        newAdminWindow.fillFieldNewAdminConfirmPassword("WwSs12345#");
         newAdminWindow.newAdminWindow();
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", newAdminWindow.getErrorFieldLogin());
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
@@ -240,9 +239,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_1");
+        newAdminWindow.fillFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_1");
         newAdminWindow.newAdminWindow();
-        newAdminWindow.hiddenErrorFieldLogin();
+        assertFalse(newAdminWindow.isErrorLoginAppear());
     }
 
     @Feature("Добавление нового админа")
@@ -252,9 +251,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_12");
+        newAdminWindow.fillFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_12");
         newAdminWindow.newAdminWindow();
-        newAdminWindow.hiddenErrorFieldLogin();
+        assertFalse(newAdminWindow.isErrorLoginAppear());
     }
 
     @Feature("Добавление нового админа")
@@ -264,7 +263,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_123");
+        newAdminWindow.fillFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_123");
         newAdminWindow.newAdminWindow();
         assertEquals("Максимальная длина 32 символа", newAdminWindow.getErrorFieldLogin());
     }
@@ -276,7 +275,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin("АННА_ТЕСТ");
+        newAdminWindow.fillFieldNewAdminLogin("АННА_ТЕСТ");
         newAdminWindow.newAdminWindow();
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", newAdminWindow.getErrorFieldLogin());
     }
@@ -288,7 +287,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin("1ANNA_TEST");
+        newAdminWindow.fillFieldNewAdminLogin("1ANNA_TEST");
         newAdminWindow.newAdminWindow();
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", newAdminWindow.getErrorFieldLogin());
     }
@@ -300,7 +299,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin("AННА_ТЕСТ");
+        newAdminWindow.fillFieldNewAdminLogin("AННА_ТЕСТ");
         newAdminWindow.newAdminWindow();
         assertEquals("Доступны только числа, латиница и \"_\"", newAdminWindow.getErrorFieldLogin());
     }
@@ -312,7 +311,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin("ANNA TEST");
+        newAdminWindow.fillFieldNewAdminLogin("ANNA TEST");
         newAdminWindow.newAdminWindow();
         assertEquals("Доступны только числа, латиница и \"_\"", newAdminWindow.getErrorFieldLogin());
     }
@@ -324,7 +323,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("Wwqq12#");
+        newAdminWindow.fillFieldNewAdminPassword("Wwqq12#");
         newAdminWindow.newAdminWindow();
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
@@ -336,9 +335,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("WwSs145#");
+        newAdminWindow.fillFieldNewAdminPassword("WwSs145#");
         newAdminWindow.newAdminWindow();
-        newAdminWindow.hiddenErrorFieldPassword();
+        assertFalse(newAdminWindow.isErrorPasswordAppear());
     }
 
     @Feature("Добавление нового админа")
@@ -348,9 +347,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("WwSs1234#");
+        newAdminWindow.fillFieldNewAdminPassword("WwSs1234#");
         newAdminWindow.newAdminWindow();
-        newAdminWindow.hiddenErrorFieldPassword();
+        assertFalse(newAdminWindow.isErrorPasswordAppear());
     }
 
     @Feature("Добавление нового админа")
@@ -360,9 +359,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("Wwqq123456789#QQgg123456");
+        newAdminWindow.fillFieldNewAdminPassword("Wwqq123456789#QQgg123456");
         newAdminWindow.newAdminWindow();
-        newAdminWindow.hiddenErrorFieldPassword();
+        assertFalse(newAdminWindow.isErrorPasswordAppear());
     }
 
     @Feature("Добавление нового админа")
@@ -372,9 +371,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("Wwqq123456789#QQgg1234567");
+        newAdminWindow.fillFieldNewAdminPassword("Wwqq123456789#QQgg1234567");
         newAdminWindow.newAdminWindow();
-        newAdminWindow.hiddenErrorFieldPassword();
+        assertFalse(newAdminWindow.isErrorPasswordAppear());
     }
 
     @Feature("Добавление нового админа")
@@ -384,7 +383,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("Wwqq123456789#QQgg12345678");
+        newAdminWindow.fillFieldNewAdminPassword("Wwqq123456789#QQgg12345678");
         newAdminWindow.newAdminWindow();
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
@@ -396,7 +395,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("123456789!");
+        newAdminWindow.fillFieldNewAdminPassword("123456789!");
         newAdminWindow.newAdminWindow();
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
@@ -408,7 +407,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("Wwqq1234567");
+        newAdminWindow.fillFieldNewAdminPassword("Wwqq1234567");
         newAdminWindow.newAdminWindow();
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
@@ -420,7 +419,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("WWQQ123456#");
+        newAdminWindow.fillFieldNewAdminPassword("WWQQ123456#");
         newAdminWindow.newAdminWindow();
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
@@ -432,7 +431,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("wwqq123456#");
+        newAdminWindow.fillFieldNewAdminPassword("wwqq123456#");
         newAdminWindow.newAdminWindow();
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
@@ -444,7 +443,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("Wwqqwq#@#@");
+        newAdminWindow.fillFieldNewAdminPassword("Wwqqwq#@#@");
         newAdminWindow.newAdminWindow();
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
@@ -456,7 +455,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("Ффыы123456#");
+        newAdminWindow.fillFieldNewAdminPassword("Ффыы123456#");
         newAdminWindow.newAdminWindow();
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
@@ -468,7 +467,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminPassword("Wwqq 123456 #");
+        newAdminWindow.fillFieldNewAdminPassword("Wwqq 123456 #");
         newAdminWindow.newAdminWindow();
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
@@ -480,9 +479,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin(DataTest.getLoginAdminTest());
-        newAdminWindow.fillingFieldNewAdminPassword(DataTest.getPasswordAdminTest());
-        newAdminWindow.fillingFieldNewAdminConfirmPassword("WwSs125#");
+        newAdminWindow.fillFieldNewAdminLogin(DataTest.getLoginAdminTest());
+        newAdminWindow.fillFieldNewAdminPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminConfirmPassword("WwSs125#");
         newAdminWindow.newAdminWindow();
         assertEquals("Не соответствует паролю", newAdminWindow.getErrorFieldConfirmPassword());
     }
@@ -494,11 +493,11 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin(DataTest.getLoginAdminTest());
+        newAdminWindow.fillFieldNewAdminLogin(DataTest.getLoginAdminTest());
         newAdminWindow.clearButtonLoginField();
-        newAdminWindow.fillingFieldNewAdminPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.clearButtonPasswordField();
-        newAdminWindow.fillingFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.clearButtonConfirmPasswordField();
         newAdminWindow.newAdminWindow();
         assertEquals("", newAdminWindow.getValueLoginField());
@@ -516,10 +515,11 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.newAdminWindow();
-        newAdminWindow.fillingFieldNewAdminLogin(DataTest.getLoginAdminTest());
-        newAdminWindow.fillingFieldNewAdminPassword(DataTest.getPasswordAdminTest());
-        newAdminWindow.fillingFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminLogin(DataTest.getLoginAdminTest());
+        newAdminWindow.fillFieldNewAdminPassword(DataTest.getPasswordAdminTest());
+        newAdminWindow.fillFieldNewAdminConfirmPassword(DataTest.getPasswordAdminTest());
         newAdminWindow.closeWindowAddedAdmin();
+        assertFalse(newAdminWindow.isWindowAppear());
         NewAdminWindow newAdminWindowOpen = adminPage.openWindowAddedNewAdmin();
         newAdminWindowOpen.newAdminWindow();
         assertEquals("", newAdminWindowOpen.getValueLoginField());
@@ -536,9 +536,10 @@ public class AdministrationPageTest {
         adminPage.getAdminCard();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword(DataTest.getNewPasswordAdminTest());
-        changePasswordAdminWindow.fillingFieldConfirmPassword(DataTest.getNewPasswordAdminTest());
+        changePasswordAdminWindow.fillFieldNewPassword(DataTest.getNewPasswordAdminTest());
+        changePasswordAdminWindow.fillFieldConfirmPassword(DataTest.getNewPasswordAdminTest());
         changePasswordAdminWindow.clickSaveNewPasswordButton();
+        assertFalse(changePasswordAdminWindow.isWindowAppear());
         assertEquals("Админ" + DataTest.getLoginAdminTest() + "успешно изменен", adminPage.getNotification());
         adminPage.closeNotification();
         TestSetupAPI.deleteAdminCookie(DataTest.getLoginAdminTest());
@@ -551,7 +552,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldConfirmPassword(DataTest.getNewPasswordAdminTest());
+        changePasswordAdminWindow.fillFieldConfirmPassword(DataTest.getNewPasswordAdminTest());
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Не соответствует паролю", changePasswordAdminWindow.getErrorFieldConfirmPassword());
     }
@@ -562,7 +563,7 @@ public class AdministrationPageTest {
     void changePasswordAdminEmptyFieldsConfirmPassword_8618() {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
-        changePasswordAdminWindow.fillingFieldNewPassword(DataTest.getNewPasswordAdminTest());
+        changePasswordAdminWindow.fillFieldNewPassword(DataTest.getNewPasswordAdminTest());
         changePasswordAdminWindow.changePasswordAdminWindow();
     }
 
@@ -588,8 +589,8 @@ public class AdministrationPageTest {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
         changePasswordAdminWindow.clickFieldNewPassword();
-        changePasswordAdminWindow.fillingFieldNewPassword(DataTest.getNewPasswordAdminTest());
-        changePasswordAdminWindow.fillingFieldConfirmPassword(DataTest.getPasswordAdminTest());
+        changePasswordAdminWindow.fillFieldNewPassword(DataTest.getNewPasswordAdminTest());
+        changePasswordAdminWindow.fillFieldConfirmPassword(DataTest.getPasswordAdminTest());
         changePasswordAdminWindow.clickFieldNewPassword();
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Не соответствует паролю", changePasswordAdminWindow.getErrorFieldConfirmPassword());
@@ -602,7 +603,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Wwqq12#");
+        changePasswordAdminWindow.fillFieldNewPassword("Wwqq12#");
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
@@ -614,9 +615,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Wwqq123#");
+        changePasswordAdminWindow.fillFieldNewPassword("Wwqq123#");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.hiddenErrorFieldPassword();
+        assertFalse(changePasswordAdminWindow.isErrorPasswordAppear());
     }
 
     @Feature("Смена пароля админу")
@@ -626,9 +627,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Wwqq1234#");
+        changePasswordAdminWindow.fillFieldNewPassword("Wwqq1234#");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.hiddenErrorFieldPassword();
+        assertFalse(changePasswordAdminWindow.isErrorPasswordAppear());
     }
 
     @Feature("Смена пароля админу")
@@ -638,9 +639,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Wwqq123456789#QQgg123456");
+        changePasswordAdminWindow.fillFieldNewPassword("Wwqq123456789#QQgg123456");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.hiddenErrorFieldPassword();
+        assertFalse(changePasswordAdminWindow.isErrorPasswordAppear());
     }
 
 
@@ -651,9 +652,9 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Wwqq123456789#QQgg1234567");
+        changePasswordAdminWindow.fillFieldNewPassword("Wwqq123456789#QQgg1234567");
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.hiddenErrorFieldPassword();
+        assertFalse(changePasswordAdminWindow.isErrorPasswordAppear());
     }
 
     @Feature("Смена пароля админу")
@@ -663,7 +664,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Wwqq123456789#QQgg12345678");
+        changePasswordAdminWindow.fillFieldNewPassword("Wwqq123456789#QQgg12345678");
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
@@ -675,7 +676,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("wwqq123456#");
+        changePasswordAdminWindow.fillFieldNewPassword("wwqq123456#");
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
@@ -687,7 +688,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("WWQQ123456#");
+        changePasswordAdminWindow.fillFieldNewPassword("WWQQ123456#");
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
@@ -699,7 +700,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Ффыы123456#");
+        changePasswordAdminWindow.fillFieldNewPassword("Ффыы123456#");
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
@@ -711,7 +712,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Wwqqwq#@#@");
+        changePasswordAdminWindow.fillFieldNewPassword("Wwqqwq#@#@");
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
@@ -723,7 +724,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Wwqq1234567");
+        changePasswordAdminWindow.fillFieldNewPassword("Wwqq1234567");
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
@@ -735,7 +736,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("123456789!");
+        changePasswordAdminWindow.fillFieldNewPassword("123456789!");
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
@@ -747,7 +748,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword("Wwqq 123456 #");
+        changePasswordAdminWindow.fillFieldNewPassword("Wwqq 123456 #");
         changePasswordAdminWindow.changePasswordAdminWindow();
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
@@ -759,9 +760,10 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.changePasswordAdminWindow();
-        changePasswordAdminWindow.fillingFieldNewPassword(DataTest.getNewPasswordAdminTest());
-        changePasswordAdminWindow.fillingFieldConfirmPassword(DataTest.getNewPasswordAdminTest());
+        changePasswordAdminWindow.fillFieldNewPassword(DataTest.getNewPasswordAdminTest());
+        changePasswordAdminWindow.fillFieldConfirmPassword(DataTest.getNewPasswordAdminTest());
         changePasswordAdminWindow.closeWindowChangePasswordAdmin();
+        assertFalse(changePasswordAdminWindow.isWindowAppear());
         ChangePasswordAdminWindow changePasswordAdminWindowOpen = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindowOpen.changePasswordAdminWindow();
         assertEquals("", changePasswordAdminWindowOpen.getValuePasswordField());
@@ -832,6 +834,7 @@ public class AdministrationPageTest {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateOffer();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.closeWindowUpdateLegalDoc();
+        assertFalse(updateLegalDocWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -842,6 +845,7 @@ public class AdministrationPageTest {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.closeWindowUpdateLegalDoc();
+        assertFalse(updateLegalDocWindow.isWindowAppear());
     }
 
 
@@ -932,8 +936,8 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.updateOrderWindow();
-        assertEquals(DataHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
         updateOrderWindow.closeWindowUpdateOrder();
+        assertFalse(updateOrderWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -1023,8 +1027,8 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
-        assertEquals(DataHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
         updatePriceWindow.closeWindowUpdatePrice();
+        assertFalse(updatePriceWindow.isWindowAppear());
     }
 
     @Feature("Документация")

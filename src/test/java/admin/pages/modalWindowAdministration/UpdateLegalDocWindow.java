@@ -36,13 +36,19 @@ public class UpdateLegalDocWindow {
         fileInputElement.uploadFile(new File(pathFilesOffer));
         windowUpdateLegalDoc.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
-    public String getSrcDoc(){
+
+    public String getSrcDoc() {
         return docImage.getAttribute("src");
     }
 
     public void closeWindowUpdateLegalDoc() {
-        closeWindowButton.click();
-        windowUpdateLegalDoc.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+        closeWindowButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
+    public boolean isWindowAppear() {
+        return windowUpdateLegalDoc.exists();
     }
 
 }

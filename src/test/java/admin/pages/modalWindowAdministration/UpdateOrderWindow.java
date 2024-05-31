@@ -30,7 +30,9 @@ public class UpdateOrderWindow {
     }
 
     public Calendar openCalendarUpdateOrder() {
-        calendarButtonToday.click();
+        calendarButtonToday.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new Calendar();
     }
 
@@ -39,12 +41,19 @@ public class UpdateOrderWindow {
     }
 
     public String getValuesButtonToday() {
+        calendarButtonToday.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
         return calendarButtonToday.getText();
     }
 
     public void closeWindowUpdateOrder() {
-        closeWindowButton.click();
-        windowUpdateOrder.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+        closeWindowButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
+    public boolean isWindowAppear() {
+        return windowUpdateOrder.exists();
     }
 
 }

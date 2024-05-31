@@ -36,62 +36,90 @@ public class NewAdminWindow {
         closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public void fillingFieldNewAdminLogin(String login) {
-        loginField.setValue(login);
+    public void fillFieldNewAdminLogin(String login) {
+        loginField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(login);
     }
 
-    public void fillingFieldNewAdminPassword(String password) {
-        passwordField.setValue(password);
+    public void fillFieldNewAdminPassword(String password) {
+        passwordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(password);
     }
 
-    public void fillingFieldNewAdminConfirmPassword(String confirmPassword) {
-        confirmationPasswordField.setValue(confirmPassword);
+    public void fillFieldNewAdminConfirmPassword(String confirmPassword) {
+        confirmationPasswordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(confirmPassword);
     }
+
     public void clickAddButton() {
-        addButton.shouldBe(Condition.enabled);
-        addButton.click();
+        addButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         windowAddedAdmin.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public void clickFieldNewAdminLogin() {
-        loginField.click();
+        loginField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void clickFieldNewAdminPassword() {
-        passwordField.click();
+        passwordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void clickFieldNewAdminConfirmPassword() {
-        confirmationPasswordField.click();
+        confirmationPasswordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void clearButtonLoginField() {
-        clearFieldLoginButton.click();
+        clearFieldLoginButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void clearButtonPasswordField() {
-        clearFieldPasswordButton.click();
+        clearFieldPasswordButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void clearButtonConfirmPasswordField() {
-        clearFieldConfirmPasswordButton.click();
+        clearFieldConfirmPasswordButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
 
     }
+
     public String getValueLoginField() {
+        loginField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
         return loginField.getValue();
     }
 
     public String getValuePasswordField() {
+        passwordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
         return passwordField.getValue();
     }
 
     public String getValueConfirmPasswordField() {
+        confirmationPasswordField.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
         return confirmationPasswordField.getValue();
     }
 
     public void closeWindowAddedAdmin() {
-        closeWindowButton.click();
-        windowAddedAdmin.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+        closeWindowButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public String getErrorFieldLogin() {
@@ -99,8 +127,8 @@ public class NewAdminWindow {
         return errorFieldLogin.getText();
     }
 
-    public void hiddenErrorFieldLogin() {
-        errorFieldLogin.shouldBe(Condition.hidden);
+    public boolean isErrorLoginAppear() {
+        return errorFieldLogin.exists();
     }
 
     public String getErrorFieldPassword() {
@@ -108,13 +136,17 @@ public class NewAdminWindow {
         return errorFieldPassword.getText();
     }
 
-    public void hiddenErrorFieldPassword() {
-        errorFieldPassword.shouldBe(Condition.hidden);
+    public boolean isErrorPasswordAppear() {
+        return errorFieldPassword.exists();
     }
 
     public String getErrorFieldConfirmPassword() {
         errorFieldConfirmPassword.shouldBe(Condition.visible);
         return errorFieldConfirmPassword.getText();
+    }
+
+    public boolean isWindowAppear() {
+        return windowAddedAdmin.exists();
     }
 
 }

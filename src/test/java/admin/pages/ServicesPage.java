@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class ServicesPage {
+public class ServicesPage extends BasePage {
 
     private final SelenideElement tabNameService = $x("//a[text()='Услуги']");
     private final SelenideElement searchFAQ= $x("//input[@placeholder='Поиск услуги']");
@@ -30,11 +30,6 @@ public class ServicesPage {
 
     private final SelenideElement expandCategoryLaboratory= $x("//span[text()='Лаборатория']//parent::div/following-sibling::div[@class='gm_s']");
     private final SelenideElement rulesPreparingLaboratory= $x("//span[text()='Лаборатория']//parent::div/following-sibling::div[@class='Ie41']");
-    private final SelenideElement notification=$x("//div[@role='alert']/div//following-sibling::div");
-    private final SelenideElement closeNotification = $x("//button[@aria-label='close']");
-    private final SelenideElement footerServicesPage = $x("//span[text()='@ Самарский государственный медицинский университет']");
-    private final SelenideElement returnToStartButton = $x("//div[@class='_x1E']");
-
 
     public void servicesPage() {
         tabNameService.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -92,28 +87,5 @@ public class ServicesPage {
                 .moveToElement(categoryTarget)
                 .release()
                 .perform();
-    }
-
-    public String getNotification() {
-        notification.shouldBe(Condition.visible);
-        return notification.getText();
-    }
-
-    public void closeNotification() {
-        closeNotification.click();
-        notification.shouldBe(Condition.hidden);
-    }
-
-    public void scrollPageToBottom() {
-        footerServicesPage.scrollTo();
-    }
-
-    public void returnToStartPage() {
-        returnToStartButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        returnToStartButton.click();
-    }
-
-    public void returnButtonDisappears(){
-        returnToStartButton.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 }

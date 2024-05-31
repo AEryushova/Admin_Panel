@@ -9,15 +9,13 @@ import java.util.Objects;
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.*;
 
-public class AuthorizationPage {
+public class AuthorizationPage extends BasePage {
     private final SelenideElement loginField = $x("//label[text()='Логин']/preceding-sibling::div/div/input");
     private final SelenideElement passwordField = $x("//label[text()='Пароль']/preceding-sibling::div/div/input");
     private final SelenideElement clearButtonLogin = $x("//label[text()='Логин']/preceding::div[@class='P1GK']");
     private final SelenideElement showPasswordButton = $x("//label[text()='Пароль']/preceding::div[@class='P1GK']");
     private final SelenideElement loader = $x("//div[@class='Loader__dcc3']");
     private final SelenideElement toComeInButton = $x("//button[text()=\"Войти\"]");
-    private final SelenideElement notification = $x("//div[@role='alert']/div//following-sibling::div");
-    private final SelenideElement closeNotification = $x("//button[@aria-label='close']");
     private final SelenideElement errorFieldLogin = $x("//input[@type='text']//following-sibling::div");
     private final SelenideElement errorFieldPassword = $x("//input[@type='password']//following-sibling::div");
 
@@ -103,23 +101,19 @@ public class AuthorizationPage {
     }
 
     public boolean showPassword() {
+        passwordField.shouldHave(Condition.attribute("type", "password"));
         showPasswordButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();
         return Objects.equals(passwordField.getAttribute("type"), "text");
     }
 
-    public String getNotification() {
-        notification.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist);
-        return notification.getText();
-    }
-
-    public void closeNotification() {
-        closeNotification.shouldBe(Condition.visible, Duration.ofSeconds(5))
+    public boolean hidePassword() {
+        passwordField.shouldHave(Condition.attribute("type", "text"));
+        showPasswordButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();
-        notification.shouldBe(Condition.hidden);
+        return Objects.equals(passwordField.getAttribute("type"), "password");
     }
 
     public String getErrorFieldLogin() {
@@ -128,21 +122,17 @@ public class AuthorizationPage {
         return errorFieldLogin.getText();
     }
 
-    public boolean isErrorLoginAppear() {
-        return errorFieldLogin.exists();
-    }
-
     public String getErrorFieldPassword() {
         errorFieldPassword.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist);
         return errorFieldPassword.getText();
+    }
+    public boolean isErrorLoginAppear() {
+        return errorFieldLogin.exists();
     }
 
     public boolean isErrorPasswordAppear() {
         return errorFieldPassword.exists();
     }
 
-    public boolean notificationDisappears() {
-        return notification.exists();
-    }
 }

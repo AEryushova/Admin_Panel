@@ -202,6 +202,17 @@ public class AuthorizationPageTest {
         authorizationPage.authPage();
     }
 
+    @Story("Скрытие отображенного пароля в поле пароля")
+    @Test
+    void hidePasswordValue_8663() {
+        AuthorizationPage authorizationPage = new AuthorizationPage();
+        authorizationPage.authPage();
+        authorizationPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authorizationPage.showPassword();
+        assertTrue(authorizationPage.hidePassword());
+        authorizationPage.authPage();
+    }
+
     @Story("Отображение уведомления об обязательности поля логина")
     @Test
     void authorizationAdminObligatoryLoginField_11905() {

@@ -19,14 +19,17 @@ public class DeleteAdminWindow {
         noButtonDelete.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public void deleteAdmin(){
-        yesButtonDelete.click();
+    public void deleteAdmin() {
+        yesButtonDelete.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public void cancelDeleteAdmin() {
-        noButtonDelete.click();
+        noButtonDelete.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
-
 }
 
 

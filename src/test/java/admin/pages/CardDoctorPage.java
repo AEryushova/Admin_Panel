@@ -9,7 +9,7 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class CardDoctorPage {
+public class CardDoctorPage extends BasePage {
 
     private final SelenideElement comebackButton=$x("//span[text()='Вернуться назад']");
     private final SelenideElement doctorPhoto=$x("//div[@class='zzfM']/img");
@@ -22,10 +22,7 @@ public class CardDoctorPage {
     private final SelenideElement switchPublishedButton=$x("//span[text()='Опубликованные']//parent::div");
     private final SelenideElement switchUnpublishedButton=$x("//span[text()='Опубликованные']//parent::div");
     private final SelenideElement sortingFeedback=$x("//span[text()='Новые']//parent::div//parent::button");
-    private final SelenideElement returnToStartButton = $x("//div[@class='_x1E']");
-    private final SelenideElement footerDoctorsPage = $x("//span[text()='@ Самарский государственный медицинский университет']");
-    private final SelenideElement notification = $x("//div[@role='alert']/div//following-sibling::div");
-    private final SelenideElement closeNotification = $x("//button[@aria-label='close']");
+
 
     public void cardDoctorPage(){
         comebackButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
@@ -90,33 +87,11 @@ public class CardDoctorPage {
     }
 
 
-    public String getNotification() {
-        notification.shouldBe(Condition.visible);
-        return notification.getText();
-    }
-
-    public void closeNotification() {
-        closeNotification.click();
-        notification.shouldBe(Condition.hidden);
-    }
-
     public DoctorsPage comebackDoctorsPage(){
         comebackButton.click();
         return new DoctorsPage();
     }
 
-    public void scrollPageToBottom() {
-        footerDoctorsPage.scrollTo();
-    }
-
-    public void returnToStartPage() {
-        returnToStartButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        returnToStartButton.click();
-    }
-
-    public void returnButtonDisappears(){
-        returnToStartButton.shouldBe(Condition.hidden, Duration.ofSeconds(5));
-    }
 
 
 

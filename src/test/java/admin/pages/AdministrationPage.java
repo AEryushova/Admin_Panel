@@ -11,7 +11,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class AdministrationPage {
+public class AdministrationPage extends BasePage{
 
     private final SelenideElement tabNameAdministration = $x("//span[text()='Админы ' ]");
     private final SelenideElement updateOffer = $x("//span[text()='Обновить оферту' ]//parent::div//parent::button");
@@ -22,10 +22,6 @@ public class AdministrationPage {
     private final SelenideElement cardAdmin = $x("//input[@name='login' and @value='" + DataTest.getLoginAdminTest() + "']");
     private final SelenideElement changePasswordButtonAdmin = $x("//div[.//input[contains(@value, '" + DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
     private final SelenideElement deleteButtonAdmin = $x("//div[.//input[contains(@value, '" + DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
-    private final SelenideElement notification = $x("//div[@role='alert']/div//following-sibling::div");
-    private final SelenideElement closeNotification = $x("//button[@aria-label='close']");
-    private final SelenideElement footerAdministrationPage = $x("//span[text()='@ Самарский государственный медицинский университет']");
-    private final SelenideElement returnToStartButton = $x("//div[@class='_x1E']");
 
 
     public void adminPage() {
@@ -98,41 +94,6 @@ public class AdministrationPage {
                 .shouldBe(Condition.enabled)
                 .click();
         return new DeleteAdminWindow();
-    }
-
-
-    public String getNotification() {
-        notification.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist);
-        return notification.getText();
-    }
-
-    public void closeNotification() {
-        closeNotification.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.enabled)
-                .click();
-        notification.shouldBe(Condition.hidden);
-    }
-
-
-    public void scrollPageToBottom() {
-        footerAdministrationPage.scrollTo();
-    }
-
-    public void returnToStartPage() {
-        returnToStartButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.enabled);
-        returnToStartButton.click();
-    }
-
-    public void returnButtonDisappears() {
-
-        returnToStartButton.shouldBe(Condition.hidden, Duration.ofSeconds(5));
-    }
-
-    public void notificationDisappears() {
-
-        notification.shouldBe(Condition.hidden, Duration.ofSeconds(7));
     }
 
 }
