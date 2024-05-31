@@ -1,4 +1,4 @@
-package admin.utils;
+package admin.utils.testUtils;
 
 import admin.data.DataInfo;
 import com.google.gson.Gson;

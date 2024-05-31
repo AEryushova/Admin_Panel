@@ -5,7 +5,7 @@ import admin.pages.HeaderBar;
 import admin.pages.ServicesPage;
 import admin.pages.modalWindowServices.AddRuleWindow;
 import admin.pages.modalWindowServices.RulesPreparingWindow;
-import admin.utils.TestSetupAuthAdminPanel;
+import admin.utils.testUtils.TestSetupAuth;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
@@ -46,7 +46,7 @@ public class ServicesPageTest {
 
     @BeforeEach
     void setUp() {
-        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
+        TestSetupAuth.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
     }
 
     @Story("Смена последовательности категорий")

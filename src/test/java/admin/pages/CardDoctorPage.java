@@ -11,66 +11,85 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class CardDoctorPage extends BasePage {
 
-    private final SelenideElement comebackButton=$x("//span[text()='Вернуться назад']");
-    private final SelenideElement doctorPhoto=$x("//div[@class='zzfM']/img");
-    private final SelenideElement editPhoto=$x("//div[@class='ctFG']/div[1]");
-    private final SelenideElement deletePhoto=$x("//div[@class='ctFG']/div[2]");
-    private final SelenideElement addSection=$x("//button[text()='Добавить раздел']");
-    private final SelenideElement addFeedback=$x("//button[text()='Добавить отзыв']");
-    private final SelenideElement publishedCheckbox=$x("//span[text()='Опубликованные']/preceding-sibling::div/div[@class='WzjF']");
-    private final SelenideElement unpublishedCheckbox=$x("//span[text()='Неопубликованные']/preceding-sibling::div/div[@class='WzjF']");
-    private final SelenideElement switchPublishedButton=$x("//span[text()='Опубликованные']//parent::div");
-    private final SelenideElement switchUnpublishedButton=$x("//span[text()='Опубликованные']//parent::div");
-    private final SelenideElement sortingFeedback=$x("//span[text()='Новые']//parent::div//parent::button");
+    private final SelenideElement comebackButton = $x("//span[text()='Вернуться назад']");
+    private final SelenideElement doctorPhoto = $x("//div[@class='zzfM']/img");
+    private final SelenideElement editPhoto = $x("//div[@class='ctFG']/div[1]");
+    private final SelenideElement deletePhoto = $x("//div[@class='ctFG']/div[2]");
+    private final SelenideElement addSection = $x("//button[text()='Добавить раздел']");
+    private final SelenideElement addFeedback = $x("//button[text()='Добавить отзыв']");
+    private final SelenideElement publishedCheckbox = $x("//span[text()='Опубликованные']/preceding-sibling::div/div[@class='WzjF']");
+    private final SelenideElement unpublishedCheckbox = $x("//span[text()='Неопубликованные']/preceding-sibling::div/div[@class='WzjF']");
+    private final SelenideElement switchPublishedButton = $x("//span[text()='Опубликованные']//parent::div");
+    private final SelenideElement switchUnpublishedButton = $x("//span[text()='Опубликованные']//parent::div");
+    private final SelenideElement sortingFeedback = $x("//span[text()='Новые']//parent::div//parent::button");
 
 
-    public void cardDoctorPage(){
-        comebackButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        doctorPhoto.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        editPhoto.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        deletePhoto.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        addSection.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        addFeedback.shouldBe(Condition.visible, Duration.ofSeconds(10));
+    public void cardDoctorPage() {
+        comebackButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        doctorPhoto.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        editPhoto.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        deletePhoto.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        addSection.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        addFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public void unpublishedCheckbox(){
-        sortingFeedback.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        unpublishedCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(10));
+    public void toggleUnpublishedCheckbox() {
+        unpublishedCheckbox.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
+        if (!unpublishedCheckbox.isSelected()) {
+            unpublishedCheckbox.click();
+        }
     }
 
-    public void publishedCheckbox(){
-        sortingFeedback.shouldBe(Condition.hidden, Duration.ofSeconds(10));
-        publishedCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(10));
+    public void togglePublishedCheckbox() {
+        publishedCheckbox.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
+        if (!publishedCheckbox.isSelected()) {
+            publishedCheckbox.click();
+        }
     }
 
-    public EditPhotoDoctorWindow openWindowEditPhoto(){
-        editPhoto.click();
+    public EditPhotoDoctorWindow openWindowEditPhoto() {
+        editPhoto.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new EditPhotoDoctorWindow();
     }
 
-    public void deletePhoto(){
-        deletePhoto.click();
+    public boolean isSortingAppear() {
+        return sortingFeedback.exists();
     }
 
-    public String getSrcPhoto(){
+    public void deletePhoto() {
+        deletePhoto.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
+    public String getSrcPhoto() {
+        doctorPhoto.exists();
         return doctorPhoto.getAttribute("src");
     }
 
-    public AddIntelligenceWindow openWindowAddSection(){
-        addSection.click();
+    public AddIntelligenceWindow openWindowAddSection() {
+        addSection.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new AddIntelligenceWindow();
     }
 
-    public Section getSection(){
+    public Section getSection() {
         return new Section();
     }
 
-    public Description getDescription(){
+    public Description getDescription() {
         return new Description();
     }
 
     public AddFeedbackWindow openWindowAddFeedback() {
-        addFeedback.click();
+        addFeedback.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new AddFeedbackWindow();
     }
 
@@ -78,24 +97,21 @@ public class CardDoctorPage extends BasePage {
         return new Feedback();
     }
 
-    public void switchPublishedFeedback(){
+    public void switchPublishedFeedback() {
         switchPublishedButton.click();
     }
 
-    public void switchUnpublishedFeedback(){
+    public void switchUnpublishedFeedback() {
         switchUnpublishedButton.click();
     }
 
 
-    public DoctorsPage comebackDoctorsPage(){
-        comebackButton.click();
+    public DoctorsPage comebackDoctorsPage() {
+        comebackButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new DoctorsPage();
     }
-
-
-
-
-
 
 
 }

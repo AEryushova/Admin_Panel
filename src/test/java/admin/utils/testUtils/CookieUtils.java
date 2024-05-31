@@ -1,4 +1,4 @@
-package admin.utils;
+package admin.utils.testUtils;
 import admin.data.DataTest;
 import com.codeborne.selenide.WebDriverRunner;
 import lombok.Getter;

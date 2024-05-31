@@ -4,6 +4,10 @@ import admin.data.DataTest;
 import admin.pages.*;
 import admin.pages.calendar.Calendar;
 import admin.utils.*;
+import admin.utils.dbUtils.DataBaseUtils;
+import admin.utils.testUtils.AdminTestDecorator;
+import admin.utils.testUtils.TestSetupAPI;
+import admin.utils.testUtils.TestSetupAuth;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -14,12 +18,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import admin.pages.modalWindowAdministration.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @Epic("Администрирование")
 public class AdministrationPageTest {
+
+    private AuthorizationPage authorizationPage;
+    private HeaderBar headerBar;
 
     @BeforeAll
     static void setUpAllAllure() {
@@ -33,12 +41,12 @@ public class AdministrationPageTest {
 
     @BeforeAll
     static void setupAdminPanelAuth() {
-        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginSuperAdmin(), DataTest.getPasswordSuperAdmin());
+        TestSetupAuth.authAdminPanel(DataTest.getLoginSuperAdmin(), DataTest.getPasswordSuperAdmin());
     }
 
     @BeforeEach
     void openAdministrationPage() {
-        TestSetupAuthAdminPanel.openAdministrationPage();
+        TestSetupAuth.openAdministrationPage();
     }
 
     @Feature("Переключение между вкладками")
@@ -110,6 +118,7 @@ public class AdministrationPageTest {
         TestSetupAPI.deleteAdminCookie(DataTest.getLoginAdminTest());
     }
 
+    @ExtendWith(AdminTestDecorator.class)
     @Feature("Добавление нового админа")
     @Story("Добавление нового админа с уже существующим логином")
     @Test
@@ -527,6 +536,7 @@ public class AdministrationPageTest {
         assertEquals("", newAdminWindowOpen.getValueConfirmPasswordField());
     }
 
+    @ExtendWith(AdminTestDecorator.class)
     @Feature("Смена пароля админу")
     @Story("Успешная смена пароля админу")
     @Test
@@ -1262,7 +1272,7 @@ public class AdministrationPageTest {
         AdministrationPage adminPage = new AdministrationPage();
         adminPage.scrollPageToBottom();
         adminPage.returnToStartPage();
-        adminPage.returnButtonDisappears();
+        adminPage.isReturnButtonAppear();
     }
 
     @Story("Закрытие уведомления на странице администрирования по таймауту")

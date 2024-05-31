@@ -89,7 +89,7 @@ public class AuthorizationPage extends BasePage {
     }
 
     public void clearLoginClickButton() {
-        clearButtonLogin.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        clearButtonLogin.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
@@ -100,17 +100,24 @@ public class AuthorizationPage extends BasePage {
         return loginField.getValue();
     }
 
+    public boolean isHidePassword() {
+        passwordField.shouldBe(Condition.visible);
+        return Objects.equals(passwordField.getAttribute("type"), "password");
+    }
+
     public boolean showPassword() {
-        passwordField.shouldHave(Condition.attribute("type", "password"));
-        showPasswordButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        passwordField.shouldBe(Condition.visible)
+        .shouldHave(Condition.attribute("type", "password"));
+        showPasswordButton.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return Objects.equals(passwordField.getAttribute("type"), "text");
     }
 
     public boolean hidePassword() {
-        passwordField.shouldHave(Condition.attribute("type", "text"));
-        showPasswordButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        passwordField.shouldBe(Condition.visible)
+        .shouldHave(Condition.attribute("type", "text"));
+        showPasswordButton.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return Objects.equals(passwordField.getAttribute("type"), "password");

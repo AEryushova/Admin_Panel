@@ -1,4 +1,4 @@
-package admin.utils;
+package admin.utils.dbUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

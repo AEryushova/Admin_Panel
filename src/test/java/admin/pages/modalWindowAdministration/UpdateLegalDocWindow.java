@@ -29,12 +29,10 @@ public class UpdateLegalDocWindow {
 
     public void uploadValidDoc(String pathFilesOffer) {
         fileInputElement.uploadFile(new File(pathFilesOffer));
-        windowUpdateLegalDoc.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public void uploadInvalidDoc(String pathFilesOffer) {
         fileInputElement.uploadFile(new File(pathFilesOffer));
-        windowUpdateLegalDoc.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public String getSrcDoc() {

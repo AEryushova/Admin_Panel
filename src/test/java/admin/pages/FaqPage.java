@@ -26,7 +26,9 @@ public class FaqPage extends BasePage {
     }
 
     public AddQuestionWindow openWindowAddQuestion() {
-        addQuestion.click();
+        addQuestion.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+       .click();
         return new AddQuestionWindow();
     }
 

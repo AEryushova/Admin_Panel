@@ -10,44 +10,47 @@ import static com.codeborne.selenide.Selenide.$x;
 public class PriceErrorsWindow {
 
     private final SelenideElement errorInfoWindow = $x("//div[text()='Ошибки в прайсе']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement adjustmentRulesButton = $x("//div[text()='Правила корректирования']");
+    private final SelenideElement adjustmentRulesTab = $x("//div[text()='Правила корректирования']");
+    private final SelenideElement errorPriceTab = $x("");
+    private final SelenideElement errorInfo = $x("//div[@class='FeiP']/span");
     private final SelenideElement adjustmentRulesText = $x("//span[contains(text(), 'Код услуги предполагает следующий формат')]");
-    private final SelenideElement closeInfoErrorWindow = $x("//div[text()='Ошибки в прайсе']/parent::div/parent::div/parent::*/div[@class='UnAf Ee5G']");
+    private final SelenideElement closeWindowButton = $x("//div[text()='Ошибки в прайсе']/parent::div/parent::div/parent::*/div[@class='UnAf Ee5G']");
 
-    public void adjustmentRulesWindow () {
+    public void priceErrorsWindow() {
         errorInfoWindow.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        adjustmentRulesButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        adjustmentRulesTab.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        errorPriceTab.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public void clickAdjustmentRules(){
-        adjustmentRulesButton.shouldBe(Condition.visible)
+    public void clickAdjustmentRulesTab() {
+        adjustmentRulesTab.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
-    public void clickErrorPrice(){
-        .shouldBe(Condition.visible)
+    public void clickErrorPrice() {
+        errorPriceTab.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-    }
-
-    public void closeInfoErrorWindow() {
-        errorInfoWindow.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        errorInPriceButton.click();
-        closeInfoErrorWindow.click();
-        errorInfoWindow.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public String getErrorInfo() {
-        errorInfoWindow.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        errorInfo.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        errorInfo.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
         return errorInfo.getText();
     }
 
-    public boolean isWindowAppear() {
-        return windowUpdatePrice.exists();
+
+    public void closeWindowPriceErrors() {
+        closeWindowButton.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
 
+    public boolean isWindowAppear() {
+        return errorInfoWindow.exists();
+    }
 
 }

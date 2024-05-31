@@ -1,4 +1,4 @@
-package admin.utils;
+package admin.utils.dbUtils;
 
 import admin.data.DataTest;
 import lombok.SneakyThrows;

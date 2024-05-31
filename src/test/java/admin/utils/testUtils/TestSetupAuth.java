@@ -1,4 +1,4 @@
-package admin.utils;
+package admin.utils.testUtils;
 
 import admin.data.DataTest;
 import admin.pages.AuthorizationPage;
@@ -7,7 +7,7 @@ import com.codeborne.selenide.Configuration;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class TestSetupAuthAdminPanel {
+public class TestSetupAuth {
 
     public static void openAuthPage() {
         Configuration.holdBrowserOpen = true;

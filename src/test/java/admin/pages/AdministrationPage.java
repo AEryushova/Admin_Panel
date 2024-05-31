@@ -41,8 +41,8 @@ public class AdministrationPage extends BasePage{
     }
 
     public ChangePasswordAdminWindow openWindowChangedPasswordAdmin() {
-        cardAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        changePasswordButtonAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        cardAdmin.shouldBe(Condition.visible);
+        changePasswordButtonAdmin.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new ChangePasswordAdminWindow();
@@ -76,21 +76,13 @@ public class AdministrationPage extends BasePage{
         return new UpdatePriceWindow();
     }
 
-    public void getAdminCard() {
-        cardAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        changePasswordButtonAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        deleteButtonAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-    }
-
-    public void getNotExistAdminCard() {
-        cardAdmin.shouldBe(Condition.hidden, Duration.ofSeconds(5));
-        changePasswordButtonAdmin.shouldBe(Condition.hidden, Duration.ofSeconds(5));
-        deleteButtonAdmin.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+    public boolean isExistAdminCard() {
+        return cardAdmin.exists();
     }
 
     public DeleteAdminWindow openWindowDeleteAdmin() {
-        cardAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        deleteButtonAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        cardAdmin.shouldBe(Condition.visible);
+        deleteButtonAdmin.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new DeleteAdminWindow();

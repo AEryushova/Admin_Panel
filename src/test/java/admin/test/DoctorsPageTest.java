@@ -4,10 +4,10 @@ import admin.data.DataTest;
 import admin.pages.*;
 import admin.pages.calendar.Calendar;
 import admin.pages.modalWindowDoctors.*;
-import admin.utils.CookieUtils;
-import admin.utils.DataBaseUtils;
+import admin.utils.testUtils.CookieUtils;
+import admin.utils.dbUtils.DataBaseUtils;
 import admin.utils.DataHelper;
-import admin.utils.TestSetupAuthAdminPanel;
+import admin.utils.testUtils.TestSetupAuth;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -15,7 +15,7 @@ import io.qameta.allure.Story;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 
-import static admin.utils.DataBaseUtils.selectFeedback;
+import static admin.utils.dbUtils.DataBaseUtils.selectFeedback;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -35,7 +35,7 @@ public class DoctorsPageTest {
 
     @BeforeAll
     static void setupAdminPanelWithCookies() {
-        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginSuperAdmin(), DataTest.getPasswordSuperAdmin());
+        TestSetupAuth.authAdminPanel(DataTest.getLoginSuperAdmin(), DataTest.getPasswordSuperAdmin());
     }
 
     @BeforeEach
@@ -274,7 +274,7 @@ public class DoctorsPageTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
-        intelligenceWindow.fillingFieldSectionDescription("Образование");
+        intelligenceWindow.fillFieldSectionDescription("Образование");
         intelligenceWindow.cancellationAddSectionDescription();
         AddIntelligenceWindow intelligenceWindowOver = cardDoctor.openWindowAddSection();
         assertEquals("", intelligenceWindowOver.getValueSectionDescription());
@@ -353,7 +353,7 @@ public class DoctorsPageTest {
         cardDoctor.cardDoctorPage();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
-        intelligenceWindow.fillingFieldSectionDescription("2023, Получение дополнительного образования за рубежом");
+        intelligenceWindow.fillFieldSectionDescription("2023, Получение дополнительного образования за рубежом");
         intelligenceWindow.cancellationAddSectionDescription();
         AddIntelligenceWindow intelligenceWindowOver = section.openWindowAddDescription();
         assertEquals("", intelligenceWindowOver.getValueSectionDescription());
@@ -401,18 +401,18 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
         feedbackWindow.addFeedbackWindow();
         assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
-        feedbackWindow.fillingFieldFio("Иванов Иван Иванович");
-        feedbackWindow.fillingFieldTextFeedback("Тестовый отзыв");
+        feedbackWindow.fillFieldFio("Иванов Иван Иванович");
+        feedbackWindow.fillFieldTextFeedback("Тестовый отзыв");
         Calendar calendar = feedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.selectDateActivationToday();
         feedbackWindow.clickPublishButton();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        cardDoctor.unpublishedCheckbox();
+        cardDoctor.toggleUnpublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
@@ -433,18 +433,18 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
         feedbackWindow.addFeedbackWindow();
         assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
-        feedbackWindow.fillingFieldFio("Степанов Степан Степанович");
-        feedbackWindow.fillingFieldTextFeedback("Очень хороший врач");
+        feedbackWindow.fillFieldFio("Степанов Степан Степанович");
+        feedbackWindow.fillFieldTextFeedback("Очень хороший врач");
         Calendar calendar = feedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.selectDateActivation();
         feedbackWindow.clickPublishButton();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        cardDoctor.unpublishedCheckbox();
+        cardDoctor.toggleUnpublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         assertEquals(DataHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
@@ -467,19 +467,19 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
         feedbackWindow.addFeedbackWindow();
         assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
-        feedbackWindow.fillingFieldFio("Федоров Федор Федорович");
-        feedbackWindow.fillingFieldTextFeedback("Так себе врач");
+        feedbackWindow.fillFieldFio("Федоров Федор Федорович");
+        feedbackWindow.fillFieldTextFeedback("Так себе врач");
         Calendar calendar = feedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.switchFutureMonth();
         calendar.selectDateActivation();
         feedbackWindow.clickPublishButton();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        cardDoctor.unpublishedCheckbox();
+        cardDoctor.toggleUnpublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         assertEquals(DataHelper.getNextMonthDate(), feedback.getDateFeedback());
@@ -498,19 +498,19 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
         feedbackWindow.addFeedbackWindow();
         assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
-        feedbackWindow.fillingFieldFio("Степанов Степан Степанович");
-        feedbackWindow.fillingFieldTextFeedback("Обязательно приду еще на прием к этому врачу");
+        feedbackWindow.fillFieldFio("Степанов Степан Степанович");
+        feedbackWindow.fillFieldTextFeedback("Обязательно приду еще на прием к этому врачу");
         Calendar calendar = feedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.switchPreviousMonth();
         calendar.selectDateActivation();
         feedbackWindow.clickPublishButton();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        cardDoctor.unpublishedCheckbox();
+        cardDoctor.toggleUnpublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         assertEquals(DataHelper.getPreviousMonthDate(), feedback.getDateFeedback());
@@ -527,18 +527,18 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
         changeFeedback.changeFeedbackWindow();
         changeFeedback.clearFieldText();
-        changeFeedback.fillingFieldText("Внимательно отнесся к моей проблеме");
+        changeFeedback.fillFieldText("Внимательно отнесся к моей проблеме");
         changeFeedback.saveChanges();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         feedback.feedbackUnpublished();
-        cardDoctor.unpublishedCheckbox();
+        cardDoctor.toggleUnpublishedCheckbox();
         assertEquals("Внимательно отнесся к моей проблеме", feedback.getTextFeedback());
     }
 
@@ -551,14 +551,14 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         feedback.publicationFeedback();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         feedback.feedbackPublished();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
     }
 
     @Feature("Отзывы о враче")
@@ -570,18 +570,18 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackPublished();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
         changeFeedback.changeFeedbackWindow();
         changeFeedback.clearFieldText();
-        changeFeedback.fillingFieldText("Прием у этого врача прошел замечательно");
+        changeFeedback.fillFieldText("Прием у этого врача прошел замечательно");
         changeFeedback.saveChanges();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         assertEquals("Прием у этого врача прошел замечательно", feedback.getTextFeedback());
         feedback.feedbackPublished();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
     }
 
     @Feature("Отзывы о враче")
@@ -593,12 +593,12 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackPublished();
         feedback.withdrawalPublication();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
-        cardDoctor.unpublishedCheckbox();
+        cardDoctor.toggleUnpublishedCheckbox();
         feedback.feedbackUnpublished();
     }
 
@@ -611,13 +611,13 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         feedback.deleteFeedback();
         assertEquals("Отзыв успешно удален", cardDoctor.getNotification());
-        cardDoctor.unpublishedCheckbox();
+        cardDoctor.toggleUnpublishedCheckbox();
     }
 
     @Feature("Отзывы о враче")
@@ -629,7 +629,7 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        cardDoctor.publishedCheckbox();
+        cardDoctor.togglePublishedCheckbox();
         cardDoctor.switchUnpublishedFeedback();
     }
 
@@ -653,7 +653,7 @@ public class DoctorsPageTest {
         doctorsPage.doctorsPage();
         doctorsPage.scrollPageToBottom();
         doctorsPage.returnToStartPage();
-        doctorsPage.returnButtonDisappears();
+        doctorsPage.isReturnButtonAppear();
     }
 
     @Story("Возврат к хэдеру страницы карточки врача")
@@ -666,7 +666,7 @@ public class DoctorsPageTest {
         cardDoctor.cardDoctorPage();
         cardDoctor.scrollPageToBottom();
         cardDoctor.returnToStartPage();
-        cardDoctor.returnButtonDisappears();
+        cardDoctor.isReturnButtonAppear();
     }
 
     @Story("Закрытие уведомления на странице карточки врача")

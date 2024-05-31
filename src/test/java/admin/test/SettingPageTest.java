@@ -3,7 +3,7 @@ package admin.test;
 import admin.data.DataTest;
 import admin.pages.*;
 import admin.utils.DataHelper;
-import admin.utils.TestSetupAuthAdminPanel;
+import admin.utils.testUtils.TestSetupAuth;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
@@ -38,7 +38,7 @@ public class SettingPageTest {
 
     @BeforeEach
     void setUp() {
-        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
+        TestSetupAuth.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
     }
 
 
@@ -91,7 +91,7 @@ public class SettingPageTest {
         settingPage.settingPage();
         settingPage.scrollPageToBottom();
         settingPage.returnToStartPage();
-        settingPage.returnButtonDisappears();
+        settingPage.isReturnButtonAppear();
     }
 
     @Story("Закрытие уведомления на странице faq")

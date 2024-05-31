@@ -8,8 +8,8 @@ import admin.pages.modalWindowAdministration.UpdateLegalDocWindow;
 import admin.pages.modalWindowFAQ.AddQuestionWindow;
 import admin.pages.modalWindowFAQ.ChangeQuestionWindow;
 import admin.pages.modalWindowFAQ.Question;
-import admin.utils.DataBaseUtils;
-import admin.utils.TestSetupAuthAdminPanel;
+import admin.utils.dbUtils.DataBaseUtils;
+import admin.utils.testUtils.TestSetupAuth;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -20,7 +20,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static admin.utils.DataBaseUtils.selectFaq;
+import static admin.utils.dbUtils.DataBaseUtils.selectFaq;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -41,7 +41,7 @@ public class FAQPageTest {
 
     @BeforeEach
     void setUp() {
-        TestSetupAuthAdminPanel.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
+        TestSetupAuth.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
     }
 
     @Feature("Добавление нового faq-вопроса")
@@ -236,7 +236,7 @@ public class FAQPageTest {
         faqPage.faqPage();
         faqPage.scrollPageToBottom();
         faqPage.returnToStartPage();
-        faqPage.returnButtonDisappears();
+        faqPage.isReturnButtonAppear();
     }
 
     @Story("Закрытие уведомления на странице faq")

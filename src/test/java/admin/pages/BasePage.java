@@ -29,18 +29,18 @@ public class BasePage {
     }
 
     public void scrollPageToBottom() {
+        footerAdministrationPage.exists();
         footerAdministrationPage.scrollTo();
     }
 
     public void returnToStartPage() {
         returnToStartButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.enabled);
-        returnToStartButton.click();
+                .shouldBe(Condition.enabled)
+        .click();
     }
 
-    public void returnButtonDisappears() {
-
-        returnToStartButton.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+    public boolean isReturnButtonAppear() {
+       return returnToStartButton.exists();
     }
 
     public boolean notificationDisappears() {

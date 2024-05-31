@@ -24,8 +24,7 @@ public class UpdatePriceWindow {
     private final SelenideElement uploadPriceButton = $x("//span[text()='Загрузить']");
     private final SelenideElement closeWindowButton = $x("//span[text()='Обновить прайс']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
     private final SelenideElement calendarButtonToday = $x("//div[@class='field__c8da container__ce0e']");
-    private final SelenideElement errorInfoWindow = $x("//div[text()='Ошибки в прайсе']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement errorInfo = $x("//div[@class='FeiP']/span");
+
 
     public UpdatePriceWindow() {
         this.activationDateDownload = $x("//span[text()='" + DataHelper.generateActivationDateCurrentMonth() + "']/parent::div");
