@@ -9,41 +9,44 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class BasePage {
 
-    private final SelenideElement notification = $x("//div[@role='alert']/div//following-sibling::div");
-    private final SelenideElement closeNotification = $x("//button[@aria-label='close']");
-    private final SelenideElement footerAdministrationPage = $x("//span[text()='@ Самарский государственный медицинский университет']");
-    private final SelenideElement returnToStartButton = $x("//div[@class='_x1E']");
+    private final SelenideElement NOTIFICATION = $x("//div[@role='alert']/div//following-sibling::div");
+    private final SelenideElement CLOSE_NOTIFICATION = $x("//button[@aria-label='close']");
+    private final SelenideElement FOOTER_PAGE = $x("//span[text()='@ Самарский государственный медицинский университет']");
+    private final SelenideElement RETURN_TO_START_BUTTON = $x("//div[@class='_x1E']");
 
     public String getNotification() {
-        notification.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        NOTIFICATION.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist);
-        return notification.getText();
+        return NOTIFICATION.getText();
+    }
+
+    public boolean isNotificationVisible() {
+        return NOTIFICATION.is(Condition.visible);
     }
 
 
     public void closeNotification() {
-        closeNotification.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        CLOSE_NOTIFICATION.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();
-        notification.shouldBe(Condition.hidden);
+        NOTIFICATION.shouldBe(Condition.hidden);
     }
 
     public void scrollPageToBottom() {
-        footerAdministrationPage.exists();
-        footerAdministrationPage.scrollTo();
+        FOOTER_PAGE.scrollTo();
     }
 
     public void returnToStartPage() {
-        returnToStartButton.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        RETURN_TO_START_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
         .click();
     }
 
     public boolean isReturnButtonAppear() {
-       return returnToStartButton.exists();
+       return RETURN_TO_START_BUTTON.exists();
     }
 
-    public boolean notificationDisappears() {
-        return notification.exists();
+    public boolean notificationAppear() {
+        return NOTIFICATION.exists();
     }
 }

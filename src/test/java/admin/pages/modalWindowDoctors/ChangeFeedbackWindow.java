@@ -9,39 +9,39 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ChangeFeedbackWindow {
 
-    private final SelenideElement windowChangeFeedback = $x("//div[@class='qJe_ OR_i']");
-    private final SelenideElement fieldText = $x("//textarea");
-    private final SelenideElement saveChanges = $x("//button[text()='Сохранить']");
-    private final SelenideElement closeWindowButton = $x("//div[@class='UnAf gvNC']");
+    private final SelenideElement WINDOW = $x("//div[@class='qJe_ OR_i']");
+    private final SelenideElement TEXT_FIELD = $x("//textarea");
+    private final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf gvNC']");
     private final SelenideElement closeWindowButton1 = $x("//textarea[text()='Так себе врач']//parent::div//parent::div/following-sibling::div/following-sibling::div");
 
     public void changeFeedbackWindow() {
-        windowChangeFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        fieldText.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        saveChanges.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public void fillFieldText(String text) {
-        fieldText.shouldBe(Condition.visible)
+        TEXT_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(text);
     }
 
     public void saveChanges() {
-        saveChanges.shouldBe(Condition.visible)
+        SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public void closeWindowChangeFeedback() {
-        closeWindowButton.shouldBe(Condition.visible)
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public boolean isWindowAppear() {
-        return windowChangeFeedback.exists();
+        return WINDOW.exists();
     }
 
 

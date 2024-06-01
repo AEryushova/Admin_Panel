@@ -9,48 +9,55 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class PriceErrorsWindow {
 
-    private final SelenideElement errorInfoWindow = $x("//div[text()='Ошибки в прайсе']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement adjustmentRulesTab = $x("//div[text()='Правила корректирования']");
-    private final SelenideElement errorPriceTab = $x("");
-    private final SelenideElement errorInfo = $x("//div[@class='FeiP']/span");
-    private final SelenideElement adjustmentRulesText = $x("//span[contains(text(), 'Код услуги предполагает следующий формат')]");
-    private final SelenideElement closeWindowButton = $x("//div[text()='Ошибки в прайсе']/parent::div/parent::div/parent::*/div[@class='UnAf Ee5G']");
+    private final SelenideElement WINDOW = $x("//div[text()='Ошибки в прайсе']//parent::div//parent::div//parent::div[@class='eV2Y']");
+    private final SelenideElement ADJUSTMENT_RULES_TAB = $x("//div[text()='Правила корректирования']");
+    private final SelenideElement ERROR_PRICE_TAB = $x("");
+    private final SelenideElement ERROR_INFO = $x("//div[@class='FeiP']/span");
+    private final SelenideElement ADJUSTMENT_RULES_INFO = $x("//span[contains(text(), 'Код услуги предполагает следующий формат')]");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[text()='Ошибки в прайсе']/parent::div/parent::div/parent::*/div[@class='UnAf Ee5G']");
 
     public void priceErrorsWindow() {
-        errorInfoWindow.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        adjustmentRulesTab.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        errorPriceTab.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        ADJUSTMENT_RULES_TAB.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        ERROR_PRICE_TAB.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public void clickAdjustmentRulesTab() {
-        adjustmentRulesTab.shouldBe(Condition.visible)
+        ADJUSTMENT_RULES_TAB.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public void clickErrorPrice() {
-        errorPriceTab.shouldBe(Condition.visible)
+        ERROR_PRICE_TAB.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public String getErrorInfo() {
-        errorInfo.shouldBe(Condition.visible)
+        ERROR_INFO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
-        return errorInfo.getText();
+        return ERROR_INFO.getText();
     }
 
+    public boolean isErrorInfoAppear(){
+        return ERROR_INFO.has(Condition.visible);
+    }
+
+    public boolean isAdjustmentRulesAppear(){
+        return ADJUSTMENT_RULES_INFO.has(Condition.visible);
+    }
 
     public void closeWindowPriceErrors() {
-        closeWindowButton.shouldBe(Condition.visible)
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
 
     public boolean isWindowAppear() {
-        return errorInfoWindow.exists();
+        return WINDOW.exists();
     }
 
 }

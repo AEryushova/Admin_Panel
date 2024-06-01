@@ -1,7 +1,7 @@
 package admin.test;
 
-import admin.data.DataTest;
 import admin.pages.*;
+import admin.utils.testUtils.AdminTestDecorator;
 import admin.utils.testUtils.CookieUtils;
 import admin.utils.testUtils.TestSetupAuth;
 import com.codeborne.selenide.logevents.SelenideLogger;
@@ -13,9 +13,13 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 @Epic("Хэдер")
 public class HeaderBarTest {
+
+    private AuthorizationPage authPage;
+    private HeaderBar headerBar;
 
     @BeforeAll
     static void setUpAllAllure() {
@@ -30,7 +34,7 @@ public class HeaderBarTest {
 
     @BeforeAll
     static void setupAdminPanelWithCookies() {
-        TestSetupAuth.authAdminPanel(DataTest.getLoginAdmin(), DataTest.getPasswordAdmin());
+        TestSetupAuth.
     }
 
     @BeforeEach
@@ -39,11 +43,21 @@ public class HeaderBarTest {
         CookieUtils.loadCookies();
     }
 
+    @ExtendWith(AdminTestDecorator.class)
+    @Feature("Выход из админ-панели")
+    @Story("Успешный выход из админ-панели")
+    @Test
+    void exitAdminPanel() {
+        headerBar.headerBarAdmin();
+        headerBar.openAndCloseProfileAdmin();
+        headerBar.exitAdminPanel();
+        authPage.authPage();
+    }
+
     @Feature("Смена своего пароля админом")
     @Story("Успешная мена своего пароля")
     @Test
     void changePasswordAdmin() {
-        HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -53,7 +67,6 @@ public class HeaderBarTest {
     @Story("Переход на вкладку докторов")
     @Test
     void openDoctorsPage() {
-        HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -63,7 +76,6 @@ public class HeaderBarTest {
     @Story("Переход на вкладку услуг")
     @Test
     void openServicesPage() {
-        HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         ServicesPage servicesPage = headerBar.servicesTabOpen();
         servicesPage.servicesPage();
@@ -73,7 +85,6 @@ public class HeaderBarTest {
     @Story("Переход на вкладку faq")
     @Test
     void openFaqPage() {
-        HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
@@ -83,7 +94,6 @@ public class HeaderBarTest {
     @Story("Переход на вкладку настроек")
     @Test
     void openSettingPage() {
-        HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         SettingPage settingPage = headerBar.settingTabOpen();
         settingPage.settingPage();
@@ -93,7 +103,6 @@ public class HeaderBarTest {
     @Story("Переход на вкладку администрирования")
     @Test
     void openAdministrationPage() {
-        HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.adminPage();
@@ -103,7 +112,6 @@ public class HeaderBarTest {
     @Story("Сохранение состояния страницы при клике по вкладке администрирования")
     @Test
     void clickAdministrationPage() {
-        HeaderBar headerBar = new HeaderBar();
         headerBar.headerBarSuperAdmin();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.adminPage();

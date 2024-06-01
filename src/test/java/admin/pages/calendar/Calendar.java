@@ -10,52 +10,52 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class Calendar {
 
-    private final SelenideElement headerCurrentMonth = $x("//div[@class='pickerHeaderDate__a75e']");
-    private final SelenideElement switchLeftMonthButton = $x("(//div[@class='pickerHeaderButton__b3f8'])[1]");
-    private final SelenideElement switchRightMonthButton = $x("(//div[@class='pickerHeaderButton__b3f8'])[2]");
-    private final SelenideElement dateActivation;
-    private final SelenideElement todayButton = $x("//div[text()='Сегодня']");
+    private final SelenideElement HEADER_CURRENT_MONTH = $x("//div[@class='pickerHeaderDate__a75e']");
+    private final SelenideElement SWITCH_LEFT_MONTH_BUTTON = $x("(//div[@class='pickerHeaderButton__b3f8'])[1]");
+    private final SelenideElement SWITCH_RIGHT_MONTH_BUTTON = $x("(//div[@class='pickerHeaderButton__b3f8'])[2]");
+    private final SelenideElement DATE_ACTIVATION;
+    private final SelenideElement TODAY_BUTTON = $x("//div[text()='Сегодня']");
 
     public Calendar() {
-        this.dateActivation = $x("//div[@class='pickerDateUnit__f5d7' and text()='" + DataHelper.generateFutureDayCurrentMonth() + "']");
+        this.DATE_ACTIVATION = $x("//div[@class='pickerDateUnit__f5d7' and text()='" + DataHelper.generateFutureDayCurrentMonth() + "']");
     }
 
     public void calendar() {
-        headerCurrentMonth.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        switchLeftMonthButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        switchRightMonthButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        dateActivation.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        todayButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        HEADER_CURRENT_MONTH.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SWITCH_LEFT_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SWITCH_RIGHT_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        DATE_ACTIVATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public void selectDateActivation() {
-        dateActivation.shouldBe(Condition.visible)
+        DATE_ACTIVATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public void switchFutureMonth() {
-        switchRightMonthButton.shouldBe(Condition.visible)
+        SWITCH_RIGHT_MONTH_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public void switchPreviousMonth() {
-        switchLeftMonthButton.shouldBe(Condition.visible)
+        SWITCH_LEFT_MONTH_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public void selectDateActivationToday() {
-        todayButton.shouldBe(Condition.visible)
+        TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public String getCurrentMonthCalendar() {
-        headerCurrentMonth.shouldBe(Condition.visible)
+        HEADER_CURRENT_MONTH.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
-        return headerCurrentMonth.getText();
+        return HEADER_CURRENT_MONTH.getText();
     }
 
 }

@@ -9,42 +9,54 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class RulesPreparingWindow {
 
-    public final SelenideElement windowRules = $x("//div[@class='TW3C']");
-    private final SelenideElement addRules = $x("//button[text()='Добавить правило']");
-    private final SelenideElement deleteAllRules = $x("//button[text()='Удалить все правила']");
-    private final SelenideElement headerRule = $x("//div[@class='A7Gv']/span");
-    private final SelenideElement openRule = $x("//div[@class='ei9k']");
-    private final SelenideElement closeWindowButton = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
+    public final SelenideElement WINDOW = $x("//div[@class='TW3C']");
+    private final SelenideElement ADD_BUTTON = $x("//button[text()='Добавить правило']");
+    private final SelenideElement DELETE_ALL_RULES_BUTTON = $x("//button[text()='Удалить все правила']");
+    private final SelenideElement HEADER_RULE = $x("//div[@class='A7Gv']/span");
+    private final SelenideElement OPEN_RULE = $x("//div[@class='ei9k']");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
 
     public void rulesPreparingWindow() {
-        windowRules.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        addRules.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        deleteAllRules.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        ADD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        DELETE_ALL_RULES_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public AddRuleWindow addRulesWindow() {
-        addRules.click();
+        ADD_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new AddRuleWindow();
     }
 
-    public RuleWindow openRule(){
-        openRule.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        openRule.click();
+    public RuleWindow openRule() {
+        OPEN_RULE.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         return new RuleWindow();
     }
 
-    public void deleteAllRules(){
-        deleteAllRules.click();
+    public void deleteAllRules() {
+        DELETE_ALL_RULES_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
-    public void closeWindowRulesPreparing(){
-        closeWindowButton.click();
-        windowRules.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+    public void closeWindowRulesPreparing() {
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public String getHeaderRule() {
-        return headerRule.getText();
+        HEADER_RULE.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
+        return HEADER_RULE.getText();
+    }
+
+    public boolean isWindowAppear() {
+        return WINDOW.exists();
     }
 
 }

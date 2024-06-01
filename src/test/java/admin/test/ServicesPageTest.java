@@ -74,8 +74,8 @@ public class ServicesPageTest {
         rulePreparingWindow.rulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.addRulesWindow();
         addRuleWindow.addRuleWindow();
-        addRuleWindow.fillingFieldHeader("Правило подготовки 1");
-        addRuleWindow.fillingFieldDescription("Текст правила подготовки к категории");
+        addRuleWindow.fillFieldHeader("Правило подготовки 1");
+        addRuleWindow.fillFieldDescription("Текст правила подготовки к категории");
         addRuleWindow.clickSaveButton();
         assertEquals("Правило подготовки 1", rulePreparingWindow.getHeaderRule());
         Configuration.holdBrowserOpen = true;

@@ -47,14 +47,14 @@ public class FAQPageTest {
     @Feature("Добавление нового faq-вопроса")
     @Story("Успешное добавление нового faq-вопроса")
     @Test
-    void addFaqQuestion_11778() {
+    void addFaqQuestion() {
         DataBaseUtils.clearAllFaq();
         HeaderBar headerBar = new HeaderBar();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillingQuestionField("Как вернуть денежные средства?");
+        addQuestionWindow.fillQuestionField("Как вернуть денежные средства?");
         addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
@@ -70,13 +70,13 @@ public class FAQPageTest {
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим заголовком и ответом")
     @Test
-    void addFaqQuestionAlreadyExistQuestionAnswer_9352() {
+    void addFaqQuestionAlreadyExistQuestionAnswer() {
         HeaderBar headerBar = new HeaderBar();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillingQuestionField("Как вернуть денежные средства?");
+        addQuestionWindow.fillQuestionField("Как вернуть денежные средства?");
         addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос уже существует", faqPage.getNotification());
@@ -85,13 +85,13 @@ public class FAQPageTest {
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим заголовком")
     @Test
-    void addFaqQuestionAlreadyExistQuestion_9355() {
+    void addFaqQuestionAlreadyExistQuestion() {
         HeaderBar headerBar = new HeaderBar();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillingQuestionField("Как вернуть денежные средства?");
+        addQuestionWindow.fillQuestionField("Как вернуть денежные средства?");
         addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в булочную");
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос уже существует", faqPage.getNotification());
@@ -100,13 +100,13 @@ public class FAQPageTest {
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим ответом")
     @Test
-    void addFaqQuestionAlreadyExistAnswer_9356() {
+    void addFaqQuestionAlreadyExistAnswer() {
         HeaderBar headerBar = new HeaderBar();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillingQuestionField("Могу ли я вернуть денежные средства?");
+        addQuestionWindow.fillQuestionField("Могу ли я вернуть денежные средства?");
         addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
@@ -125,7 +125,7 @@ public class FAQPageTest {
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillingQuestionField("Могу ли я вернуть денежные средства?");
+        addQuestionWindow.fillQuestionField("Могу ли я вернуть денежные средства?");
         addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
         addQuestionWindow.closeWindowAddQuestion();
         AddQuestionWindow addQuestionWindowOver = faqPage.openWindowAddQuestion();
@@ -136,7 +136,7 @@ public class FAQPageTest {
     @Feature("Редактирование faq-вопроса")
     @Story("Успешное редактирование faq-вопроса")
     @Test
-    void editQuestion_9154() {
+    void editQuestion() {
         HeaderBar headerBar = new HeaderBar();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
@@ -145,9 +145,9 @@ public class FAQPageTest {
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.changeQuestionWindow();
         changeQuestionWindow.clearQuestionField();
-        changeQuestionWindow.fillingQuestionField("Отредактированный вопрос");
+        changeQuestionWindow.fillQuestionField("Отредактированный вопрос");
         changeQuestionWindow.clearAnswerField();
-        changeQuestionWindow.fillingAnswerField("Отредактированный ответ");
+        changeQuestionWindow.fillAnswerField("Отредактированный ответ");
         changeQuestionWindow.saveChangesQuestion();
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
         question.question();
@@ -158,7 +158,7 @@ public class FAQPageTest {
     @Feature("Редактирование faq-вопроса")
     @Story("Сохранение faq-вопроса без изменений данных")
     @Test
-    void editQuestionNotChangeSave_9159() {
+    void editQuestionNotChangeSave() {
         HeaderBar headerBar = new HeaderBar();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
@@ -185,9 +185,9 @@ public class FAQPageTest {
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.changeQuestionWindow();
         changeQuestionWindow.clearQuestionField();
-        changeQuestionWindow.fillingQuestionField("Не сохранять заголовок");
+        changeQuestionWindow.fillQuestionField("Не сохранять заголовок");
         changeQuestionWindow.clearAnswerField();
-        changeQuestionWindow.fillingAnswerField("Не сохранять текст");
+        changeQuestionWindow.fillAnswerField("Не сохранять текст");
         changeQuestionWindow.closeWindowEditQuestion();
         question.question();
         assertEquals("Отредактированный вопрос", question.getQuestion(0));

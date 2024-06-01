@@ -9,44 +9,49 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class AddSectionWindow {
 
-    public final SelenideElement windowAddSection = $x("//span[text()='Новый Вопрос']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement headerWindow = $x("//span[text()='Новый Вопрос']");
-    private final SelenideElement nameSectionField = $x("");
-    private final SelenideElement addButton=$x("//button[text()='Добавить']");
-    private final SelenideElement cancellationButton=$x("//button[text()='Отменить']");
-    private final SelenideElement closeWindowButton = $x("//span[text()='Новый Вопрос']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
+    public final SelenideElement WINDOW = $x("//span[text()='Новый Вопрос']//parent::div//parent::div//parent::div[@class='eV2Y']");
+    private final SelenideElement HEADER_WINDOW = $x("//span[text()='Новый Вопрос']");
+    private final SelenideElement NAME_SECTION = $x("");
+    private final SelenideElement ADD_BUTTON = $x("//button[text()='Добавить']");
+    private final SelenideElement CANCEL_BUTTON = $x("//button[text()='Отменить']");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Новый Вопрос']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
 
-    public void addSectionWindow(){
-        windowAddSection.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        headerWindow.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        nameSectionField.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        cancellationButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        addButton.shouldBe(Condition.disabled);
-        closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+    public void addSectionWindow() {
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        NAME_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        ADD_BUTTON.shouldBe(Condition.disabled);
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public void fillingNameSectionField(String name){
-        nameSectionField.setValue(name);
+    public void fillNameSectionField(String name) {
+        NAME_SECTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(name);
     }
 
-    public void addSection(){
-        addButton.shouldBe(Condition.enabled);
-        addButton.click();
-        windowAddSection.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+    public void addSection() {
+        ADD_BUTTON.shouldBe(Condition.enabled);
+        ADD_BUTTON.click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
-    public void cancellationAddSection(){
-        cancellationButton.click();
-        windowAddSection.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+    public void cancellationAddSection() {
+        CANCEL_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
-    public void clearNameSectionField() {
-        nameSectionField.clear();
-    }
 
     public void closeWindowAddSection() {
-        closeWindowButton.click();
-        windowAddSection.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
+    public boolean isWindowAppear() {
+        return WINDOW.exists();
     }
 }

@@ -11,40 +11,40 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class EditPhotoDoctorWindow {
-    private final SelenideElement doctorPhoto = $x("//div[@class='zzfM']/img");
-    private final SelenideElement windowUploadPhoto = $x("//span[text()='Редактирование фотографии']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement headerWindow = $x("//span[text()='Редактирование фотографии']");
-    private final SelenideElement fileInputElement = $("input[type='file']");
-    private final SelenideElement uploadPhotoButton = $x("//span[text()='загрузить']");
-    private final SelenideElement closeWindowButton = $x("//span[text()='Редактирование фотографии']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
+    private final SelenideElement DOCTOR_PHOTO = $x("//div[@class='zzfM']/img");
+    private final SelenideElement WINDOW = $x("//span[text()='Редактирование фотографии']//parent::div//parent::div//parent::div[@class='eV2Y']");
+    private final SelenideElement HEADER_WINDOW = $x("//span[text()='Редактирование фотографии']");
+    private final SelenideElement FILE_INPUT_ELEMENT = $("input[type='file']");
+    private final SelenideElement UPLOAD_BUTTON = $x("//span[text()='загрузить']");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Редактирование фотографии']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
 
     public void editPhotoDoctorWindow() {
-        windowUploadPhoto.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        headerWindow.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        doctorPhoto.shouldHave(attribute("src")).shouldNotBe(attribute("src", ""));
-        uploadPhotoButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        DOCTOR_PHOTO.shouldHave(attribute("src")).shouldNotBe(attribute("src", ""));
+        UPLOAD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public void uploadValidPhoto(String pathFilesOffer) {
-        fileInputElement.uploadFile(new File(pathFilesOffer));
+        FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
 
     }
 
     public void uploadInvalidPhoto(String pathFilesOffer) {
-        fileInputElement.uploadFile(new File(pathFilesOffer));
+        FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
 
     }
 
     public void closeWindowEditPhoto() {
-        closeWindowButton.shouldBe(Condition.visible)
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public boolean isWindowAppear() {
-        return windowUploadPhoto.exists();
+        return WINDOW.exists();
     }
 
 }

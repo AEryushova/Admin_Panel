@@ -10,28 +10,29 @@ import static com.codeborne.selenide.Selenide.$x;
 public class Feedback {
     private final SelenideElement dateFeedback = $x("//div[@class='YxjE']/span");
 
-    private final SelenideElement authorFeedback = $x("//div[@class='zuRY']/span");
-    private final SelenideElement textFeedback = $x("//div[@class='zxOH']/textarea");
-    private final SelenideElement editFeedback = $x("//div[@class='UnAf gvNC']");
-    private final SelenideElement publicationFeedback = $x("//button[text()='Опубликовать']");
-    private final SelenideElement withdrawalPublication = $x("//button[text()='Снять публикацию']");
-    private final SelenideElement deleteFeedback = $x("//button[text()='Удалить']");
+    private final SelenideElement AUTHOR = $x("//div[@class='zuRY']/span");
+    private final SelenideElement TEXT = $x("//div[@class='zxOH']/textarea");
+    private final SelenideElement EDIT_BUTTON = $x("//div[@class='UnAf gvNC']");
+    private final SelenideElement PUBLICATION = $x("//button[text()='Опубликовать']");
+    private final SelenideElement WITHDRAWAL_PUBLICATION = $x("//button[text()='Снять публикацию']");
+    private final SelenideElement DELETE_BUTTON = $x("//button[text()='Удалить']");
 
     public void feedbackUnpublished() {
         dateFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        authorFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        textFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        editFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        publicationFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        deleteFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TEXT.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        PUBLICATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        WITHDRAWAL_PUBLICATION
     }
 
     public void feedbackPublished() {
         dateFeedback.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        authorFeedback.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        textFeedback.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        editFeedback.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        withdrawalPublication.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        TEXT.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        WITHDRAWAL_PUBLICATION.shouldBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     public String getDateFeedback() {
@@ -40,36 +41,36 @@ public class Feedback {
     }
 
     public String getAuthorFeedback() {
-        authorFeedback.exists();
-        return authorFeedback.getText();
+        AUTHOR.exists();
+        return AUTHOR.getText();
     }
 
     public String getTextFeedback() {
-        textFeedback.exists();
-        return textFeedback.getText();
+        TEXT.exists();
+        return TEXT.getText();
     }
 
     public ChangeFeedbackWindow editFeedback() {
-        editFeedback.shouldBe(Condition.visible)
+        EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new ChangeFeedbackWindow();
     }
 
     public void publicationFeedback() {
-        publicationFeedback.shouldBe(Condition.visible)
+        PUBLICATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public void withdrawalPublication() {
-        withdrawalPublication.shouldBe(Condition.visible)
+        WITHDRAWAL_PUBLICATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public void deleteFeedback() {
-        deleteFeedback.shouldBe(Condition.visible)
+        DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }

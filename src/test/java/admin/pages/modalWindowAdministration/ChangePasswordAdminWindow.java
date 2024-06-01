@@ -1,5 +1,6 @@
 package admin.pages.modalWindowAdministration;
 
+import admin.data.DataTest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
@@ -9,89 +10,96 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ChangePasswordAdminWindow {
 
-    private final SelenideElement windowChangePasswordAdmin = $x("//input[@name='login' and @value='ADMIN_TESTUI_2']/parent::div/parent::div/parent::div[@class='ya9N CXVi']");
-    private final SelenideElement headerWindowLogin = $x("//input[@name='login' and @value='ADMIN_TESTUI_2']");
-    private final SelenideElement newPasswordField = $x("//input[@name=\"newPassword\"]");
-    private final SelenideElement confirmPasswordField = $x("//input[@name=\"confirmPassword\"]");
-    private final SelenideElement buttonSaveNewPasswordAdmin = $x("//button[text()='Сохранить']");
-    private final SelenideElement closeWindowButton = $x("//input[@name='login' and @value='ADMIN_TESTUI_2']/parent::div/parent::div/parent::div/div[@class='q2XL']/div");
-    private final SelenideElement errorFieldPassword = $x("//input[@name='newPassword']/following-sibling::div");
-    private final SelenideElement errorFieldConfirmPassword = $x("//input[@name='confirmPassword']/following-sibling::div");
+    private final SelenideElement WINDOW = $x("//input[@name='login' and @value='"+ DataTest.getLoginAdminTest() + "']/parent::div/parent::div/parent::div[@class='ya9N CXVi']");
+    private final SelenideElement HEADER_WINDOW = $x("//input[@name='login' and @value='"+ DataTest.getLoginAdminTest() + "']");
+    private final SelenideElement NEW_PASSWORD_FIELD = $x("//input[@name=\"newPassword\"]");
+    private final SelenideElement CONFIRM_PASSWORD_FIELD = $x("//input[@name=\"confirmPassword\"]");
+    private final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='login' and @value='"+ DataTest.getLoginAdminTest() +"']/parent::div/parent::div/parent::div/div[@class='q2XL']/div");
+    private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
+    private final SelenideElement ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");
 
 
     public void changePasswordAdminWindow() {
-        windowChangePasswordAdmin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        headerWindowLogin.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        newPasswordField.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        confirmPasswordField.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        buttonSaveNewPasswordAdmin.shouldBe(Condition.disabled);
-        closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        NEW_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SAVE_BUTTON.shouldBe(Condition.disabled);
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public void fillFieldNewPassword(String newPassword) {
-        newPasswordField.shouldBe(Condition.visible)
+        NEW_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(newPassword);
     }
 
     public void fillFieldConfirmPassword(String confirmPassword) {
-        confirmPasswordField.shouldBe(Condition.visible)
+        CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(confirmPassword);
     }
 
     public void clickSaveNewPasswordButton() {
-        buttonSaveNewPasswordAdmin.shouldBe(Condition.visible)
+        SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+    }
 
+    public boolean isEnabledSaveButton(){
+        return SAVE_BUTTON.isEnabled();
     }
 
     public void clickFieldNewPassword() {
-        newPasswordField.shouldBe(Condition.visible)
+        NEW_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public void clickFieldConfirmPassword() {
-        confirmPasswordField.shouldBe(Condition.visible)
+        CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public String getValuePasswordField() {
-        newPasswordField.shouldBe(Condition.visible)
+        NEW_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
-        return newPasswordField.getValue();
+        return NEW_PASSWORD_FIELD.getValue();
     }
 
     public String getValueConfirmPasswordField() {
-        confirmPasswordField.shouldBe(Condition.visible)
+        CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
-        return confirmPasswordField.getValue();
+        return CONFIRM_PASSWORD_FIELD.getValue();
+    }
+
+    public String getErrorFieldPassword() {
+        ERROR_FIELD_PASSWORD.shouldBe(Condition.visible);
+        return ERROR_FIELD_PASSWORD.getText();
+    }
+
+    public String getErrorFieldConfirmPassword() {
+        ERROR_FIELD_CONFIRM_PASSWORD.shouldBe(Condition.visible);
+        return ERROR_FIELD_CONFIRM_PASSWORD.getText();
+    }
+
+    public boolean isErrorPasswordAppear() {
+        return ERROR_FIELD_PASSWORD.exists();
+    }
+
+    public boolean isErrorConfirmPasswordAppear() {
+        return ERROR_FIELD_CONFIRM_PASSWORD.exists();
     }
 
     public void closeWindowChangePasswordAdmin() {
-        closeWindowButton.shouldBe(Condition.visible)
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
-    public String getErrorFieldPassword() {
-        errorFieldPassword.shouldBe(Condition.visible);
-        return errorFieldPassword.getText();
-    }
-
-    public boolean isErrorPasswordAppear() {
-        return errorFieldPassword.exists();
-    }
-
-    public String getErrorFieldConfirmPassword() {
-        errorFieldConfirmPassword.shouldBe(Condition.visible);
-        return errorFieldConfirmPassword.getText();
-    }
-
     public boolean isWindowAppear() {
-        return windowChangePasswordAdmin.exists();
+        return WINDOW.exists();
     }
 }

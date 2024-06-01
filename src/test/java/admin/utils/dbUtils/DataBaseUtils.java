@@ -43,10 +43,10 @@ public class DataBaseUtils {
 
         if ("SUPER_ADMIN".equals(role)) {
             var superAdminLogin = DataTest.getLoginSuperAdmin();
-            params = new Object[] { superAdminLogin };
+            params = new Object[]{superAdminLogin};
         } else {
             var adminLogin = DataTest.getLoginAdminTest();
-            params = new Object[] { adminLogin };
+            params = new Object[]{adminLogin};
         }
 
         return queryRunner("platform_db").query(connection, selectAdminRequest, params, new BeanHandler<>(Admins.class));

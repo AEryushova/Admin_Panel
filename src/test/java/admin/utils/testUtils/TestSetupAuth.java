@@ -4,6 +4,7 @@ import admin.data.DataTest;
 import admin.pages.AuthorizationPage;
 import admin.pages.HeaderBar;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -16,6 +17,7 @@ public class TestSetupAuth {
         localStorage().setItem("Environment", "demo");
         clearBrowserCookies();
     }
+
 
     public static void authAdminPanel(String login, String password) {
         Configuration.holdBrowserOpen = true;

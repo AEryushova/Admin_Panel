@@ -96,7 +96,7 @@ public class DoctorsPageTest {
     @Feature("Фотография врача")
     @Story("Успешная смена фотографии врачу в формате Jpeg")
     @Test
-    void changePhotoDoctorLess4mbJpeg_11553() {
+    void changePhotoDoctorLess4mbJpeg() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -112,7 +112,7 @@ public class DoctorsPageTest {
     @Feature("Фотография врача")
     @Story("Успешная смена фотографии врачу в формате Png")
     @Test
-    void changePhotoDoctorLess4mbPng_12100() {
+    void changePhotoDoctorLess4mbPng() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -128,7 +128,7 @@ public class DoctorsPageTest {
     @Feature("Фотография врача")
     @Story("Cмена фотографии врачу с файлом весом более 4mb")
     @Test
-    void changePhotoDoctorMore4mb_9265() {
+    void changePhotoDoctorMore4mb() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -145,7 +145,7 @@ public class DoctorsPageTest {
     @Feature("Фотография врача")
     @Story("Cмена фотографии врачу с файлом в формате Docx")
     @Test
-    void changePhotoDoctorInvalidFormatDocx_9268() {
+    void changePhotoDoctorInvalidFormatDocx() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -162,7 +162,7 @@ public class DoctorsPageTest {
     @Feature("Фотография врача")
     @Story("Cмена фотографии врачу с файлом в формате Xlsx")
     @Test
-    void changePhotoDoctorInvalidFormatXlsx_12098() {
+    void changePhotoDoctorInvalidFormatXlsx() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -179,7 +179,7 @@ public class DoctorsPageTest {
     @Feature("Фотография врача")
     @Story("Cмена фотографии врачу с файлом в формате PDF")
     @Test
-    void changePhotoDoctorInvalidFormatPDF_12099() {
+    void changePhotoDoctorInvalidFormatPDF() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -210,7 +210,7 @@ public class DoctorsPageTest {
     @Feature("Фотография врача")
     @Story("Успешное удаление фотографии врача")
     @Test
-    void deletePhoto_11554() {
+    void deletePhoto() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -224,7 +224,7 @@ public class DoctorsPageTest {
     @Feature("Фотография врача")
     @Story("Удаление дефолтной фотографии врача")
     @Test
-    void deleteDefaultPhoto_11774() {
+    void deleteDefaultPhoto() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -237,7 +237,7 @@ public class DoctorsPageTest {
     @Feature("Информация о враче")
     @Story("Успешное добавление раздела в инфо о враче")
     @Test
-    void addingSection_9218() {
+    void addingSection() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -267,7 +267,7 @@ public class DoctorsPageTest {
     @Feature("Информация о враче")
     @Story("Отмена добавления раздела в инфо о враче")
     @Test
-    void cancellationWindowAddSection_() {
+    void cancellationWindowAddSection() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -283,7 +283,7 @@ public class DoctorsPageTest {
     @Feature("Информация о враче")
     @Story("Успешное редактирование раздела в инфо о враче")
     @Test
-    void editSection_() {
+    void editSection() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -298,7 +298,7 @@ public class DoctorsPageTest {
     @Feature("Информация о враче")
     @Story("Успешное удаление раздела в инфо о враче")
     @Test
-    void deleteSection_9301() {
+    void deleteSection() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -311,7 +311,7 @@ public class DoctorsPageTest {
     @Feature("Информация о враче")
     @Story("Успешное добавление описания к разделу в инфо о враче")
     @Test
-    void addingDescription_9296() {
+    void addingDescription() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -363,7 +363,7 @@ public class DoctorsPageTest {
     @Feature("Информация о враче")
     @Story("Успешное редактирование описания к разделу в инфо о враче")
     @Test
-    void editDescription_() {
+    void editDescription() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -378,7 +378,7 @@ public class DoctorsPageTest {
     @Feature("Информация о враче")
     @Story("Успешное удаление описания к разделу в инфо о враче")
     @Test
-    void deleteDescription_9303() {
+    void deleteDescription() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -426,7 +426,7 @@ public class DoctorsPageTest {
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
     @Test
-    void addFeedbackCurrentMonth_9219() {
+    void addFeedbackCurrentMonth() {
         DataBaseUtils.clearAllFeedback();
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
@@ -461,7 +461,7 @@ public class DoctorsPageTest {
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в следующем месяце")
     @Test
-    void addFeedbackFutureMonth_9305() {
+    void addFeedbackFutureMonth() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -492,7 +492,7 @@ public class DoctorsPageTest {
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в предыдущем месяце")
     @Test
-    void addFeedbackPreviousMonth_9305() {
+    void addFeedbackPreviousMonth() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -521,7 +521,7 @@ public class DoctorsPageTest {
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование неопубликованного отзыва о враче")
     @Test
-    void editUnpublishedFeedback_9314() {
+    void editUnpublishedFeedback() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -545,7 +545,7 @@ public class DoctorsPageTest {
     @Feature("Отзывы о враче")
     @Story("Успешная публикация неопубликованного отзыва о враче")
     @Test
-    void publicationUnpublishedFeedback_9309() {
+    void publicationUnpublishedFeedback() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -564,7 +564,7 @@ public class DoctorsPageTest {
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование опубликованного отзыва о враче")
     @Test
-    void editPublishedFeedback_9313() {
+    void editPublishedFeedback() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -587,7 +587,7 @@ public class DoctorsPageTest {
     @Feature("Отзывы о враче")
     @Story("Успешное снятие с публикации опубликованного отзыва о враче")
     @Test
-    void withdrawalPublicationFeedback_9311() {
+    void withdrawalPublicationFeedback() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -605,7 +605,7 @@ public class DoctorsPageTest {
     @Feature("Отзывы о враче")
     @Story("Успешное удаление неопубликованного отзыва о враче")
     @Test
-    void deleteUnpublishedFeedback_9310() {
+    void deleteUnpublishedFeedback() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();
@@ -623,7 +623,7 @@ public class DoctorsPageTest {
     @Feature("Отзывы о враче")
     @Story("Сортировка неопубликованных отзывов о враче")
     @Test
-    void sotringUnpublishedFeedbacks_9221() {
+    void sotringUnpublishedFeedbacks() {
         HeaderBar headerBar = new HeaderBar();
         DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
         doctorsPage.doctorsPage();

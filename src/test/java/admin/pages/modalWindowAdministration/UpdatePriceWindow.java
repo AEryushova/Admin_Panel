@@ -16,57 +16,57 @@ import static com.codeborne.selenide.files.FileFilters.withExtension;
 
 public class UpdatePriceWindow {
 
-    private final SelenideElement windowUpdatePrice = $x("//span[text()='Обновить прайс']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement headerWindow = $x("//div[@id='popap_window']/div/div/div/div/div/span[text()='Обновить прайс']");
-    private final SelenideElement activationDatesList = $x("//span[text()='Даты активации']//parent::div");
-    private final SelenideElement activationDateDownload;
-    private final SelenideElement fileInputElement = $("input[type='file']");
-    private final SelenideElement uploadPriceButton = $x("//span[text()='Загрузить']");
-    private final SelenideElement closeWindowButton = $x("//span[text()='Обновить прайс']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
-    private final SelenideElement calendarButtonToday = $x("//div[@class='field__c8da container__ce0e']");
+    private final SelenideElement WINDOW = $x("//span[text()='Обновить прайс']//parent::div//parent::div//parent::div[@class='eV2Y']");
+    private final SelenideElement HEADER_WINDOW = $x("//div[@id='popap_window']/div/div/div/div/div/span[text()='Обновить прайс']");
+    private final SelenideElement ACTIVATIONS_DATES_LIST = $x("//span[text()='Даты активации']//parent::div");
+    private final SelenideElement ACTIVATION_DATES_DOWNLOAD;
+    private final SelenideElement FILE_INPUT_ELEMENT = $("input[type='file']");
+    private final SelenideElement UPLOAD_BUTTON = $x("//span[text()='Загрузить']");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Обновить прайс']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
+    private final SelenideElement TODAY_BUTTON = $x("//div[@class='field__c8da container__ce0e']");
 
 
     public UpdatePriceWindow() {
-        this.activationDateDownload = $x("//span[text()='" + DataHelper.generateActivationDateCurrentMonth() + "']/parent::div");
+        this.ACTIVATION_DATES_DOWNLOAD = $x("//span[text()='" + DataHelper.generateActivationDateCurrentMonth() + "']/parent::div");
     }
 
     public void updatePriceWindow() {
-        windowUpdatePrice.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        headerWindow.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        activationDatesList.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        calendarButtonToday.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        uploadPriceButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        ACTIVATIONS_DATES_LIST.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        UPLOAD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public Calendar openCalendarUpdatePrice() {
-        calendarButtonToday.shouldBe(Condition.visible)
+        TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new Calendar();
     }
 
     public void uploadPrice(String pathFilesPrice) {
-        fileInputElement.uploadFile(new File(pathFilesPrice));
+        FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesPrice));
     }
 
-    public PriceErrorsWindow openPriceErrorsWindow() {
+    public PriceErrorsWindow priceErrorsWindow() {
         return new PriceErrorsWindow();
     }
 
     public String getValuesButtonToday() {
-        calendarButtonToday.shouldBe(Condition.visible)
+        TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
-        return calendarButtonToday.getText();
+        return TODAY_BUTTON.getText();
     }
 
     public File downloadPriceDateActivation() {
-        activationDatesList.click();
-        activationDateDownload.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        ACTIVATIONS_DATES_LIST.click();
+        ACTIVATION_DATES_DOWNLOAD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         File downloadedFile;
         try {
-            downloadedFile = activationDateDownload.download(withExtension("xlsx"));
+            downloadedFile = ACTIVATION_DATES_DOWNLOAD.download(withExtension("xlsx"));
             sleep(5000);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -75,12 +75,12 @@ public class UpdatePriceWindow {
     }
 
     public void closeWindowUpdatePrice() {
-        closeWindowButton.shouldBe(Condition.visible)
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public boolean isWindowAppear() {
-        return windowUpdatePrice.exists();
+        return WINDOW.exists();
     }
 }

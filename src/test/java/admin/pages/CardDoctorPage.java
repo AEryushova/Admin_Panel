@@ -11,68 +11,68 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class CardDoctorPage extends BasePage {
 
-    private final SelenideElement comebackButton = $x("//span[text()='Вернуться назад']");
-    private final SelenideElement doctorPhoto = $x("//div[@class='zzfM']/img");
-    private final SelenideElement editPhoto = $x("//div[@class='ctFG']/div[1]");
-    private final SelenideElement deletePhoto = $x("//div[@class='ctFG']/div[2]");
-    private final SelenideElement addSection = $x("//button[text()='Добавить раздел']");
-    private final SelenideElement addFeedback = $x("//button[text()='Добавить отзыв']");
-    private final SelenideElement publishedCheckbox = $x("//span[text()='Опубликованные']/preceding-sibling::div/div[@class='WzjF']");
-    private final SelenideElement unpublishedCheckbox = $x("//span[text()='Неопубликованные']/preceding-sibling::div/div[@class='WzjF']");
-    private final SelenideElement switchPublishedButton = $x("//span[text()='Опубликованные']//parent::div");
-    private final SelenideElement switchUnpublishedButton = $x("//span[text()='Опубликованные']//parent::div");
-    private final SelenideElement sortingFeedback = $x("//span[text()='Новые']//parent::div//parent::button");
+    private final SelenideElement COMEBACK_BUTTON = $x("//span[text()='Вернуться назад']");
+    private final SelenideElement DOCTOR_PHOTO = $x("//div[@class='zzfM']/img");
+    private final SelenideElement EDIT_PHOTO_BUTTON = $x("//div[@class='ctFG']/div[1]");
+    private final SelenideElement DELETE_PHOTO_BUTTON = $x("//div[@class='ctFG']/div[2]");
+    private final SelenideElement ADD_SECTION = $x("//button[text()='Добавить раздел']");
+    private final SelenideElement ADD_FEEDBACK = $x("//button[text()='Добавить отзыв']");
+    private final SelenideElement PUBLISHED_CHECKBOX = $x("//span[text()='Опубликованные']/preceding-sibling::div/div[@class='WzjF']");
+    private final SelenideElement UNPUBLISHED_CHECKBOX = $x("//span[text()='Неопубликованные']/preceding-sibling::div/div[@class='WzjF']");
+    private final SelenideElement SWITCH_PUBLISHED_BUTTON = $x("//span[text()='Опубликованные']//parent::div");
+    private final SelenideElement SWITCH_UNPUBLISHED_BUTTON = $x("//span[text()='Опубликованные']//parent::div");
+    private final SelenideElement SORTING_FEEDBACK = $x("//span[text()='Новые']//parent::div//parent::button");
 
 
     public void cardDoctorPage() {
-        comebackButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        doctorPhoto.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        editPhoto.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        deletePhoto.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        addSection.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        addFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        COMEBACK_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        DOCTOR_PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        EDIT_PHOTO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        DELETE_PHOTO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        ADD_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        ADD_FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public void toggleUnpublishedCheckbox() {
-        unpublishedCheckbox.shouldBe(Condition.visible)
+        UNPUBLISHED_CHECKBOX.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
-        if (!unpublishedCheckbox.isSelected()) {
-            unpublishedCheckbox.click();
+        if (!UNPUBLISHED_CHECKBOX.isSelected()) {
+            UNPUBLISHED_CHECKBOX.click();
         }
     }
 
     public void togglePublishedCheckbox() {
-        publishedCheckbox.shouldBe(Condition.visible)
+        PUBLISHED_CHECKBOX.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
-        if (!publishedCheckbox.isSelected()) {
-            publishedCheckbox.click();
+        if (!PUBLISHED_CHECKBOX.isSelected()) {
+            PUBLISHED_CHECKBOX.click();
         }
     }
 
     public EditPhotoDoctorWindow openWindowEditPhoto() {
-        editPhoto.shouldBe(Condition.visible)
+        EDIT_PHOTO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new EditPhotoDoctorWindow();
     }
 
     public boolean isSortingAppear() {
-        return sortingFeedback.exists();
+        return SORTING_FEEDBACK.exists();
     }
 
     public void deletePhoto() {
-        deletePhoto.shouldBe(Condition.visible)
+        DELETE_PHOTO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public String getSrcPhoto() {
-        doctorPhoto.exists();
-        return doctorPhoto.getAttribute("src");
+        DOCTOR_PHOTO.exists();
+        return DOCTOR_PHOTO.getAttribute("src");
     }
 
     public AddIntelligenceWindow openWindowAddSection() {
-        addSection.shouldBe(Condition.visible)
+        ADD_SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new AddIntelligenceWindow();
@@ -87,7 +87,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     public AddFeedbackWindow openWindowAddFeedback() {
-        addFeedback.shouldBe(Condition.visible)
+        ADD_FEEDBACK.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new AddFeedbackWindow();
@@ -98,16 +98,20 @@ public class CardDoctorPage extends BasePage {
     }
 
     public void switchPublishedFeedback() {
-        switchPublishedButton.click();
+        SWITCH_PUBLISHED_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+        .click();
     }
 
     public void switchUnpublishedFeedback() {
-        switchUnpublishedButton.click();
+        SWITCH_UNPUBLISHED_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+        .click();
     }
 
 
     public DoctorsPage comebackDoctorsPage() {
-        comebackButton.shouldBe(Condition.visible)
+        COMEBACK_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new DoctorsPage();

@@ -9,33 +9,39 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class EditSectionWindow {
 
-    public final SelenideElement windowEditSection = $x("//input[@name='edit-category-name']/parent::div/parent::div");
-    public final SelenideElement nameField = $x("//input[@name='edit-category-name']");
-    public final SelenideElement saveChangeButton = $x("//input[@name='edit-category-name']/parent::div//following-sibling::div[@class='n6DU']");
-    public final SelenideElement closeWindowButton = $x("//input[@name='edit-category-name']/parent::div//following-sibling::div[@class='V5So']");
+    public final SelenideElement WINDOW = $x("//input[@name='edit-category-name']/parent::div/parent::div");
+    public final SelenideElement NAME_FIELD = $x("//input[@name='edit-category-name']");
+    public final SelenideElement SAVE_BUTTON = $x("//input[@name='edit-category-name']/parent::div//following-sibling::div[@class='n6DU']");
+    public final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='edit-category-name']/parent::div//following-sibling::div[@class='V5So']");
 
 
     public void editSectionWindow() {
-        windowEditSection.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        nameField.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        saveChangeButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        closeWindowButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        NAME_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public void fillingNameField(String name){
-        nameField.setValue(name);
+    public void fillNameField(String name) {
+        NAME_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(name);
     }
 
-    public void saveChange(){
-        saveChangeButton.click();
+    public void saveChange() {
+        SAVE_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
-    public void clearNameField(){
-        nameField.clear();
+    public void closeWindow() {
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+
     }
 
-    public void closeWindow(){
-        closeWindowButton.click();
-        windowEditSection.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+    public boolean isWindowAppear() {
+        return WINDOW.exists();
     }
 }

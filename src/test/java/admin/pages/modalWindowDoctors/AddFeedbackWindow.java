@@ -12,63 +12,63 @@ import static com.codeborne.selenide.Selenide.$x;
 public class AddFeedbackWindow {
 
 
-    private final SelenideElement windowAddedFeedback = $x("//div[@class='SIqL']");
-    private final SelenideElement fieldFio = $x("//input[@name='fio']");
+    private final SelenideElement WINDOW = $x("//div[@class='SIqL']");
+    private final SelenideElement FIO_FIELD = $x("//input[@name='fio']");
 
-    private final SelenideElement calendarButtonToday = $x("//div[@class='field__c8da container__ce0e']");
+    private final SelenideElement TODAY_BUTTON = $x("//div[@class='field__c8da container__ce0e']");
 
-    private final SelenideElement fieldTextFeedback = $x("//textarea[@placeholder='Введите текст отзыва']");
+    private final SelenideElement TEXT_FEEDBACK_FIELD = $x("//textarea[@placeholder='Введите текст отзыва']");
 
-    private final SelenideElement publishButton = $x("//button[text()='Опубликовать']");
+    private final SelenideElement PUBLISH_BUTTON = $x("//button[text()='Опубликовать']");
 
-    private final SelenideElement closeWindowButton = $x("//input[@name='fio']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='fio']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
     public void addFeedbackWindow() {
-        windowAddedFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        fieldFio.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        calendarButtonToday.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        fieldTextFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        publishButton.shouldBe(Condition.disabled, Duration.ofSeconds(5));
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        FIO_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        PUBLISH_BUTTON.shouldBe(Condition.disabled, Duration.ofSeconds(5));
     }
 
     public void fillFieldFio(String fio) {
-        fieldFio.shouldBe(Condition.visible)
+        FIO_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(fio);
     }
 
     public void fillFieldTextFeedback(String textFeedback) {
-        fieldTextFeedback.shouldBe(Condition.visible)
+        TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(textFeedback);
     }
 
     public Calendar openCalendarSelectDate() {
-        calendarButtonToday.shouldBe(Condition.visible)
+        TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
         return new Calendar();
     }
 
     public void clickPublishButton() {
-        publishButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        publishButton.click();
-        windowAddedFeedback.shouldBe(Condition.hidden, Duration.ofSeconds(10));
+        PUBLISH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        PUBLISH_BUTTON.click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(10));
     }
 
     public String getValuesButtonToday() {
-        calendarButtonToday.shouldBe(Condition.visible)
+        TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
-        return calendarButtonToday.getText();
+        return TODAY_BUTTON.getText();
     }
 
     public void closeWindowAddFeedback() {
-        closeWindowButton.shouldBe(Condition.visible)
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public boolean isWindowAppear() {
-        return windowAddedFeedback.exists();
+        return WINDOW.exists();
     }
 
 

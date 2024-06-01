@@ -6,8 +6,6 @@ import java.util.Locale;
 import java.util.Random;
 
 public class DataHelper {
-    public DataHelper() {
-    }
 
     //Возвращает текущую дату в английской локали в формате "01 April 2024"//
     public static String getCurrentDate() {
