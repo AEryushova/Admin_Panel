@@ -3,17 +3,15 @@ package admin.test;
 import admin.data.DataTest;
 import admin.pages.*;
 import admin.utils.DataHelper;
+import admin.utils.testUtils.*;
 import admin.utils.testUtils.TestSetupAuth;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import user.pages.AuthPage;
 import user.pages.HomePage;
 import user.pages.modalWindowReportBug.ReportBug;
@@ -24,17 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Epic("Настройки")
 public class SettingPageTest {
 
-
-    @BeforeAll
-    static void setUpAllAllure() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
-    }
+    @ExtendWith(AllureDecorator.class)
 
     @BeforeEach
     void setUp() {

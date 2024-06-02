@@ -3,16 +3,13 @@ package admin.test;
 import admin.data.DataTest;
 import admin.pages.*;
 import admin.pages.calendar.Calendar;
-import admin.pages.modalWindowAdministration.UpdateLegalDocWindow;
 import admin.pages.modalWindowDoctors.*;
 import admin.utils.testUtils.*;
 import admin.utils.dbUtils.DataBaseUtils;
 import admin.utils.DataHelper;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,15 +23,7 @@ public class DoctorsPageTest {
 
     private DoctorsPage doctorsPage;
 
-    @BeforeAll
-    static void setUpAllAllure() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
-    }
+    @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setupAdminPanelWithCookies() {

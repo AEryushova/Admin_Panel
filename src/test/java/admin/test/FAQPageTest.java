@@ -9,17 +9,14 @@ import admin.pages.modalWindowFAQ.AddQuestionWindow;
 import admin.pages.modalWindowFAQ.ChangeQuestionWindow;
 import admin.pages.modalWindowFAQ.Question;
 import admin.utils.dbUtils.DataBaseUtils;
+import admin.utils.testUtils.*;
 import admin.utils.testUtils.TestSetupAuth;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.extension.ExtendWith;
 import static admin.utils.dbUtils.DataBaseUtils.selectFaq;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,17 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Epic("FAQ")
 public class FAQPageTest {
 
-
-    @BeforeAll
-    static void setUpAllAllure() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
-    }
+    @ExtendWith(AllureDecorator.class)
 
     @BeforeEach
     void setUp() {

@@ -6,12 +6,9 @@ import admin.pages.calendar.Calendar;
 import admin.utils.*;
 import admin.utils.dbUtils.DataBaseUtils;
 import admin.utils.testUtils.*;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,15 +24,7 @@ public class AdministrationPageTest {
 
     private AdministrationPage adminPage;
 
-    @BeforeAll
-    static void setUpAllAllure() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
-    }
+    @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setupAdminPanelAuth() {

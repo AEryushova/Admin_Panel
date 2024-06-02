@@ -4,12 +4,10 @@ import admin.pages.*;
 import admin.utils.testUtils.AdminAddDeleteDecorator;
 import admin.utils.testUtils.CookieUtils;
 import admin.utils.testUtils.TestSetupAuth;
-import com.codeborne.selenide.logevents.SelenideLogger;
+import admin.utils.testUtils.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,16 +19,7 @@ public class HeaderBarTest {
     private AuthorizationPage authPage;
     private HeaderBar headerBar;
 
-    @BeforeAll
-    static void setUpAllAllure() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
-    }
+    @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setupAdminPanelWithCookies() {

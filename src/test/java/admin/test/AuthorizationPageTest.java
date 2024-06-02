@@ -3,15 +3,13 @@ package admin.test;
 import admin.data.DataTest;
 import admin.utils.testUtils.AdminAddDeleteDecorator;
 import admin.utils.dbUtils.DataBaseUtils;
+import admin.utils.testUtils.*;
 import admin.utils.testUtils.NotificationDecorator;
 import admin.utils.testUtils.TestSetupAuth;
-
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import admin.pages.AuthorizationPage;
 import admin.pages.DoctorsPage;
@@ -31,17 +29,7 @@ public class AuthorizationPageTest {
     private AuthorizationPage authPage;
     private HeaderBar headerBar;
 
-    @BeforeAll
-    static void setUpAllAllure() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
-    }
-
+    @ExtendWith(AllureDecorator.class)
 
     @BeforeEach
     void setUp() {
