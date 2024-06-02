@@ -1,7 +1,7 @@
 package admin.test;
 
 import admin.data.DataTest;
-import admin.utils.testUtils.AdminTestDecorator;
+import admin.utils.testUtils.AdminAddDeleteDecorator;
 import admin.utils.dbUtils.DataBaseUtils;
 import admin.utils.testUtils.NotificationDecorator;
 import admin.utils.testUtils.TestSetupAuth;
@@ -70,7 +70,7 @@ public class AuthorizationPageTest {
 
 
     @Story("Успешная авторизация админа")
-    @ExtendWith(AdminTestDecorator.class)
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void authorizationAdmin() {
         authPage.authPage();
@@ -82,7 +82,7 @@ public class AuthorizationPageTest {
     }
 
     @Story("Авторизация админа с неверным паролем")
-    @ExtendWith({AdminTestDecorator.class, NotificationDecorator.class})
+    @ExtendWith({AdminAddDeleteDecorator.class, NotificationDecorator.class})
     @Test
     void authorizationAdminWrongPassword() {
         authPage.fillLoginField(DataTest.getLoginAdminTest());

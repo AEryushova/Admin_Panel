@@ -68,7 +68,7 @@ public class AdministrationPageTest {
 
     @Feature("Добавление нового админа")
     @Story("Добавление нового админа с уже существующим логином")
-    @ExtendWith({AdminTestDecorator.class, NotificationDecorator.class})
+    @ExtendWith({AdminAddDeleteDecorator.class, NotificationDecorator.class})
     @Test
     void addedNewAdminAlreadyExisting() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
@@ -271,7 +271,7 @@ public class AdministrationPageTest {
     }
 
     @Feature("Добавление нового админа")
-    @Story("Зануление полей в окне добавления админа после закрытия окна")
+    @Story("Зануление полей в окне добавления админа и закрытие окна")
     @Test
     void closeWindowAddedNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
@@ -289,7 +289,7 @@ public class AdministrationPageTest {
 
     @Feature("Смена пароля админу")
     @Story("Успешная смена пароля админу")
-    @ExtendWith({AdminTestDecorator.class, NotificationDecorator.class})
+    @ExtendWith({AdminAddDeleteDecorator.class, NotificationDecorator.class})
     @Test
     void changePasswordAdmin() {
         adminPage.adminCard();
@@ -385,7 +385,7 @@ public class AdministrationPageTest {
     }
 
     @Feature("Смена пароля админу")
-    @Story("Зануление полей в окне смены пароля админу после закрытия окна")
+    @Story("Зануление полей в окне смены пароля админу и закрытие окна")
     @Test
     void closeWindowChangePasswordAdmin_8880() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
@@ -400,7 +400,7 @@ public class AdministrationPageTest {
 
     @Feature("Удаление админа")
     @Story("Отмена удаления админа")
-    @ExtendWith(AdminTestDecorator.class)
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void cancelDeleteAdmin() {
         adminPage.adminCard();
@@ -411,7 +411,7 @@ public class AdministrationPageTest {
 
     @Feature("Удаление админа")
     @Story("Успешное удаление админа")
-    @ExtendWith({AdminTestDecorator.class, NotificationDecorator.class})
+    @ExtendWith({AdminAddDeleteDecorator.class, NotificationDecorator.class})
     @Test
     void deleteAdmin() {
         adminPage.adminCard();
@@ -430,8 +430,9 @@ public class AdministrationPageTest {
         updateLegalDocWindow.uploadDocWindow();
         String srcDoc = updateLegalDocWindow.getSrcDoc();
         updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта.pdf");
-        UpdateLegalDocWindow updateLegalDocWindowOver = adminPage.updateOffer();
-        assertEquals(srcDoc, updateLegalDocWindowOver.getSrcDoc());
+        adminPage.updateOffer();
+        assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
+        assertFalse(updateLegalDocWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -442,8 +443,9 @@ public class AdministrationPageTest {
         updateLegalDocWindow.uploadDocWindow();
         String srcDoc = updateLegalDocWindow.getSrcDoc();
         updateLegalDocWindow.uploadValidDoc("src/test/resources/Политика обработки персональных данных.pdf");
-        UpdateLegalDocWindow updateLegalDocWindowOver = adminPage.updateProcessingPolicy();
-        assertEquals(srcDoc, updateLegalDocWindowOver.getSrcDoc());
+        adminPage.updateProcessingPolicy();
+        assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
+        assertFalse(updateLegalDocWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -479,6 +481,7 @@ public class AdministrationPageTest {
         calendar.selectDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
+        assertFalse(updateOrderWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -493,6 +496,7 @@ public class AdministrationPageTest {
         calendar.selectDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
+        assertFalse(updateOrderWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -507,6 +511,7 @@ public class AdministrationPageTest {
         calendar.selectDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
+        assertFalse(updateOrderWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -519,6 +524,7 @@ public class AdministrationPageTest {
         calendar.selectDateActivationToday();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
+        assertFalse(updateOrderWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -529,6 +535,7 @@ public class AdministrationPageTest {
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
+        assertFalse(updateOrderWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -554,6 +561,7 @@ public class AdministrationPageTest {
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getNotification());
+        assertFalse(updatePriceWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -569,6 +577,7 @@ public class AdministrationPageTest {
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getNotification());
+        assertFalse(updatePriceWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -583,6 +592,7 @@ public class AdministrationPageTest {
         calendar.selectDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getNotification());
+        assertFalse(updatePriceWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -595,6 +605,7 @@ public class AdministrationPageTest {
         calendar.selectDateActivationToday();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getNotification());
+        assertFalse(updatePriceWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -605,6 +616,7 @@ public class AdministrationPageTest {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getNotification());
+        assertFalse(updatePriceWindow .isWindowAppear());
     }
 
     @Feature("Документация")
@@ -747,6 +759,7 @@ public class AdministrationPageTest {
     void closeNotificationTimeout() throws InterruptedException {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");
+        assertTrue(adminPage.notificationAppear());
         Thread.sleep(6000);
         assertFalse(adminPage.notificationAppear());
     }
@@ -756,7 +769,7 @@ public class AdministrationPageTest {
     void closeNotification() {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");
-        assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
+        assertTrue(adminPage.notificationAppear());
         adminPage.closeNotification();
         assertFalse(adminPage.notificationAppear());
     }

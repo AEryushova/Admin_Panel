@@ -1,7 +1,7 @@
 package admin.test;
 
 import admin.pages.*;
-import admin.utils.testUtils.AdminTestDecorator;
+import admin.utils.testUtils.AdminAddDeleteDecorator;
 import admin.utils.testUtils.CookieUtils;
 import admin.utils.testUtils.TestSetupAuth;
 import com.codeborne.selenide.logevents.SelenideLogger;
@@ -43,7 +43,7 @@ public class HeaderBarTest {
         CookieUtils.loadCookies();
     }
 
-    @ExtendWith(AdminTestDecorator.class)
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Feature("Выход из админ-панели")
     @Story("Успешный выход из админ-панели")
     @Test

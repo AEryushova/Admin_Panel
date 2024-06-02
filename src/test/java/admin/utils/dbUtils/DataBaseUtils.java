@@ -54,6 +54,30 @@ public class DataBaseUtils {
 
 
     @SneakyThrows
+    public static DoctorCard selectPhotoUriDoctor(String doctorId) {
+        var selectPhotoUri = "SELECT employee_id, first_name, second_name, middle_name, photo_uri, job FROM employee_cards WHERE employee_id = ? ";
+        var connection = getConnection("cab_lab_db");
+        return queryRunner("cab_lab_db").query(connection, selectPhotoUri, new Object[] {doctorId}, new BeanHandler<>(DoctorCard.class));
+    }
+
+    @SneakyThrows
+    public static DoctorCard setDefaultPhotoDoctor(String doctorId) {
+        var setDefaultPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE employee_id = ? ";
+        var connection = getConnection("cab_lab_db");
+        var defaultPhoto = DataTest.getDefaultPhoto();
+        return queryRunner("cab_lab_db").query(connection, setDefaultPhoto, new Object[] {doctorId, defaultPhoto}, new BeanHandler<>(DoctorCard.class));
+    }
+
+    @SneakyThrows
+    public static DoctorCard setPhotoDoctor(String doctorId) {
+        var setDefaultPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE employee_id = ? ";
+        var connection = getConnection("cab_lab_db");
+        var photo = DataTest.getDefaultPhoto();
+        return queryRunner("cab_lab_db").query(connection, setDefaultPhoto, new Object[] {doctorId, photo}, new BeanHandler<>(DoctorCard.class));
+    }
+
+
+    @SneakyThrows
     public static void clearAllFeedback() {
         var connection = getConnection("cab_lab_db");
         queryRunner("cab_lab_db").update(connection, "DELETE FROM feedbacks_employees");
@@ -87,21 +111,21 @@ public class DataBaseUtils {
 
     @SneakyThrows
     public static Feedback selectFeedback() {
-        var selectFeedbackRequest = "SELECT employees_id, author, content, is_published FROM feedbacks_employees ORDER BY created_at DESC LIMIT 1";
+        var selectFeedbackRequest = "SELECT employees_id, author, content, is_published FROM feedbacks_employees";
         var connection = getConnection("cab_lab_db");
         return queryRunner("cab_lab_db").query(connection, selectFeedbackRequest, new BeanHandler<>(Feedback.class));
     }
 
     @SneakyThrows
     public static BugReports selecBugReports() {
-        var selectBugReports = "SELECT message, email, author FROM bug_reports ORDER BY created_at DESC LIMIT 1";
+        var selectBugReports = "SELECT message, email, author FROM bug_reports";
         var connection = getConnection("cab_lab_db");
         return queryRunner("cab_lab_db").query(connection, selectBugReports, new BeanHandler<>(BugReports.class));
     }
 
     @SneakyThrows
     public static Faq selectFaq() {
-        var selectFaq = "SELECT question, answer, sequence FROM faq ORDER BY created_at DESC LIMIT 1";
+        var selectFaq = "SELECT question, answer, sequence FROM faq";
         var connection = getConnection("cab_lab_db");
         return queryRunner("cab_lab_db").query(connection, selectFaq, new BeanHandler<>(Faq.class));
     }

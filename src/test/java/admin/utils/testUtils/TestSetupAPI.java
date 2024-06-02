@@ -1,6 +1,6 @@
 package admin.utils.testUtils;
 
-import admin.data.DataInfo;
+
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -11,6 +11,17 @@ public class TestSetupAPI {
     private static final String baseUri = "http://192.168.6.48:8083";
     private static final Gson gson = new Gson();
     private static String token;
+
+
+    private static class DataInfo {
+        private String login;
+        private String password;
+
+        public DataInfo(String login, String password) {
+            this.login = login;
+            this.password = password;
+        }
+    }
 
     private static void tokenAuthRequest(String login, String password) {
         String dataInfoJson = getDataInfoJson(login,password);

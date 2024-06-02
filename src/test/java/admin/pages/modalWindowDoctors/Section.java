@@ -18,16 +18,7 @@ public class Section {
     private final SelenideElement ADD_DESCRIPTION_BUTTON = $x("//div[@class='EUkX']");
 
 
-    public void sectionEmpty() {
-        SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        NAME_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        EMPTY_LIST_ELEMENT.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        ADD_DESCRIPTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
-    }
-
-    public void sectionNotEmpty() {
+    public void section() {
         SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
