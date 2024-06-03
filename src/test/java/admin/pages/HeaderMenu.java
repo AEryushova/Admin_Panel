@@ -7,7 +7,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class HeaderBar extends BasePage {
+public class HeaderMenu extends BasePage {
 
     private final SelenideElement DOCTOR = $x("//a[text()='Врачи']");
     private final SelenideElement SERVICES = $x("//a[text()='Услуги']");

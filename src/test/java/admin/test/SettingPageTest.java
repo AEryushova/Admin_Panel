@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.data.DataTest;
+import admin.data.DataInfo;
 import admin.pages.*;
 import admin.utils.DataHelper;
 import admin.utils.testUtils.*;
@@ -26,7 +26,7 @@ public class SettingPageTest {
 
     @BeforeEach
     void setUp() {
-        TestSetupAuth.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
+        TestSetupAuth.authAdminPanel(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
     }
 
 
@@ -51,20 +51,20 @@ public class SettingPageTest {
     @Story("Отображение баг-репорта в админ-панели")
     @Test
     void checkBugReportAfterAdd() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         SettingPage settingPage = headerBar.settingTabOpen();
         settingPage.settingPage();
-        assertEquals("Федоров Федор Федорович", settingPage.getTextByElement("author"));
-        assertEquals("Test@mail.ru", settingPage.getTextByElement("emailAuthor"));
-        assertEquals(DataHelper.getCurrentDateRuYear(), settingPage.getTextByElement("date"));
-        assertEquals("Не могу записаться к врачу", settingPage.getTextByElement("text"));
+        assertEquals("Федоров Федор Федорович", settingPage.getAuthorText());
+        assertEquals("Test@mail.ru", settingPage.getEmailAuthorText());
+        assertEquals(DataHelper.getCurrentDateRuYear(), settingPage.getDateText());
+        assertEquals("Не могу записаться к врачу", settingPage.getReportText());
     }
 
     @Feature("Сообщения об ошибках")
     @Story("Успешное удаление баг-репорта")
     @Test
     void deleteBugReport() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         SettingPage settingPage = headerBar.settingTabOpen();
         settingPage.settingPage();
         settingPage.deleteBugReport();
@@ -74,7 +74,7 @@ public class SettingPageTest {
     @Story("Возврат к хэдеру страницы настроек")
     @Test
     void returnToStartPage() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         SettingPage settingPage = headerBar.settingTabOpen();
         settingPage.settingPage();
         settingPage.scrollPageToBottom();
@@ -85,7 +85,7 @@ public class SettingPageTest {
     @Story("Закрытие уведомления на странице faq")
     @Test
     void closeNotification() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         SettingPage settingPage = headerBar.settingTabOpen();
         settingPage.settingPage();
         settingPage.deleteBugReport();

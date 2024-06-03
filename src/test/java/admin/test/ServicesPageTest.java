@@ -1,12 +1,12 @@
 package admin.test;
 
-import admin.data.DataTest;
-import admin.pages.HeaderBar;
+import admin.data.DataInfo;
+import admin.pages.HeaderMenu;
 import admin.pages.ServicesPage;
-import admin.utils.testUtils.*;
 import admin.pages.modalWindowServices.AddRuleWindow;
 import admin.pages.modalWindowServices.RulesPreparingWindow;
 import admin.utils.testUtils.TestSetupAuth;
+import admin.utils.testUtils.*;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -28,14 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Feature("Управление услугами")
 public class ServicesPageTest {
 
-    private HeaderBar headerBar;
+    private HeaderMenu headerBar;
     private ServicesPage servicesPage;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeEach
     void setUp() {
-        TestSetupAuth.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
+        TestSetupAuth.authAdminPanel(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
     }
 
     @Story("Смена последовательности категорий")

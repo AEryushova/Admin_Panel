@@ -14,16 +14,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @Epic("Хэдер")
-public class HeaderBarTest {
+public class HeaderMenuTest {
 
     private AuthorizationPage authPage;
-    private HeaderBar headerBar;
+    private HeaderMenu headerBar;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setupAdminPanelWithCookies() {
-        TestSetupAuth.
     }
 
     @BeforeEach

@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.data.DataTest;
+import admin.data.DataInfo;
 import admin.utils.testUtils.AdminAddDeleteDecorator;
 import admin.utils.dbUtils.DataBaseUtils;
 import admin.utils.testUtils.*;
@@ -13,7 +13,7 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import admin.pages.AuthorizationPage;
 import admin.pages.DoctorsPage;
-import admin.pages.HeaderBar;
+import admin.pages.HeaderMenu;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -27,14 +27,14 @@ public class AuthorizationPageTest {
     private static boolean superAdminTestExecuted = false;
     private static boolean adminTestExecuted = false;
     private AuthorizationPage authPage;
-    private HeaderBar headerBar;
+    private HeaderMenu headerBar;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeEach
     void setUp() {
         authPage = new AuthorizationPage();
-        headerBar = new HeaderBar();
+        headerBar = new HeaderMenu();
         TestSetupAuth.openAuthPage();
     }
 
@@ -49,11 +49,11 @@ public class AuthorizationPageTest {
     @Test
     void authorizationSuperAdmin_11777() {
         authPage.authPage();
-        DoctorsPage doctorPage = authPage.authorization(DataTest.getLoginSuperAdmin(), DataTest.getPasswordSuperAdmin());
+        DoctorsPage doctorPage = authPage.authorization(DataInfo.UserData.getLoginSuperAdmin(), DataInfo.UserData.getPasswordSuperAdmin());
         doctorPage.doctorsPage();
         headerBar.headerBarSuperAdmin();
         assertEquals("Супер-Администратор", headerBar.checkProfileInfoUser());
-        assertEquals("0", DataBaseUtils.selectAdmin(DataTest.getLoginSuperAdmin()).getRole_id());
+        assertEquals("0", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginSuperAdmin()).getRole_id());
     }
 
 
@@ -62,18 +62,18 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdmin() {
         authPage.authPage();
-        DoctorsPage doctorPage = authPage.authorization(DataTest.getLoginAdminTest(), DataTest.getPasswordAdminTest());
+        DoctorsPage doctorPage = authPage.authorization(DataInfo.UserData.getLoginAdminTest(), DataInfo.UserData.getPasswordAdminTest());
         doctorPage.doctorsPage();
         headerBar.headerBarAdmin();
         assertEquals("Администратор", headerBar.checkProfileInfoUser());
-        assertEquals("1", DataBaseUtils.selectAdmin(DataTest.getLoginAdminTest()).getRole_id());
+        assertEquals("1", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginAdminTest()).getRole_id());
     }
 
     @Story("Авторизация админа с неверным паролем")
     @ExtendWith({AdminAddDeleteDecorator.class, NotificationDecorator.class})
     @Test
     void authorizationAdminWrongPassword() {
-        authPage.fillLoginField(DataTest.getLoginAdminTest());
+        authPage.fillLoginField(DataInfo.UserData.getLoginAdminTest());
         authPage.fillPasswordField("WWqq123456!78");
         authPage.pressToComeIn();
         authPage.authPage();
@@ -85,7 +85,7 @@ public class AuthorizationPageTest {
     @Test
     void authorizationAdminInvalidLogin() {
         authPage.fillLoginField("Админ_25");
-        authPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authPage.fillPasswordField(DataInfo.UserData.getLoginAdminTest());
         authPage.pressToComeIn();
         authPage.authPage();
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", authPage.getNotification());
@@ -95,7 +95,7 @@ public class AuthorizationPageTest {
     @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminInvalidPassword() {
-        authPage.fillLoginField(DataTest.getLoginAdminTest());
+        authPage.fillLoginField(DataInfo.UserData.getLoginAdminTest());
         authPage.fillPasswordField("ЫЫйй123456!");
         authPage.pressToComeIn();
         authPage.authPage();
@@ -106,8 +106,8 @@ public class AuthorizationPageTest {
     @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminNonExistent() {
-        authPage.fillLoginField(DataTest.getLoginAdminTest());
-        authPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authPage.fillLoginField(DataInfo.UserData.getLoginAdminTest());
+        authPage.fillPasswordField(DataInfo.UserData.getPasswordAdminTest());
         authPage.pressToComeIn();
         authPage.authPage();
         assertEquals("AuthorizationAdminClient::SignIn: Ошибка авторизации.", authPage.getNotification());
@@ -117,7 +117,7 @@ public class AuthorizationPageTest {
     @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminMinimalSymbol() {
-        authPage.fillLoginField(DataTest.getLoginAdminTest());
+        authPage.fillLoginField(DataInfo.UserData.getLoginAdminTest());
         authPage.fillPasswordField("WwQ12!");
         authPage.pressToComeIn();
         authPage.authPage();
@@ -129,7 +129,7 @@ public class AuthorizationPageTest {
     @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminNotLogin() {
-        authPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authPage.fillPasswordField(DataInfo.UserData.getLoginAdminTest());
         authPage.pressToComeIn();
         authPage.authPage();
         assertEquals("Что-то пошло не по плану...", authPage.getNotification());
@@ -139,7 +139,7 @@ public class AuthorizationPageTest {
     @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminNotPassword() {
-        authPage.fillLoginField(DataTest.getLoginAdminTest());
+        authPage.fillLoginField(DataInfo.UserData.getLoginAdminTest());
         authPage.pressToComeIn();
         authPage.authPage();
         assertEquals("Что-то пошло не по плану...", authPage.getNotification());
@@ -158,8 +158,8 @@ public class AuthorizationPageTest {
     @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminEmptyFieldLoginAfterClear() {
-        authPage.fillLoginField(DataTest.getLoginAdminTest());
-        authPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authPage.fillLoginField(DataInfo.UserData.getLoginAdminTest());
+        authPage.fillPasswordField(DataInfo.UserData.getPasswordAdminTest());
         authPage.clearLoginClickButton();
         authPage.clearPasswordField();
         authPage.pressToComeIn();
@@ -170,7 +170,7 @@ public class AuthorizationPageTest {
     @Story("Очистка поля логина через кнопку в форме авторизации")
     @Test
     void clearLoginFieldThroughButtonClear() {
-        authPage.fillLoginField(DataTest.getLoginAdminTest());
+        authPage.fillLoginField(DataInfo.UserData.getLoginAdminTest());
         authPage.clearLoginClickButton();
         authPage.authPage();
         assertEquals("", authPage.getValueLoginField());
@@ -180,7 +180,7 @@ public class AuthorizationPageTest {
     @Story("Скрытие пароля при его вводе в поле пароля")
     @Test
     void fillPasswordHideValue() {
-        authPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authPage.fillPasswordField(DataInfo.UserData.getLoginAdminTest());
         assertTrue(authPage.isHidePassword());
         authPage.authPage();
     }
@@ -188,7 +188,7 @@ public class AuthorizationPageTest {
     @Story("Отображение введенного пароля в поле пароля")
     @Test
     void showPasswordValue() {
-        authPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authPage.fillPasswordField(DataInfo.UserData.getLoginAdminTest());
         authPage.showPassword();
         assertFalse(authPage.isHidePassword());
         authPage.authPage();
@@ -197,7 +197,7 @@ public class AuthorizationPageTest {
     @Story("Скрытие отображенного пароля в поле пароля")
     @Test
     void hidePasswordValue() {
-        authPage.fillPasswordField(DataTest.getPasswordAdminTest());
+        authPage.fillPasswordField(DataInfo.UserData.getLoginAdminTest());
         authPage.hidePassword();
         assertTrue(authPage.isHidePassword());
         authPage.authPage();

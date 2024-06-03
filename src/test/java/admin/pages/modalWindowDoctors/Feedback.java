@@ -24,7 +24,6 @@ public class Feedback {
         EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PUBLICATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        WITHDRAWAL_PUBLICATION
     }
 
     public void feedbackPublished() {

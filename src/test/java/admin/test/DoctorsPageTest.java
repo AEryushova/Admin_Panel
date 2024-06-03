@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.data.DataTest;
+import admin.data.DataInfo;
 import admin.pages.*;
 import admin.pages.calendar.Calendar;
 import admin.pages.modalWindowDoctors.*;
@@ -27,7 +27,7 @@ public class DoctorsPageTest {
 
     @BeforeAll
     static void setupAdminPanelWithCookies() {
-        TestSetupAuth.authAdminPanel(DataTest.getLoginSuperAdmin(), DataTest.getPasswordSuperAdmin());
+        TestSetupAuth.authAdminPanel(DataInfo.UserData.getLoginSuperAdmin(), DataInfo.UserData.getPasswordSuperAdmin());
     }
 
     @BeforeEach
@@ -49,7 +49,7 @@ public class DoctorsPageTest {
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadValidPhoto(path);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
-        assertNotEquals(srcOriginalPhoto, DataBaseUtils.selectPhotoUriDoctor(DataTest.getDoctorId()).getPhoto_uri());
+        assertNotEquals(srcOriginalPhoto, DataBaseUtils.selectPhotoUriDoctor(DataInfo.DataTest.getDoctorId()).getPhoto_uri());
     }
 
 
@@ -85,7 +85,7 @@ public class DoctorsPageTest {
     void deletePhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.deletePhoto();
-        assertEquals(DataTest.getDefaultPhoto(), cardDoctor.getSrcPhoto());
+        assertEquals(DataInfo.DataTest.getDefaultPhoto(), cardDoctor.getSrcPhoto());
 
     }
 
@@ -337,7 +337,6 @@ public class DoctorsPageTest {
         feedback.feedbackUnpublished();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
         changeFeedback.changeFeedbackWindow();
-        changeFeedback.clearFieldText();
         changeFeedback.fillFieldText("Внимательно отнесся к моей проблеме");
         changeFeedback.saveChanges();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
@@ -371,7 +370,6 @@ public class DoctorsPageTest {
         feedback.feedbackPublished();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
         changeFeedback.changeFeedbackWindow();
-        changeFeedback.clearFieldText();
         changeFeedback.fillFieldText("Прием у этого врача прошел замечательно");
         changeFeedback.saveChanges();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());

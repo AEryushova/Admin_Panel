@@ -1,5 +1,5 @@
 package admin.utils.testUtils;
-import admin.data.DataTest;
+import admin.data.DataInfo;
 import com.codeborne.selenide.WebDriverRunner;
 import lombok.Getter;
 import org.openqa.selenium.Cookie;
@@ -10,7 +10,7 @@ import java.util.Set;
 public class CookieUtils {
     private static final String COOKIE_FILE = "cookies.txt";
     private static final String COOKIE_NAME = "token";
-    private static final String COOKIE_DOMAIN = getIPFromUrl(DataTest.getUriAdminPanel());
+    private static final String COOKIE_DOMAIN = getIPFromUrl(DataInfo.Urls.getUriAdminPanel());
     @Getter
     private static String token;
 

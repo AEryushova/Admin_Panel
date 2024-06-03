@@ -1,6 +1,6 @@
 package admin.pages;
 
-import admin.data.DataTest;
+import admin.data.DataInfo;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import admin.pages.modalWindowAdministration.*;
@@ -18,9 +18,9 @@ public class AdministrationPage extends BasePage {
     private final SelenideElement UPDATE_ORDER = $x("//span[text()='Обновить приказ' ]//parent::div//parent::button");
     private final SelenideElement UPDATE_PRICE = $x("//span[text()='Обновить прайс' ]//parent::div//parent::button");
     private final SelenideElement ADD_ADMIN = $x("//span[text()='Добавить админа']//parent::div//parent::button");
-    private final SelenideElement CARD_ADMIN = $x("//input[@name='login' and @value='" + DataTest.getLoginAdminTest() + "']");
-    private final SelenideElement CHANGE_PASSWORD = $x("//div[.//input[contains(@value, '" + DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
-    private final SelenideElement DELETE_ADMIN = $x("//div[.//input[contains(@value, '" + DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
+    private final SelenideElement CARD_ADMIN = $x("//input[@name='login' and @value='" + DataInfo.UserData.getLoginAdminTest() + "']");
+    private final SelenideElement CHANGE_PASSWORD = $x("//div[.//input[contains(@value, '" + DataInfo.UserData.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
+    private final SelenideElement DELETE_ADMIN = $x("//div[.//input[contains(@value, '" + DataInfo.UserData.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
 
 
     public void adminPage() {

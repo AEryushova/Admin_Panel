@@ -1,6 +1,6 @@
 package admin.utils.testUtils;
 
-import admin.data.DataTest;
+import admin.data.DataInfo;
 import admin.utils.dbUtils.DataBaseUtils;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -9,6 +9,6 @@ public class SetPhotoDoctorDecorator implements BeforeEachCallback {
 
         @Override
         public void beforeEach(ExtensionContext context) throws Exception {
-            DataBaseUtils.setPhotoDoctor(DataTest.getPhoto());
+            DataBaseUtils.setPhotoDoctor(DataInfo.DataTest.getPhoto());
         }
 }

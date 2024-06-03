@@ -1,6 +1,6 @@
 package admin.utils.dbUtils;
 
-import admin.data.DataTest;
+import admin.data.DataInfo;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -42,10 +42,10 @@ public class DataBaseUtils {
         Object[] params;
 
         if ("SUPER_ADMIN".equals(role)) {
-            var superAdminLogin = DataTest.getLoginSuperAdmin();
+            var superAdminLogin = DataInfo.UserData.getLoginSuperAdmin();
             params = new Object[]{superAdminLogin};
         } else {
-            var adminLogin = DataTest.getLoginAdminTest();
+            var adminLogin = DataInfo.UserData.getLoginAdminTest();
             params = new Object[]{adminLogin};
         }
 
@@ -64,7 +64,7 @@ public class DataBaseUtils {
     public static DoctorCard setDefaultPhotoDoctor(String doctorId) {
         var setDefaultPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE employee_id = ? ";
         var connection = getConnection("cab_lab_db");
-        var defaultPhoto = DataTest.getDefaultPhoto();
+        var defaultPhoto = DataInfo.DataTest.getDefaultPhoto();
         return queryRunner("cab_lab_db").query(connection, setDefaultPhoto, new Object[] {doctorId, defaultPhoto}, new BeanHandler<>(DoctorCard.class));
     }
 
@@ -72,7 +72,7 @@ public class DataBaseUtils {
     public static DoctorCard setPhotoDoctor(String doctorId) {
         var setDefaultPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE employee_id = ? ";
         var connection = getConnection("cab_lab_db");
-        var photo = DataTest.getDefaultPhoto();
+        var photo = DataInfo.DataTest.getPhoto();
         return queryRunner("cab_lab_db").query(connection, setDefaultPhoto, new Object[] {doctorId, photo}, new BeanHandler<>(DoctorCard.class));
     }
 
@@ -92,7 +92,7 @@ public class DataBaseUtils {
     @SneakyThrows
     public static void deleteFeedback() {
         var connection = getConnection("cab_lab_db");
-        var feedback = DataTest.getLoginSuperAdmin();
+        var feedback = DataInfo.UserData.getLoginSuperAdmin();
         queryRunner("cab_lab_db").execute(connection, "DELETE FROM feedbacks_employees WHERE username = ?");
     }
 

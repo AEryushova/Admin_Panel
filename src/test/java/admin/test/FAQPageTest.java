@@ -1,16 +1,16 @@
 package admin.test;
 
-import admin.data.DataTest;
+import admin.data.DataInfo;
 import admin.pages.AdministrationPage;
 import admin.pages.FaqPage;
-import admin.pages.HeaderBar;
+import admin.pages.HeaderMenu;
 import admin.pages.modalWindowAdministration.UpdateLegalDocWindow;
 import admin.pages.modalWindowFAQ.AddQuestionWindow;
 import admin.pages.modalWindowFAQ.ChangeQuestionWindow;
 import admin.pages.modalWindowFAQ.Question;
 import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.testUtils.*;
 import admin.utils.testUtils.TestSetupAuth;
+import admin.utils.testUtils.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -28,7 +28,7 @@ public class FAQPageTest {
 
     @BeforeEach
     void setUp() {
-        TestSetupAuth.authAdminPanel(DataTest.getLoginAdmin(),DataTest.getPasswordAdmin());
+        TestSetupAuth.authAdminPanel(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
     }
 
     @Feature("Добавление нового faq-вопроса")
@@ -36,7 +36,7 @@ public class FAQPageTest {
     @Test
     void addFaqQuestion() {
         DataBaseUtils.clearAllFaq();
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -58,7 +58,7 @@ public class FAQPageTest {
     @Story("Добавление нового faq-вопроса с уже существующим заголовком и ответом")
     @Test
     void addFaqQuestionAlreadyExistQuestionAnswer() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -73,7 +73,7 @@ public class FAQPageTest {
     @Story("Добавление нового faq-вопроса с уже существующим заголовком")
     @Test
     void addFaqQuestionAlreadyExistQuestion() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -88,7 +88,7 @@ public class FAQPageTest {
     @Story("Добавление нового faq-вопроса с уже существующим ответом")
     @Test
     void addFaqQuestionAlreadyExistAnswer() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -107,7 +107,7 @@ public class FAQPageTest {
     @Story("Зануление полей в окне добавления faq-вопроса после закрытия окна")
     @Test
     void closeWindowAddNewQuestion() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -124,16 +124,14 @@ public class FAQPageTest {
     @Story("Успешное редактирование faq-вопроса")
     @Test
     void editQuestion() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         Question question = faqPage.questionCard(0);
         question.question();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.changeQuestionWindow();
-        changeQuestionWindow.clearQuestionField();
         changeQuestionWindow.fillQuestionField("Отредактированный вопрос");
-        changeQuestionWindow.clearAnswerField();
         changeQuestionWindow.fillAnswerField("Отредактированный ответ");
         changeQuestionWindow.saveChangesQuestion();
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
@@ -146,7 +144,7 @@ public class FAQPageTest {
     @Story("Сохранение faq-вопроса без изменений данных")
     @Test
     void editQuestionNotChangeSave() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         Question question = faqPage.questionCard(0);
@@ -164,16 +162,14 @@ public class FAQPageTest {
     @Story("Зануление полей в окне редактирования faq-вопроса после закрытия окна")
     @Test
     void closeWindowEditQuestion() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         Question question = faqPage.questionCard(0);
         question.question();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.changeQuestionWindow();
-        changeQuestionWindow.clearQuestionField();
         changeQuestionWindow.fillQuestionField("Не сохранять заголовок");
-        changeQuestionWindow.clearAnswerField();
         changeQuestionWindow.fillAnswerField("Не сохранять текст");
         changeQuestionWindow.closeWindowEditQuestion();
         question.question();
@@ -185,7 +181,7 @@ public class FAQPageTest {
     @Story("Смена последовательности faq-вопросов")
     @Test
     void sequenceChangeQuestion() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         Question questionFirst = faqPage.questionCard(0);
@@ -205,7 +201,7 @@ public class FAQPageTest {
     @Story("Успешное удаление faq-вопроса")
     @Test
     void deleteQuestion() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         Question question = faqPage.questionCard(0);
@@ -218,7 +214,7 @@ public class FAQPageTest {
     @Story("Возврат к хэдеру страницы faq")
     @Test
     void returnToStartPage() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         faqPage.scrollPageToBottom();
@@ -229,7 +225,7 @@ public class FAQPageTest {
     @Story("Закрытие уведомления на странице faq")
     @Test
     void closeNotification() {
-        HeaderBar headerBar = new HeaderBar();
+        HeaderMenu headerBar = new HeaderMenu();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
         adminPage.adminPage();
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
