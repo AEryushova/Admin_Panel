@@ -5,8 +5,7 @@ import admin.utils.testUtils.AdminAddDeleteDecorator;
 import admin.utils.dbUtils.DataBaseUtils;
 import admin.utils.testUtils.*;
 import admin.utils.testUtils.NotificationDecorator;
-import admin.utils.testUtils.TestSetupAuth;
-import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -18,54 +17,53 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Авторизация")
 @Feature("Вход в админ-панель")
 public class AuthorizationPageTest {
 
-    private static boolean superAdminTestExecuted = false;
-    private static boolean adminTestExecuted = false;
     private AuthorizationPage authPage;
-    private HeaderMenu headerBar;
+    private HeaderMenu headerMenu;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeEach
     void setUp() {
+        Configuration.holdBrowserOpen = true;
+        Configuration.browserSize = "1920x1080";
+        open(DataInfo.Urls.getUriAdminPanel());
+        localStorage().setItem("Environment", "freeze");
+        clearBrowserCookies();
         authPage = new AuthorizationPage();
-        headerBar = new HeaderMenu();
-        TestSetupAuth.openAuthPage();
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (superAdminTestExecuted && adminTestExecuted) {
-            Selenide.closeWebDriver();
-        }
+        headerMenu = new HeaderMenu();
     }
 
     @Story("Успешная авторизация супер-админа")
+    @ExtendWith(CloseWebDriverDecorator.class)
     @Test
-    void authorizationSuperAdmin_11777() {
+    void authorizationSuperAdmin() {
         authPage.authPage();
         DoctorsPage doctorPage = authPage.authorization(DataInfo.UserData.getLoginSuperAdmin(), DataInfo.UserData.getPasswordSuperAdmin());
         doctorPage.doctorsPage();
-        headerBar.headerBarSuperAdmin();
-        assertEquals("Супер-Администратор", headerBar.checkProfileInfoUser());
+        headerMenu.headerBarSuperAdmin();
+        headerMenu.openAndCloseProfileAdmin();
+        assertEquals("Супер-Администратор", headerMenu.checkProfileInfoUser());
         assertEquals("0", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginSuperAdmin()).getRole_id());
     }
 
 
     @Story("Успешная авторизация админа")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith({AdminAddDeleteDecorator.class, CloseWebDriverDecorator.class})
     @Test
     void authorizationAdmin() {
         authPage.authPage();
         DoctorsPage doctorPage = authPage.authorization(DataInfo.UserData.getLoginAdminTest(), DataInfo.UserData.getPasswordAdminTest());
         doctorPage.doctorsPage();
-        headerBar.headerBarAdmin();
-        assertEquals("Администратор", headerBar.checkProfileInfoUser());
+        headerMenu.headerBarAdmin();
+        headerMenu.openAndCloseProfileAdmin();
+        assertEquals("Администратор", headerMenu.checkProfileInfoUser());
         assertEquals("1", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginAdminTest()).getRole_id());
     }
 
@@ -129,7 +127,7 @@ public class AuthorizationPageTest {
     @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminNotLogin() {
-        authPage.fillPasswordField(DataInfo.UserData.getLoginAdminTest());
+        authPage.fillPasswordField(DataInfo.UserData.getPasswordAdminTest());
         authPage.pressToComeIn();
         authPage.authPage();
         assertEquals("Что-то пошло не по плану...", authPage.getNotification());
@@ -198,6 +196,7 @@ public class AuthorizationPageTest {
     @Test
     void hidePasswordValue() {
         authPage.fillPasswordField(DataInfo.UserData.getLoginAdminTest());
+        authPage.showPassword();
         authPage.hidePassword();
         assertTrue(authPage.isHidePassword());
         authPage.authPage();
@@ -305,7 +304,7 @@ public class AuthorizationPageTest {
     @Test
     void closeNotificationTimeout() throws InterruptedException {
         authPage.pressToComeIn();
-        Thread.sleep(6000);
+        Thread.sleep(7000);
         assertFalse(authPage.notificationAppear());
     }
 

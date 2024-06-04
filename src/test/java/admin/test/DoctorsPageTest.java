@@ -25,15 +25,6 @@ public class DoctorsPageTest {
 
     @ExtendWith(AllureDecorator.class)
 
-    @BeforeAll
-    static void setupAdminPanelWithCookies() {
-        TestSetupAuth.authAdminPanel(DataInfo.UserData.getLoginSuperAdmin(), DataInfo.UserData.getPasswordSuperAdmin());
-    }
-
-    @BeforeEach
-    void loadCookies() {
-        CookieUtils.loadCookies();
-    }
 
 
     @Feature("Фотография врача")

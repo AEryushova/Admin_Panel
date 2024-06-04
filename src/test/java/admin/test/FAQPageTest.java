@@ -1,6 +1,5 @@
 package admin.test;
 
-import admin.data.DataInfo;
 import admin.pages.AdministrationPage;
 import admin.pages.FaqPage;
 import admin.pages.HeaderMenu;
@@ -9,12 +8,10 @@ import admin.pages.modalWindowFAQ.AddQuestionWindow;
 import admin.pages.modalWindowFAQ.ChangeQuestionWindow;
 import admin.pages.modalWindowFAQ.Question;
 import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.testUtils.TestSetupAuth;
 import admin.utils.testUtils.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static admin.utils.dbUtils.DataBaseUtils.selectFaq;
@@ -26,10 +23,7 @@ public class FAQPageTest {
 
     @ExtendWith(AllureDecorator.class)
 
-    @BeforeEach
-    void setUp() {
-        TestSetupAuth.authAdminPanel(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
-    }
+
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Успешное добавление нового faq-вопроса")

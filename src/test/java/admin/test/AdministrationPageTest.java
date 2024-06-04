@@ -27,15 +27,17 @@ public class AdministrationPageTest {
     @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
-    static void setupAdminPanelAuth() {
-        TestSetupAuth.authAdminPanel(DataInfo.UserData.getLoginSuperAdmin(), DataInfo.UserData.getPasswordSuperAdmin());
+    static void authSetUp(){
+        BrowserManager.AuthGetCookie(DataInfo.UserData.getLoginSuperAdmin(),DataInfo.UserData.getPasswordSuperAdmin());
     }
 
     @BeforeEach
-    void openAdministrationPage() {
-        TestSetupAuth.openAdministrationPage();
+    void setUp(){
+        adminPage=new AdministrationPage();
+        BrowserManager.openAdminPage();
+        HeaderMenu headerMenu= new HeaderMenu();
+        headerMenu.administrationTabOpen();
     }
-
 
     @Feature("Добавление нового админа")
     @Story("Успешное добавление нового админа")
@@ -66,11 +68,11 @@ public class AdministrationPageTest {
         newAdminWindow.fillFieldNewAdminConfirmPassword(DataInfo.UserData.getPasswordAdminTest());
         newAdminWindow.clickAddButton();
         assertEquals("{\"error\":\"Пользователь уже существует, логин: " + DataInfo.UserData.getLoginAdminTest() + "\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}", adminPage.getNotification());
-        assertFalse(adminPage.isExistAdminCard());
+        assertTrue(adminPage.isExistAdminCard());
     }
 
     @Feature("Добавление нового админа")
-    @Story("Добавление нового администраторас пустым полем логина")
+    @Story("Добавление нового администратора с пустым полем логина")
     @Test
     void addedNewAdminEmptyFieldsLogin() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
@@ -287,12 +289,13 @@ public class AdministrationPageTest {
         changePasswordAdminWindow.fillFieldNewPassword(DataInfo.UserData.getNewPasswordAdminTest());
         changePasswordAdminWindow.fillFieldConfirmPassword(DataInfo.UserData.getNewPasswordAdminTest());
         changePasswordAdminWindow.clickSaveNewPasswordButton();
-        assertEquals("Админ" + DataInfo.UserData.getLoginAdminTest() + "успешно изменен", adminPage.getNotification());
+        assertEquals("Админ " + DataInfo.UserData.getLoginAdminTest() + " успешно изменен", adminPage.getNotification());
         assertFalse(changePasswordAdminWindow.isWindowAppear());
     }
 
     @Feature("Смена пароля админу")
     @Story("Смена пароля админу с пустым полем пароля")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdminEmptyFieldsPassword() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
@@ -303,6 +306,7 @@ public class AdministrationPageTest {
 
     @Feature("Смена пароля админу")
     @Story("Смена пароля админу с пустым полем подтверждения пароля")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdminEmptyFieldsConfirmPassword() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
@@ -312,6 +316,7 @@ public class AdministrationPageTest {
 
     @Feature("Смена пароля админу")
     @Story("Отображение уведомления об обязательности полей")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdminObligatoryFields() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
@@ -323,6 +328,7 @@ public class AdministrationPageTest {
 
     @Feature("Смена пароля админу")
     @Story("Ввод не соответствующего пароля при подтверждении")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdminNotEqualsPasswords() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
@@ -336,6 +342,7 @@ public class AdministrationPageTest {
 
     @Feature("Смена пароля админу")
     @Story("Ввод не валидного пароля из 7 символов")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdmin7Symbol() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
@@ -345,6 +352,7 @@ public class AdministrationPageTest {
 
     @Feature("Смена пароля админу")
     @Story("Ввод валидного пароля из 8,9,24 и 25 символов")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
     void changePasswordAdmin8Symbol(String login) {
@@ -356,6 +364,7 @@ public class AdministrationPageTest {
 
     @Feature("Смена пароля админу")
     @Story("Ввод не валидного пароля из 26 символов")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdmin26Symbol() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
@@ -365,6 +374,7 @@ public class AdministrationPageTest {
 
     @Feature("Смена пароля админу")
     @Story("Ввод не валидного пароля без латинской буквы, без спецсимвола, без латинской буквы в верхнем регистре,без латинской буквы в нижнем регистре, без цифр, с пробелом ")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
     void changePasswordAdminNotToUpperCase() {
@@ -375,6 +385,7 @@ public class AdministrationPageTest {
 
     @Feature("Смена пароля админу")
     @Story("Зануление полей в окне смены пароля админу и закрытие окна")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void closeWindowChangePasswordAdmin_8880() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
@@ -400,14 +411,14 @@ public class AdministrationPageTest {
 
     @Feature("Удаление админа")
     @Story("Успешное удаление админа")
-    @ExtendWith({AdminAddDeleteDecorator.class, NotificationDecorator.class})
+    @ExtendWith({AdminAddDecorator.class, NotificationDecorator.class})
     @Test
     void deleteAdmin() {
         adminPage.adminCard();
         DeleteAdminWindow deleteAdminWindow = adminPage.openWindowDeleteAdmin();
         deleteAdminWindow.deleteAdminWindow();
         deleteAdminWindow.deleteAdmin();
-        assertEquals("Админ" + DataInfo.UserData.getLoginAdminTest() + "успешно удален", adminPage.getNotification());
+        assertEquals("Админ " + DataInfo.UserData.getLoginAdminTest() + " успешно удален", adminPage.getNotification());
         assertFalse(adminPage.isExistAdminCard());
     }
 

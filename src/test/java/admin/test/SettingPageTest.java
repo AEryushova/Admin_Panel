@@ -1,15 +1,12 @@
 package admin.test;
 
-import admin.data.DataInfo;
 import admin.pages.*;
 import admin.utils.DataHelper;
 import admin.utils.testUtils.*;
-import admin.utils.testUtils.TestSetupAuth;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import user.pages.AuthPage;
@@ -23,11 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SettingPageTest {
 
     @ExtendWith(AllureDecorator.class)
-
-    @BeforeEach
-    void setUp() {
-        TestSetupAuth.authAdminPanel(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
-    }
 
 
     static void addBugReport() {

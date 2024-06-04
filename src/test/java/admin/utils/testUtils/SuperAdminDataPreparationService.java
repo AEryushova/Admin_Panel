@@ -3,14 +3,11 @@ package admin.utils.testUtils;
 
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
-public class TestSetupAPI {
-    private static final String baseUri = "http://192.168.6.48:8083";
+public class SuperAdminDataPreparationService {
     private static final Gson gson = new Gson();
-    private static String token;
 
 
     private static class DataInfo {
@@ -23,6 +20,7 @@ public class TestSetupAPI {
         }
     }
 
+    /*
     private static void tokenAuthRequest(String login, String password) {
         String dataInfoJson = getDataInfoJson(login,password);
         Response response = given()
@@ -49,6 +47,7 @@ public class TestSetupAPI {
                 .then()
                 .statusCode(200);
     }
+    */
 
     private static String getDataInfoJson(String login, String password) {
         DataInfo dataInfo = new DataInfo(login, password);
@@ -59,9 +58,10 @@ public class TestSetupAPI {
     public static void createAdmin(String login, String password) {
         String dataInfoJson = getDataInfoJson(login, password);
         given()
-                .baseUri(baseUri)
+                .baseUri(admin.data.DataInfo.Urls.getUriAdminPanel())
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", admin.data.DataInfo.Urls.getEnvironmentFreeze())
                 .body(dataInfoJson)
                 .when()
                 .post("/api/admins/sign-up")
@@ -69,37 +69,14 @@ public class TestSetupAPI {
                 .statusCode(201);
     }
 
-    public static void createAdminCookie(String login, String password) {
-        String dataInfoJson = getDataInfoJson(login, password);
-        given()
-                .baseUri(baseUri)
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + CookieUtils.getToken())
-                .body(dataInfoJson)
-                .when()
-                .post("/api/admins/sign-up")
-                .then()
-                .statusCode(201);
-    }
 
     public static void deleteAdmin(String login) {
         given()
-                .baseUri(baseUri)
+                .baseUri(admin.data.DataInfo.Urls.getUriAdminPanel())
                 .queryParam("login", login)
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + token)
-                .when()
-                .delete("/api/admins")
-                .then()
-                .statusCode(204);
-    }
-
-    public static void deleteAdminCookie(String login) {
-        given()
-                .baseUri(baseUri)
-                .queryParam("login", login)
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + CookieUtils.getToken())
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", admin.data.DataInfo.Urls.getEnvironmentFreeze())
                 .when()
                 .delete("/api/admins")
                 .then()

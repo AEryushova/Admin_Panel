@@ -2,14 +2,10 @@ package admin.test;
 
 import admin.pages.*;
 import admin.utils.testUtils.AdminAddDeleteDecorator;
-import admin.utils.testUtils.CookieUtils;
-import admin.utils.testUtils.TestSetupAuth;
 import admin.utils.testUtils.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -21,15 +17,6 @@ public class HeaderMenuTest {
 
     @ExtendWith(AllureDecorator.class)
 
-    @BeforeAll
-    static void setupAdminPanelWithCookies() {
-    }
-
-    @BeforeEach
-    void loadCookies() {
-        TestSetupAuth.openAdministrationPage();
-        CookieUtils.loadCookies();
-    }
 
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Feature("Выход из админ-панели")

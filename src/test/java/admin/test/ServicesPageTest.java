@@ -1,11 +1,9 @@
 package admin.test;
 
-import admin.data.DataInfo;
 import admin.pages.HeaderMenu;
 import admin.pages.ServicesPage;
 import admin.pages.modalWindowServices.AddRuleWindow;
 import admin.pages.modalWindowServices.RulesPreparingWindow;
-import admin.utils.testUtils.TestSetupAuth;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Epic;
@@ -33,10 +31,6 @@ public class ServicesPageTest {
 
     @ExtendWith(AllureDecorator.class)
 
-    @BeforeEach
-    void setUp() {
-        TestSetupAuth.authAdminPanel(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
-    }
 
     @Story("Смена последовательности категорий")
     @Test
