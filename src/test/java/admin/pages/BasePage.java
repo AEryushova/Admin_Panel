@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class BasePage {
@@ -15,29 +16,30 @@ public class BasePage {
     private final SelenideElement RETURN_TO_START_BUTTON = $x("//div[@class='_x1E']");
 
     public String getNotification() {
-        NOTIFICATION.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        NOTIFICATION.shouldBe(visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist);
         return NOTIFICATION.getText();
     }
 
     public boolean isNotificationVisible() {
-        return NOTIFICATION.is(Condition.visible);
+        return NOTIFICATION.is(visible);
     }
 
 
     public void closeNotification() {
-        CLOSE_NOTIFICATION.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        CLOSE_NOTIFICATION.shouldBe(visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();
         NOTIFICATION.shouldBe(Condition.hidden);
     }
 
     public void scrollPageToBottom() {
-        FOOTER_PAGE.scrollTo();
+        RETURN_TO_START_BUTTON.shouldBe(visible);
+        RETURN_TO_START_BUTTON.scrollIntoView("{block: 'end', inline: 'end'}");
     }
 
     public void returnToStartPage() {
-        RETURN_TO_START_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5))
+        RETURN_TO_START_BUTTON.shouldBe(visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
         .click();
     }

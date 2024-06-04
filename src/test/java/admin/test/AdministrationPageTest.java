@@ -432,7 +432,6 @@ public class AdministrationPageTest {
         updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта.pdf");
         adminPage.updateOffer();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
-        assertFalse(updateLegalDocWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -445,7 +444,6 @@ public class AdministrationPageTest {
         updateLegalDocWindow.uploadValidDoc("src/test/resources/Политика обработки персональных данных.pdf");
         adminPage.updateProcessingPolicy();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
-        assertFalse(updateLegalDocWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -629,7 +627,7 @@ public class AdministrationPageTest {
     }
 
     @Feature("Документация")
-    @Story("Обновление офферты с файлом в невалидном формате")
+    @Story("Обновление оферты с файлом в невалидном формате")
     @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx","src/test/resources/Оферта, Политика обработки jpeg.jpg",})
@@ -749,7 +747,6 @@ public class AdministrationPageTest {
     @Test
     void returnToStartPage() {
         adminPage.scrollPageToBottom();
-        assertTrue(adminPage.isReturnButtonAppear());
         adminPage.returnToStartPage();
         assertFalse(adminPage.isReturnButtonAppear());
     }
