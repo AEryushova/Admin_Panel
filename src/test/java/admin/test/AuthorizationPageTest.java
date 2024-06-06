@@ -1,23 +1,23 @@
 package admin.test;
 
 import admin.data.DataInfo;
-import admin.utils.testUtils.AdminAddDeleteDecorator;
 import admin.utils.dbUtils.DataBaseUtils;
+import admin.utils.decoratorsTest.AllureDecorator;
+import admin.utils.decoratorsTest.CloseWebDriverDecorator;
 import admin.utils.testUtils.*;
-import admin.utils.testUtils.NotificationDecorator;
-import com.codeborne.selenide.Configuration;
+import admin.utils.decoratorsTest.NotificationDecorator;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
-import admin.pages.AuthorizationPage;
-import admin.pages.DoctorsPage;
-import admin.pages.HeaderMenu;
+import admin.pages.AuthorizationPage.AuthorizationPage;
+import admin.pages.DoctorsPage.DoctorsPage;
+import admin.pages.HeaderMenu.HeaderMenu;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Авторизация")
@@ -298,9 +298,10 @@ public class AuthorizationPageTest {
 
     @Story("Закрытие уведомления на странице авторизации по таймауту")
     @Test
-    void closeNotificationTimeout() throws InterruptedException {
+    void closeNotificationTimeout()  {
         authPage.pressToComeIn();
-        Thread.sleep(7000);
+        assertTrue(authPage.notificationAppear());
+        Selenide.sleep(7000);
         assertFalse(authPage.notificationAppear());
     }
 
@@ -308,6 +309,7 @@ public class AuthorizationPageTest {
     @Test
     void closeNotification() {
         authPage.pressToComeIn();
+        assertTrue(authPage.notificationAppear());
         authPage.closeNotification();
         assertFalse(authPage.notificationAppear());
     }

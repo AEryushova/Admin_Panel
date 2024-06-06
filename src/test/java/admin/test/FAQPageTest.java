@@ -1,14 +1,15 @@
 package admin.test;
 
 import admin.data.DataInfo;
-import admin.pages.AdministrationPage;
-import admin.pages.FaqPage;
-import admin.pages.HeaderMenu;
-import admin.pages.modalWindowAdministration.UpdateLegalDocWindow;
-import admin.pages.modalWindowFAQ.AddQuestionWindow;
-import admin.pages.modalWindowFAQ.ChangeQuestionWindow;
-import admin.pages.modalWindowFAQ.Question;
+import admin.pages.AdministrationPage.AdministrationPage;
+import admin.pages.FaqPage.FaqPage;
+import admin.pages.HeaderMenu.HeaderMenu;
+import admin.pages.AdministrationPage.UpdateLegalDocWindow;
+import admin.pages.FaqPage.AddQuestionWindow;
+import admin.pages.FaqPage.ChangeQuestionWindow;
+import admin.pages.FaqPage.Question;
 import admin.utils.dbUtils.DataBaseUtils;
+import admin.utils.decoratorsTest.AllureDecorator;
 import admin.utils.testUtils.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -36,7 +37,7 @@ public class FAQPageTest {
 
     @BeforeEach
     void setUp(){
-        BrowserManager.openPages();
+        BrowserManager.openPagesAfterAuth();
         faqPage=new FaqPage();
         headerMenu= new HeaderMenu();
         headerMenu.faqTabOpen();
@@ -238,7 +239,6 @@ public class FAQPageTest {
     void closeNotification() {
         HeaderMenu headerBar = new HeaderMenu();
         AdministrationPage adminPage = headerBar.administrationTabOpen();
-        adminPage.adminPage();
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadDocWindow();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");

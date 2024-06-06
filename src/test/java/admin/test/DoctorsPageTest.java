@@ -1,12 +1,17 @@
 package admin.test;
 
 import admin.data.DataInfo;
-import admin.pages.*;
-import admin.pages.calendar.Calendar;
-import admin.pages.modalWindowDoctors.*;
+import admin.pages.CardDoctorPage.*;
+import admin.pages.DoctorsPage.DoctorsPage;
+import admin.pages.HeaderMenu.HeaderMenu;
+import admin.pages.Сalendar.Calendar;
+import admin.utils.decoratorsTest.AllureDecorator;
+import admin.utils.decoratorsTest.DeletePhotoDoctorDecorator;
+import admin.utils.decoratorsTest.NotificationDecorator;
+import admin.utils.decoratorsTest.SetPhotoDoctorDecorator;
 import admin.utils.testUtils.*;
 import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.DataHelper;
+import admin.utils.testUtils.DataHelper;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -33,7 +38,7 @@ public class DoctorsPageTest {
 
     @BeforeEach
     void setUp(){
-        BrowserManager.openPages();
+        BrowserManager.openPagesAfterAuth();
         doctorsPage=new DoctorsPage();
         headerMenu= new HeaderMenu();
         headerMenu.doctorsTabOpen();
@@ -50,9 +55,9 @@ public class DoctorsPageTest {
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
-        editPhoto.uploadValidPhoto(path);
+        editPhoto.uploadPhoto(path);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
-        assertNotEquals(srcOriginalPhoto, DataBaseUtils.selectPhotoUriDoctor2(DataInfo.DataTest.getDoctorName(),DataInfo.DataTest.getDoctorSpecialization()).getPhoto_uri());
+        assertNotEquals(srcOriginalPhoto, DataBaseUtils.selectPhotoUriDoctor().getPhoto_uri());
     }
 
 
@@ -65,7 +70,7 @@ public class DoctorsPageTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
-        editPhoto.uploadInvalidPhoto(path);
+        editPhoto.uploadPhoto(path);
         assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getNotification());
         assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
     }
@@ -222,7 +227,6 @@ public class DoctorsPageTest {
     @Story("Успешное добавление отзыва о враче текущей датой")
     @Test
     void addFeedbackToday() {
-        DataBaseUtils.clearAllFeedback();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.togglePublishedCheckbox();
         AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
@@ -250,7 +254,6 @@ public class DoctorsPageTest {
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
     @Test
     void addFeedbackCurrentMonth() {
-        DataBaseUtils.clearAllFeedback();
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.togglePublishedCheckbox();
         AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
@@ -450,7 +453,7 @@ public class DoctorsPageTest {
     void closeNotificationTimeout() throws InterruptedException {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
-        editPhoto.uploadInvalidPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
+        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
         assertTrue(cardDoctor.notificationAppear());
         Thread.sleep(6000);
         assertFalse(cardDoctor.notificationAppear());
@@ -461,7 +464,7 @@ public class DoctorsPageTest {
     void closeNotification() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
-        editPhoto.uploadInvalidPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
+        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
         assertTrue(cardDoctor.notificationAppear());
         cardDoctor.closeNotification();
         assertFalse(cardDoctor.notificationAppear());

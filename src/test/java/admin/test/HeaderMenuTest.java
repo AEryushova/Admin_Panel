@@ -1,8 +1,15 @@
 package admin.test;
 
 import admin.data.DataInfo;
-import admin.pages.*;
-import admin.utils.testUtils.AdminAddDeleteDecorator;
+import admin.pages.AdministrationPage.AdministrationPage;
+import admin.pages.AuthorizationPage.AuthorizationPage;
+import admin.pages.DoctorsPage.DoctorsPage;
+import admin.pages.FaqPage.FaqPage;
+import admin.pages.HeaderMenu.HeaderMenu;
+import admin.pages.ServicesPage.ServicesPage;
+import admin.pages.SettingPage.SettingPage;
+import admin.utils.decoratorsTest.AdminAddDeleteDecorator;
+import admin.utils.decoratorsTest.AllureDecorator;
 import admin.utils.testUtils.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -27,7 +34,7 @@ public class HeaderMenuTest {
 
     @BeforeEach
     void setUp(){
-        BrowserManager.openPages();
+        BrowserManager.openPagesAfterAuth();
         headerMenu = new HeaderMenu();
     }
 
@@ -97,12 +104,4 @@ public class HeaderMenuTest {
         adminPage.adminPage();
     }
 
-    @Feature("Навигация")
-    @Story("Сохранение состояния страницы при клике по вкладке администрирования")
-    @Test
-    void clickAdministrationPage() {
-        headerMenu.headerBarSuperAdmin();
-        AdministrationPage adminPage = headerMenu.administrationTabOpen();
-        adminPage.adminPage();
-    }
 }

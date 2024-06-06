@@ -52,4 +52,21 @@ public class HomePageTest {
         assertEquals("Ваше сообщение об ошибке передано администратору. Благодарим за содействие в улучшении нашего сервиса!", homePage.getNotification());
     }
 
+    static void addBugReport2() {
+        Configuration.holdBrowserOpen = true;
+        Configuration.browserSize = "1920x1080";
+        open("https://lk.mdapp.online/auth");
+        localStorage().setItem("Environment", "freeze");
+        clearBrowserCookies();
+        AuthPage authPage = new AuthPage();
+        HomePage homePage = authPage.authorizationLK();
+        homePage.homePage();
+        ReportBug reportBug = homePage.sendReportBug();
+        reportBug.reportBug();
+        reportBug.fillingFieldTextReportBug("Не могу записаться к врачу");
+        reportBug.fillingFieldEmailReportBug("Test@mail.ru");
+        reportBug.clickSendButton();
+        assertEquals("Ваше сообщение об ошибке передано администратору. Благодарим за содействие в улучшении нашего сервиса!", homePage.getNotification());
+    }
+
 }

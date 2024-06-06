@@ -1,18 +1,19 @@
 package admin.test;
 
 import admin.data.DataInfo;
-import admin.pages.*;
-import admin.pages.calendar.Calendar;
-import admin.utils.*;
+import admin.pages.AdministrationPage.*;
+import admin.pages.HeaderMenu.HeaderMenu;
+import admin.pages.Сalendar.Calendar;
 import admin.utils.dbUtils.DataBaseUtils;
+import admin.utils.decoratorsTest.*;
 import admin.utils.testUtils.*;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import admin.pages.modalWindowAdministration.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -34,7 +35,7 @@ public class AdministrationPageTest {
 
     @BeforeEach
     void setUp(){
-        BrowserManager.openPages();
+        BrowserManager.openPagesAfterAuth();
         adminPage=new AdministrationPage();
         headerMenu= new HeaderMenu();
         headerMenu.administrationTabOpen();
@@ -421,6 +422,7 @@ public class AdministrationPageTest {
         deleteAdminWindow.deleteAdmin();
         assertEquals("Админ " + DataInfo.UserData.getLoginAdminTest() + " успешно удален", adminPage.getNotification());
         assertFalse(adminPage.isExistAdminCard());
+        assertNull(DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginAdminTest()));
     }
 
     @Feature("Документация")
@@ -636,6 +638,7 @@ public class AdministrationPageTest {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateOffer();
         updateLegalDocWindow.uploadInvalidDoc(path);
         assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
+        assertTrue(updateLegalDocWindow.isWindowAppear());
     }
 
 
@@ -648,6 +651,7 @@ public class AdministrationPageTest {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadInvalidDoc(path);
         assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
+        assertTrue(updateLegalDocWindow.isWindowAppear());
     }
 
 
@@ -659,6 +663,7 @@ public class AdministrationPageTest {
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ с ошибкой в строке 10858.xlsx");
         assertEquals("Ошибка в 10858 строке", adminPage.getNotification());
+        assertTrue(updateOrderWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -670,6 +675,7 @@ public class AdministrationPageTest {
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.uploadOrder(path);
         assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
+        assertTrue(updateOrderWindow.isWindowAppear());
     }
 
 
@@ -681,6 +687,7 @@ public class AdministrationPageTest {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс с ошибкой в строке 1398.xlsx");
         assertEquals("Ошибка в 1398 строке", adminPage.getNotification());
+        assertTrue(updatePriceWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -741,6 +748,8 @@ public class AdministrationPageTest {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.uploadPrice(path);
         assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
+        assertTrue(updatePriceWindow.isWindowAppear());
+
     }
 
 
@@ -754,11 +763,11 @@ public class AdministrationPageTest {
 
     @Story("Закрытие уведомления на странице администрирования по таймауту")
     @Test
-    void closeNotificationTimeout() throws InterruptedException {
+    void closeNotificationTimeout(){
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
         updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");
         assertTrue(adminPage.notificationAppear());
-        Thread.sleep(6000);
+        Selenide.sleep(7000);
         assertFalse(adminPage.notificationAppear());
     }
 
@@ -777,10 +786,8 @@ public class AdministrationPageTest {
     @Story("Загрузка файла с прайсом")
     @Test
     void downloadPrice() {
-        AdministrationPage adminPage = new AdministrationPage();
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.updatePriceWindow();
         File downloadedFile = updatePriceWindow.downloadPriceDateActivation();
     }
-}
 */

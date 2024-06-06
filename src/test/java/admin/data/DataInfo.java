@@ -49,5 +49,11 @@ public class DataInfo {
         public static final String defaultPhoto = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
         @Getter
         public static final String photo = "src/test/resources/Photo 3,7mbJpeg.jpg";
+        @Getter
+        public static final String messageBugReport = "Не могу записаться к врачу";
+        @Getter
+        public static final String emailPatient = "Test@mail.ru";
+        @Getter
+        public static final String namePatient = "Федоров Федор Федорович";
     }
 }

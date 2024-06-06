@@ -1,10 +1,11 @@
 package admin.test;
 
 import admin.data.DataInfo;
-import admin.pages.HeaderMenu;
-import admin.pages.ServicesPage;
-import admin.pages.modalWindowServices.AddRuleWindow;
-import admin.pages.modalWindowServices.RulesPreparingWindow;
+import admin.pages.HeaderMenu.HeaderMenu;
+import admin.pages.ServicesPage.ServicesPage;
+import admin.pages.ServicesPage.AddRuleWindow;
+import admin.pages.ServicesPage.RulesPreparingWindow;
+import admin.utils.decoratorsTest.*;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Epic;
@@ -39,7 +40,7 @@ public class ServicesPageTest {
 
     @BeforeEach
     void setUp(){
-        BrowserManager.openPages();
+        BrowserManager.openPagesAfterAuth();
         servicesPage=new ServicesPage();
         headerMenu= new HeaderMenu();
         headerMenu.servicesTabOpen();

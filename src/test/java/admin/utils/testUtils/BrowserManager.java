@@ -1,7 +1,7 @@
 package admin.utils.testUtils;
 
 import admin.data.DataInfo;
-import admin.pages.AuthorizationPage;
+import admin.pages.AuthorizationPage.AuthorizationPage;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
@@ -44,7 +44,7 @@ public class BrowserManager {
         Selenide.closeWebDriver();
     }
 
-    public static void openPages() {
+    public static void openPagesAfterAuth() {
         Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
         open(DataInfo.Urls.getUriAdminPanel());
