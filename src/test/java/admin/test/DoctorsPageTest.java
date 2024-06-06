@@ -22,10 +22,22 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DoctorsPageTest {
 
     private DoctorsPage doctorsPage;
+    private HeaderMenu headerMenu;
 
     @ExtendWith(AllureDecorator.class)
 
+    @BeforeAll
+    static void setUpAuth() {
+        BrowserManager.authGetCookie(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
+    }
 
+    @BeforeEach
+    void setUp(){
+        BrowserManager.openPages();
+        doctorsPage=new DoctorsPage();
+        headerMenu= new HeaderMenu();
+        headerMenu.doctorsTabOpen();
+    }
 
     @Feature("Фотография врача")
     @Story("Успешная замена фотографии врачу в формате Jpeg и Png")
@@ -40,7 +52,7 @@ public class DoctorsPageTest {
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadValidPhoto(path);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
-        assertNotEquals(srcOriginalPhoto, DataBaseUtils.selectPhotoUriDoctor(DataInfo.DataTest.getDoctorId()).getPhoto_uri());
+        assertNotEquals(srcOriginalPhoto, DataBaseUtils.selectPhotoUriDoctor2(DataInfo.DataTest.getDoctorName(),DataInfo.DataTest.getDoctorSpecialization()).getPhoto_uri());
     }
 
 

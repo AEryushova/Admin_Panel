@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class DataBaseUtils {
 
     private static Map<String, QueryRunner> queryRunnerMap = new HashMap<>();
@@ -35,29 +36,32 @@ public class DataBaseUtils {
         return queryRunnerMap.computeIfAbsent(dataSourceKey, key -> new QueryRunner());
     }
 
+
+
     @SneakyThrows
-    public static Admins selectAdmin(String role) {
+    public static Admins selectAdmin(String login) {
         var selectAdminRequest = "SELECT * FROM platform.users INNER JOIN platform.users_roles ON users.id=users_roles.user_id WHERE username = ?";
         var connection = getConnection("platform_db");
-        Object[] params;
-
-        if ("SUPER_ADMIN".equals(role)) {
-            var superAdminLogin = DataInfo.UserData.getLoginSuperAdmin();
-            params = new Object[]{superAdminLogin};
-        } else {
-            var adminLogin = DataInfo.UserData.getLoginAdminTest();
-            params = new Object[]{adminLogin};
-        }
-
-        return queryRunner("platform_db").query(connection, selectAdminRequest, params, new BeanHandler<>(Admins.class));
+        return queryRunner("platform_db").query(connection, selectAdminRequest, login, new BeanHandler<>(Admins.class));
     }
 
 
     @SneakyThrows
     public static DoctorCard selectPhotoUriDoctor(String doctorId) {
-        var selectPhotoUri = "SELECT employee_id, first_name, second_name, middle_name, photo_uri, job FROM employee_cards WHERE employee_id = ? ";
+        var selectPhotoUri = "SELECT * FROM employee_cards WHERE employee_id = ? ";
         var connection = getConnection("cab_lab_db");
-        return queryRunner("cab_lab_db").query(connection, selectPhotoUri, new Object[] {doctorId}, new BeanHandler<>(DoctorCard.class));
+        return queryRunner("cab_lab_db").query(connection, selectPhotoUri, new Object[]{doctorId}, new BeanHandler<>(DoctorCard.class));
+    }
+
+    @SneakyThrows
+    public static DoctorCard selectPhotoUriDoctor2(String doctorName,String doctorSpecialization) {
+        var selectPhotoUri = "SELECT * FROM employee_cards WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
+        var connection = getConnection("cab_lab_db");
+        String[] nameParts = doctorName.split(" ");
+        String firstName = nameParts[1];
+        String secondName = nameParts[0];
+        String middleName = nameParts[2];
+        return queryRunner("cab_lab_db").query(connection, selectPhotoUri, new Object[]{doctorSpecialization,firstName, secondName, middleName }, new BeanHandler<>(DoctorCard.class));
     }
 
     @SneakyThrows
@@ -65,8 +69,21 @@ public class DataBaseUtils {
         var setDefaultPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE employee_id = ? ";
         var connection = getConnection("cab_lab_db");
         var defaultPhoto = DataInfo.DataTest.getDefaultPhoto();
-        return queryRunner("cab_lab_db").query(connection, setDefaultPhoto, new Object[] {doctorId, defaultPhoto}, new BeanHandler<>(DoctorCard.class));
+        return queryRunner("cab_lab_db").query(connection, setDefaultPhoto, new Object[]{doctorId, defaultPhoto}, new BeanHandler<>(DoctorCard.class));
     }
+
+    @SneakyThrows
+    public static void setDefaultPhotoDoctor2(String doctorName,String doctorSpecialization) {
+        var setDefaultPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
+        var connection = getConnection("cab_lab_db");
+        var defaultPhoto = DataInfo.DataTest.getDefaultPhoto();
+        String[] nameParts = doctorName.split(" ");
+            String firstName = nameParts[1];
+            String secondName = nameParts[0];
+            String middleName = nameParts[2];
+            queryRunner("cab_lab_db").update(connection, setDefaultPhoto, defaultPhoto, doctorSpecialization, firstName, secondName, middleName);
+        }
+
 
     @SneakyThrows
     public static DoctorCard setPhotoDoctor(String doctorId) {

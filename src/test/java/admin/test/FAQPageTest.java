@@ -1,5 +1,6 @@
 package admin.test;
 
+import admin.data.DataInfo;
 import admin.pages.AdministrationPage;
 import admin.pages.FaqPage;
 import admin.pages.HeaderMenu;
@@ -12,6 +13,8 @@ import admin.utils.testUtils.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static admin.utils.dbUtils.DataBaseUtils.selectFaq;
@@ -21,9 +24,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Epic("FAQ")
 public class FAQPageTest {
 
+    private FaqPage faqPage;
+    private HeaderMenu headerMenu;
+
     @ExtendWith(AllureDecorator.class)
 
+    @BeforeAll
+    static void setUpAuth() {
+        BrowserManager.authGetCookie(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
+    }
 
+    @BeforeEach
+    void setUp(){
+        BrowserManager.openPages();
+        faqPage=new FaqPage();
+        headerMenu= new HeaderMenu();
+        headerMenu.faqTabOpen();
+    }
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Успешное добавление нового faq-вопроса")

@@ -23,19 +23,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AdministrationPageTest {
 
     private AdministrationPage adminPage;
+    private HeaderMenu headerMenu;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
-    static void authSetUp(){
-        BrowserManager.AuthGetCookie(DataInfo.UserData.getLoginSuperAdmin(),DataInfo.UserData.getPasswordSuperAdmin());
+    static void setUpAuth() {
+        BrowserManager.authGetCookie(DataInfo.UserData.getLoginSuperAdmin(), DataInfo.UserData.getPasswordSuperAdmin());
     }
 
     @BeforeEach
     void setUp(){
+        BrowserManager.openPages();
         adminPage=new AdministrationPage();
-        BrowserManager.openAdminPage();
-        HeaderMenu headerMenu= new HeaderMenu();
+        headerMenu= new HeaderMenu();
         headerMenu.administrationTabOpen();
     }
 

@@ -31,11 +31,7 @@ public class AuthorizationPageTest {
 
     @BeforeEach
     void setUp() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1920x1080";
-        open(DataInfo.Urls.getUriAdminPanel());
-        localStorage().setItem("Environment", "freeze");
-        clearBrowserCookies();
+        BrowserManager.openAdminPanel();
         authPage = new AuthorizationPage();
         headerMenu = new HeaderMenu();
     }
@@ -55,23 +51,23 @@ public class AuthorizationPageTest {
 
 
     @Story("Успешная авторизация админа")
-    @ExtendWith({AdminAddDeleteDecorator.class, CloseWebDriverDecorator.class})
+    @ExtendWith(CloseWebDriverDecorator.class)
     @Test
     void authorizationAdmin() {
         authPage.authPage();
-        DoctorsPage doctorPage = authPage.authorization(DataInfo.UserData.getLoginAdminTest(), DataInfo.UserData.getPasswordAdminTest());
+        DoctorsPage doctorPage = authPage.authorization(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
         doctorPage.doctorsPage();
         headerMenu.headerBarAdmin();
         headerMenu.openAndCloseProfileAdmin();
         assertEquals("Администратор", headerMenu.checkProfileInfoUser());
-        assertEquals("1", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginAdminTest()).getRole_id());
+        assertEquals("1", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginAdmin()).getRole_id());
     }
 
     @Story("Авторизация админа с неверным паролем")
-    @ExtendWith({AdminAddDeleteDecorator.class, NotificationDecorator.class})
+    @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminWrongPassword() {
-        authPage.fillLoginField(DataInfo.UserData.getLoginAdminTest());
+        authPage.fillLoginField(DataInfo.UserData.getLoginAdmin());
         authPage.fillPasswordField("WWqq123456!78");
         authPage.pressToComeIn();
         authPage.authPage();

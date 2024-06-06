@@ -40,7 +40,9 @@ public class DataInfo {
     public static class DataTest {
 
         @Getter
-        public static final String doctorName = "Fer3 Копия Тест";
+        public static final String doctorName = "Fer3 Не ТРОГАТЬ";
+        @Getter
+        public static final String doctorSpecialization = "врач-оториноларинголог";
         @Getter
         public static final String doctorId = "dc809290-b921-11ee-b697-77fc98f6d7d7";
         @Getter

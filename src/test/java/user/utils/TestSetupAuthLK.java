@@ -1,7 +1,7 @@
 package user.utils;
 
 import com.codeborne.selenide.Configuration;
-import user.data.DataTest;
+import user.data.DataInfo;
 import user.pages.AuthPage;
 import user.pages.HeaderBarLK;
 import user.pages.HomePage;
@@ -13,7 +13,7 @@ public class TestSetupAuthLK {
     public static void authLK() {
         Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
-        open(DataTest.getUriPersonalArea());
+        open(DataInfo.getUriPersonalArea());
         localStorage().setItem("Environment", "freeze");
         clearBrowserCookies();
         AuthPage authPage = new AuthPage();

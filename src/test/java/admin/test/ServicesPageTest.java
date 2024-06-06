@@ -1,5 +1,6 @@
 package admin.test;
 
+import admin.data.DataInfo;
 import admin.pages.HeaderMenu;
 import admin.pages.ServicesPage;
 import admin.pages.modalWindowServices.AddRuleWindow;
@@ -26,16 +27,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Feature("Управление услугами")
 public class ServicesPageTest {
 
-    private HeaderMenu headerBar;
     private ServicesPage servicesPage;
+    private HeaderMenu headerMenu;
 
     @ExtendWith(AllureDecorator.class)
+
+    @BeforeAll
+    static void setUpAuth() {
+        BrowserManager.authGetCookie(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
+    }
+
+    @BeforeEach
+    void setUp(){
+        BrowserManager.openPages();
+        servicesPage=new ServicesPage();
+        headerMenu= new HeaderMenu();
+        headerMenu.servicesTabOpen();
+    }
 
 
     @Story("Смена последовательности категорий")
     @Test
     void sequenceChangeQuestion() throws InterruptedException {
-        servicesPage = headerBar.servicesTabOpen();
+        servicesPage = headerMenu.servicesTabOpen();
         servicesPage.servicesPage();
         int sequenceFirstCategory = servicesPage.getCategoryIndexByName("Телемедицина");
         int sequenceSecondCategory = servicesPage.getCategoryIndexByName("Стоматология");
@@ -51,7 +65,7 @@ public class ServicesPageTest {
     @Story("Добавление правила подоготовки к категории")
     @Test
     void addRulePreparingCategory() {
-        servicesPage = headerBar.servicesTabOpen();
+        servicesPage = headerMenu.servicesTabOpen();
         servicesPage.servicesPage();
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparing();
         rulePreparingWindow.rulesPreparingWindow();

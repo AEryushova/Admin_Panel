@@ -1,11 +1,14 @@
 package admin.test;
 
+import admin.data.DataInfo;
 import admin.pages.*;
 import admin.utils.testUtils.AdminAddDeleteDecorator;
 import admin.utils.testUtils.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -13,9 +16,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class HeaderMenuTest {
 
     private AuthorizationPage authPage;
-    private HeaderMenu headerBar;
+    private HeaderMenu headerMenu;
 
     @ExtendWith(AllureDecorator.class)
+
+    @BeforeAll
+    static void setUpAuth() {
+        BrowserManager.authGetCookie(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
+    }
+
+    @BeforeEach
+    void setUp(){
+        BrowserManager.openPages();
+        headerMenu = new HeaderMenu();
+    }
 
 
     @ExtendWith(AdminAddDeleteDecorator.class)
@@ -23,9 +37,9 @@ public class HeaderMenuTest {
     @Story("Успешный выход из админ-панели")
     @Test
     void exitAdminPanel() {
-        headerBar.headerBarAdmin();
-        headerBar.openAndCloseProfileAdmin();
-        headerBar.exitAdminPanel();
+        headerMenu.headerBarAdmin();
+        headerMenu.openAndCloseProfileAdmin();
+        headerMenu.exitAdminPanel();
         authPage.authPage();
     }
 
@@ -33,8 +47,8 @@ public class HeaderMenuTest {
     @Story("Успешная мена своего пароля")
     @Test
     void changePasswordAdmin() {
-        headerBar.headerBarSuperAdmin();
-        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
+        headerMenu.headerBarSuperAdmin();
+        DoctorsPage doctorsPage = headerMenu.doctorsTabOpen();
         doctorsPage.doctorsPage();
     }
 
@@ -42,8 +56,8 @@ public class HeaderMenuTest {
     @Story("Переход на вкладку докторов")
     @Test
     void openDoctorsPage() {
-        headerBar.headerBarSuperAdmin();
-        DoctorsPage doctorsPage = headerBar.doctorsTabOpen();
+        headerMenu.headerBarSuperAdmin();
+        DoctorsPage doctorsPage = headerMenu.doctorsTabOpen();
         doctorsPage.doctorsPage();
     }
 
@@ -51,8 +65,8 @@ public class HeaderMenuTest {
     @Story("Переход на вкладку услуг")
     @Test
     void openServicesPage() {
-        headerBar.headerBarSuperAdmin();
-        ServicesPage servicesPage = headerBar.servicesTabOpen();
+        headerMenu.headerBarSuperAdmin();
+        ServicesPage servicesPage = headerMenu.servicesTabOpen();
         servicesPage.servicesPage();
     }
 
@@ -60,8 +74,8 @@ public class HeaderMenuTest {
     @Story("Переход на вкладку faq")
     @Test
     void openFaqPage() {
-        headerBar.headerBarSuperAdmin();
-        FaqPage faqPage = headerBar.faqTabOpen();
+        headerMenu.headerBarSuperAdmin();
+        FaqPage faqPage = headerMenu.faqTabOpen();
         faqPage.faqPage();
     }
 
@@ -69,8 +83,8 @@ public class HeaderMenuTest {
     @Story("Переход на вкладку настроек")
     @Test
     void openSettingPage() {
-        headerBar.headerBarSuperAdmin();
-        SettingPage settingPage = headerBar.settingTabOpen();
+        headerMenu.headerBarSuperAdmin();
+        SettingPage settingPage = headerMenu.settingTabOpen();
         settingPage.settingPage();
     }
 
@@ -78,8 +92,8 @@ public class HeaderMenuTest {
     @Story("Переход на вкладку администрирования")
     @Test
     void openAdministrationPage() {
-        headerBar.headerBarSuperAdmin();
-        AdministrationPage adminPage = headerBar.administrationTabOpen();
+        headerMenu.headerBarSuperAdmin();
+        AdministrationPage adminPage = headerMenu.administrationTabOpen();
         adminPage.adminPage();
     }
 
@@ -87,8 +101,8 @@ public class HeaderMenuTest {
     @Story("Сохранение состояния страницы при клике по вкладке администрирования")
     @Test
     void clickAdministrationPage() {
-        headerBar.headerBarSuperAdmin();
-        AdministrationPage adminPage = headerBar.administrationTabOpen();
+        headerMenu.headerBarSuperAdmin();
+        AdministrationPage adminPage = headerMenu.administrationTabOpen();
         adminPage.adminPage();
     }
 }

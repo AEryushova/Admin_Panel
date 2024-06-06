@@ -1,5 +1,6 @@
 package admin.test;
 
+import admin.data.DataInfo;
 import admin.pages.*;
 import admin.utils.DataHelper;
 import admin.utils.testUtils.*;
@@ -7,6 +8,8 @@ import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import user.pages.AuthPage;
@@ -19,7 +22,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Epic("Настройки")
 public class SettingPageTest {
 
+    private SettingPage settingPage;
+    private HeaderMenu headerMenu;
+
     @ExtendWith(AllureDecorator.class)
+
+    @BeforeAll
+    static void setUpAuth() {
+        BrowserManager.authGetCookie(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
+    }
+
+    @BeforeEach
+    void setUp(){
+        BrowserManager.openPages();
+        settingPage=new SettingPage();
+        headerMenu= new HeaderMenu();
+        headerMenu.settingTabOpen();
+    }
 
 
     static void addBugReport() {

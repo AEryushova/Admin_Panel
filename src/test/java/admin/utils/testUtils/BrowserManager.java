@@ -2,7 +2,6 @@ package admin.utils.testUtils;
 
 import admin.data.DataInfo;
 import admin.pages.AuthorizationPage;
-import admin.pages.HeaderMenu;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
@@ -20,7 +19,17 @@ public class BrowserManager {
     @Getter
     public static String token;
 
-    public static void AuthGetCookie(String login, String password) {
+
+    public static void openAdminPanel(){
+        Configuration.holdBrowserOpen = true;
+        Configuration.browserSize = "1920x1080";
+        open(DataInfo.Urls.getUriAdminPanel());
+        localStorage().setItem("Environment", DataInfo.Urls.getEnvironmentFreeze());
+        clearBrowserCookies();
+
+    }
+
+    public static void authGetCookie(String login, String password) {
         Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
         open(DataInfo.Urls.getUriAdminPanel());
@@ -35,10 +44,10 @@ public class BrowserManager {
         Selenide.closeWebDriver();
     }
 
-    public static void openAdminPage() {
+    public static void openPages() {
         Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
-        open(DataInfo.Urls.getUriAdminPanel() + "/admins");
+        open(DataInfo.Urls.getUriAdminPanel());
         localStorage().setItem("Environment", DataInfo.Urls.getEnvironmentFreeze());
         localStorage().setItem("accessToken", token);
         Selenide.refresh();
