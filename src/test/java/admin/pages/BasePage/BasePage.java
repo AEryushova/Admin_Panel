@@ -33,9 +33,9 @@ public class BasePage {
         NOTIFICATION.shouldBe(Condition.hidden);
     }
 
-    public void scrollPageToBottom() {
+    public void scrollPage() {
+        FOOTER_PAGE.scrollTo();
         RETURN_TO_START_BUTTON.shouldBe(visible);
-        RETURN_TO_START_BUTTON.scrollIntoView("{block: 'end', inline: 'end'}");
     }
 
     public void returnToStartPage() {

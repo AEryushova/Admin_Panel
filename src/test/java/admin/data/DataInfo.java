@@ -55,5 +55,13 @@ public class DataInfo {
         public static final String emailPatient = "Test@mail.ru";
         @Getter
         public static final String namePatient = "Федоров Федор Федорович";
+        @Getter
+        public static final String question = "Как вернуть деньги?";
+        @Getter
+        public static final String answer = "Никак";
+        @Getter
+        public static final String changeQuestion = "Как записаться к врачу?";
+        @Getter
+        public static final String changeAnswer = "Записаться к врачу можно через вкладку 'Врачи'";
     }
 }

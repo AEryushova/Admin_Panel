@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Admins {
-    private String id;
+    private int id;
     private String username;
-    private String is_blocked;
-    private String is_deleted;
-    private String user_id;
-    private String role_id;
+    private Boolean is_blocked;
+    private Boolean is_deleted;
+    private int user_id;
+    private int role_id;
 }

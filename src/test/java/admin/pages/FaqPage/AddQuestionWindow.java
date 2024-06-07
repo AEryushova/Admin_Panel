@@ -40,7 +40,6 @@ public void addQuestion(){
     ADD_BUTTON.shouldBe(Condition.visible)
             .shouldBe(Condition.enabled)
     .click();
-
 }
 
     public String getValueQuestionField() {

@@ -99,13 +99,14 @@ public class DataBaseUtils {
 
     @SneakyThrows
     public static void addBugReport() {
-        var addBugReport="INSERT INTO bug_reports (id,message,email,author,created_at ) VALUES (?, ?, ?, ?, '2024-05-24 14:11:49.059')";
+        var addBugReport="INSERT INTO bug_reports (id,message,email,author,created_at ) VALUES (?, ?, ?, ?, ?)";
         var connection = getConnection("cab_lab_db");
         var message=DataInfo.DataTest.getMessageBugReport();
         var email=DataInfo.DataTest.getEmailPatient();
         var author=DataInfo.DataTest.getNamePatient();
+        var time=DataHelper.generateDateTime();
         var id= DataHelper.generateUuid();
-        queryRunner("cab_lab_db").update(connection, addBugReport, id, message, email, author);
+        queryRunner("cab_lab_db").update(connection, addBugReport, id, message, email, author, time);
     }
 
     @SneakyThrows
@@ -114,7 +115,31 @@ public class DataBaseUtils {
         queryRunner("cab_lab_db").update(connection, "DELETE FROM bug_reports");
     }
 
+    @SneakyThrows
+    public static Faq selectFaq(int sequence) {
+        var selectFaq = "SELECT * FROM faq WHERE sequence = ?";
+        var connection = getConnection("cab_lab_db");
+        return queryRunner("cab_lab_db").query(connection, selectFaq, sequence, new BeanHandler<>(Faq.class));
+    }
 
+    @SneakyThrows
+    public static void addFaq(int sequence) {
+        var addFaq="INSERT INTO faq (id,question,answer,created_at,updated_at, group_id, sequence ) VALUES (?, ?, ?, ?, ?,?,?)";
+        var connection = getConnection("cab_lab_db");
+        var id= DataHelper.generateUuid();
+        var question=DataInfo.DataTest.getQuestion();
+        var answer=DataInfo.DataTest.getAnswer();
+        var created_at=DataHelper.generateDateTime();
+        var updated_at=DataHelper.generateDateTime();
+        var group_id=DataHelper.generateUuid();
+        queryRunner("cab_lab_db").update(connection, addFaq, id, question, answer, created_at,updated_at,group_id,sequence);
+    }
+
+    @SneakyThrows
+    public static void clearAllFaq() {
+        var connection = getConnection("cab_lab_db");
+        queryRunner("cab_lab_db").execute(connection, "DELETE FROM faq");
+    }
 
 
 
@@ -145,16 +170,4 @@ public class DataBaseUtils {
     }
 
 
-    @SneakyThrows
-    public static void clearAllFaq() {
-        var connection = getConnection("cab_lab_db");
-        queryRunner("cab_lab_db").execute(connection, "DELETE FROM faq");
-    }
-
-    @SneakyThrows
-    public static Faq selectFaq() {
-        var selectFaq = "SELECT question, answer, sequence FROM faq";
-        var connection = getConnection("cab_lab_db");
-        return queryRunner("cab_lab_db").query(connection, selectFaq, new BeanHandler<>(Faq.class));
-    }
 }

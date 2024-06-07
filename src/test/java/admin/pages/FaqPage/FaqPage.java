@@ -30,18 +30,6 @@ public class FaqPage extends BasePage {
         return new AddQuestionWindow();
     }
 
-    public Question questionCard(int index) {
-        SelenideElement questionCard = QUESTION_CARD.get(index);
-        questionCard.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        return new Question(questionCard);
-    }
-
-public void sequenceChangeQuestions(int sourceIndex, int targetIndex) {
-    SelenideElement sourceQuestion = QUESTION_CARD.get(sourceIndex);
-    SelenideElement targetQuestion = QUESTION_CARD.get(targetIndex);
-    sequenceChangeActive(sourceQuestion, targetQuestion);
-}
-
 public void sequenceChangeActive(SelenideElement questionSource, SelenideElement questionTarget) {
     Actions actions = actions();
     actions.clickAndHold(questionSource)
@@ -50,4 +38,19 @@ public void sequenceChangeActive(SelenideElement questionSource, SelenideElement
             .perform();
 }
 
+    public boolean isExistQuestions(int index) {
+        return QUESTION_CARD.get(index).exists();
+    }
+
+    public Question questionCard(int index) {
+        SelenideElement questionCard = QUESTION_CARD.get(index);
+        questionCard.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return new Question(questionCard);
+    }
+
+    public void sequenceChangeQuestions(int sourceIndex, int targetIndex) {
+        SelenideElement sourceQuestion = QUESTION_CARD.get(sourceIndex);
+        SelenideElement targetQuestion = QUESTION_CARD.get(targetIndex);
+        sequenceChangeActive(sourceQuestion, targetQuestion);
+    }
 }

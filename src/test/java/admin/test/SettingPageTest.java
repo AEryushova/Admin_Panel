@@ -56,7 +56,7 @@ public class SettingPageTest {
 
     @Feature("Сообщения об ошибках")
     @Story("Успешное удаление баг-репорта")
-    @ExtendWith(AddBugReportDecorator.class)
+    @ExtendWith({AddBugReportDecorator.class,NotificationDecorator.class})
     @Test
     void deleteBugReport() {
         settingPage.deleteBugReport();
@@ -80,6 +80,7 @@ public class SettingPageTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа в формате JPEG")
+    @ExtendWith(NotificationDecorator.class)
     @Test
     void changeLogoJPEG() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
@@ -91,6 +92,7 @@ public class SettingPageTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа весом более 4mb")
+    @ExtendWith(NotificationDecorator.class)
     @Test
     void changeLogoLess4mb() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
@@ -103,6 +105,7 @@ public class SettingPageTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа с файлом в невалидном формате")
+    @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Политика обработки персональных данных.pdf"})
     void changeLogoInvalidFormat(String path) {
@@ -125,14 +128,15 @@ public class SettingPageTest {
 
 
     @Story("Возврат к хэдеру страницы настроек")
+    @ExtendWith(AddSomeBugsReport.class)
     @Test
     void returnToStartPage() {
-        HeaderMenu headerBar = new HeaderMenu();
-        SettingPage settingPage = headerBar.settingTabOpen();
-        settingPage.settingPage();
-        settingPage.scrollPageToBottom();
+        settingPage.scrollPage();
+        Selenide.sleep(2000);
+        assertTrue(settingPage.isReturnButtonAppear());
         settingPage.returnToStartPage();
-        settingPage.isReturnButtonAppear();
+        Selenide.sleep(2000);
+        assertFalse(settingPage.isReturnButtonAppear());
     }
 
     @Story("Закрытие уведомления на странице faq по таймауту")

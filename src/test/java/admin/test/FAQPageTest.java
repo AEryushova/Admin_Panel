@@ -9,8 +9,9 @@ import admin.pages.FaqPage.AddQuestionWindow;
 import admin.pages.FaqPage.ChangeQuestionWindow;
 import admin.pages.FaqPage.Question;
 import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.decoratorsTest.AllureDecorator;
+import admin.utils.decoratorsTest.*;
 import admin.utils.testUtils.*;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -19,7 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static admin.utils.dbUtils.DataBaseUtils.selectFaq;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @Epic("FAQ")
@@ -45,129 +46,117 @@ public class FAQPageTest {
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Успешное добавление нового faq-вопроса")
+    @ExtendWith({DeleteFaqDecorator.class, NotificationDecorator.class})
     @Test
     void addFaqQuestion() {
-        DataBaseUtils.clearAllFaq();
-        HeaderMenu headerBar = new HeaderMenu();
-        FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillQuestionField("Как вернуть денежные средства?");
-        addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
+        addQuestionWindow.fillQuestionField(DataInfo.DataTest.getQuestion());
+        addQuestionWindow.fillAnswerField(DataInfo.DataTest.getAnswer());
         addQuestionWindow.addQuestion();
+        Question question = faqPage.questionCard(0);
+        assertEquals(DataInfo.DataTest.getQuestion(),question.getQuestion(0));
+        assertEquals(DataInfo.DataTest.getAnswer(),question.getAnswer(0));
         assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
-        Question question = faqPage.questionCard(1);
-        question.question();
-        assertEquals("Как вернуть денежные средства?", question.getQuestion(0));
-        assertEquals("Деньги можно вернуть при обращении в бухгалтерию", question.getAnswer(0));
-        assertEquals("Как вернуть денежные средства?", selectFaq().getQuestion());
-        assertEquals("Деньги можно вернуть при обращении в бухгалтерию", selectFaq().getAnswer());
-        assertEquals("1", selectFaq().getSequence());
+        assertEquals(DataInfo.DataTest.getQuestion(),DataBaseUtils.selectFaq(0).getQuestion());
+        assertEquals(DataInfo.DataTest.getAnswer(),DataBaseUtils.selectFaq(0).getAnswer());
+        assertTrue(faqPage.isExistQuestions(0));
+        assertFalse(addQuestionWindow.isWindowAppear());
     }
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим заголовком и ответом")
+    @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
     @Test
     void addFaqQuestionAlreadyExistQuestionAnswer() {
-        HeaderMenu headerBar = new HeaderMenu();
-        FaqPage faqPage = headerBar.faqTabOpen();
-        faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
-        addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillQuestionField("Как вернуть денежные средства?");
-        addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
+        addQuestionWindow.fillQuestionField(DataInfo.DataTest.getQuestion());
+        addQuestionWindow.fillAnswerField(DataInfo.DataTest.getAnswer());
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос уже существует", faqPage.getNotification());
+        assertFalse(faqPage.isExistQuestions(1));
     }
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим заголовком")
+    @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
     @Test
     void addFaqQuestionAlreadyExistQuestion() {
-        HeaderMenu headerBar = new HeaderMenu();
-        FaqPage faqPage = headerBar.faqTabOpen();
-        faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
-        addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillQuestionField("Как вернуть денежные средства?");
-        addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в булочную");
+        addQuestionWindow.fillQuestionField(DataInfo.DataTest.getQuestion());
+        addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос уже существует", faqPage.getNotification());
+        assertFalse(faqPage.isExistQuestions(1));
     }
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим ответом")
+    @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
     @Test
     void addFaqQuestionAlreadyExistAnswer() {
-        HeaderMenu headerBar = new HeaderMenu();
-        FaqPage faqPage = headerBar.faqTabOpen();
-        faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
-        addQuestionWindow.addQuestionWindow();
         addQuestionWindow.fillQuestionField("Могу ли я вернуть денежные средства?");
-        addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
+        addQuestionWindow.fillAnswerField(DataInfo.DataTest.getAnswer());
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
-        Question question = faqPage.questionCard(1);
-        question.question();
-        assertEquals("Могу ли я вернуть денежные средства?", question.getQuestion(0));
-        assertEquals("Деньги можно вернуть при обращении в бухгалтерию", question.getAnswer(0));
+        assertEquals("Могу ли я вернуть денежные средства?",DataBaseUtils.selectFaq(1).getQuestion());
+        assertTrue(faqPage.isExistQuestions(1));
+        assertFalse(addQuestionWindow.isWindowAppear());
     }
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Зануление полей в окне добавления faq-вопроса после закрытия окна")
     @Test
     void closeWindowAddNewQuestion() {
-        HeaderMenu headerBar = new HeaderMenu();
-        FaqPage faqPage = headerBar.faqTabOpen();
-        faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
-        addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillQuestionField("Могу ли я вернуть денежные средства?");
-        addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
+        addQuestionWindow.fillQuestionField(DataInfo.DataTest.getQuestion());
+        addQuestionWindow.fillAnswerField(DataInfo.DataTest.getAnswer());
         addQuestionWindow.closeWindowAddQuestion();
-        AddQuestionWindow addQuestionWindowOver = faqPage.openWindowAddQuestion();
-        assertEquals("", addQuestionWindowOver.getValueQuestionField());
-        assertEquals("", addQuestionWindowOver.getValueAnswerField());
+        assertFalse(addQuestionWindow.isWindowAppear());
+        faqPage.openWindowAddQuestion();
+        assertEquals("", addQuestionWindow.getValueQuestionField());
+        assertEquals("", addQuestionWindow .getValueAnswerField());
     }
 
     @Feature("Редактирование faq-вопроса")
     @Story("Успешное редактирование faq-вопроса")
+    @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
     @Test
     void editQuestion() {
-        HeaderMenu headerBar = new HeaderMenu();
-        FaqPage faqPage = headerBar.faqTabOpen();
-        faqPage.faqPage();
         Question question = faqPage.questionCard(0);
         question.question();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.changeQuestionWindow();
-        changeQuestionWindow.fillQuestionField("Отредактированный вопрос");
-        changeQuestionWindow.fillAnswerField("Отредактированный ответ");
+        changeQuestionWindow.fillQuestionField(DataInfo.DataTest.getChangeQuestion());
+        changeQuestionWindow.fillAnswerField(DataInfo.DataTest.getChangeAnswer());
         changeQuestionWindow.saveChangesQuestion();
+        assertEquals(DataInfo.DataTest.getChangeQuestion(),question.getQuestion(0));
+        assertEquals(DataInfo.DataTest.getChangeAnswer(),question.getAnswer(0));
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
-        question.question();
-        assertEquals("Отредактированный вопрос", question.getQuestion(0));
-        assertEquals("Отредактированный ответ", question.getAnswer(0));
+        assertEquals(DataInfo.DataTest.getChangeQuestion(),DataBaseUtils.selectFaq(0).getQuestion());
+        assertEquals(DataInfo.DataTest.getChangeAnswer(),DataBaseUtils.selectFaq(0).getAnswer());
+        assertTrue(faqPage.isExistQuestions(0));
+        assertFalse(changeQuestionWindow.isWindowAppear());
+
     }
 
     @Feature("Редактирование faq-вопроса")
     @Story("Сохранение faq-вопроса без изменений данных")
+    @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void editQuestionNotChangeSave() {
-        HeaderMenu headerBar = new HeaderMenu();
-        FaqPage faqPage = headerBar.faqTabOpen();
-        faqPage.faqPage();
         Question question = faqPage.questionCard(0);
-        question.question();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
-        changeQuestionWindow.changeQuestionWindow();
         changeQuestionWindow.saveChangesQuestion();
+        assertEquals(DataInfo.DataTest.getQuestion(),question.getQuestion(0));
+        assertEquals(DataInfo.DataTest.getAnswer(),question.getAnswer(0));
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
-        question.question();
-        assertEquals("Отредактированный вопрос", question.getQuestion(0));
-        assertEquals("Отредактированный ответ", question.getAnswer(0));
+        assertEquals(DataInfo.DataTest.getQuestion(),DataBaseUtils.selectFaq(0).getQuestion());
+        assertEquals(DataInfo.DataTest.getAnswer(),DataBaseUtils.selectFaq(0).getAnswer());
+        assertTrue(faqPage.isExistQuestions(0));
+        assertFalse(changeQuestionWindow.isWindowAppear());
     }
 
     @Feature("Редактирование faq-вопроса")
@@ -229,7 +218,7 @@ public class FAQPageTest {
         HeaderMenu headerBar = new HeaderMenu();
         FaqPage faqPage = headerBar.faqTabOpen();
         faqPage.faqPage();
-        faqPage.scrollPageToBottom();
+        faqPage.scrollPage();
         faqPage.returnToStartPage();
         faqPage.isReturnButtonAppear();
     }

@@ -692,7 +692,6 @@ public class AdministrationPageTest {
 
     @Feature("Документация")
     @Story("Обновление прайса с ошибкой формата стоимости услуги")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updatePriceCurrentMonthFormatError() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
@@ -704,7 +703,6 @@ public class AdministrationPageTest {
 
     @Feature("Документация")
     @Story("Переключение на вкладку правил корректирования файла прайса")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void openAdjustmentRulesPrice() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
@@ -716,7 +714,6 @@ public class AdministrationPageTest {
 
     @Feature("Документация")
     @Story("Переключение на вкладку ошибок файла прайса")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void openErrorsPrice() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
@@ -756,10 +753,14 @@ public class AdministrationPageTest {
     @Story("Возврат к хэдеру страницы администрирования")
     @Test
     void returnToStartPage() {
-        adminPage.scrollPageToBottom();
+        adminPage.scrollPage();
+        Selenide.sleep(2000);
+        assertTrue(adminPage.isReturnButtonAppear());
         adminPage.returnToStartPage();
+        Selenide.sleep(2000);
         assertFalse(adminPage.isReturnButtonAppear());
     }
+
 
     @Story("Закрытие уведомления на странице администрирования по таймауту")
     @Test

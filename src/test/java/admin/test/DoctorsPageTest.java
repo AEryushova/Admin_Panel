@@ -432,7 +432,7 @@ public class DoctorsPageTest {
     @Story("Возврат к хэдеру страницы врачей")
     @Test
     void returnToStartPageDoctors() {
-        doctorsPage.scrollPageToBottom();
+        doctorsPage.scrollPage();
         assertTrue(doctorsPage.isReturnButtonAppear());
         doctorsPage.returnToStartPage();
         assertFalse(doctorsPage.isReturnButtonAppear());
@@ -442,7 +442,7 @@ public class DoctorsPageTest {
     @Test
     void returnToStartPageCardDoctor() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.scrollPageToBottom();
+        cardDoctor.scrollPage();
         assertTrue(cardDoctor.isReturnButtonAppear());
         cardDoctor.returnToStartPage();
         assertFalse(cardDoctor.isReturnButtonAppear());

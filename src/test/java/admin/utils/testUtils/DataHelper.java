@@ -1,6 +1,8 @@
 package admin.utils.testUtils;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
@@ -150,6 +152,12 @@ public class DataHelper {
 
     public static UUID generateUuid(){
         return UUID.randomUUID();
+    }
+
+    public static Timestamp generateDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        return timestamp;
     }
 
 }
