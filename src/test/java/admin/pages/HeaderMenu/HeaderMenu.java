@@ -21,8 +21,7 @@ public class HeaderMenu extends BasePage {
     private final SelenideElement FAQ = $x("//a[text()='FAQ']");
     private final SelenideElement ADMINISTRATION = $x("//a[text()='Администрирование']");
     private final SelenideElement PROFILE_BUTTON = $x("//div[@class='wrap__dca9 MxFR DropdownWrap']");
-    private final SelenideElement ROLE_STATUS = $x("//div[@data-locator='container']/div/div/div/span[1]");
-    private final SelenideElement EXIT_BUTTON = $x("//span[text()='Выход']");
+
 
     public void headerBarSuperAdmin() {
         DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -77,23 +76,11 @@ public class HeaderMenu extends BasePage {
         return new SettingPage();
     }
 
-    public void openAndCloseProfileAdmin() {
+    public UserPanel openAndCloseProfile() {
         PROFILE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return new UserPanel();
     }
-
-    public String checkProfileInfoUser() {
-        ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        return ROLE_STATUS.getText();
-    }
-
-    public void exitAdminPanel() {
-        EXIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.enabled)
-                .click();
-
-    }
-
 
 }

@@ -25,7 +25,7 @@ public class ChangePasswordAdminWindow {
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NEW_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        SAVE_BUTTON.shouldBe(Condition.disabled);
+        SAVE_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
@@ -87,10 +87,6 @@ public class ChangePasswordAdminWindow {
 
     public boolean isErrorPasswordAppear() {
         return ERROR_FIELD_PASSWORD.exists();
-    }
-
-    public boolean isErrorConfirmPasswordAppear() {
-        return ERROR_FIELD_CONFIRM_PASSWORD.exists();
     }
 
     public void closeWindowChangePasswordAdmin() {

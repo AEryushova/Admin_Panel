@@ -123,12 +123,10 @@ public class DataBaseUtils {
     }
 
     @SneakyThrows
-    public static void addFaq(int sequence) {
+    public static void addFaq(int sequence, String question, String answer) {
         var addFaq="INSERT INTO faq (id,question,answer,created_at,updated_at, group_id, sequence ) VALUES (?, ?, ?, ?, ?,?,?)";
         var connection = getConnection("cab_lab_db");
         var id= DataHelper.generateUuid();
-        var question=DataInfo.DataTest.getQuestion();
-        var answer=DataInfo.DataTest.getAnswer();
         var created_at=DataHelper.generateDateTime();
         var updated_at=DataHelper.generateDateTime();
         var group_id=DataHelper.generateUuid();

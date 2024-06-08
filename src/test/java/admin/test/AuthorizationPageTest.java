@@ -1,12 +1,13 @@
 package admin.test;
 
 import admin.data.DataInfo;
+import admin.pages.BasePage.BasePage;
+import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.dbUtils.DataBaseUtils;
 import admin.utils.decoratorsTest.AllureDecorator;
 import admin.utils.decoratorsTest.CloseWebDriverDecorator;
 import admin.utils.testUtils.*;
 import admin.utils.decoratorsTest.NotificationDecorator;
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -22,10 +23,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Авторизация")
 @Feature("Вход в админ-панель")
-public class AuthorizationPageTest {
+public class AuthorizationPageTest extends BaseTest {
 
     private AuthorizationPage authPage;
     private HeaderMenu headerMenu;
+    private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
 
@@ -34,6 +36,7 @@ public class AuthorizationPageTest {
         BrowserManager.openAdminPanel();
         authPage = new AuthorizationPage();
         headerMenu = new HeaderMenu();
+        basePage = new BasePage();
     }
 
     @Story("Успешная авторизация супер-админа")
@@ -44,8 +47,9 @@ public class AuthorizationPageTest {
         DoctorsPage doctorPage = authPage.authorization(DataInfo.UserData.getLoginSuperAdmin(), DataInfo.UserData.getPasswordSuperAdmin());
         doctorPage.doctorsPage();
         headerMenu.headerBarSuperAdmin();
-        headerMenu.openAndCloseProfileAdmin();
-        assertEquals("Супер-Администратор", headerMenu.checkProfileInfoUser());
+        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        userPanel.userPanelSuperAdmin();
+        assertEquals("Супер-Администратор", userPanel.checkProfileInfoUser());
         assertEquals("0", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginSuperAdmin()).getRole_id());
     }
 
@@ -58,8 +62,9 @@ public class AuthorizationPageTest {
         DoctorsPage doctorPage = authPage.authorization(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
         doctorPage.doctorsPage();
         headerMenu.headerBarAdmin();
-        headerMenu.openAndCloseProfileAdmin();
-        assertEquals("Администратор", headerMenu.checkProfileInfoUser());
+        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        userPanel.userPanelAdmin();
+        assertEquals("Администратор", userPanel.checkProfileInfoUser());
         assertEquals("1", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginAdmin()).getRole_id());
     }
 
@@ -300,18 +305,14 @@ public class AuthorizationPageTest {
     @Test
     void closeNotificationTimeout()  {
         authPage.pressToComeIn();
-        assertTrue(authPage.notificationAppear());
-        Selenide.sleep(7000);
-        assertFalse(authPage.notificationAppear());
+        checkCloseNotificationTimeout(basePage);
     }
 
     @Story("Закрытие уведомления на странице авторизации")
     @Test
     void closeNotification() {
         authPage.pressToComeIn();
-        assertTrue(authPage.notificationAppear());
-        authPage.closeNotification();
-        assertFalse(authPage.notificationAppear());
+        checkCloseNotification(basePage);
     }
 
 }

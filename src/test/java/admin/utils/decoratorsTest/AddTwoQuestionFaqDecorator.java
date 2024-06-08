@@ -6,12 +6,13 @@ import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-public class AddDeleteFaqDecorator implements BeforeEachCallback, AfterEachCallback {
+public class AddTwoQuestionFaqDecorator implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseUtils.clearAllFaq();
         DataBaseUtils.addFaq(0, DataInfo.DataTest.getQuestion(), DataInfo.DataTest.getAnswer());
+        DataBaseUtils.addFaq(1,DataInfo.DataTest.getChangeQuestion(), DataInfo.DataTest.getChangeAnswer());
     }
 
     @Override

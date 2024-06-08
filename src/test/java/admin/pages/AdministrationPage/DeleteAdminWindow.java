@@ -1,5 +1,6 @@
 package admin.pages.AdministrationPage;
 
+import admin.data.DataInfo;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
@@ -34,7 +35,7 @@ public class DeleteAdminWindow {
     }
 
     public boolean verifyLoginAdmin(String login){
-        return HEADER_WINDOW.has(text("Вы действительно хотите удалить администратора \"" + login + "\"?"));
+        return HEADER_WINDOW.has(text("Вы действительно хотите удалить администратора " + login + " ?"));
     }
 }
 

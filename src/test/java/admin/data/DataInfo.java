@@ -14,6 +14,8 @@ public class DataInfo {
         @Getter
         public static final String passwordAdmin = "WWqq123456!";
         @Getter
+        public static final String newPasswordAdmin = "IIff123456$";
+        @Getter
         public static final String loginAdminTest = "ADMIN_TESTUI_2";
         @Getter
         public static final String passwordAdminTest = "QQss123456*";

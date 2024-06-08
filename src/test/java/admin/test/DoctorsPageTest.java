@@ -1,6 +1,7 @@
 package admin.test;
 
 import admin.data.DataInfo;
+import admin.pages.BasePage.BasePage;
 import admin.pages.CardDoctorPage.*;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.HeaderMenu.HeaderMenu;
@@ -24,10 +25,11 @@ import static admin.utils.dbUtils.DataBaseUtils.selectFeedback;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Врачи")
-public class DoctorsPageTest {
+public class DoctorsPageTest extends BaseTest {
 
     private DoctorsPage doctorsPage;
     private HeaderMenu headerMenu;
+    private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
 
@@ -41,6 +43,7 @@ public class DoctorsPageTest {
         BrowserManager.openPagesAfterAuth();
         doctorsPage=new DoctorsPage();
         headerMenu= new HeaderMenu();
+        basePage = new BasePage();
         headerMenu.doctorsTabOpen();
     }
 

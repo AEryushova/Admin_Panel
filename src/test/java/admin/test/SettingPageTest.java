@@ -1,7 +1,9 @@
 package admin.test;
 
 import admin.data.DataInfo;
+import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
+import admin.pages.SettingPage.BugReport;
 import admin.pages.SettingPage.SettingPage;
 import admin.pages.SettingPage.EditLogoWindow;
 import admin.utils.testUtils.DataHelper;
@@ -22,12 +24,15 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Настройки")
-public class SettingPageTest {
+public class SettingPageTest extends BaseTest {
 
     private SettingPage settingPage;
     private HeaderMenu headerMenu;
+    private BasePage basePage;
+
 
     @ExtendWith(AllureDecorator.class)
+
 
     @BeforeAll
     static void setUpAuth() {
@@ -39,6 +44,7 @@ public class SettingPageTest {
         BrowserManager.openPagesAfterAuth();
         settingPage = new SettingPage();
         headerMenu = new HeaderMenu();
+        basePage = new BasePage();
         headerMenu.settingTabOpen();
     }
 
@@ -48,10 +54,12 @@ public class SettingPageTest {
     @Test
     void checkBugReport() {
         settingPage.settingPage();
-        assertEquals(DataInfo.DataTest.getNamePatient(), settingPage.getAuthorText());
-        assertEquals(DataInfo.DataTest.getEmailPatient(), settingPage.getEmailAuthorText());
-        assertEquals(DataHelper.getCurrentDateRuYear(), settingPage.getDateText());
-        assertEquals(DataInfo.DataTest.getMessageBugReport(), settingPage.getReportText());
+        BugReport bugReport =settingPage.bugReportCard();
+        bugReport.bugReport();
+        assertEquals(DataInfo.DataTest.getNamePatient(), bugReport.getAuthorText());
+        assertEquals(DataInfo.DataTest.getEmailPatient(), bugReport.getEmailAuthorText());
+        assertEquals(DataHelper.getCurrentDateRuYear(), bugReport.getDateText());
+        assertEquals(DataInfo.DataTest.getMessageBugReport(), bugReport.getReportText());
     }
 
     @Feature("Сообщения об ошибках")
@@ -59,8 +67,10 @@ public class SettingPageTest {
     @ExtendWith({AddBugReportDecorator.class,NotificationDecorator.class})
     @Test
     void deleteBugReport() {
-        settingPage.deleteBugReport();
+        BugReport bugReport =settingPage.bugReportCard();
+        bugReport.deleteBugReport();
         assertEquals("Сообщение удалено", settingPage.getNotification());
+        assertFalse(settingPage.isExistsBugReport());
         assertNull(DataBaseUtils.selectBugReports());
     }
 
@@ -139,25 +149,20 @@ public class SettingPageTest {
         assertFalse(settingPage.isReturnButtonAppear());
     }
 
-    @Story("Закрытие уведомления на странице faq по таймауту")
+    @Story("Закрытие уведомления на странице настроек по таймауту")
     @Test
     void closeNotificationTimeout() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
-        editLogoWindow.editLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
-        assertTrue(settingPage.notificationAppear());
-        Selenide.sleep(7000);
-        assertFalse(settingPage.notificationAppear());
+        checkCloseNotificationTimeout(basePage);
+
     }
 
-    @Story("Закрытие уведомления на странице faq")
+    @Story("Закрытие уведомления на странице настроек")
     @Test
     void closeNotification() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
-        editLogoWindow.editLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
-        assertTrue(settingPage.notificationAppear());
-        settingPage.closeNotification();
-        assertFalse(settingPage.notificationAppear());
+        checkCloseNotification(basePage);
     }
 }

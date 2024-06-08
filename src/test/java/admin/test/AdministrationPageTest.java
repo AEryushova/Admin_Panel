@@ -2,6 +2,7 @@ package admin.test;
 
 import admin.data.DataInfo;
 import admin.pages.AdministrationPage.*;
+import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.Сalendar.Calendar;
 import admin.utils.dbUtils.DataBaseUtils;
@@ -21,10 +22,11 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Администрирование")
-public class AdministrationPageTest {
+public class AdministrationPageTest extends BaseTest {
 
     private AdministrationPage adminPage;
     private HeaderMenu headerMenu;
+    private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
 
@@ -38,6 +40,7 @@ public class AdministrationPageTest {
         BrowserManager.openPagesAfterAuth();
         adminPage=new AdministrationPage();
         headerMenu= new HeaderMenu();
+        basePage = new BasePage();
         headerMenu.administrationTabOpen();
     }
 
@@ -76,7 +79,7 @@ public class AdministrationPageTest {
     @Feature("Добавление нового админа")
     @Story("Добавление нового администратора с пустым полем логина")
     @Test
-    void addedNewAdminEmptyFieldsLogin() {
+    void addedNewAdminEmptyFieldLogin() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminPassword(DataInfo.UserData.getPasswordAdminTest());
         newAdminWindow.fillFieldNewAdminConfirmPassword(DataInfo.UserData.getPasswordAdminTest());
@@ -86,7 +89,7 @@ public class AdministrationPageTest {
     @Feature("Добавление нового админа")
     @Story("Добавление нового администратора с пустым полем пароля")
     @Test
-    void addedNewAdminEmptyFieldsPassword() {
+    void addedNewAdminEmptyFieldPassword() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(DataInfo.UserData.getLoginAdminTest());
         newAdminWindow.fillFieldNewAdminConfirmPassword(DataInfo.UserData.getPasswordAdminTest());
@@ -97,7 +100,7 @@ public class AdministrationPageTest {
     @Feature("Добавление нового админа")
     @Story("Добавление нового администратора с пустым полем подтверждения пароля")
     @Test
-    void addedNewAdminEmptyFieldsConfirmPassword() {
+    void addedNewAdminEmptyFieldConfirmPassword() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(DataInfo.UserData.getLoginAdminTest());
         newAdminWindow.fillFieldNewAdminPassword(DataInfo.UserData.getPasswordAdminTest());
@@ -151,7 +154,7 @@ public class AdministrationPageTest {
     @Story("Ввод валидного логина из 31 и 32 символов")
     @ParameterizedTest
     @ValueSource(strings = {"ANNA_TEST_ADMIN123456789_ANNA_1", "ANNA_TEST_ADMIN123456789_ANNA_12"})
-    void addedNewAdminLogin31Symbol(String login) {
+    void addedNewAdminLogin_31_32_Symbol(String login) {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(login);
         assertFalse(newAdminWindow.isErrorLoginAppear());
@@ -161,7 +164,7 @@ public class AdministrationPageTest {
     @Feature("Добавление нового админа")
     @Story("Ввод не валидного логина из 33 символов")
     @Test
-    void addedNewAdminLogin33Symbol() {
+    void addedNewAdminLogin_33_Symbol() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_123");
         assertEquals("Максимальная длина 32 символа", newAdminWindow.getErrorFieldLogin());
@@ -171,7 +174,7 @@ public class AdministrationPageTest {
     @Story("Ввод не валидного логина на кириллице и логина, начинающегося с цифры")
     @ParameterizedTest
     @ValueSource(strings = {"АННА_ТЕСТ", "1ANNA_TEST"})
-    void addedNewAdminLoginCyrillicValue(String login) {
+    void addedNewAdminLoginCyrillicValueBeginNumber(String login) {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(login);
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", newAdminWindow.getErrorFieldLogin());
@@ -182,7 +185,7 @@ public class AdministrationPageTest {
     @Story("Ввод не валидного логина, начинающегося с латиницы, далее на кириллице и логина с пробелом")
     @ParameterizedTest
     @ValueSource(strings = {"AННА_ТЕСТ", "ANNA TEST"})
-    void addedNewAdminLoginLatinBeginCyrillicValue(String login) {
+    void addedNewAdminLoginLatinBeginCyrillicValueWithSpace(String login) {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(login);
         assertEquals("Доступны только числа, латиница и \"_\"", newAdminWindow.getErrorFieldLogin());
@@ -193,9 +196,9 @@ public class AdministrationPageTest {
     @Story("Ввод не валидного пароля из 7 и 26 символов")
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq12#", "Wwqq123456789#QQgg12345678"})
-    void addedNewAdminPassword7Symbol(String login) {
+    void addedNewAdminPassword_7_26_Symbol(String password) {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
-        newAdminWindow.fillFieldNewAdminPassword(login);
+        newAdminWindow.fillFieldNewAdminPassword(password);
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
@@ -203,9 +206,9 @@ public class AdministrationPageTest {
     @Story("Ввод валидного пароля из 8,9,24 и 25 символов")
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
-    void addedNewAdminPassword8Symbol(String login) {
+    void addedNewAdminPassword_8_9_24_25_Symbol(String password) {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
-        newAdminWindow.fillFieldNewAdminPassword(login);
+        newAdminWindow.fillFieldNewAdminPassword(password);
         assertFalse(newAdminWindow.isErrorPasswordAppear());
     }
 
@@ -213,9 +216,9 @@ public class AdministrationPageTest {
     @Story("Ввод не валидного пароля без латинской буквы, без спецсимвола, без латинской буквы в верхнем регистре,без латинской буквы в нижнем регистре, без цифр, с пробелом ")
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
-    void addedNewAdminPasswordNotLatinValue(String login) {
+    void addedNewAdminPasswordInvalidValue(String password) {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
-        newAdminWindow.fillFieldNewAdminPassword(login);
+        newAdminWindow.fillFieldNewAdminPassword(password);
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
     }
 
@@ -247,7 +250,7 @@ public class AdministrationPageTest {
     void clearFieldPasswordThroughButtonClear() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminPassword(DataInfo.UserData.getPasswordAdminTest());
-        newAdminWindow.clearButtonPasswordField();
+        newAdminWindow.clickClearButtonPasswordField();
         assertEquals("", newAdminWindow.getValuePasswordField());
         assertEquals("Обязательное поле", newAdminWindow.getErrorFieldPassword());
     }
@@ -258,7 +261,7 @@ public class AdministrationPageTest {
     void clearFieldConfirmPasswordThroughButtonClear() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminConfirmPassword(DataInfo.UserData.getPasswordAdminTest());
-        newAdminWindow.clearButtonConfirmPasswordField();
+        newAdminWindow.clickClearButtonConfirmPasswordField();
         assertEquals("", newAdminWindow.getValueConfirmPasswordField());
         assertEquals("Обязательное поле", newAdminWindow.getErrorFieldConfirmPassword());
     }
@@ -419,6 +422,7 @@ public class AdministrationPageTest {
         adminPage.adminCard();
         DeleteAdminWindow deleteAdminWindow = adminPage.openWindowDeleteAdmin();
         deleteAdminWindow.deleteAdminWindow();
+        assertTrue(deleteAdminWindow.verifyLoginAdmin(DataInfo.UserData.getLoginAdminTest()));
         deleteAdminWindow.deleteAdmin();
         assertEquals("Админ " + DataInfo.UserData.getLoginAdminTest() + " успешно удален", adminPage.getNotification());
         assertFalse(adminPage.isExistAdminCard());
@@ -761,25 +765,20 @@ public class AdministrationPageTest {
         assertFalse(adminPage.isReturnButtonAppear());
     }
 
-
     @Story("Закрытие уведомления на странице администрирования по таймауту")
     @Test
-    void closeNotificationTimeout(){
-        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
-        updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");
-        assertTrue(adminPage.notificationAppear());
-        Selenide.sleep(7000);
-        assertFalse(adminPage.notificationAppear());
+    void closeNotificationTimeout()  {
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateOffer();
+        updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта,Политика обработки docx.docx");
+        checkCloseNotificationTimeout(basePage);
     }
 
     @Story("Закрытие уведомления на странице администрирования")
     @Test
     void closeNotification() {
-        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateProcessingPolicy();
-        updateLegalDocWindow.uploadInvalidDoc("src/test/resources/Оферта, Политика обработки jpeg.jpg");
-        assertTrue(adminPage.notificationAppear());
-        adminPage.closeNotification();
-        assertFalse(adminPage.notificationAppear());
+        UpdateLegalDocWindow updateLegalDocWindow = adminPage.updateOffer();
+        updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта,Политика обработки docx.docx");
+        checkCloseNotification(basePage);
     }
 }
 /*

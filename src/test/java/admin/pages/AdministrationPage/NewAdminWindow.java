@@ -32,7 +32,7 @@ public class NewAdminWindow {
         LOGIN_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        ADD_BUTTON.shouldBe(Condition.disabled);
+        ADD_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
@@ -89,13 +89,13 @@ public class NewAdminWindow {
                 .click();
     }
 
-    public void clearButtonPasswordField() {
+    public void clickClearButtonPasswordField() {
         CLEAR_FIELD_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
-    public void clearButtonConfirmPasswordField() {
+    public void clickClearButtonConfirmPasswordField() {
         CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

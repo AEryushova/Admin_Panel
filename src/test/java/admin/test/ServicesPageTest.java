@@ -1,6 +1,7 @@
 package admin.test;
 
 import admin.data.DataInfo;
+import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.ServicesPage;
 import admin.pages.ServicesPage.AddRuleWindow;
@@ -26,10 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Услуги")
 @Feature("Управление услугами")
-public class ServicesPageTest {
+public class ServicesPageTest extends BaseTest {
 
     private ServicesPage servicesPage;
     private HeaderMenu headerMenu;
+    private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
 
@@ -43,6 +45,7 @@ public class ServicesPageTest {
         BrowserManager.openPagesAfterAuth();
         servicesPage=new ServicesPage();
         headerMenu= new HeaderMenu();
+        basePage = new BasePage();
         headerMenu.servicesTabOpen();
     }
 

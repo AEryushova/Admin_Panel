@@ -1,5 +1,7 @@
 package admin.utils.testUtils;
 
+import com.github.javafaker.Faker;
+
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,6 +12,7 @@ import java.util.UUID;
 
 public class DataHelper {
 
+    private final static Faker faker = new Faker(new Locale("ru"));
 
     //Возвращает текущую дату в английской локали в формате "01 April 2024"//
     public static String getCurrentDate() {
@@ -150,14 +153,21 @@ public class DataHelper {
         return options[rand.nextInt(options.length)];
     }
 
+    //Генерирует и возвращает UUID для SQL-запросов//
     public static UUID generateUuid(){
         return UUID.randomUUID();
     }
 
+    //Генерирует и возвращает дату и время в формате Timestamp для SQL-запросов//
     public static Timestamp generateDateTime() {
         LocalDateTime now = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(now);
         return timestamp;
+    }
+
+    //Генерирует и возвращает рандомный текст//
+    public static String generateText(){
+        return faker.company().catchPhrase();
     }
 
 }

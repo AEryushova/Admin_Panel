@@ -11,6 +11,7 @@ import static io.restassured.RestAssured.given;
 public class DataPreparationService {
     private static final Gson gson = new Gson();
     private static String tokenPatient;
+    private static String tokenAdmin;
 
 
     private static class DataInfo {
@@ -20,18 +21,6 @@ public class DataPreparationService {
         public DataInfo(String login, String password) {
             this.login = login;
             this.password = password;
-        }
-    }
-
-    private static class BugReportInfo {
-        private String message;
-        private String email;
-        private String author;
-
-        public BugReportInfo (String message, String email, String author) {
-            this.message = message;
-            this.email = email;
-            this.author=author;
         }
     }
 
@@ -67,6 +56,18 @@ public class DataPreparationService {
     private static String getDataInfoJson(String login, String password) {
         DataInfo dataInfo = new DataInfo(login, password);
         return gson.toJson(dataInfo);
+    }
+
+    private static class BugReportInfo {
+        private String message;
+        private String email;
+        private String author;
+
+        public BugReportInfo (String message, String email, String author) {
+            this.message = message;
+            this.email = email;
+            this.author=author;
+        }
     }
 
     public static void authPatient() {
@@ -116,5 +117,63 @@ public class DataPreparationService {
         return gson.toJson(bugReport);
     }
 
+
+    private static class ChangePassword {
+        private String oldPassword;
+        private String newPassword;
+
+
+        public ChangePassword (String oldPassword,String newPassword) {
+            this.oldPassword = oldPassword;
+            this.newPassword = newPassword;
+        }
+    }
+
+    public static void authAdmin(String login, String password) {
+        tokenGetAuthAdmin(login, password);
+        given()
+                .baseUri(admin.data.DataInfo.Urls.getUriAdminPanel())
+                .header("Authorization", "Bearer " + tokenAdmin)
+                .header("Environment", admin.data.DataInfo.Urls.getEnvironmentFreeze())
+                .when()
+                .get("/api/admins/admin-data")
+                .then()
+                .statusCode(200);
+    }
+
+    private static void tokenGetAuthAdmin(String login, String password) {
+        String dataInfoJson = getDataInfoJson(login,password);
+        Response response = given()
+                .baseUri(admin.data.DataInfo.Urls.getUriAdminPanel())
+                .header("Environment", admin.data.DataInfo.Urls.getEnvironmentFreeze())
+                .contentType(ContentType.JSON)
+                .body(dataInfoJson)
+                .when()
+                .post("/api/admins/sign-in")
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+        tokenAdmin = response.getBody().jsonPath().getString("accessToken");
+    }
+
+    public static void changePasswordAdmin(String oldPassword, String newPassword) {
+        String changePassword=getChangePasswordJson(oldPassword,newPassword);
+        given()
+                .baseUri(admin.data.DataInfo.Urls.getUriAdminPanel())
+                .header("Authorization", "Bearer " + tokenAdmin)
+                .header("Environment", admin.data.DataInfo.Urls.getEnvironmentFreeze())
+                .contentType(ContentType.JSON)
+                .body(changePassword)
+                .when()
+                .post("api/admins/change-password")
+                .then()
+                .statusCode(204);
+    }
+
+    private static String getChangePasswordJson(String oldPassword, String newPassword) {
+        ChangePassword changePassword=new ChangePassword(oldPassword,newPassword);
+        return gson.toJson(changePassword);
+    }
 
 }
