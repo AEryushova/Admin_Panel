@@ -10,12 +10,12 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class Section {
     private final SelenideElement SECTION = $x("//div[@class='aksW']");
-    private final SelenideElement NAME_SECTION = $x("//div[@class='aksW']");
-    private final SelenideElement EMPTY_LIST_ELEMENT = $x("//div[text()='Пустой список']");
-    private SelenideElement EDIT_BUTTON = $x("//div[@class='wmqb']");
-    private SelenideElement FIELD_TITLE;
+    private final SelenideElement NAME_SECTION = $x("//div[@class='aksW']/span");
+    private final SelenideElement EDIT_BUTTON = $x("//div[@class='wmqb']");
+    private final SelenideElement FIELD_TITLE=$x("//div[contains(@class, 'aksW')]/input");
     private final SelenideElement DELETE_BUTTON = $x("//div[@class='UQ5Z']");
     private final SelenideElement ADD_DESCRIPTION_BUTTON = $x("//div[@class='EUkX']");
+    private final SelenideElement EMPTY_LIST_DESCRIPTION= $x("//div[text()='Пустой список']");
 
 
     public void section() {
@@ -26,18 +26,31 @@ public class Section {
         ADD_DESCRIPTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public void editTitle(String title) {
+    public void editTitle() {
+        NAME_SECTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        FIELD_TITLE = $x("//div[@class='aksW']/input");
-        FIELD_TITLE.setValue(title);
-        EDIT_BUTTON.click();
-        FIELD_TITLE.shouldBe(Condition.hidden, Duration.ofSeconds(10));
+        NAME_SECTION.shouldBe(Condition.hidden)
+                .shouldNot(Condition.exist);
+        FIELD_TITLE.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
+
     }
 
-    public String getSectionName() {
-        NAME_SECTION.exists();
+
+    public void fillTitleField(String title){
+        NAME_SECTION.shouldBe(Condition.hidden)
+                .shouldNot(Condition.exist);
+        FIELD_TITLE.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(title);
+    }
+
+    public String getSection() {
+        NAME_SECTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         return NAME_SECTION.getText();
     }
 
@@ -54,9 +67,8 @@ public class Section {
         return new AddIntelligenceWindow();
     }
 
-    public boolean isSectionAppear() {
-        return SECTION.exists();
+    public boolean isExistsEmpty(){
+        return EMPTY_LIST_DESCRIPTION.exists();
     }
-
 
 }

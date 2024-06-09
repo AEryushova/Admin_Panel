@@ -2,7 +2,6 @@ package admin.test;
 
 import admin.data.DataInfo;
 import admin.pages.AdministrationPage.AdministrationPage;
-import admin.pages.AdministrationPage.NewAdminWindow;
 import admin.pages.AuthorizationPage.AuthorizationPage;
 import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.DoctorsPage;
@@ -12,10 +11,12 @@ import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.pages.ServicesPage.ServicesPage;
 import admin.pages.SettingPage.SettingPage;
-import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.decoratorsTest.*;
+import admin.utils.decoratorsTest.general.AllureDecorator;
+import admin.utils.decoratorsTest.general.NotificationDecorator;
+import admin.utils.decoratorsTest.headerMenu.NewAuthDecorator;
+import admin.utils.decoratorsTest.headerMenu.NewAuthSuperAdminDecorator;
+import admin.utils.decoratorsTest.headerMenu.ReturnPasswordAdmin;
 import admin.utils.testUtils.*;
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -51,7 +52,7 @@ public class HeaderMenuTest {
 
     @Feature("Смена своего пароля админом")
     @Story("Успешная замена своего пароля")
-    @ExtendWith({ReturnPasswordAdmin.class,NotificationDecorator.class})
+    @ExtendWith({ReturnPasswordAdmin.class, NotificationDecorator.class})
     @Test
     @Order(24)
     void changeMainPassword() {

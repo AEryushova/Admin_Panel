@@ -15,15 +15,16 @@ public class CardDoctorPage extends BasePage {
     private final SelenideElement COMEBACK_BUTTON = $x("//span[text()='Вернуться назад']");
     private final SelenideElement DOCTOR_PHOTO = $x("//div[@class='zzfM']/img");
     private final SelenideElement EDIT_PHOTO_BUTTON = $x("//div[@class='ctFG']/div");
-    private final SelenideElement DELETE_PHOTO_BUTTON = $x("//div[@class='ctFG']/div");
+    private final SelenideElement DELETE_PHOTO_BUTTON = $x("//div[@class='ctFG']/div/following-sibling::div");
     private final SelenideElement ADD_SECTION = $x("//button[text()='Добавить раздел']");
+    private final SelenideElement SECTION =$x("//div[@class='aksW']");
     private final SelenideElement ADD_FEEDBACK = $x("//button[text()='Добавить отзыв']");
     private final SelenideElement PUBLISHED_CHECKBOX = $x("//span[text()='Опубликованные']/preceding-sibling::div/div[@class='WzjF']");
     private final SelenideElement UNPUBLISHED_CHECKBOX = $x("//span[text()='Неопубликованные']/preceding-sibling::div/div[@class='WzjF']");
     private final SelenideElement SWITCH_PUBLISHED_BUTTON = $x("//span[text()='Опубликованные']//parent::div");
     private final SelenideElement SWITCH_UNPUBLISHED_BUTTON = $x("//span[text()='Опубликованные']//parent::div");
     private final SelenideElement SORTING_FEEDBACK = $x("//span[text()='Новые']//parent::div//parent::button");
-
+    private final SelenideElement EMPTY_LIST_SECTION =$x("//span[text()='Описание в карточке отсутствует!']");
 
     public void cardDoctorPage() {
         COMEBACK_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -32,6 +33,11 @@ public class CardDoctorPage extends BasePage {
         DELETE_PHOTO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
+    }
+
+    public Section getSection() {
+        SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return new Section();
     }
 
     public void toggleUnpublishedCheckbox() {
@@ -79,8 +85,8 @@ public class CardDoctorPage extends BasePage {
         return new AddIntelligenceWindow();
     }
 
-    public Section getSection() {
-        return new Section();
+    public boolean isExistSection() {
+        return SECTION.exists();
     }
 
     public Description getDescription() {
@@ -118,6 +124,9 @@ public class CardDoctorPage extends BasePage {
         return new DoctorsPage();
     }
 
+    public boolean isExistsEmptyList(){
+        return EMPTY_LIST_SECTION.exists();
+    }
 
 }
 

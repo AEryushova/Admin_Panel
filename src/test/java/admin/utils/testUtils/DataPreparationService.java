@@ -1,10 +1,12 @@
 package admin.utils.testUtils;
 
 
-import admin.data.DataInfo;
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.Getter;
+
+import java.io.File;
 
 import static io.restassured.RestAssured.given;
 
@@ -13,6 +15,8 @@ public class DataPreparationService {
     private static String tokenPatient;
     private static String tokenAdmin;
 
+    @Getter
+    public static String location;
 
     private static class DataInfo {
         private String login;
@@ -176,4 +180,19 @@ public class DataPreparationService {
         return gson.toJson(changePassword);
     }
 
+    public static void uploadPhoto(File file) {
+        Response response = given()
+                .baseUri(admin.data.DataInfo.Urls.getUriAdminPanel())
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", admin.data.DataInfo.Urls.getEnvironmentFreeze())
+                .contentType(ContentType.MULTIPART)
+                .multiPart("file", file)
+                .when()
+                .post("api/storage/upload")
+                .then()
+                .statusCode(201)
+                .extract()
+                .response();
+        location = response.getBody().jsonPath().getString("location");
+    }
 }

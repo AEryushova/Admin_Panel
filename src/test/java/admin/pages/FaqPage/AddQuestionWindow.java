@@ -51,7 +51,7 @@ public class AddQuestionWindow {
 
     public String getValueAnswerField() {
         ANSWER_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
+                .shouldBe(Condition.exist);
         return ANSWER_FIELD.getValue();
     }
 

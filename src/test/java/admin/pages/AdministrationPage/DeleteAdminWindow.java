@@ -1,6 +1,5 @@
 package admin.pages.AdministrationPage;
 
-import admin.data.DataInfo;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 

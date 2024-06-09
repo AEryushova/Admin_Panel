@@ -36,7 +36,6 @@ public class ChangeQuestionWindow {
                 .setValue(answer);
     }
 
-
     public void saveChangesQuestion() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)

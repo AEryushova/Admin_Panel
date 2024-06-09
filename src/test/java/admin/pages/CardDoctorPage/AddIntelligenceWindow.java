@@ -16,43 +16,32 @@ public class AddIntelligenceWindow {
 
 
     public void addIntelligenceWindow() {
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public Section addSection(String title) {
-        TEXT_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .setValue(title);
-        SAVE_BUTTON.click();
-        return new Section();
-    }
 
-    public Description addDescription(String description) {
-        TEXT_FIELD.setValue(description);
-        SAVE_BUTTON.click();
-        return new Description();
-    }
-
-    public void fillFieldSectionDescription(String title) {
+    public void fillFieldText(String title) {
         TEXT_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(title);
     }
 
-    public String getValueSectionDescription() {
-        TEXT_FIELD.exists();
+    public String getValueField() {
+        TEXT_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         return TEXT_FIELD.getValue();
     }
 
-    public void saveValueSectionDescription() {
+    public void saveValue() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
-    public void cancellationAddSectionDescription() {
+    public void cancelAdd() {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

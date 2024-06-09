@@ -16,6 +16,8 @@ public class FaqPage extends BasePage {
     private final SelenideElement SEARCH_FAQ = $x("//input[@placeholder='Поиск по FAQ']");
     private final SelenideElement ADD_QUESTION = $x("//span[text()='Добавить вопрос']//parent::div//parent::button");
     private final ElementsCollection QUESTION_CARD =$$x("//div[@class='dc4P']");
+    private final SelenideElement EMPTY_LIST_FAQ=$x("//span[text()='Список Пуст']");
+
 
     public void faqPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -42,7 +44,7 @@ public void sequenceChangeActive(SelenideElement questionSource, SelenideElement
         return QUESTION_CARD.get(index).exists();
     }
 
-    public Question questionCard(int index) {
+    public Question getQuestionCard(int index) {
         SelenideElement questionCard = QUESTION_CARD.get(index);
         questionCard.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new Question(questionCard);
@@ -52,5 +54,9 @@ public void sequenceChangeActive(SelenideElement questionSource, SelenideElement
         SelenideElement sourceQuestion = QUESTION_CARD.get(sourceIndex);
         SelenideElement targetQuestion = QUESTION_CARD.get(targetIndex);
         sequenceChangeActive(sourceQuestion, targetQuestion);
+    }
+
+    public boolean isExistsEmptyList(){
+        return EMPTY_LIST_FAQ.exists();
     }
 }

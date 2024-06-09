@@ -1,17 +1,16 @@
 package admin.test;
 
 import admin.data.DataInfo;
-import admin.pages.AdministrationPage.AdministrationPage;
 import admin.pages.BasePage.BasePage;
 import admin.pages.FaqPage.FaqPage;
 import admin.pages.HeaderMenu.HeaderMenu;
-import admin.pages.AdministrationPage.UpdateLegalDocWindow;
 import admin.pages.FaqPage.AddQuestionWindow;
 import admin.pages.FaqPage.ChangeQuestionWindow;
 import admin.pages.FaqPage.Question;
-import admin.pages.SettingPage.EditLogoWindow;
-import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.decoratorsTest.*;
+import admin.utils.dbUtils.DataBaseQuery;
+import admin.utils.decoratorsTest.faq.*;
+import admin.utils.decoratorsTest.general.AllureDecorator;
+import admin.utils.decoratorsTest.general.NotificationDecorator;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -21,7 +20,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import static admin.utils.dbUtils.DataBaseUtils.selectFaq;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -59,11 +58,11 @@ public class FAQPageTest extends BaseTest{
         addQuestionWindow.fillQuestionField(DataInfo.DataTest.getQuestion());
         addQuestionWindow.fillAnswerField(DataInfo.DataTest.getAnswer());
         addQuestionWindow.addQuestion();
-        Question question = faqPage.questionCard(0);
+        Question question = faqPage.getQuestionCard(0);
         assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
         assertEquals(DataInfo.DataTest.getQuestion(),question.getQuestion(0));
         assertEquals(DataInfo.DataTest.getAnswer(),question.getAnswer(0));
-        assertEquals(DataInfo.DataTest.getQuestion(),DataBaseUtils.selectFaq(0).getQuestion());
+        assertEquals(DataInfo.DataTest.getQuestion(), DataBaseQuery.selectFaq(0).getQuestion());
         assertTrue(faqPage.isExistQuestions(0));
         assertFalse(addQuestionWindow.isWindowAppear());
     }
@@ -103,11 +102,11 @@ public class FAQPageTest extends BaseTest{
         addQuestionWindow.fillQuestionField("Могу ли я вернуть денежные средства?");
         addQuestionWindow.fillAnswerField(DataInfo.DataTest.getAnswer());
         addQuestionWindow.addQuestion();
-        Question question = faqPage.questionCard(1);
+        Question question = faqPage.getQuestionCard(1);
         assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
         assertEquals("Могу ли я вернуть денежные средства?",question.getQuestion(1));
         assertEquals(DataInfo.DataTest.getAnswer(),question.getAnswer(1));
-        assertEquals("Могу ли я вернуть денежные средства?",DataBaseUtils.selectFaq(1).getQuestion());
+        assertEquals("Могу ли я вернуть денежные средства?", DataBaseQuery.selectFaq(1).getQuestion());
         assertTrue(faqPage.isExistQuestions(1));
         assertFalse(addQuestionWindow.isWindowAppear());
     }
@@ -131,7 +130,7 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
     @Test
     void editQuestion() {
-        Question question = faqPage.questionCard(0);
+        Question question = faqPage.getQuestionCard(0);
         question.question();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.changeQuestionWindow();
@@ -141,7 +140,7 @@ public class FAQPageTest extends BaseTest{
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
         assertEquals(DataInfo.DataTest.getChangeQuestion(),question.getQuestion(0));
         assertEquals(DataInfo.DataTest.getChangeAnswer(),question.getAnswer(0));
-        assertEquals(DataInfo.DataTest.getChangeQuestion(),DataBaseUtils.selectFaq(0).getQuestion());
+        assertEquals(DataInfo.DataTest.getChangeQuestion(), DataBaseQuery.selectFaq(0).getQuestion());
         assertFalse(changeQuestionWindow.isWindowAppear());
     }
 
@@ -150,13 +149,13 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
     @Test
     void editQuestionNotChangeSave() {
-        Question question = faqPage.questionCard(0);
+        Question question = faqPage.getQuestionCard(0);
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.saveChangesQuestion();
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
         assertEquals(DataInfo.DataTest.getQuestion(),question.getQuestion(0));
         assertEquals(DataInfo.DataTest.getAnswer(),question.getAnswer(0));
-        assertEquals(DataInfo.DataTest.getQuestion(),DataBaseUtils.selectFaq(0).getQuestion());
+        assertEquals(DataInfo.DataTest.getQuestion(), DataBaseQuery.selectFaq(0).getQuestion());
         assertFalse(changeQuestionWindow.isWindowAppear());
     }
 
@@ -165,7 +164,7 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void closeWindowEditQuestion() {
-        Question question = faqPage.questionCard(0);
+        Question question = faqPage.getQuestionCard(0);
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.fillQuestionField(DataHelper.generateText());
         changeQuestionWindow.fillAnswerField(DataHelper.generateText());
@@ -175,7 +174,7 @@ public class FAQPageTest extends BaseTest{
         question.openWindowChangeQuestion();
         assertEquals(DataInfo.DataTest.getQuestion(),question.getQuestion(0));
         assertEquals(DataInfo.DataTest.getAnswer(),question.getAnswer(0));
-        assertEquals(DataInfo.DataTest.getQuestion(),DataBaseUtils.selectFaq(0).getQuestion());
+        assertEquals(DataInfo.DataTest.getQuestion(), DataBaseQuery.selectFaq(0).getQuestion());
     }
 
     @Feature("Редактирование faq-вопроса")
@@ -183,16 +182,18 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddTwoQuestionFaqDecorator.class)
     @Test
     void sequenceChangeQuestion() {
-        Question questionFirst = faqPage.questionCard(0);
+        Question questionFirst = faqPage.getQuestionCard(0);
         String firstQuestionText = questionFirst.getQuestion(0);
-        Question questionSecond = faqPage.questionCard(1);
+        Question questionSecond = faqPage.getQuestionCard(1);
         String secondQuestionText = questionSecond.getQuestion(1);
         faqPage.sequenceChangeQuestions(0, 1);
-        Question questionFirstChange = faqPage.questionCard(0);
-        Question questionSecondChange = faqPage.questionCard(1);
+        Question questionFirstChange = faqPage.getQuestionCard(0);
+        Question questionSecondChange = faqPage.getQuestionCard(1);
         Selenide.sleep(1000);
         assertEquals(firstQuestionText, questionSecondChange.getQuestion(1));
         assertEquals(secondQuestionText, questionFirstChange.getQuestion(0));
+        assertEquals(firstQuestionText,DataBaseQuery.selectFaq(1).getQuestion());
+        assertEquals(secondQuestionText,DataBaseQuery.selectFaq(0).getQuestion());
     }
 
     @Feature("Удаление faq-вопроса")
@@ -200,12 +201,13 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith({AddFaqDecorator.class,NotificationDecorator.class})
     @Test
     void deleteQuestion() {
-        Question question = faqPage.questionCard(0);
+        Question question = faqPage.getQuestionCard(0);
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.deleteQuestion();
         assertEquals("Вопрос успешно удален", faqPage.getNotification());
         assertFalse(faqPage.isExistQuestions(0));
-        assertNull(DataBaseUtils.selectFaq(0));
+        assertTrue(faqPage.isExistsEmptyList());
+        assertNull(DataBaseQuery.selectFaq(0));
     }
 
     @Story("Возврат к хэдеру страницы faq")
@@ -224,7 +226,7 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddFaqDecorator.class)
     @Test
     void closeNotificationTimeout() {
-        Question question = faqPage.questionCard(0);
+        Question question = faqPage.getQuestionCard(0);
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.deleteQuestion();
         checkCloseNotificationTimeout(basePage);
@@ -234,7 +236,7 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddFaqDecorator.class)
     @Test
     void closeNotification() {
-        Question question = faqPage.questionCard(0);
+        Question question = faqPage.getQuestionCard(0);
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.deleteQuestion();
         checkCloseNotification(basePage);

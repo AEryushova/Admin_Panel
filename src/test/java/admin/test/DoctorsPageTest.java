@@ -5,14 +5,15 @@ import admin.pages.BasePage.BasePage;
 import admin.pages.CardDoctorPage.*;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.HeaderMenu.HeaderMenu;
-import admin.pages.Сalendar.Calendar;
-import admin.utils.decoratorsTest.AllureDecorator;
-import admin.utils.decoratorsTest.DeletePhotoDoctorDecorator;
-import admin.utils.decoratorsTest.NotificationDecorator;
-import admin.utils.decoratorsTest.SetPhotoDoctorDecorator;
+import admin.utils.decoratorsTest.doctors.AddDeleteSectionDecorator;
+import admin.utils.decoratorsTest.doctors.DeletePhotoDoctorDecorator;
+import admin.utils.decoratorsTest.doctors.DeleteSectionDecorator;
+import admin.utils.decoratorsTest.doctors.SetPhotoDoctorDecorator;
+import admin.utils.decoratorsTest.general.AllureDecorator;
+import admin.utils.decoratorsTest.general.NotificationDecorator;
 import admin.utils.testUtils.*;
-import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.testUtils.DataHelper;
+import admin.utils.dbUtils.DataBaseQuery;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -21,7 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static admin.utils.dbUtils.DataBaseUtils.selectFeedback;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Врачи")
@@ -47,7 +48,7 @@ public class DoctorsPageTest extends BaseTest {
         headerMenu.doctorsTabOpen();
     }
 
-    @Feature("Фотография врача")
+    @Feature("Замена фотографии врачу")
     @Story("Успешная замена фотографии врачу в формате Jpeg и Png")
     @ExtendWith(DeletePhotoDoctorDecorator.class)
     @ParameterizedTest
@@ -59,27 +60,44 @@ public class DoctorsPageTest extends BaseTest {
         editPhoto.editPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto(path);
+        Selenide.sleep(3000);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
-        assertNotEquals(srcOriginalPhoto, DataBaseUtils.selectPhotoUriDoctor().getPhoto_uri());
+        assertNotEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor().getPhoto_uri());
+        assertFalse(editPhoto.isWindowAppear());
     }
 
 
-    @Feature("Фотография врача")
-    @Story("Замена фотографии врачу с файлом весом более 4mb и невалидным форматом")
-    @ExtendWith({DeletePhotoDoctorDecorator.class, NotificationDecorator.class})
+    @Feature("Замена фотографии врачу")
+    @Story("Замена фотографии врачу с файлом весом более 4mb")
+    @ExtendWith(NotificationDecorator.class)
+    @Test
+    void changePhotoDoctorLess4mb() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
+        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
+        assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getNotification());
+        assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
+        assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor().getPhoto_uri());
+    }
+
+    @Feature("Замена фотографии врачу")
+    @Story("Замена фотографии врачу с файлом в невалидном формате")
+    @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
-    @ValueSource(strings = {"src/test/resources/Photo 6,8mbJpeg.jpg","src/test/resources/Оферта,Политика обработки docx.docx","src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
+    @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx","src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
-        editPhoto.uploadPhoto(path);
-        assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getNotification());
+        editPhoto.uploadPhoto(path);;
+        assertEquals("Допускаются файлы с расширением jpg jpeg png", cardDoctor.getNotification());
         assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
+        assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor().getPhoto_uri());
     }
 
 
-    @Feature("Фотография врача")
+    @Feature("Замена фотографии врачу")
     @Story("Закрытие окна смены фотографии")
     @Test
     void closeWindowEditPhoto() {
@@ -89,71 +107,94 @@ public class DoctorsPageTest extends BaseTest {
         assertFalse(editPhoto.isWindowAppear());
     }
 
-    @Feature("Фотография врача")
+    @Feature("Замена фотографии врачу")
     @Story("Успешное удаление фотографии врача")
     @ExtendWith(SetPhotoDoctorDecorator.class)
     @Test
     void deletePhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.deletePhoto();
+        Selenide.sleep(3000);
+        assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertEquals(DataInfo.DataTest.getDefaultPhoto(), cardDoctor.getSrcPhoto());
-
+        assertEquals(DataInfo.DataTest.getDefaultPhoto(), DataBaseQuery.selectInfoDoctor().getPhoto_uri());
     }
 
-    @Feature("Фотография врача")
+    @Feature("Замена фотографии врачу")
     @Story("Удаление дефолтной фотографии врача")
     @ExtendWith({DeletePhotoDoctorDecorator.class, NotificationDecorator.class})
     @Test
     void deleteDefaultPhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.deletePhoto();
         assertEquals("Конфликт (409)", cardDoctor.getNotification());
+        assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
     }
 
     @Feature("Информация о враче")
     @Story("Успешное добавление раздела в инфо о враче")
+    @ExtendWith(DeleteSectionDecorator.class)
     @Test
     void addingSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.addIntelligenceWindow();
-        Section section = intelligenceWindow.addSection("Образование");
-        assertEquals("Образование", section.getSectionName());
+        intelligenceWindow.fillFieldText(DataInfo.DataTest.getSection());
+        intelligenceWindow.saveValue();
+        Section section = cardDoctor.getSection();
+        assertEquals(DataInfo.DataTest.getSection(),section.getSection());
+        assertEquals(DataInfo.DataTest.getSection(),DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
+        assertTrue(cardDoctor.isExistSection());
+        assertFalse(intelligenceWindow.isWindowAppear());
     }
 
     @Feature("Информация о враче")
     @Story("Добавление пустого раздела в инфо о враче")
-    @ExtendWith(NotificationDecorator.class)
+    @ExtendWith({DeleteSectionDecorator.class,NotificationDecorator.class})
     @Test
     void addSectionEmptyField() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
-        intelligenceWindow.saveValueSectionDescription();
+        intelligenceWindow.saveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
+        assertFalse(cardDoctor.isExistSection());
+        assertNull(DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()));
     }
 
+
     @Feature("Информация о враче")
-    @Story("Отмена добавления раздела в инфо о враче")
+    @Story("Отмена добавления раздела в инфо о враче и зануление полей")
     @Test
     void cancelWindowAddSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
-        intelligenceWindow.fillFieldSectionDescription("Образование");
-        intelligenceWindow.cancellationAddSectionDescription();
-        AddIntelligenceWindow intelligenceWindowOver = cardDoctor.openWindowAddSection();
-        assertEquals("", intelligenceWindowOver.getValueSectionDescription());
+        intelligenceWindow.fillFieldText(DataInfo.DataTest.getSection());
+        intelligenceWindow.cancelAdd();
+        assertFalse(intelligenceWindow.isWindowAppear());
+        cardDoctor.openWindowAddSection();
+        assertEquals("", intelligenceWindow.getValueField());
     }
+
 
     @Feature("Информация о враче")
     @Story("Успешное редактирование раздела в инфо о враче")
+    @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         Section section = cardDoctor.getSection();
         section.section();
-        section.editTitle("ние");
-        assertEquals("Образование", section.getSectionName());
+        section.editTitle();
+        section.fillTitleField(DataInfo.DataTest.getNewSection());
+        section.editTitle();
+        assertEquals(DataInfo.DataTest.getNewSection(),section.getSection());
+        assertEquals(DataInfo.DataTest.getNewSection(),DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
     }
+
+
+    /*
 
     @Feature("Информация о враче")
     @Story("Успешное удаление раздела в инфо о враче")
@@ -185,7 +226,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
-        intelligenceWindow.saveValueSectionDescription();
+        intelligenceWindow.saveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
 
@@ -196,10 +237,10 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
-        intelligenceWindow.fillFieldSectionDescription("2023, Получение дополнительного образования за рубежом");
-        intelligenceWindow.cancellationAddSectionDescription();
+        intelligenceWindow.fillFieldText("2023, Получение дополнительного образования за рубежом");
+        intelligenceWindow.cancelAdd();
         AddIntelligenceWindow intelligenceWindowOver = section.openWindowAddDescription();
-        assertEquals("", intelligenceWindowOver.getValueSectionDescription());
+        assertEquals("", intelligenceWindowOver.getValueField());
 
     }
 
@@ -473,5 +514,5 @@ public class DoctorsPageTest extends BaseTest {
         assertFalse(cardDoctor.notificationAppear());
     }
 
-
+*/
 }

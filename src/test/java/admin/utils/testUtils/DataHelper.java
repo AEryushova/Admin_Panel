@@ -1,6 +1,8 @@
 package admin.utils.testUtils;
 
+import admin.data.DataInfo;
 import com.github.javafaker.Faker;
+import lombok.Getter;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -10,9 +12,22 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
+
 public class DataHelper {
 
+    @Getter
+    public static String login;
     private final static Faker faker = new Faker(new Locale("ru"));
+
+    //Генерирует и возвращает рандомный текст//
+    public static String generateText() {
+        return faker.company().catchPhrase();
+    }
+
+    //Генерирует и возвращает ссылку на фото врача//
+    public static String urlPhotoBuilder() {
+        return DataInfo.Urls.getUriPersonalArea() + DataPreparationService.getLocation();
+    }
 
     //Возвращает текущую дату в английской локали в формате "01 April 2024"//
     public static String getCurrentDate() {
@@ -88,7 +103,7 @@ public class DataHelper {
     }
 
     //Возвращает дату, которая наступит через 2 дня от текущей даты в русской локали в формате "2024-04-03"//
-    public static String convertDateForDB(){
+    public static String convertDateForDB() {
         String futureDateString = generateFutureDateCurrentMonth();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         LocalDate date = LocalDate.parse(futureDateString, inputFormatter);
@@ -154,7 +169,8 @@ public class DataHelper {
     }
 
     //Генерирует и возвращает UUID для SQL-запросов//
-    public static UUID generateUuid(){
+    public static UUID generateUuid() {
+
         return UUID.randomUUID();
     }
 
@@ -165,10 +181,28 @@ public class DataHelper {
         return timestamp;
     }
 
-    //Генерирует и возвращает рандомный текст//
-    public static String generateText(){
-        return faker.company().catchPhrase();
-    }
+    //Генерирует логин, возвращает его и сохраняет значение в поле"//
+    public static String generateLogin() {
+        final String ALLOWED_CHARS = "abcdefghijklmnopqrstuvwxyz_";
+        final String DIGITS = "0123456789";
+        final int MAX_LENGTH = 10;
 
+        if (login == null) {
+            StringBuilder sb = new StringBuilder(1);
+            Random r = new Random();
+            sb.append(ALLOWED_CHARS.charAt(r.nextInt(ALLOWED_CHARS.length())));
+            for (int i = 1; i < MAX_LENGTH; i++) {
+                int charType = r.nextInt(3);
+                if (charType == 0) {
+                    sb.append(ALLOWED_CHARS.charAt(r.nextInt(ALLOWED_CHARS.length())));
+                } else {
+                    sb.append(DIGITS.charAt(r.nextInt(DIGITS.length())));
+                }
+            }
+
+            login = sb.toString();
+        }
+        return login;
+    }
 }
 

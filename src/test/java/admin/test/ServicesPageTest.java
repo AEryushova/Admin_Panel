@@ -6,7 +6,7 @@ import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.ServicesPage;
 import admin.pages.ServicesPage.AddRuleWindow;
 import admin.pages.ServicesPage.RulesPreparingWindow;
-import admin.utils.decoratorsTest.*;
+import admin.utils.decoratorsTest.general.AllureDecorator;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Epic;

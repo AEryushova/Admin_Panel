@@ -5,8 +5,12 @@ import admin.pages.AdministrationPage.*;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.Сalendar.Calendar;
-import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.decoratorsTest.*;
+import admin.utils.dbUtils.DataBaseQuery;
+import admin.utils.decoratorsTest.administration.AdminAddDecorator;
+import admin.utils.decoratorsTest.administration.AdminAddDeleteDecorator;
+import admin.utils.decoratorsTest.administration.AdminDeleteDecorator;
+import admin.utils.decoratorsTest.general.AllureDecorator;
+import admin.utils.decoratorsTest.general.NotificationDecorator;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -56,7 +60,9 @@ public class AdministrationPageTest extends BaseTest {
         newAdminWindow.fillFieldNewAdminConfirmPassword(DataInfo.UserData.getPasswordAdminTest());
         newAdminWindow.clickAddButton();
         assertEquals("Новый администратор " + DataInfo.UserData.getLoginAdminTest() + " успешно создан", adminPage.getNotification());
-        assertEquals("1", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginAdminTest()).getRole_id());
+        assertEquals(1, DataBaseQuery.selectAdmin(DataInfo.UserData.getLoginAdminTest()).getRole_id());
+        assertFalse(DataBaseQuery.selectAdmin(DataInfo.UserData.getLoginAdminTest()).getIs_blocked());
+        assertFalse(DataBaseQuery.selectAdmin(DataInfo.UserData.getLoginAdminTest()).getIs_deleted());
         assertTrue(adminPage.isExistAdminCard());
         assertFalse(newAdminWindow.isWindowAppear());
     }
@@ -225,7 +231,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Добавление нового админа")
     @Story("Ввод не соответствующего пароля при подтверждении")
     @Test
-    void addedNewAdminMismatchedPasswords_8680() {
+    void addedNewAdminMismatchedPasswords() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(DataInfo.UserData.getLoginAdminTest());
         newAdminWindow.fillFieldNewAdminPassword(DataInfo.UserData.getPasswordAdminTest());
@@ -349,7 +355,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Ввод не валидного пароля из 7 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void changePasswordAdmin7Symbol() {
+    void changePasswordAdmin_7_Symbol() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.fillFieldNewPassword("Wwqq12#");
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
@@ -360,7 +366,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
-    void changePasswordAdmin8Symbol(String login) {
+    void changePasswordAdmin_8_Symbol(String login) {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.fillFieldNewPassword(login);
         assertFalse(changePasswordAdminWindow.isErrorPasswordAppear());
@@ -371,7 +377,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Ввод не валидного пароля из 26 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void changePasswordAdmin26Symbol() {
+    void changePasswordAdmin_26_Symbol() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.fillFieldNewPassword("Wwqq123456789#QQgg12345678");
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
@@ -392,7 +398,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Зануление полей в окне смены пароля админу и закрытие окна")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void closeWindowChangePasswordAdmin_8880() {
+    void closeWindowChangePasswordAdmin() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin();
         changePasswordAdminWindow.fillFieldNewPassword(DataInfo.UserData.getNewPasswordAdminTest());
         changePasswordAdminWindow.fillFieldConfirmPassword(DataInfo.UserData.getNewPasswordAdminTest());
@@ -426,7 +432,7 @@ public class AdministrationPageTest extends BaseTest {
         deleteAdminWindow.deleteAdmin();
         assertEquals("Админ " + DataInfo.UserData.getLoginAdminTest() + " успешно удален", adminPage.getNotification());
         assertFalse(adminPage.isExistAdminCard());
-        assertNull(DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginAdminTest()));
+        assertNull(DataBaseQuery.selectAdmin(DataInfo.UserData.getLoginAdminTest()));
     }
 
     @Feature("Документация")
@@ -752,7 +758,6 @@ public class AdministrationPageTest extends BaseTest {
         assertTrue(updatePriceWindow.isWindowAppear());
 
     }
-
 
     @Story("Возврат к хэдеру страницы администрирования")
     @Test

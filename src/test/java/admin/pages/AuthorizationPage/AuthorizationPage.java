@@ -8,7 +8,6 @@ import com.codeborne.selenide.SelenideElement;
 import java.time.Duration;
 import java.util.Objects;
 
-import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AuthorizationPage extends BasePage {

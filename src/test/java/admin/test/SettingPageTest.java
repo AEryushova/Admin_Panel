@@ -6,9 +6,14 @@ import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.SettingPage.BugReport;
 import admin.pages.SettingPage.SettingPage;
 import admin.pages.SettingPage.EditLogoWindow;
+import admin.utils.decoratorsTest.general.AllureDecorator;
+import admin.utils.decoratorsTest.general.NotificationDecorator;
+import admin.utils.decoratorsTest.setting.AddBugReportDecorator;
+import admin.utils.decoratorsTest.setting.AddDeleteBugReportDecorator;
+import admin.utils.decoratorsTest.setting.AddSomeBugsReport;
+import admin.utils.decoratorsTest.setting.SetSAMSMU_Logo;
 import admin.utils.testUtils.DataHelper;
-import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.decoratorsTest.*;
+import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -64,14 +69,15 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Сообщения об ошибках")
     @Story("Успешное удаление баг-репорта")
-    @ExtendWith({AddBugReportDecorator.class,NotificationDecorator.class})
+    @ExtendWith({AddBugReportDecorator.class, NotificationDecorator.class})
     @Test
     void deleteBugReport() {
         BugReport bugReport =settingPage.bugReportCard();
         bugReport.deleteBugReport();
         assertEquals("Сообщение удалено", settingPage.getNotification());
         assertFalse(settingPage.isExistsBugReport());
-        assertNull(DataBaseUtils.selectBugReports());
+        assertTrue(settingPage.isExistsEmptyList());
+        assertNull(DataBaseQuery.selectBugReports());
     }
 
     @Feature("Настройки личного кабинета")

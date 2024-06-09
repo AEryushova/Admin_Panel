@@ -2,6 +2,8 @@ package admin.data;
 
 import lombok.Getter;
 
+import java.io.File;
+
 public class DataInfo {
 
     public static class UserData {
@@ -50,7 +52,7 @@ public class DataInfo {
         @Getter
         public static final String defaultPhoto = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
         @Getter
-        public static final String photo = "src/test/resources/Photo 3,7mbJpeg.jpg";
+        public static File photo = new File("src/test/resources/Photo 3,7mbJpeg.jpg");
         @Getter
         public static final String messageBugReport = "Не могу записаться к врачу";
         @Getter
@@ -65,5 +67,14 @@ public class DataInfo {
         public static final String changeQuestion = "Как записаться к врачу?";
         @Getter
         public static final String changeAnswer = "Записаться к врачу можно через вкладку 'Врачи'";
+        @Getter
+        public static final String section= "Образование";
+        @Getter
+        public static final String description = "Июнь 2008, Высшее образование - специалитет, магистратура по специальности: \"Лечебное дело\"";
+        @Getter
+        public static final String newSection= "Сертификаты";
+        @Getter
+        public static final String newDescription = "Оториноларингология сертификат № 0163180786836";
+
     }
 }

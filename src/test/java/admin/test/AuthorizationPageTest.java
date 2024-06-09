@@ -3,11 +3,11 @@ package admin.test;
 import admin.data.DataInfo;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.UserPanel;
-import admin.utils.dbUtils.DataBaseUtils;
-import admin.utils.decoratorsTest.AllureDecorator;
-import admin.utils.decoratorsTest.CloseWebDriverDecorator;
+import admin.utils.dbUtils.DataBaseQuery;
+import admin.utils.decoratorsTest.general.AllureDecorator;
+import admin.utils.decoratorsTest.authorization.CloseWebDriverDecorator;
 import admin.utils.testUtils.*;
-import admin.utils.decoratorsTest.NotificationDecorator;
+import admin.utils.decoratorsTest.general.NotificationDecorator;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -50,7 +50,7 @@ public class AuthorizationPageTest extends BaseTest {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         userPanel.userPanelSuperAdmin();
         assertEquals("Супер-Администратор", userPanel.checkProfileInfoUser());
-        assertEquals("0", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginSuperAdmin()).getRole_id());
+        assertEquals(0, DataBaseQuery.selectAdmin(DataInfo.UserData.getLoginSuperAdmin()).getRole_id());
     }
 
 
@@ -65,7 +65,7 @@ public class AuthorizationPageTest extends BaseTest {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         userPanel.userPanelAdmin();
         assertEquals("Администратор", userPanel.checkProfileInfoUser());
-        assertEquals("1", DataBaseUtils.selectAdmin(DataInfo.UserData.getLoginAdmin()).getRole_id());
+        assertEquals(1, DataBaseQuery.selectAdmin(DataInfo.UserData.getLoginAdmin()).getRole_id());
     }
 
     @Story("Авторизация админа с неверным паролем")
@@ -227,7 +227,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Ввод валидного логина из 31 и 32 символов")
     @ParameterizedTest
     @ValueSource(strings = {"ANNA_TEST_ADMIN123456789_ANNA_1", "ANNA_TEST_ADMIN123456789_ANNA_12"})
-    void authorizationAdminLogin31Symbol(String login) {
+    void authorizationAdminLogin_31_Symbol(String login) {
         authPage.fillLoginField(login);
         authPage.clickPasswordField();
         authPage.hoverLoginField();
@@ -236,7 +236,7 @@ public class AuthorizationPageTest extends BaseTest {
 
     @Story("Ввод не валидного логина из 33 символов")
     @Test
-    void authorizationAdminLogin33Symbol() {
+    void authorizationAdminLogin_33_Symbol() {
         authPage.fillLoginField("ANNA_TEST_ADMIN123456789_ANNA_123");
         authPage.clickPasswordField();
         authPage.hoverLoginField();
@@ -265,7 +265,7 @@ public class AuthorizationPageTest extends BaseTest {
 
     @Story("Ввод не валидного пароля из 7 символов")
     @Test
-    void authorizationAdminPassword7Symbol() {
+    void authorizationAdminPassword_7_Symbol() {
         authPage.fillPasswordField("Wwqq12#");
         authPage.clickLoginField();
         authPage.hoverPasswordField();
@@ -275,7 +275,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Ввод валидного пароля из 8,9,24 и 25 символов")
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
-    void authorizationAdminPassword8Symbol(String password) {
+    void authorizationAdminPassword_8_Symbol(String password) {
         authPage.fillPasswordField(password);
         authPage.clickLoginField();
         authPage.hoverPasswordField();
@@ -284,7 +284,7 @@ public class AuthorizationPageTest extends BaseTest {
 
     @Story("Ввод не валидного пароля из 26 символов")
     @Test
-    void authorizationAdminPassword26Symbol() {
+    void authorizationAdminPassword_26_Symbol() {
         authPage.fillPasswordField("Wwqq123456789#QQgg12345678");
         authPage.clickLoginField();
         authPage.hoverPasswordField();
