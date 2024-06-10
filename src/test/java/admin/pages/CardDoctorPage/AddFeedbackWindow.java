@@ -14,13 +14,9 @@ public class AddFeedbackWindow {
 
     private final SelenideElement WINDOW = $x("//div[@class='SIqL']");
     private final SelenideElement FIO_FIELD = $x("//input[@name='fio']");
-
     private final SelenideElement TODAY_BUTTON = $x("//div[@class='field__c8da container__ce0e']");
-
     private final SelenideElement TEXT_FEEDBACK_FIELD = $x("//textarea[@placeholder='Введите текст отзыва']");
-
     private final SelenideElement PUBLISH_BUTTON = $x("//button[text()='Опубликовать']");
-
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='fio']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
     public void addFeedbackWindow() {
@@ -28,7 +24,7 @@ public class AddFeedbackWindow {
         FIO_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        PUBLISH_BUTTON.shouldBe(Condition.disabled, Duration.ofSeconds(5));
+        PUBLISH_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
     }
 
     public void fillFieldFio(String fio) {
@@ -45,20 +41,33 @@ public class AddFeedbackWindow {
 
     public Calendar openCalendarSelectDate() {
         TODAY_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
+                .shouldBe(Condition.enabled)
+                .click();
         return new Calendar();
     }
 
-    public void clickPublishButton() {
-        PUBLISH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        PUBLISH_BUTTON.click();
-        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(10));
+    public void publishFeedbackButton() {
+        PUBLISH_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     public String getValuesButtonToday() {
         TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
         return TODAY_BUTTON.getText();
+    }
+
+    public String getValueFioField() {
+        FIO_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
+        return FIO_FIELD.getValue();
+    }
+
+    public String getValueTextFeedbackField() {
+        TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
+        return TEXT_FEEDBACK_FIELD.getValue();
     }
 
     public void closeWindowAddFeedback() {

@@ -12,11 +12,18 @@ public class AddIntelligenceWindow {
     private final SelenideElement TEXT_FIELD = $x("//input[@placeholder='Укажите название пункта']");
     private final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
     private final SelenideElement CANCEL_BUTTON = $x("//button[text()='Отмена']");
-    private final SelenideElement WINDOW = $x("//input[@placeholder='Укажите название пункта']//parent::div//parent::div[@class='ijoD']");
+    private final SelenideElement WINDOW_SECTION = $x("//input[@placeholder='Укажите название пункта']//parent::div//parent::div[@class='ijoD']");
+    private final SelenideElement WINDOW_DESCRIPTION = $x("//input[@placeholder='Укажите название пункта']//parent::div//parent::div[@class='S8Lv']");
 
+    public void addIntelligenceSectionWindow() {
+        WINDOW_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+    }
 
-    public void addIntelligenceWindow() {
-        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
+    public void addIntelligenceDescriptionWindow() {
+        WINDOW_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -47,8 +54,12 @@ public class AddIntelligenceWindow {
                 .click();
     }
 
-    public boolean isWindowAppear() {
-        return WINDOW.exists();
+    public boolean isWindowSectionAppear() {
+        return WINDOW_SECTION.exists();
+    }
+
+    public boolean isWindowDescriptionAppear() {
+        return WINDOW_DESCRIPTION .exists();
     }
 
 }

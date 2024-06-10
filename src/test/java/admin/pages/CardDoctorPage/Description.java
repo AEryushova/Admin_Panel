@@ -17,30 +17,36 @@ public class Description {
 
     public void description() {
         DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        NAME_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public void editDescription(String title) {
+    public void editDescription() {
+        NAME_DESCRIPTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        FIELD_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        FIELD_DESCRIPTION.setValue(title);
+        NAME_DESCRIPTION.shouldBe(Condition.hidden);
     }
 
-    public String getDescriptionName() {
-        NAME_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(10));
+    public void fillDescriptionField(String title){
+        FIELD_DESCRIPTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(title);
+    }
+
+    public String getDescription() {
+        NAME_DESCRIPTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         return NAME_DESCRIPTION.getText();
     }
 
     public void deleteDescription() {
         DELETE_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
-    }
-
-    public boolean isDescriptionAppear() {
-        return DESCRIPTION.exists();
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
 }

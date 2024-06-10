@@ -75,6 +75,7 @@ public class DataInfo {
         public static final String newSection= "Сертификаты";
         @Getter
         public static final String newDescription = "Оториноларингология сертификат № 0163180786836";
-
+        @Getter
+        public static final String feedback = "Очень хороший врач";
     }
 }

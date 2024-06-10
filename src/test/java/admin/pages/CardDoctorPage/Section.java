@@ -15,7 +15,6 @@ public class Section {
     private final SelenideElement FIELD_TITLE=$x("//div[contains(@class, 'aksW')]/input");
     private final SelenideElement DELETE_BUTTON = $x("//div[@class='UQ5Z']");
     private final SelenideElement ADD_DESCRIPTION_BUTTON = $x("//div[@class='EUkX']");
-    private final SelenideElement EMPTY_LIST_DESCRIPTION= $x("//div[text()='Пустой список']");
 
 
     public void section() {
@@ -32,17 +31,11 @@ public class Section {
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        NAME_SECTION.shouldBe(Condition.hidden)
-                .shouldNot(Condition.exist);
-        FIELD_TITLE.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
-
+        NAME_SECTION.shouldBe(Condition.hidden);
     }
 
 
     public void fillTitleField(String title){
-        NAME_SECTION.shouldBe(Condition.hidden)
-                .shouldNot(Condition.exist);
         FIELD_TITLE.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(title);
@@ -65,10 +58,6 @@ public class Section {
                 .shouldBe(Condition.enabled)
                 .click();
         return new AddIntelligenceWindow();
-    }
-
-    public boolean isExistsEmpty(){
-        return EMPTY_LIST_DESCRIPTION.exists();
     }
 
 }

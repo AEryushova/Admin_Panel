@@ -86,6 +86,31 @@ public class DataBaseQuery {
         DataBaseManager.queryRunner("cab_lab_db").update(connection, deleteSection, doctorId);
     }
 
+    @SneakyThrows
+    public static Description selectDescription(UUID sectionId) {
+        var selectDescription = "SELECT * FROM employee_expertises WHERE employee_details_id = ? ";
+        var connection = DataBaseManager.getConnection("cab_lab_db");
+        return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectDescription, sectionId, new BeanHandler<>(Description.class));
+    }
+
+    @SneakyThrows
+    public static void addDescription(UUID sectionId) {
+        var addDescription = "INSERT INTO employee_expertises (employee_expertises_id,title,employee_details_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
+        var connection = DataBaseManager.getConnection("cab_lab_db");
+        var employee_expertises_id = DataHelper.generateUuid();
+        var title = DataInfo.DataTest.getDescription();
+        var sequence = 0;
+        var created_at = DataHelper.generateDateTime();
+        var updated_at = DataHelper.generateDateTime();
+        DataBaseManager.queryRunner("cab_lab_db").update(connection, addDescription, employee_expertises_id,title,sectionId,sequence, created_at,updated_at );
+    }
+
+    @SneakyThrows
+    public static void clearDescription(UUID sectionId) {
+        var deleteDescription = "DELETE FROM employee_expertises WHERE employee_details_id = ? ";
+        var connection = DataBaseManager.getConnection("cab_lab_db");
+        DataBaseManager.queryRunner("cab_lab_db").update(connection, deleteDescription, sectionId);
+    }
 
     @SneakyThrows
     public static BugReports selectBugReports() {
@@ -133,9 +158,8 @@ public class DataBaseQuery {
     @SneakyThrows
     public static void clearAllFaq() {
         var connection = DataBaseManager.getConnection("cab_lab_db");
-        DataBaseManager.queryRunner("cab_lab_db").execute(connection, "DELETE FROM faq");
+        DataBaseManager.queryRunner("cab_lab_db").update(connection, "DELETE FROM faq");
     }
-
 
     @SneakyThrows
     public static Feedback selectFeedback() {
@@ -145,16 +169,22 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addFeedback() {
+    public static void addFeedback(UUID doctorId) {
+        var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
+        var id = DataHelper.generateUuid();
+        var author=DataInfo.DataTest.getNamePatient();
+        var content =DataInfo.DataTest.getFeedback();
+        var created_at = DataHelper.generateDateTime();
+        var updated_at = DataHelper.generateDateTime();
+        var is_published= false;
         var connection = DataBaseManager.getConnection("cab_lab_db");
-        DataBaseManager.queryRunner("cab_lab_db").update(connection, "INSERT INTO feedbacks_employees (employees_id,author,content,created_at,updated_at,is_published ) VALUES ('111a11cc-daa1-11ee-ae1c-111111db0f1a','Федоров Ф. Ф.','Это тестовый коммент','2024-05-27 12:28:49.000', '2024-05-27 12:28:49.000', 'false'");
+        DataBaseManager.queryRunner("cab_lab_db").update(connection, addFeedback,id,doctorId,author,content,created_at,updated_at,is_published);
     }
 
     @SneakyThrows
-    public static void deleteFeedback() {
+    public static void clearAllFeedback() {
         var connection = DataBaseManager.getConnection("cab_lab_db");
-        var feedback = DataInfo.UserData.getLoginSuperAdmin();
-        DataBaseManager.queryRunner("cab_lab_db").update(connection, "DELETE FROM feedbacks_employees WHERE username = ?");
+        DataBaseManager.queryRunner("cab_lab_db").update(connection, "DELETE FROM feedbacks_employees");
     }
 
 

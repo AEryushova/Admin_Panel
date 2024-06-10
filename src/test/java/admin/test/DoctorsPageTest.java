@@ -5,10 +5,8 @@ import admin.pages.BasePage.BasePage;
 import admin.pages.CardDoctorPage.*;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.HeaderMenu.HeaderMenu;
-import admin.utils.decoratorsTest.doctors.AddDeleteSectionDecorator;
-import admin.utils.decoratorsTest.doctors.DeletePhotoDoctorDecorator;
-import admin.utils.decoratorsTest.doctors.DeleteSectionDecorator;
-import admin.utils.decoratorsTest.doctors.SetPhotoDoctorDecorator;
+import admin.pages.Сalendar.Calendar;
+import admin.utils.decoratorsTest.doctors.*;
 import admin.utils.decoratorsTest.general.AllureDecorator;
 import admin.utils.decoratorsTest.general.NotificationDecorator;
 import admin.utils.testUtils.*;
@@ -140,14 +138,14 @@ public class DoctorsPageTest extends BaseTest {
     void addingSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
-        intelligenceWindow.addIntelligenceWindow();
+        intelligenceWindow.addIntelligenceSectionWindow();
         intelligenceWindow.fillFieldText(DataInfo.DataTest.getSection());
         intelligenceWindow.saveValue();
         Section section = cardDoctor.getSection();
         assertEquals(DataInfo.DataTest.getSection(),section.getSection());
         assertEquals(DataInfo.DataTest.getSection(),DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
         assertTrue(cardDoctor.isExistSection());
-        assertFalse(intelligenceWindow.isWindowAppear());
+        assertFalse(intelligenceWindow.isWindowSectionAppear());
     }
 
     @Feature("Информация о враче")
@@ -172,7 +170,7 @@ public class DoctorsPageTest extends BaseTest {
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.fillFieldText(DataInfo.DataTest.getSection());
         intelligenceWindow.cancelAdd();
-        assertFalse(intelligenceWindow.isWindowAppear());
+        assertFalse(intelligenceWindow.isWindowSectionAppear());
         cardDoctor.openWindowAddSection();
         assertEquals("", intelligenceWindow.getValueField());
     }
@@ -194,33 +192,42 @@ public class DoctorsPageTest extends BaseTest {
     }
 
 
-    /*
-
     @Feature("Информация о враче")
     @Story("Успешное удаление раздела в инфо о враче")
+    @ExtendWith(AddSectionDecorator.class)
     @Test
     void deleteSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         Section section = cardDoctor.getSection();
         section.deleteTitle();
+        Selenide.sleep(3000);
+        assertFalse(cardDoctor.isExistSection());
+        assertTrue(cardDoctor.isExistsEmptyListSection());
+        assertNull(DataBaseQuery.selectSection(AddSectionDecorator.getDoctorId()));
     }
+
 
     @Feature("Информация о враче")
     @Story("Успешное добавление описания к разделу в инфо о враче")
+    @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
     void addingDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
-        intelligenceWindow.addIntelligenceWindow();
-        Description description = intelligenceWindow.addDescription("2022, по специальности \"Лечебное дело\" в ФГБОУ СамГМУ Минздрава Российской Феде");
-        description.description();
-        assertEquals("2022, по специальности \"Лечебное дело\" в ФГБОУ СамГМУ Минздрава Российской Феде", description.getDescriptionName());
+        intelligenceWindow.addIntelligenceDescriptionWindow();
+        intelligenceWindow.fillFieldText(DataInfo.DataTest.getDescription());
+        intelligenceWindow.saveValue();
+        Description description= cardDoctor.getDescription();
+        assertEquals(DataInfo.DataTest.getDescription(),description.getDescription());
+        assertEquals(DataInfo.DataTest.getDescription(),DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
+        assertTrue(cardDoctor.isExistDescription());
+        assertFalse(intelligenceWindow.isWindowDescriptionAppear());
     }
 
     @Feature("Информация о враче")
     @Story("Добавление пустого описания к разделу в инфо о враче")
-    @ExtendWith(NotificationDecorator.class)
+    @ExtendWith({DeleteDescriptionDecorator.class,NotificationDecorator.class})
     @Test
     void addDescriptionEmptyField() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
@@ -228,71 +235,90 @@ public class DoctorsPageTest extends BaseTest {
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
         intelligenceWindow.saveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
+        assertFalse(cardDoctor.isExistDescription());
+        assertNull(DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()));
     }
 
+
     @Feature("Информация о враче")
-    @Story("Отмена добавления описания к разделу в инфо о враче")
+    @Story("Отмена добавления описания к разделу в инфо о враче и зануление полей")
+    @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
     void cancellationWindowAddDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
-        intelligenceWindow.fillFieldText("2023, Получение дополнительного образования за рубежом");
+        intelligenceWindow.fillFieldText(DataInfo.DataTest.getDescription());
         intelligenceWindow.cancelAdd();
-        AddIntelligenceWindow intelligenceWindowOver = section.openWindowAddDescription();
-        assertEquals("", intelligenceWindowOver.getValueField());
-
+        assertFalse(intelligenceWindow.isWindowDescriptionAppear());
+        section.openWindowAddDescription();
+        assertEquals("", intelligenceWindow.getValueField());
     }
+
 
     @Feature("Информация о враче")
     @Story("Успешное редактирование описания к разделу в инфо о враче")
+    @ExtendWith(AddDeleteDescriptionDecorator.class)
     @Test
     void editDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         Description description = cardDoctor.getDescription();
         description.description();
-        description.editDescription("рации");
-        assertEquals("2022, по специальности \"Лечебное дело\" в ФГБОУ СамГМУ Минздрава Российской Федерации", description.getDescriptionName());
+        description.editDescription();
+        description.fillDescriptionField(DataInfo.DataTest.getNewDescription());
+        description.editDescription();
+        assertEquals(DataInfo.DataTest.getNewDescription(),description.getDescription());
+        assertEquals(DataInfo.DataTest.getNewDescription(),DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
 
     }
 
     @Feature("Информация о враче")
     @Story("Успешное удаление описания к разделу в инфо о враче")
+    @ExtendWith(AddDescriptionDecorator.class)
     @Test
     void deleteDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        Section section = cardDoctor.getSection();
         Description description = cardDoctor.getDescription();
         description.deleteDescription();
-
+        Selenide.sleep(3000);
+        assertFalse(cardDoctor.isExistDescription());
+        assertTrue(cardDoctor.isExistsEmptyListDescription());
+        assertNull(DataBaseQuery.selectDescription(AddDescriptionDecorator.getSectionId()));
     }
+
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче текущей датой")
+    @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackToday() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
-        AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
-        feedbackWindow.addFeedbackWindow();
-        assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
-        feedbackWindow.fillFieldFio("Иванов Иван Иванович");
-        feedbackWindow.fillFieldTextFeedback("Тестовый отзыв");
-        Calendar calendar = feedbackWindow.openCalendarSelectDate();
+        cardDoctor.selectedPublishedFeedback();
+        cardDoctor.noSelectedUnpublishedFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        addFeedbackWindow.addFeedbackWindow();
+        assertEquals(DataHelper.getCurrentDate(), addFeedbackWindow.getValuesButtonToday());
+        addFeedbackWindow.fillFieldFio(DataInfo.DataTest.getNamePatient());
+        addFeedbackWindow.fillFieldTextFeedback(DataInfo.DataTest.getFeedback());
+        Calendar calendar = addFeedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.selectDateActivationToday();
-        feedbackWindow.clickPublishButton();
-        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        cardDoctor.toggleUnpublishedCheckbox();
+        addFeedbackWindow.publishFeedbackButton();
+        cardDoctor.selectedUnpublishedFeedback();
+        cardDoctor.noSelectedPublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
-        feedback.feedbackUnpublished();
+        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
-        assertEquals("Иванов Иван Иванович", feedback.getAuthorFeedback());
-        assertEquals("Тестовый отзыв", feedback.getTextFeedback());
-        assertEquals("Иванов Иван Иванович", selectFeedback().getAuthor());
-        assertEquals("Тестовый отзыв", selectFeedback().getContent());
-        assertEquals(false,selectFeedback().getIs_published());
+        assertEquals(DataInfo.DataTest.getNamePatient(), feedback.getAuthorFeedback());
+        assertEquals(DataInfo.DataTest.getFeedback(), feedback.getTextFeedback());
+        assertEquals(DataInfo.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataInfo.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertTrue(cardDoctor.isExistFeedback());
+        assertFalse(addFeedbackWindow.isWindowAppear());
     }
+
+    /*
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
@@ -308,7 +334,7 @@ public class DoctorsPageTest extends BaseTest {
         Calendar calendar = feedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.selectDateActivation();
-        feedbackWindow.clickPublishButton();
+        feedbackWindow.publishFeedbackButton();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         cardDoctor.toggleUnpublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
@@ -339,7 +365,7 @@ public class DoctorsPageTest extends BaseTest {
         calendar.calendar();
         calendar.switchFutureMonth();
         calendar.selectDateActivation();
-        feedbackWindow.clickPublishButton();
+        feedbackWindow.publishFeedbackButton();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         cardDoctor.toggleUnpublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();
@@ -366,7 +392,7 @@ public class DoctorsPageTest extends BaseTest {
         calendar.calendar();
         calendar.switchPreviousMonth();
         calendar.selectDateActivation();
-        feedbackWindow.clickPublishButton();
+        feedbackWindow.publishFeedbackButton();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         cardDoctor.toggleUnpublishedCheckbox();
         Feedback feedback = cardDoctor.getFeedback();

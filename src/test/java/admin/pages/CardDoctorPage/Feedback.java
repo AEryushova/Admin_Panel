@@ -27,25 +27,28 @@ public class Feedback {
     }
 
     public void feedbackPublished() {
-        dateFeedback.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        TEXT.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(10));
-        WITHDRAWAL_PUBLICATION.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        dateFeedback.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TEXT.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        WITHDRAWAL_PUBLICATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public String getDateFeedback() {
-        dateFeedback.exists();
+        dateFeedback.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         return dateFeedback.getText();
     }
 
     public String getAuthorFeedback() {
-        AUTHOR.exists();
+        AUTHOR.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         return AUTHOR.getText();
     }
 
     public String getTextFeedback() {
-        TEXT.exists();
+        TEXT.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         return TEXT.getText();
     }
 
