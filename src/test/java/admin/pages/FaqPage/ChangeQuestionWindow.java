@@ -2,6 +2,7 @@ package admin.pages.FaqPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
@@ -36,10 +37,28 @@ public class ChangeQuestionWindow {
                 .setValue(answer);
     }
 
+    public void clearQuestionField(){
+        QUESTION_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .sendKeys(Keys.CONTROL, "a");
+        QUESTION_FIELD.sendKeys(Keys.BACK_SPACE);
+    }
+
+    public void clearAnswerField(){
+        ANSWER_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .sendKeys(Keys.CONTROL, "a");
+        ANSWER_FIELD.sendKeys(Keys.BACK_SPACE);
+    }
+
     public void saveChangesQuestion() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+    }
+
+    public boolean isEnabledSaveButton(){
+        return SAVE_BUTTON.isEnabled();
     }
 
     public void deleteQuestion() {

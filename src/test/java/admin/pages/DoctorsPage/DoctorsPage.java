@@ -1,8 +1,8 @@
 package admin.pages.DoctorsPage;
 
-import admin.data.DataInfo;
+import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
-import admin.pages.CardDoctorPage.CardDoctorPage;
+import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
@@ -14,7 +14,7 @@ public class DoctorsPage extends BasePage {
 
     private final SelenideElement TAB_NAME = $x("//div[@class='wYqZ']/span[text()='Врачи']");
     private final SelenideElement SEARCH_DOCTOR = $x("//input[@placeholder='Поиск по врачам']");
-    private final SelenideElement EDIT_BUTTON = $x("//span[text()='" + DataInfo.DataTest.getDoctorSpecialization() + "']/preceding-sibling::span[text()='" + DataInfo.DataTest.getDoctorName() + "'] /parent::div/following-sibling::button[text()='Редактировать']");
+    private final SelenideElement EDIT_BUTTON = $x("//span[text()='" + DataConfig.DataTest.getDoctorSpecialization() + "']/preceding-sibling::span[text()='" + DataConfig.DataTest.getDoctorName() + "'] /parent::div/following-sibling::button[text()='Редактировать']");
     private final SelenideElement DROP_DOWN_PHOTO = $x("//div[@class='uTSS']");
     private final SelenideElement OPTION_ALL = $x("//div[@class='U2Xk']/div[text()='Все']");
     private final SelenideElement OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']");

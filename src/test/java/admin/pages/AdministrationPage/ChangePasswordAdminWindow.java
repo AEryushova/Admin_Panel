@@ -1,6 +1,6 @@
 package admin.pages.AdministrationPage;
 
-import admin.data.DataInfo;
+import admin.data.DataConfig;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
@@ -10,12 +10,12 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ChangePasswordAdminWindow {
 
-    private final SelenideElement WINDOW = $x("//input[@name='login' and @value='"+ DataInfo.UserData.getLoginAdminTest() + "']/parent::div/parent::div/parent::div[@class='ya9N CXVi']");
-    private final SelenideElement HEADER_WINDOW = $x("//input[@name='login' and @value='"+ DataInfo.UserData.getLoginAdminTest() + "']");
+    private final SelenideElement WINDOW = $x("//input[@name='login' and @value='"+ DataConfig.UserData.getLoginAdminTest() + "']/parent::div/parent::div/parent::div[@class='ya9N CXVi']");
+    private final SelenideElement HEADER_WINDOW = $x("//input[@name='login' and @value='"+ DataConfig.UserData.getLoginAdminTest() + "']");
     private final SelenideElement NEW_PASSWORD_FIELD = $x("//input[@name=\"newPassword\"]");
     private final SelenideElement CONFIRM_PASSWORD_FIELD = $x("//input[@name=\"confirmPassword\"]");
     private final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='login' and @value='"+ DataInfo.UserData.getLoginAdminTest() +"']/parent::div/parent::div/parent::div/div[@class='q2XL']/div");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='login' and @value='"+ DataConfig.UserData.getLoginAdminTest() +"']/parent::div/parent::div/parent::div/div[@class='q2XL']/div");
     private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
     private final SelenideElement ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");
 

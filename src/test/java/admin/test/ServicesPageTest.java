@@ -1,12 +1,10 @@
 package admin.test;
 
-import admin.data.DataInfo;
+import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
-import admin.pages.HeaderMenu.HeaderMenu;
-import admin.pages.ServicesPage.ServicesPage;
 import admin.pages.ServicesPage.AddRuleWindow;
 import admin.pages.ServicesPage.RulesPreparingWindow;
-import admin.utils.decoratorsTest.general.AllureDecorator;
+import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Epic;
@@ -15,10 +13,10 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
-import user.pages.AuthPage;
-import user.pages.HeaderBarLK;
-import user.pages.HomePage;
-import user.pages.ServicesPageLK;
+import user.pages.AuthPage.AuthPage;
+import user.pages.HeaderMenu.HeaderMenu;
+import user.pages.HomePage.HomePage;
+import user.pages.ServicesPage.ServicesPage;
 import user.pages.modalWindowServices.Rule;
 import user.pages.modalWindowServices.RulesPreparingWindowLK;
 
@@ -29,22 +27,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Feature("Управление услугами")
 public class ServicesPageTest extends BaseTest {
 
-    private ServicesPage servicesPage;
-    private HeaderMenu headerMenu;
+    private admin.pages.ServicesPage.ServicesPage servicesPage;
+    private admin.pages.HeaderMenu.HeaderMenu headerMenu;
     private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
+        BrowserManager.authGetCookie(DataConfig.UserData.getLoginAdmin(), DataConfig.UserData.getPasswordAdmin());
     }
 
     @BeforeEach
     void setUp(){
         BrowserManager.openPagesAfterAuth();
-        servicesPage=new ServicesPage();
-        headerMenu= new HeaderMenu();
+        servicesPage=new admin.pages.ServicesPage.ServicesPage();
+        headerMenu= new admin.pages.HeaderMenu.HeaderMenu();
         basePage = new BasePage();
         headerMenu.servicesTabOpen();
     }
@@ -87,9 +85,9 @@ public class ServicesPageTest extends BaseTest {
         AuthPage authPage = new AuthPage();
         HomePage homePage = authPage.authorizationLK();
         homePage.homePage();
-        HeaderBarLK headerBarLK = new HeaderBarLK();
+        HeaderMenu headerBarLK = new HeaderMenu();
         headerBarLK.headerBarLK();
-        ServicesPageLK servicesPageLK = headerBarLK.servicesTabOpen();
+        ServicesPage servicesPageLK = headerBarLK.servicesTabOpen();
         servicesPageLK.servicesPageLK();
         servicesPageLK.openSectionListLaboratories();
         RulesPreparingWindowLK rulesPreparingWindow = servicesPageLK.openRulesPreparingCategory();

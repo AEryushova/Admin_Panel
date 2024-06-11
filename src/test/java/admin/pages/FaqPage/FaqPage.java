@@ -15,8 +15,9 @@ public class FaqPage extends BasePage {
     private final SelenideElement TAB_NAME = $x("//a[text()='FAQ']");
     private final SelenideElement SEARCH_FAQ = $x("//input[@placeholder='Поиск по FAQ']");
     private final SelenideElement ADD_QUESTION = $x("//span[text()='Добавить вопрос']//parent::div//parent::button");
-    private final ElementsCollection QUESTION_CARD =$$x("//div[@class='dc4P']");
-    private final SelenideElement EMPTY_LIST_FAQ=$x("//span[text()='Список Пуст']");
+    private final ElementsCollection QUESTION_CARDS = $$x("//div[@class='dc4P']");
+    private final SelenideElement QUESTION_CARD = $x("//div[@class='dc4P']");
+    private final SelenideElement EMPTY_LIST_FAQ = $x("//span[text()='Список Пуст']");
 
 
     public void faqPage() {
@@ -28,35 +29,35 @@ public class FaqPage extends BasePage {
     public AddQuestionWindow openWindowAddQuestion() {
         ADD_QUESTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
-       .click();
+                .click();
         return new AddQuestionWindow();
     }
 
-public void sequenceChangeActive(SelenideElement questionSource, SelenideElement questionTarget) {
-    Actions actions = actions();
-    actions.clickAndHold(questionSource)
-            .moveToElement(questionTarget)
-            .release()
-            .perform();
-}
-
-    public boolean isExistQuestions(int index) {
-        return QUESTION_CARD.get(index).exists();
+    public void sequenceChangeActive(SelenideElement questionSource, SelenideElement questionTarget) {
+        Actions actions = actions();
+        actions.clickAndHold(questionSource)
+                .moveToElement(questionTarget)
+                .release()
+                .perform();
     }
 
-    public Question getQuestionCard(int index) {
-        SelenideElement questionCard = QUESTION_CARD.get(index);
-        questionCard.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        return new Question(questionCard);
+    public boolean isExistQuestions() {
+        return QUESTION_CARD.exists();
     }
+
+
+    public Question getQuestion() {
+        return new Question();
+    }
+
 
     public void sequenceChangeQuestions(int sourceIndex, int targetIndex) {
-        SelenideElement sourceQuestion = QUESTION_CARD.get(sourceIndex);
-        SelenideElement targetQuestion = QUESTION_CARD.get(targetIndex);
+        SelenideElement sourceQuestion = QUESTION_CARDS.get(sourceIndex);
+        SelenideElement targetQuestion = QUESTION_CARDS.get(targetIndex);
         sequenceChangeActive(sourceQuestion, targetQuestion);
     }
 
-    public boolean isExistsEmptyList(){
+    public boolean isExistsEmptyList() {
         return EMPTY_LIST_FAQ.exists();
     }
 }

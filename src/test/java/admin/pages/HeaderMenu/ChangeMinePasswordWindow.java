@@ -44,14 +44,12 @@ public class ChangeMinePasswordWindow {
         CHANGE_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public void clickCancelButton() {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
 

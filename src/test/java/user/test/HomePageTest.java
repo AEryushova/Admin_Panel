@@ -6,10 +6,10 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import user.pages.AuthPage;
-import user.pages.HeaderBarLK;
-import user.pages.HomePage;
-import user.pages.modalWindowReportBug.ReportBug;
+import user.pages.AuthPage.AuthPage;
+import user.pages.HeaderMenu.HeaderMenu;
+import user.pages.HomePage.HomePage;
+import user.pages.HomePage.ReportBug;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,7 +39,7 @@ public class HomePageTest {
         AuthPage authPage = new AuthPage();
         homePage = authPage.authorizationLK();
         homePage.homePage();
-        HeaderBarLK headerBar = new HeaderBarLK();
+        HeaderMenu headerBar = new HeaderMenu();
         headerBar.headerBarLK();
     }
 

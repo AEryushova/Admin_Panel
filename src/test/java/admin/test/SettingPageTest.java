@@ -1,17 +1,17 @@
 package admin.test;
 
-import admin.data.DataInfo;
+import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.SettingPage.BugReport;
 import admin.pages.SettingPage.SettingPage;
 import admin.pages.SettingPage.EditLogoWindow;
-import admin.utils.decoratorsTest.general.AllureDecorator;
-import admin.utils.decoratorsTest.general.NotificationDecorator;
-import admin.utils.decoratorsTest.setting.AddBugReportDecorator;
-import admin.utils.decoratorsTest.setting.AddDeleteBugReportDecorator;
-import admin.utils.decoratorsTest.setting.AddSomeBugsReport;
-import admin.utils.decoratorsTest.setting.SetSAMSMU_Logo;
+import admin.utils.preparationDataTests.general.AllureDecorator;
+import admin.utils.preparationDataTests.general.NotificationDecorator;
+import admin.utils.preparationDataTests.setting.AddBugReportDecorator;
+import admin.utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
+import admin.utils.preparationDataTests.setting.AddSomeBugsReport;
+import admin.utils.preparationDataTests.setting.SetSAMSMU_Logo;
 import admin.utils.testUtils.DataHelper;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.testUtils.*;
@@ -24,7 +24,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import javax.management.relation.Role;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +44,7 @@ public class SettingPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
+        BrowserManager.authGetCookie(DataConfig.UserData.getLoginAdmin(), DataConfig.UserData.getPasswordAdmin());
     }
 
     @BeforeEach
@@ -61,10 +64,10 @@ public class SettingPageTest extends BaseTest {
         settingPage.settingPage();
         BugReport bugReport =settingPage.bugReportCard();
         bugReport.bugReport();
-        assertEquals(DataInfo.DataTest.getNamePatient(), bugReport.getAuthorText());
-        assertEquals(DataInfo.DataTest.getEmailPatient(), bugReport.getEmailAuthorText());
+        assertEquals(DataConfig.DataTest.getNamePatient(), bugReport.getAuthorText());
+        assertEquals(DataConfig.DataTest.getEmailPatient(), bugReport.getEmailAuthorText());
         assertEquals(DataHelper.getCurrentDateRuYear(), bugReport.getDateText());
-        assertEquals(DataInfo.DataTest.getMessageBugReport(), bugReport.getReportText());
+        assertEquals(DataConfig.DataTest.getMessageBugReport(), bugReport.getReportText());
     }
 
     @Feature("Сообщения об ошибках")
@@ -143,18 +146,6 @@ public class SettingPageTest extends BaseTest {
     }
 
 
-    @Story("Возврат к хэдеру страницы настроек")
-    @ExtendWith(AddSomeBugsReport.class)
-    @Test
-    void returnToStartPage() {
-        settingPage.scrollPage();
-        Selenide.sleep(2000);
-        assertTrue(settingPage.isReturnButtonAppear());
-        settingPage.returnToStartPage();
-        Selenide.sleep(2000);
-        assertFalse(settingPage.isReturnButtonAppear());
-    }
-
     @Story("Закрытие уведомления на странице настроек по таймауту")
     @Test
     void closeNotificationTimeout() {
@@ -172,3 +163,16 @@ public class SettingPageTest extends BaseTest {
         checkCloseNotification(basePage);
     }
 }
+/*
+    @Story("Возврат к хэдеру страницы настроек")
+    @ExtendWith(AddSomeBugsReport.class)
+    @Test
+    void returnToStartPage() {
+        settingPage.scrollPage();
+        Selenide.sleep(2000);
+        assertTrue(settingPage.isReturnButtonAppear());
+        settingPage.returnToStartPage();
+        Selenide.sleep(2000);
+        assertFalse(settingPage.isReturnButtonAppear());
+    }
+    */

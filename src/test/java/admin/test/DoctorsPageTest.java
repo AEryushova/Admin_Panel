@@ -1,14 +1,14 @@
 package admin.test;
 
-import admin.data.DataInfo;
+import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
-import admin.pages.CardDoctorPage.*;
+import admin.pages.DoctorsPage.CardDoctorPage.*;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.Сalendar.Calendar;
-import admin.utils.decoratorsTest.doctors.*;
-import admin.utils.decoratorsTest.general.AllureDecorator;
-import admin.utils.decoratorsTest.general.NotificationDecorator;
+import admin.utils.preparationDataTests.doctors.*;
+import admin.utils.preparationDataTests.general.AllureDecorator;
+import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.testUtils.*;
 import admin.utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Selenide;
@@ -34,7 +34,7 @@ public class DoctorsPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataInfo.UserData.getLoginAdmin(), DataInfo.UserData.getPasswordAdmin());
+        BrowserManager.authGetCookie(DataConfig.UserData.getLoginAdmin(), DataConfig.UserData.getPasswordAdmin());
     }
 
     @BeforeEach
@@ -54,6 +54,8 @@ public class DoctorsPageTest extends BaseTest {
     void changePhotoDoctorValidFormat(String path) {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
@@ -71,6 +73,8 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void changePhotoDoctorLess4mb() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
@@ -86,6 +90,8 @@ public class DoctorsPageTest extends BaseTest {
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx","src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto(path);;
@@ -100,6 +106,8 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void closeWindowEditPhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.closeWindowEditPhoto();
         assertFalse(editPhoto.isWindowAppear());
@@ -111,12 +119,14 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void deletePhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.deletePhoto();
         Selenide.sleep(3000);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
-        assertEquals(DataInfo.DataTest.getDefaultPhoto(), cardDoctor.getSrcPhoto());
-        assertEquals(DataInfo.DataTest.getDefaultPhoto(), DataBaseQuery.selectInfoDoctor().getPhoto_uri());
+        assertEquals(DataConfig.DataTest.getDefaultPhoto(), cardDoctor.getSrcPhoto());
+        assertEquals(DataConfig.DataTest.getDefaultPhoto(), DataBaseQuery.selectInfoDoctor().getPhoto_uri());
     }
 
     @Feature("Замена фотографии врачу")
@@ -125,6 +135,8 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void deleteDefaultPhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.deletePhoto();
         assertEquals("Конфликт (409)", cardDoctor.getNotification());
@@ -137,13 +149,15 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void addingSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.addIntelligenceSectionWindow();
-        intelligenceWindow.fillFieldText(DataInfo.DataTest.getSection());
+        intelligenceWindow.fillFieldText(DataConfig.DataTest.getSection());
         intelligenceWindow.saveValue();
         Section section = cardDoctor.getSection();
-        assertEquals(DataInfo.DataTest.getSection(),section.getSection());
-        assertEquals(DataInfo.DataTest.getSection(),DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
+        assertEquals(DataConfig.DataTest.getSection(),section.getSection());
+        assertEquals(DataConfig.DataTest.getSection(),DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
         assertTrue(cardDoctor.isExistSection());
         assertFalse(intelligenceWindow.isWindowSectionAppear());
     }
@@ -154,6 +168,8 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void addSectionEmptyField() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.saveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
@@ -167,8 +183,10 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void cancelWindowAddSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
-        intelligenceWindow.fillFieldText(DataInfo.DataTest.getSection());
+        intelligenceWindow.fillFieldText(DataConfig.DataTest.getSection());
         intelligenceWindow.cancelAdd();
         assertFalse(intelligenceWindow.isWindowSectionAppear());
         cardDoctor.openWindowAddSection();
@@ -182,13 +200,29 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void editSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         section.section();
         section.editTitle();
-        section.fillTitleField(DataInfo.DataTest.getNewSection());
+        section.fillTitleField(DataConfig.DataTest.getNewSection());
+        section.clickSaveValueTitleField();
+        assertEquals(DataConfig.DataTest.getNewSection(),section.getSection());
+        assertEquals(DataConfig.DataTest.getNewSection(),DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
+    }
+
+    @Feature("Информация о враче")
+    @Story("Редактирование раздела в инфо о враче с пустым полем")
+    @ExtendWith({AddDeleteSectionDecorator.class,NotificationDecorator.class})
+    @Test
+    void editSectionEmptyField() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
+        Section section = cardDoctor.getSection();
         section.editTitle();
-        assertEquals(DataInfo.DataTest.getNewSection(),section.getSection());
-        assertEquals(DataInfo.DataTest.getNewSection(),DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
+        section.clearTitleField();
+        assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
 
 
@@ -198,6 +232,8 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void deleteSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         section.deleteTitle();
         Selenide.sleep(3000);
@@ -213,14 +249,16 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void addingDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
         intelligenceWindow.addIntelligenceDescriptionWindow();
-        intelligenceWindow.fillFieldText(DataInfo.DataTest.getDescription());
+        intelligenceWindow.fillFieldText(DataConfig.DataTest.getDescription());
         intelligenceWindow.saveValue();
         Description description= cardDoctor.getDescription();
-        assertEquals(DataInfo.DataTest.getDescription(),description.getDescription());
-        assertEquals(DataInfo.DataTest.getDescription(),DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
+        assertEquals(DataConfig.DataTest.getDescription(),description.getDescription());
+        assertEquals(DataConfig.DataTest.getDescription(),DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
         assertTrue(cardDoctor.isExistDescription());
         assertFalse(intelligenceWindow.isWindowDescriptionAppear());
     }
@@ -231,6 +269,8 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void addDescriptionEmptyField() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
         intelligenceWindow.saveValue();
@@ -246,9 +286,11 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void cancellationWindowAddDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
-        intelligenceWindow.fillFieldText(DataInfo.DataTest.getDescription());
+        intelligenceWindow.fillFieldText(DataConfig.DataTest.getDescription());
         intelligenceWindow.cancelAdd();
         assertFalse(intelligenceWindow.isWindowDescriptionAppear());
         section.openWindowAddDescription();
@@ -262,14 +304,29 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void editDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         Description description = cardDoctor.getDescription();
         description.description();
         description.editDescription();
-        description.fillDescriptionField(DataInfo.DataTest.getNewDescription());
+        description.fillDescriptionField(DataConfig.DataTest.getNewDescription());
         description.editDescription();
-        assertEquals(DataInfo.DataTest.getNewDescription(),description.getDescription());
-        assertEquals(DataInfo.DataTest.getNewDescription(),DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
+        assertEquals(DataConfig.DataTest.getNewDescription(),description.getDescription());
+        assertEquals(DataConfig.DataTest.getNewDescription(),DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
+    }
 
+    @Feature("Информация о враче")
+    @Story("Редактирование описания в инфо о враче с пустым полем")
+    @ExtendWith({AddDeleteDescriptionDecorator.class,NotificationDecorator.class})
+    @Test
+    void editDescriptionEmptyField() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
+        Description description = cardDoctor.getDescription();
+        description.editDescription();
+        description.clearDescriptionField();
+        assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
 
     @Feature("Информация о враче")
@@ -278,6 +335,8 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void deleteDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openDescription();
         Description description = cardDoctor.getDescription();
         description.deleteDescription();
         Selenide.sleep(3000);
@@ -289,206 +348,370 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче текущей датой")
-    @ExtendWith(DeleteFeedbackDecorator.class)
+    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
     @Test
     void addFeedbackToday() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
         cardDoctor.selectedPublishedFeedback();
         cardDoctor.noSelectedUnpublishedFeedback();
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.addFeedbackWindow();
         assertEquals(DataHelper.getCurrentDate(), addFeedbackWindow.getValuesButtonToday());
-        addFeedbackWindow.fillFieldFio(DataInfo.DataTest.getNamePatient());
-        addFeedbackWindow.fillFieldTextFeedback(DataInfo.DataTest.getFeedback());
+        addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
+        addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
         Calendar calendar = addFeedbackWindow.openCalendarSelectDate();
         calendar.calendar();
         calendar.selectDateActivationToday();
+        addFeedbackWindow.publishFeedbackButton();
+        Feedback feedback = cardDoctor.getFeedback();
+        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
+        assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
+        assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
+        assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertTrue(cardDoctor.isExistFeedback());
+        assertTrue(cardDoctor.isSelectUnPublishedFeedback());
+        assertFalse(cardDoctor.isSelectPublishedFeedback());
+        assertFalse(addFeedbackWindow.isWindowAppear());
+    }
+
+
+    @Feature("Отзывы о враче")
+    @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
+    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @Test
+    void addFeedbackCurrentMonth() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
+        addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
+        Calendar calendar = addFeedbackWindow.openCalendarSelectDate();
+        calendar.selectDateActivation();
+        addFeedbackWindow.publishFeedbackButton();
+        cardDoctor.selectedUnpublishedFeedback();
+        Feedback feedback = cardDoctor.getFeedback();
+        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
+        assertEquals(DataHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
+        assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
+        assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertTrue(cardDoctor.isExistFeedback());
+        assertTrue(cardDoctor.isSelectUnPublishedFeedback());
+        assertFalse(cardDoctor.isSelectPublishedFeedback());
+        assertFalse(addFeedbackWindow.isWindowAppear());
+    }
+
+
+    @Feature("Отзывы о враче")
+    @Story("Успешное добавление отзыва о враче датой в следующем месяце")
+    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @Test
+    void addFeedbackFutureMonth() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
+        addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
+        Calendar calendar = addFeedbackWindow.openCalendarSelectDate();
+        calendar.switchFutureMonth();
+        calendar.selectDateActivation();
+        addFeedbackWindow.publishFeedbackButton();
+        cardDoctor.selectedUnpublishedFeedback();
+        Feedback feedback = cardDoctor.getFeedback();
+        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
+        assertEquals(DataHelper.getNextMonthDate(), feedback.getDateFeedback());
+        assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
+        assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertTrue(cardDoctor.isExistFeedback());
+        assertTrue(cardDoctor.isSelectUnPublishedFeedback());
+        assertFalse(cardDoctor.isSelectPublishedFeedback());
+        assertFalse(addFeedbackWindow.isWindowAppear());
+    }
+
+
+    @Feature("Отзывы о враче")
+    @Story("Успешное добавление отзыва о враче датой в предыдущем месяце")
+    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @Test
+    void addFeedbackPreviousMonth() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
+        addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
+        Calendar calendar = addFeedbackWindow.openCalendarSelectDate();
+        calendar.switchPreviousMonth();
+        calendar.selectDateActivation();
+        addFeedbackWindow.publishFeedbackButton();
+        cardDoctor.selectedUnpublishedFeedback();
+        Feedback feedback = cardDoctor.getFeedback();
+        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
+        assertEquals(DataHelper.getPreviousMonthDate(), feedback.getDateFeedback());
+        assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
+        assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertTrue(cardDoctor.isExistFeedback());
+        assertTrue(cardDoctor.isSelectUnPublishedFeedback());
+        assertFalse(cardDoctor.isSelectPublishedFeedback());
+        assertFalse(addFeedbackWindow.isWindowAppear());
+    }
+
+    @Feature("Отзывы о враче")
+    @Story("Успешное добавление отзыва о враче текущей датой без использования календаря")
+    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @Test
+    void addFeedbackTodayNotUseCalendar() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
+        addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
         addFeedbackWindow.publishFeedbackButton();
         cardDoctor.selectedUnpublishedFeedback();
         cardDoctor.noSelectedPublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
-        assertEquals(DataInfo.DataTest.getNamePatient(), feedback.getAuthorFeedback());
-        assertEquals(DataInfo.DataTest.getFeedback(), feedback.getTextFeedback());
-        assertEquals(DataInfo.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
-        assertEquals(DataInfo.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
+        assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
         assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
         assertTrue(cardDoctor.isExistFeedback());
+        assertTrue(cardDoctor.isSelectUnPublishedFeedback());
+        assertFalse(cardDoctor.isSelectPublishedFeedback());
         assertFalse(addFeedbackWindow.isWindowAppear());
     }
 
-    /*
-
     @Feature("Отзывы о враче")
-    @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
+    @Story("Зануление полей в окне добавления отзыва после закрытия окна")
     @Test
-    void addFeedbackCurrentMonth() {
+    void closeWindowAddNewFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
-        AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
-        feedbackWindow.addFeedbackWindow();
-        assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
-        feedbackWindow.fillFieldFio("Степанов Степан Степанович");
-        feedbackWindow.fillFieldTextFeedback("Очень хороший врач");
-        Calendar calendar = feedbackWindow.openCalendarSelectDate();
-        calendar.calendar();
-        calendar.selectDateActivation();
-        feedbackWindow.publishFeedbackButton();
-        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        cardDoctor.toggleUnpublishedCheckbox();
-        Feedback feedback = cardDoctor.getFeedback();
-        feedback.feedbackUnpublished();
-        assertEquals(DataHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
-        assertEquals("Степанов Степан Степанович", feedback.getAuthorFeedback());
-        assertEquals("Очень хороший врач", feedback.getTextFeedback());
-        assertEquals("Степанов Степан Степанович", selectFeedback().getAuthor());
-        assertEquals("Очень хороший врач", selectFeedback().getContent());
-        assertEquals(false,selectFeedback().getIs_published());
-        assertEquals(DataHelper.convertDateForDB(), DataHelper.trimDateStringToDay(selectFeedback().getCreated_at()));
-
-
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        addFeedbackWindow.fillFieldFio(DataHelper.generateText());
+        addFeedbackWindow.fillFieldTextFeedback(DataHelper.generateText());
+        addFeedbackWindow.closeWindowAddFeedback();
+        assertFalse(addFeedbackWindow.isWindowAppear());
+        cardDoctor.openWindowAddFeedback();
+        assertEquals("", addFeedbackWindow.getValueFioField());
+        assertEquals("", addFeedbackWindow.getValueTextFeedbackField());
     }
 
     @Feature("Отзывы о враче")
-    @Story("Успешное добавление отзыва о враче датой в следующем месяце")
+    @Story("Добавление нового отзыва с пустым полем ФИО")
     @Test
-    void addFeedbackFutureMonth() {
+    void addFeedbackEmptyFieldFio() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
-        AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
-        feedbackWindow.addFeedbackWindow();
-        assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
-        feedbackWindow.fillFieldFio("Федоров Федор Федорович");
-        feedbackWindow.fillFieldTextFeedback("Так себе врач");
-        Calendar calendar = feedbackWindow.openCalendarSelectDate();
-        calendar.calendar();
-        calendar.switchFutureMonth();
-        calendar.selectDateActivation();
-        feedbackWindow.publishFeedbackButton();
-        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        cardDoctor.toggleUnpublishedCheckbox();
-        Feedback feedback = cardDoctor.getFeedback();
-        feedback.feedbackUnpublished();
-        assertEquals(DataHelper.getNextMonthDate(), feedback.getDateFeedback());
-        assertEquals("Федоров Федор Федорович", feedback.getAuthorFeedback());
-        assertEquals("Так себе врач", feedback.getTextFeedback());
-
-
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
+        assertFalse(addFeedbackWindow.isEnabledPublishButton());
     }
 
+
     @Feature("Отзывы о враче")
-    @Story("Успешное добавление отзыва о враче датой в предыдущем месяце")
+    @Story("Добавление нового отзыва с пустым полем отзыва")
     @Test
-    void addFeedbackPreviousMonth() {
+    void addFeedbackEmptyFieldText() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
-        AddFeedbackWindow feedbackWindow = cardDoctor.openWindowAddFeedback();
-        feedbackWindow.addFeedbackWindow();
-        assertEquals(DataHelper.getCurrentDate(), feedbackWindow.getValuesButtonToday());
-        feedbackWindow.fillFieldFio("Степанов Степан Степанович");
-        feedbackWindow.fillFieldTextFeedback("Обязательно приду еще на прием к этому врачу");
-        Calendar calendar = feedbackWindow.openCalendarSelectDate();
-        calendar.calendar();
-        calendar.switchPreviousMonth();
-        calendar.selectDateActivation();
-        feedbackWindow.publishFeedbackButton();
-        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        cardDoctor.toggleUnpublishedCheckbox();
-        Feedback feedback = cardDoctor.getFeedback();
-        feedback.feedbackUnpublished();
-        assertEquals(DataHelper.getPreviousMonthDate(), feedback.getDateFeedback());
-        assertEquals("Степанов Степан Степанович", feedback.getAuthorFeedback());
-        assertEquals("Обязательно приду еще на прием к этому врачу", feedback.getTextFeedback());
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
+        assertFalse(addFeedbackWindow.isEnabledPublishButton());
     }
 
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование неопубликованного отзыва о враче")
+    @ExtendWith({AddDeleteFeedbackDecorator.class,NotificationDecorator.class})
     @Test
     void editUnpublishedFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        cardDoctor.selectedPublishedFeedback();
+        cardDoctor.noSelectedUnpublishedFeedback();
         cardDoctor.switchUnpublishedFeedback();
+        cardDoctor.noSelectedPublishedFeedback();
+        cardDoctor.selectedUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
         changeFeedback.changeFeedbackWindow();
-        changeFeedback.fillFieldText("Внимательно отнесся к моей проблеме");
+        changeFeedback.fillFieldText(DataConfig.DataTest.getNewFeedback());
         changeFeedback.saveChanges();
-        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         feedback.feedbackUnpublished();
-        cardDoctor.toggleUnpublishedCheckbox();
-        assertEquals("Внимательно отнесся к моей проблеме", feedback.getTextFeedback());
+        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
+        assertEquals(DataConfig.DataTest.getNewFeedback(),feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getNewFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertTrue(cardDoctor.isSelectUnPublishedFeedback());
+        assertFalse(cardDoctor.isSelectPublishedFeedback());
+        assertFalse(changeFeedback.isWindowAppear());
     }
+
 
     @Feature("Отзывы о враче")
     @Story("Успешная публикация неопубликованного отзыва о враче")
+    @ExtendWith({AddDeleteFeedbackDecorator.class,NotificationDecorator.class})
     @Test
     void publicationUnpublishedFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         feedback.publicationFeedback();
-        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         feedback.feedbackPublished();
-        cardDoctor.togglePublishedCheckbox();
+        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
+        assertEquals(DataConfig.DataTest.getFeedback(),feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(true,DataBaseQuery.selectFeedback().getIs_published());
+        assertFalse(cardDoctor.isSelectUnPublishedFeedback());
+        assertTrue(cardDoctor.isSelectPublishedFeedback());
     }
+
 
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование опубликованного отзыва о враче")
+    @ExtendWith({AddPublishedDeleteFeedback.class,NotificationDecorator.class})
     @Test
     void editPublishedFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        cardDoctor.selectedPublishedFeedback();
+        cardDoctor.noSelectedUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackPublished();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
         changeFeedback.changeFeedbackWindow();
-        changeFeedback.fillFieldText("Прием у этого врача прошел замечательно");
+        changeFeedback.fillFieldText(DataConfig.DataTest.getNewFeedback());
         changeFeedback.saveChanges();
-        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
-        assertEquals("Прием у этого врача прошел замечательно", feedback.getTextFeedback());
         feedback.feedbackPublished();
-        cardDoctor.togglePublishedCheckbox();
+        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
+        assertEquals(DataConfig.DataTest.getNewFeedback(),feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getNewFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(true,DataBaseQuery.selectFeedback().getIs_published());
+        assertFalse(cardDoctor.isSelectUnPublishedFeedback());
+        assertTrue(cardDoctor.isSelectPublishedFeedback());
+        assertFalse(changeFeedback.isWindowAppear());
     }
+
 
     @Feature("Отзывы о враче")
     @Story("Успешное снятие с публикации опубликованного отзыва о враче")
+    @ExtendWith({AddPublishedDeleteFeedback.class,NotificationDecorator.class})
     @Test
     void withdrawalPublicationFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackPublished();
         feedback.withdrawalPublication();
-        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
-        cardDoctor.toggleUnpublishedCheckbox();
         feedback.feedbackUnpublished();
+        assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
+        assertEquals(DataConfig.DataTest.getFeedback(),feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
+        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertTrue(cardDoctor.isSelectUnPublishedFeedback());
+        assertFalse(cardDoctor.isSelectPublishedFeedback());
     }
 
     @Feature("Отзывы о враче")
+    @Story("Зануление полей в окне редактирования отзыва после закрытия окна")
+    @ExtendWith({AddPublishedDeleteFeedback.class})
+    @Test
+    void closeWindowEditFeedback() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        Feedback feedback = cardDoctor.getFeedback();
+        ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
+        changeFeedback.fillFieldText(DataHelper.generateText());
+        changeFeedback.closeWindowChangeFeedback();
+        assertFalse(changeFeedback.isWindowAppear());
+        feedback.editFeedback();
+        assertEquals("", changeFeedback.getValueTextFeedbackField());
+    }
+
+    @Feature("Отзывы о враче")
+    @Story("Редактирование отзыва с пустым полем отзыва")
+    @ExtendWith({AddPublishedDeleteFeedback.class})
+    @Test
+    void editFeedbackEmptyFieldText() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
+        Feedback feedback = cardDoctor.getFeedback();
+        ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
+        changeFeedback.clearTextField();
+        assertFalse(changeFeedback.isEnabledSaveButton());
+    }
+
+
+    @Feature("Отзывы о враче")
     @Story("Успешное удаление неопубликованного отзыва о враче")
+    @ExtendWith({AddFeedbackDecorator.class,NotificationDecorator.class})
     @Test
     void deleteUnpublishedFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
         feedback.deleteFeedback();
         assertEquals("Отзыв успешно удален", cardDoctor.getNotification());
-        cardDoctor.toggleUnpublishedCheckbox();
+        assertFalse(cardDoctor.isExistFeedback());
+        assertNull(DataBaseQuery.selectFeedback());
     }
 
     @Feature("Отзывы о враче")
     @Story("Сортировка неопубликованных отзывов о враче")
+    @ExtendWith(AddTwoFeedbackDecorator.class)
     @Test
-    void sotringUnpublishedFeedbacks() {
+    void sortingUnpublishedFeedbacks() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.togglePublishedCheckbox();
+        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        navigateMenu.openFeedback();
         cardDoctor.switchUnpublishedFeedback();
+        Feedback feedback = cardDoctor.getFeedback();
+        assertTrue(cardDoctor.isSortingNewAppear());
+        String dateFeedbackToday=feedback.getDateFeedbackByIndex(0);
+        String dateFeedbackYesterday =feedback.getDateFeedbackByIndex(1);
+        cardDoctor.sortingFeedbackNew();
+        assertFalse(cardDoctor.isSortingNewAppear());
+        assertTrue(cardDoctor.isSortingOldAppear());
+        assertEquals(dateFeedbackYesterday,feedback.getDateFeedbackByIndex(0));
+        assertEquals(dateFeedbackToday,feedback.getDateFeedbackByIndex(1));
+        cardDoctor.sortingFeedbackOld();
+        assertTrue(cardDoctor.isSortingNewAppear());
+        assertFalse(cardDoctor.isSortingOldAppear());
+        assertEquals(dateFeedbackToday,feedback.getDateFeedbackByIndex(0));
+        assertEquals(dateFeedbackYesterday,feedback.getDateFeedbackByIndex(1));
     }
 
     @Story("Возврат на страницу Врачи с карточки врача")
@@ -499,15 +722,27 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
     }
 
-    @Story("Возврат к хэдеру страницы врачей")
+    @Story("Закрытие уведомления на странице карточки врача по таймауту")
     @Test
-    void returnToStartPageDoctors() {
-        doctorsPage.scrollPage();
-        assertTrue(doctorsPage.isReturnButtonAppear());
-        doctorsPage.returnToStartPage();
-        assertFalse(doctorsPage.isReturnButtonAppear());
+    void closeNotificationTimeout() throws InterruptedException {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
+        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
+        checkCloseNotificationTimeout(basePage);
     }
 
+    @Story("Закрытие уведомления на странице карточки врача")
+    @Test
+    void closeNotification() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
+        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
+        checkCloseNotification(basePage);
+    }
+
+}
+
+ /*
     @Story("Возврат к хэдеру страницы карточки врача")
     @Test
     void returnToStartPageCardDoctor() {
@@ -518,27 +753,12 @@ public class DoctorsPageTest extends BaseTest {
         assertFalse(cardDoctor.isReturnButtonAppear());
     }
 
-    @Story("Закрытие уведомления на странице карточки врача по таймауту")
+    @Story("Возврат к хэдеру страницы врачей")
     @Test
-    void closeNotificationTimeout() throws InterruptedException {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
-        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
-        assertTrue(cardDoctor.notificationAppear());
-        Thread.sleep(6000);
-        assertFalse(cardDoctor.notificationAppear());
+    void returnToStartPageDoctors() {
+        doctorsPage.scrollPage();
+        assertTrue(doctorsPage.isReturnButtonAppear());
+        doctorsPage.returnToStartPage();
+        assertFalse(doctorsPage.isReturnButtonAppear());
     }
-
-    @Story("Закрытие уведомления на странице карточки врача")
-    @Test
-    void closeNotification() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
-        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
-        assertTrue(cardDoctor.notificationAppear());
-        cardDoctor.closeNotification();
-        assertFalse(cardDoctor.notificationAppear());
-    }
-
-*/
-}
+  */

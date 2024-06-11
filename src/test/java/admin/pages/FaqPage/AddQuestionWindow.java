@@ -43,6 +43,10 @@ public class AddQuestionWindow {
                 .click();
     }
 
+    public boolean isEnabledAddButton(){
+        return ADD_BUTTON.isEnabled();
+    }
+
     public String getValueQuestionField() {
         QUESTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);

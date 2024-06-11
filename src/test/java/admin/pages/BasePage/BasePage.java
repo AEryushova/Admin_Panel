@@ -1,12 +1,14 @@
 package admin.pages.BasePage;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
+
 
 public class BasePage {
 
@@ -37,6 +39,15 @@ public class BasePage {
         FOOTER_PAGE.scrollTo();
         RETURN_TO_START_BUTTON.shouldBe(visible);
     }
+
+
+
+    public void scrollPage2() {
+        FOOTER_PAGE.scrollIntoView(true);
+        RETURN_TO_START_BUTTON.shouldBe(visible);
+    }
+
+
 
     public void returnToStartPage() {
         RETURN_TO_START_BUTTON.shouldBe(visible, Duration.ofSeconds(5))

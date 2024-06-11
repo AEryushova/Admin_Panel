@@ -1,6 +1,7 @@
 package admin.utils.testUtils;
 
-import admin.data.DataInfo;
+import admin.data.DataConfig;
+import admin.utils.preparationDataTests.requestAPI.PreparationDataService;
 import com.github.javafaker.Faker;
 import lombok.Getter;
 
@@ -26,7 +27,7 @@ public class DataHelper {
 
     //Генерирует и возвращает ссылку на фото врача//
     public static String urlPhotoBuilder() {
-        return DataInfo.Urls.getUriPersonalArea() + DataPreparationService.getLocation();
+        return DataConfig.Urls.getUriPersonalArea() + PreparationDataService.getLocation();
     }
 
     //Возвращает текущую дату в английской локали в формате "01 April 2024"//
@@ -177,10 +178,17 @@ public class DataHelper {
     //Генерирует и возвращает дату и время в формате Timestamp для SQL-запросов//
     public static Timestamp generateDateTime() {
         LocalDateTime now = LocalDateTime.now();
-        Timestamp timestamp = Timestamp.valueOf(now);
-        return timestamp;
+        return Timestamp.valueOf(now);
     }
 
+    //Генерирует и возвращает дату и время - 1 день от текущей даты в формате Timestamp для SQL-запросов//
+    public static Timestamp generatePreviousDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime oneDaysAgo = now.minusDays(1);
+        return Timestamp.valueOf(oneDaysAgo);
+    }
+
+    /*
     //Генерирует логин, возвращает его и сохраняет значение в поле"//
     public static String generateLogin() {
         final String ALLOWED_CHARS = "abcdefghijklmnopqrstuvwxyz_";
@@ -204,5 +212,6 @@ public class DataHelper {
         }
         return login;
     }
+    */
 }
 
