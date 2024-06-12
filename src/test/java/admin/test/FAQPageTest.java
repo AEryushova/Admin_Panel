@@ -9,6 +9,7 @@ import admin.utils.preparationDataTests.faq.*;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.testUtils.*;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -267,6 +269,82 @@ public class FAQPageTest extends BaseTest{
         changeQuestionWindow.deleteQuestion();
         checkCloseNotification(basePage);
     }
+
+    @Feature("Поиск по faq")
+    @Story("Поиск вопроса по заголовку и ответу")
+    @ExtendWith(AddSomeFaq.class)
+    @Test
+    void searchNameFaq() {
+        faqPage.faqPage();
+        faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
+        Selenide.sleep(3000);
+        ElementsCollection questionTexts = faqPage.getQuestionsFields();
+        ElementsCollection answerTexts = faqPage.getAnswerFields();
+        for (int i = 0; i < questionTexts.size(); i++) {
+            String questionText = questionTexts.get(i).getAttribute("value");
+            String answerText = answerTexts.get(i).getAttribute("value");
+            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getFaqSearch().toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFaqSearch().toLowerCase());
+            assertTrue(isQuestionFound || isAnswerFound);
+        }
+    }
+
+    @Feature("Поиск по faq")
+    @Story("Поиск по включению")
+    @ExtendWith(AddSomeFaq.class)
+    @Test
+    void searchByInclusion() {
+        faqPage.faqPage();
+        faqPage.searchFaq(DataConfig.DataSearch.getSearchByInclusionFaq());
+        Selenide.sleep(5000);
+        ElementsCollection questionTexts = faqPage.getQuestionsFields();
+        ElementsCollection answerTexts = faqPage.getAnswerFields();
+        for (int i = 0; i < questionTexts.size(); i++) {
+            String questionText = questionTexts.get(i).getAttribute("value");
+            String answerText = answerTexts.get(i).getAttribute("value");
+            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionFaq().toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionFaq().toLowerCase());
+            assertTrue(isQuestionFound || isAnswerFound);
+        }
+    }
+
+
+    @Feature("Поиск по faq")
+    @Story("Сброс поискового результата после очистки поля через кнопку")
+    @ExtendWith(AddSomeFaq.class)
+    @Test
+    void resetSearchResultFaqThroughButton() {
+        faqPage.faqPage();
+        faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
+        Selenide.sleep(3000);
+        ElementsCollection questionTexts = faqPage.getQuestionsFields();
+        int resultSearch=questionTexts.size();
+        faqPage.clearSearchFieldThroughButton();
+        Selenide.sleep(3000);
+        ElementsCollection questionAll =faqPage.getQuestionsFields();
+        int allFaq=questionAll.size();
+        assertEquals("", faqPage.getValueSearchField());
+        assertTrue(resultSearch < allFaq);
+    }
+
+    @Feature("Поиск по faq")
+    @Story("Сброс поискового результата после очистки поля")
+    @ExtendWith(AddSomeFaq.class)
+    @Test
+    void resetSearchResultFaq() {
+        faqPage.faqPage();
+        faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
+        Selenide.sleep(3000);
+        ElementsCollection questionTexts = faqPage.getQuestionsFields();
+        int resultSearch=questionTexts.size();
+        faqPage.clearSearchField();
+        Selenide.sleep(3000);
+        ElementsCollection questionAll =faqPage.getQuestionsFields();
+        int allFaq=questionAll.size();
+        assertEquals("", faqPage.getValueSearchField());
+        assertTrue(resultSearch < allFaq);
+    }
+
 }
 /*
 @Story("Возврат к хэдеру страницы faq")

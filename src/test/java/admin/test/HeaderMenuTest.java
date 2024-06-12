@@ -45,7 +45,7 @@ public class HeaderMenuTest {
 
     @Feature("Смена своего пароля админом")
     @Story("Успешная замена своего пароля")
-    @ExtendWith({ReturnPasswordAdmin.class, NewAuthDecorator.class, NotificationDecorator.class})
+    @ExtendWith({ReturnPasswordAdmin.class, NotificationDecorator.class})
     @Test
     void changeMainPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
@@ -53,7 +53,7 @@ public class HeaderMenuTest {
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.changeMinePasswordWindow();
         changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPasswordAdmin());
-        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getNewPasswordAdmin());
+        changeMinePassWindow.fillFieldNewPassword(DataConfig.DataTest.getNewPasswordAdmin());
         changeMinePassWindow.clickChangeButton();
         assertEquals("Пароль успешно обновлен",basePage.getNotification());
         assertFalse(changeMinePassWindow.isWindowAppear());
@@ -83,7 +83,7 @@ public class HeaderMenuTest {
     void changeMainPasswordNotEqualsOldPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getNewPasswordAdminTest());
+        changeMinePassWindow.fillFieldOldPassword(DataConfig.DataTest.getNewPasswordAdminTest());
         changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPasswordAdmin());
         changeMinePassWindow.clickChangeButton();
         assertEquals("{\"error\":\"Задан неверный пароль\",\"innerError\":null,\"exception\":\"ValidationPlatformException\"}",basePage.getNotification());

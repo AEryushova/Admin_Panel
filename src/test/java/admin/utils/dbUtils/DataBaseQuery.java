@@ -22,7 +22,7 @@ public class DataBaseQuery {
         var selectInfo = "SELECT * FROM employee_cards WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
         var connection = DataBaseManager.getConnection("cab_lab_db");
         var doctorSpecialization = DataConfig.DataTest.getDoctorSpecialization();
-        var doctorName = DataConfig.DataTest.getDoctorName();
+        var doctorName = DataConfig.DataTest.getDoctor();
         String[] nameParts = doctorName.split(" ");
         String firstName = nameParts[1];
         String secondName = nameParts[0];
@@ -35,7 +35,7 @@ public class DataBaseQuery {
     public static void setDefaultPhotoDoctor() {
         var setDefaultPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
         var connection = DataBaseManager.getConnection("cab_lab_db");
-        var doctorName = DataConfig.DataTest.getDoctorName();
+        var doctorName = DataConfig.DataTest.getDoctor();
         var doctorSpecialization = DataConfig.DataTest.getDoctorSpecialization();
         var defaultPhoto = DataConfig.DataTest.getDefaultPhoto();
         String[] nameParts = doctorName.split(" ");
@@ -50,7 +50,7 @@ public class DataBaseQuery {
     public static void setPhotoDoctor(String urlPhoto) {
         var setPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
         var connection = DataBaseManager.getConnection("cab_lab_db");
-        var doctorName = DataConfig.DataTest.getDoctorName();
+        var doctorName = DataConfig.DataTest.getDoctor();
         var doctorSpecialization = DataConfig.DataTest.getDoctorSpecialization();
         String[] nameParts = doctorName.split(" ");
         String firstName = nameParts[1];
@@ -156,6 +156,17 @@ public class DataBaseQuery {
         var connection = DataBaseManager.getConnection("cab_lab_db");
         var question=DataConfig.DataTest.getQuestion();
         var answer= DataConfig.DataTest.getAnswer();
+        var id = DataHelper.generateUuid();
+        var created_at = DataHelper.generateDateTime();
+        var updated_at = DataHelper.generateDateTime();
+        var group_id = DataHelper.generateUuid();
+        DataBaseManager.queryRunner("cab_lab_db").update(connection, addFaq, id, question, answer, created_at, updated_at, group_id, sequence);
+    }
+
+    @SneakyThrows
+    public static void addFaqSome(int sequence,String question,String answer) {
+        var addFaq = "INSERT INTO faq (id,question,answer,created_at,updated_at, group_id, sequence ) VALUES (?, ?, ?, ?, ?,?,?)";
+        var connection = DataBaseManager.getConnection("cab_lab_db");
         var id = DataHelper.generateUuid();
         var created_at = DataHelper.generateDateTime();
         var updated_at = DataHelper.generateDateTime();

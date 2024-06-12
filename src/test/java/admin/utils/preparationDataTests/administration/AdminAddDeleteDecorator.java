@@ -10,12 +10,12 @@ public class AdminAddDeleteDecorator implements BeforeEachCallback, AfterEachCal
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataService.createAdmin(DataConfig.UserData.getLoginAdminTest(), DataConfig.UserData.getPasswordAdminTest());
+        PreparationDataService.createAdmin(DataConfig.DataTest.getLoginAdminTest(), DataConfig.DataTest.getPasswordAdminTest());
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        PreparationDataService.deleteAdmin(DataConfig.UserData.getLoginAdminTest());
+        PreparationDataService.deleteAdmin(DataConfig.DataTest.getLoginAdminTest());
     }
 
 }

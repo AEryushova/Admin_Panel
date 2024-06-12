@@ -15,16 +15,8 @@ public class DataConfig {
         public static final String loginAdmin = "ADMIN_TESTUI";
         @Getter
         public static final String passwordAdmin = "WWqq123456!";
-        @Getter
-        public static final String newPasswordAdmin = "IIff123456$";
-        @Getter
-        public static final String loginAdminTest = "ADMIN_TESTUI_2";
-        @Getter
-        public static final String passwordAdminTest = "QQss123456*";
-        @Getter
-        public static final String newPasswordAdminTest = "RRjj123456#";
-
     }
+
 
     public static class Urls {
         @Getter
@@ -37,18 +29,22 @@ public class DataConfig {
         public static final String environmentFreeze = "freeze";
         @Getter
         public static final String environmentStage = "stg";
-
-
     }
 
-    public static class DataTest {
 
+    public static class DataTest {
         @Getter
-        public static final String doctorName = "Fer3 Не ТРОГАТЬ";
+        public static final String newPasswordAdmin = "IIff123456$";
+        @Getter
+        public static final String loginAdminTest = "ADMIN_TESTUI_2";
+        @Getter
+        public static final String passwordAdminTest = "QQss123456*";
+        @Getter
+        public static final String newPasswordAdminTest = "RRjj123456#";
+        @Getter
+        public static final String doctor = "Fer3 Не ТРОГАТЬ";
         @Getter
         public static final String doctorSpecialization = "врач-оториноларинголог";
-        @Getter
-        public static final String doctorId = "dc809290-b921-11ee-b697-77fc98f6d7d7";
         @Getter
         public static final String defaultPhoto = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
         @Getter
@@ -79,5 +75,19 @@ public class DataConfig {
         public static final String feedback = "Очень хороший врач";
         @Getter
         public static final String newFeedback = "Прием прошел замечательно";
+    }
+
+    public static class DataSearch {
+        @Getter
+        public static final String doctorNameSearch = "Надежда";
+        @Getter
+        public static final String doctorSpecializationSearch = "Терапевт";
+        @Getter
+        public static final String faqSearch = "Врач";
+        @Getter
+        public static final String searchByInclusionDoctors = "етс";
+        @Getter
+        public static final String searchByInclusionFaq = "пис";
+
     }
 }

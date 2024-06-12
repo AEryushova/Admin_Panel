@@ -11,6 +11,7 @@ import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.testUtils.*;
 import admin.utils.dbUtils.DataBaseQuery;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -19,6 +20,8 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -740,7 +743,87 @@ public class DoctorsPageTest extends BaseTest {
         checkCloseNotification(basePage);
     }
 
+
+    @Feature("Поиск по врачам")
+    @Story("Поиск врача по имени")
+    @Test
+    void searchNameDoctor() {
+        doctorsPage.doctorsPage();
+        doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
+        Selenide.sleep(3000);
+        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
+        for (int i = 0; i < namesDoctors.size(); i++) {
+            assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorNameSearch().toLowerCase()));
+        }
+    }
+
+    @Feature("Поиск по врачам")
+    @Story("Поиск врача по специальности")
+    @Test
+    void searchSpecializationDoctor() {
+        doctorsPage.doctorsPage();
+        doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorSpecializationSearch());
+        Selenide.sleep(3000);
+        ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
+        for (int i = 0; i < specializationDoctors.size(); i++) {
+            assertThat(specializationDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorSpecializationSearch().toLowerCase()));
+        }
+    }
+
+    @Feature("Поиск по врачам")
+    @Story("Поиск по включению")
+    @Test
+    void searchByInclusion() {
+        doctorsPage.doctorsPage();
+        doctorsPage.searchDoctor(DataConfig.DataSearch.getSearchByInclusionDoctors());
+        Selenide.sleep(3000);
+        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
+        ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
+        for (int i = 0; i < namesDoctors.size(); i++) {
+            String questionText = namesDoctors.get(i).getText();
+            String answerText = specializationDoctors.get(i).getText();
+            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionDoctors().toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionDoctors().toLowerCase());
+            assertTrue(isQuestionFound || isAnswerFound);
+        }
+    }
+
+
+    @Feature("Поиск по врачам")
+    @Story("Сброс поискового результата после очистки поля через кнопку")
+    @Test
+    void resetSearchResultDoctorsThroughButton() {
+        doctorsPage.doctorsPage();
+        doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
+        Selenide.sleep(3000);
+        ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
+        int resultSearch=namesDoctorsSearch.size();
+        doctorsPage.clearSearchFieldThroughButton();
+        Selenide.sleep(3000);
+        ElementsCollection nameDoctorsAll=doctorsPage.getNamesDoctors();
+        int allDoctors=nameDoctorsAll.size();
+        assertEquals("", doctorsPage.getValueSearchField());
+        assertTrue(resultSearch < allDoctors);
+    }
+
+    @Feature("Поиск по врачам")
+    @Story("Сброс поискового результата после очистки поля")
+    @Test
+    void resetSearchResultDoctors() {
+        doctorsPage.doctorsPage();
+        doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
+        Selenide.sleep(3000);
+        ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
+        int resultSearch=namesDoctorsSearch.size();
+        doctorsPage.clearSearchField();
+        Selenide.sleep(3000);
+        ElementsCollection nameDoctorsAll=doctorsPage.getNamesDoctors();
+        int allDoctors=nameDoctorsAll.size();
+        assertEquals("", doctorsPage.getValueSearchField());
+        assertTrue(resultSearch < allDoctors);
+    }
 }
+
 
  /*
     @Story("Возврат к хэдеру страницы карточки врача")
