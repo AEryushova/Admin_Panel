@@ -22,6 +22,7 @@ public class FaqPage extends BasePage {
     private final SelenideElement EMPTY_LIST_FAQ = $x("//span[text()='Список Пуст']");
     private final ElementsCollection QUESTIONS_FIELDS=$$x("//div[@class='zxOH vkQg']/textarea");
     private final ElementsCollection ANSWER_FIELDS = $$x("//div[@class='zxOH yCzg']/textarea");
+    private final SelenideElement COUNT_FAQ=$x("//div[@class='wYqZ']/span[2]");
 
 
     public void faqPage() {
@@ -92,6 +93,11 @@ public class FaqPage extends BasePage {
         SEARCH_FAQ.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
         return SEARCH_FAQ.getValue();
+    }
+
+    public int getCountFaq() {
+        COUNT_FAQ.shouldBe(Condition.visible);
+        return Integer.parseInt(COUNT_FAQ.getText().split(" ")[0]);
     }
 
     public boolean isExistsEmptyList() {

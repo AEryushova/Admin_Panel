@@ -27,6 +27,7 @@ public class DoctorsPage extends BasePage {
     private final SelenideElement SHOW_DOCTOR_WITHOUT_DESCRIPTION = $x("//span[text()='Показать']//parent::button");
     private final ElementsCollection NAMES_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[1]");
     private final ElementsCollection SPECIALIZATIONS_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[2]");
+    private final SelenideElement COUNT_DOCTORS=$x("//div[@class='wYqZ']/span[2]");
 
     public void doctorsPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -109,5 +110,10 @@ public class DoctorsPage extends BasePage {
         SEARCH_DOCTOR.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
         return SEARCH_DOCTOR.getValue();
+    }
+
+    public int getCountDoctors() {
+        COUNT_DOCTORS.shouldBe(Condition.visible);
+        return Integer.parseInt(COUNT_DOCTORS.getText().split(" ")[0]);
     }
 }

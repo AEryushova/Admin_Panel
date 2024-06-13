@@ -207,9 +207,10 @@ public class DoctorsPageTest extends BaseTest {
         navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         section.section();
-        section.editTitle();
+        section.editSaveTitle();
         section.fillTitleField(DataConfig.DataTest.getNewSection());
-        section.clickSaveValueTitleField();
+        section.editSaveTitle();
+        Selenide.sleep(2000);
         assertEquals(DataConfig.DataTest.getNewSection(),section.getSection());
         assertEquals(DataConfig.DataTest.getNewSection(),DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
     }
@@ -223,8 +224,9 @@ public class DoctorsPageTest extends BaseTest {
         NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
-        section.editTitle();
+        section.editSaveTitle();
         section.clearTitleField();
+        section.editSaveTitle();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
 
@@ -311,9 +313,10 @@ public class DoctorsPageTest extends BaseTest {
         navigateMenu.openDescription();
         Description description = cardDoctor.getDescription();
         description.description();
-        description.editDescription();
+        description.editSaveDescription();
         description.fillDescriptionField(DataConfig.DataTest.getNewDescription());
-        description.editDescription();
+        description.editSaveDescription();
+        Selenide.sleep(2000);
         assertEquals(DataConfig.DataTest.getNewDescription(),description.getDescription());
         assertEquals(DataConfig.DataTest.getNewDescription(),DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
     }
@@ -327,7 +330,7 @@ public class DoctorsPageTest extends BaseTest {
         NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Description description = cardDoctor.getDescription();
-        description.editDescription();
+        description.editSaveDescription();
         description.clearDescriptionField();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
@@ -749,12 +752,15 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void searchNameDoctor() {
         doctorsPage.doctorsPage();
+        int countAllDoctors= doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
         Selenide.sleep(3000);
+        int countResult= doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (int i = 0; i < namesDoctors.size(); i++) {
             assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorNameSearch().toLowerCase()));
         }
+        assertTrue(countResult<countAllDoctors);
     }
 
     @Feature("Поиск по врачам")
@@ -762,12 +768,15 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void searchSpecializationDoctor() {
         doctorsPage.doctorsPage();
+        int countAllDoctors= doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorSpecializationSearch());
         Selenide.sleep(3000);
+        int countResult= doctorsPage.getCountDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
         for (int i = 0; i < specializationDoctors.size(); i++) {
             assertThat(specializationDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorSpecializationSearch().toLowerCase()));
         }
+        assertTrue(countResult<countAllDoctors);
     }
 
     @Feature("Поиск по врачам")
@@ -775,8 +784,10 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void searchByInclusion() {
         doctorsPage.doctorsPage();
+        int countAllDoctors= doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getSearchByInclusionDoctors());
         Selenide.sleep(3000);
+        int countResult= doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
         for (int i = 0; i < namesDoctors.size(); i++) {
@@ -786,6 +797,7 @@ public class DoctorsPageTest extends BaseTest {
             boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionDoctors().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
+        assertTrue(countResult<countAllDoctors);
     }
 
 
@@ -796,14 +808,17 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
         Selenide.sleep(3000);
+        int countResult= doctorsPage.getCountDoctors();
         ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
         int resultSearch=namesDoctorsSearch.size();
         doctorsPage.clearSearchFieldThroughButton();
         Selenide.sleep(3000);
+        int countAllDoctors= doctorsPage.getCountDoctors();
         ElementsCollection nameDoctorsAll=doctorsPage.getNamesDoctors();
         int allDoctors=nameDoctorsAll.size();
         assertEquals("", doctorsPage.getValueSearchField());
         assertTrue(resultSearch < allDoctors);
+        assertTrue(countResult<countAllDoctors);
     }
 
     @Feature("Поиск по врачам")
@@ -813,16 +828,52 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
         Selenide.sleep(3000);
+        int countResult= doctorsPage.getCountDoctors();
         ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
         int resultSearch=namesDoctorsSearch.size();
         doctorsPage.clearSearchField();
         Selenide.sleep(3000);
+        int countAllDoctors= doctorsPage.getCountDoctors();
         ElementsCollection nameDoctorsAll=doctorsPage.getNamesDoctors();
         int allDoctors=nameDoctorsAll.size();
         assertEquals("", doctorsPage.getValueSearchField());
         assertTrue(resultSearch < allDoctors);
+        assertTrue(countResult<countAllDoctors);
+    }
+
+    @Feature("Поиск по врачам")
+    @Story("Поиск по значению в верхнем регистре")
+    @Test
+    void searchHighRegister() {
+        doctorsPage.doctorsPage();
+        int countAllDoctors= doctorsPage.getCountDoctors();
+        doctorsPage.searchDoctor(DataConfig.DataSearch.getFaqHighRegister());
+        Selenide.sleep(3000);
+        int countResult= doctorsPage.getCountDoctors();
+        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
+        for (int i = 0; i < namesDoctors.size(); i++) {
+            assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getFaqHighRegister().toLowerCase()));
+        }
+        assertTrue(countResult<countAllDoctors);
+    }
+
+    @Feature("Поиск по врачам")
+    @Story("Поиск по значению в различном регистре")
+    @Test
+    void searchDifferentRegister() {
+        doctorsPage.doctorsPage();
+        int countAllDoctors= doctorsPage.getCountDoctors();
+        doctorsPage.searchDoctor(DataConfig.DataSearch.getFaqDifferentRegister());
+        Selenide.sleep(3000);
+        int countResult= doctorsPage.getCountDoctors();
+        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
+        for (int i = 0; i < namesDoctors.size(); i++) {
+            assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getFaqDifferentRegister().toLowerCase()));
+        }
+        assertTrue(countResult<countAllDoctors);
     }
 }
+
 
 
  /*

@@ -276,8 +276,10 @@ public class FAQPageTest extends BaseTest{
     @Test
     void searchNameFaq() {
         faqPage.faqPage();
+        int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
         Selenide.sleep(3000);
+        int countResult= doctorsPage.getCountDoctors();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
         for (int i = 0; i < questionTexts.size(); i++) {
@@ -287,6 +289,7 @@ public class FAQPageTest extends BaseTest{
             boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFaqSearch().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
+        assertTrue(countResult<countAllDoctors);
     }
 
     @Feature("Поиск по faq")
@@ -343,6 +346,44 @@ public class FAQPageTest extends BaseTest{
         int allFaq=questionAll.size();
         assertEquals("", faqPage.getValueSearchField());
         assertTrue(resultSearch < allFaq);
+    }
+
+    @Feature("Поиск по faq")
+    @Story("Поиск по значению в верхнем регистре")
+    @ExtendWith(AddSomeFaq.class)
+    @Test
+    void searchHighRegister() {
+        faqPage.faqPage();
+        faqPage.searchFaq(DataConfig.DataSearch.getFaqHighRegister());
+        Selenide.sleep(3000);
+        ElementsCollection questionTexts = faqPage.getQuestionsFields();
+        ElementsCollection answerTexts = faqPage.getAnswerFields();
+        for (int i = 0; i < questionTexts.size(); i++) {
+            String questionText = questionTexts.get(i).getAttribute("value");
+            String answerText = answerTexts.get(i).getAttribute("value");
+            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getFaqHighRegister().toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFaqHighRegister().toLowerCase());
+            assertTrue(isQuestionFound || isAnswerFound);
+        }
+    }
+
+    @Feature("Поиск по faq")
+    @Story("Поиск по значению в верхнем регистре")
+    @ExtendWith(AddSomeFaq.class)
+    @Test
+    void searchDifferentRegister() {
+        faqPage.faqPage();
+        faqPage.searchFaq(DataConfig.DataSearch.getFaqHighRegister());
+        Selenide.sleep(3000);
+        ElementsCollection questionTexts = faqPage.getQuestionsFields();
+        ElementsCollection answerTexts = faqPage.getAnswerFields();
+        for (int i = 0; i < questionTexts.size(); i++) {
+            String questionText = questionTexts.get(i).getAttribute("value");
+            String answerText = answerTexts.get(i).getAttribute("value");
+            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getFaqHighRegister().toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFaqHighRegister().toLowerCase());
+            assertTrue(isQuestionFound || isAnswerFound);
+        }
     }
 
 }

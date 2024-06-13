@@ -19,12 +19,14 @@ public class AuthorizationPage extends BasePage {
     private final SelenideElement TO_COME_IN_BUTTON = $x("//button[text()='Войти']");
     private final SelenideElement ERROR_FIELD_LOGIN = $x("//input[@type='text']//following-sibling::div");
     private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@type='password']//following-sibling::div");
+    private final SelenideElement LOGO=$x("//div[@class='RDMc']/img");
 
 
     public void authPage() {
         LOGIN_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TO_COME_IN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        LOGO.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public DoctorsPage authorization(String login, String password) {

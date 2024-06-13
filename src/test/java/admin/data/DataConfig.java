@@ -66,7 +66,7 @@ public class DataConfig {
         @Getter
         public static final String section= "Образование";
         @Getter
-        public static final String description = "Июнь 2008, Высшее образование - специалитет, магистратура по специальности: \"Лечебное дело\"";
+        public static final String description = "Июнь 2008, Высшее образование - специалитет 'Лечебное дело''";
         @Getter
         public static final String newSection= "Сертификаты";
         @Getter
@@ -79,15 +79,22 @@ public class DataConfig {
 
     public static class DataSearch {
         @Getter
-        public static final String doctorNameSearch = "Надежда";
+        public static final String doctorNameSearch = "надежда";
         @Getter
-        public static final String doctorSpecializationSearch = "Терапевт";
+        public static final String doctorSpecializationSearch = "терапевт";
         @Getter
-        public static final String faqSearch = "Врач";
+        public static final String faqSearch = "врач";
         @Getter
         public static final String searchByInclusionDoctors = "етс";
         @Getter
         public static final String searchByInclusionFaq = "пис";
-
+        @Getter
+        public static final String doctorNameHighRegister = "НAДЕЖДА";
+        @Getter
+        public static final String doctorNameDifferentRegister = "НаДеЖдА";
+        @Getter
+        public static final String faqHighRegister = "ВРАЧ";
+        @Getter
+        public static final String faqDifferentRegister = "ВрАч";
     }
 }

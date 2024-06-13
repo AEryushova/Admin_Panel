@@ -12,8 +12,8 @@ import static com.codeborne.selenide.Selenide.$x;
 public class Section {
     private final SelenideElement SECTION = $x("//div[@class='aksW']");
     private final SelenideElement NAME_SECTION = $x("//div[@class='aksW']/span");
-    private final SelenideElement EDIT_BUTTON = $x("//div[@class='wmqb']");
-    private final SelenideElement FIELD_TITLE=$x("//div[contains(@class, 'aksW')]/input");
+    private final SelenideElement EDIT_SAVE_BUTTON = $x("//div[@class='wmqb']");
+    private final SelenideElement FIELD_TITLE=$x("//input[@class='yxN5']");
     private final SelenideElement DELETE_BUTTON = $x("//div[@class='UQ5Z']");
     private final SelenideElement ADD_DESCRIPTION_BUTTON = $x("//div[@class='EUkX']");
 
@@ -21,18 +21,9 @@ public class Section {
     public void section() {
         SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        EDIT_SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_DESCRIPTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
-    }
-
-    public void editTitle() {
-        NAME_SECTION.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
-        EDIT_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .click();
-        NAME_SECTION.shouldBe(Condition.hidden);
     }
 
 
@@ -42,10 +33,8 @@ public class Section {
                 .setValue(title);
     }
 
-    public void clickSaveValueTitleField(){
-        FIELD_TITLE.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
-        EDIT_BUTTON.shouldBe(Condition.visible)
+    public void editSaveTitle() {
+        EDIT_SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }

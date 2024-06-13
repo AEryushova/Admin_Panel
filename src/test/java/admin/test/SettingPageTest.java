@@ -94,6 +94,7 @@ public class SettingPageTest extends BaseTest {
         Selenide.sleep(5000);
         assertFalse(editLogoWindow.isWindowAppear());
         assertEquals(113, settingPage.getHeightLogo());
+        assertEquals(103,headerMenu.getHeightLogo());
     }
 
 

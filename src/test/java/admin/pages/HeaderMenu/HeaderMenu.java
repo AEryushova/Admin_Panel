@@ -21,6 +21,7 @@ public class HeaderMenu extends BasePage {
     private final SelenideElement FAQ = $x("//a[text()='FAQ']");
     private final SelenideElement ADMINISTRATION = $x("//a[text()='Администрирование']");
     private final SelenideElement PROFILE_BUTTON = $x("//div[@class='wrap__dca9 MxFR DropdownWrap']");
+    private final SelenideElement LOGO=$x("//div[@class='AacY']/img");
 
 
     public void headerBarSuperAdmin() {
@@ -30,6 +31,7 @@ public class HeaderMenu extends BasePage {
         FAQ.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADMINISTRATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PROFILE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        LOGO.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public void headerBarAdmin() {
@@ -39,6 +41,7 @@ public class HeaderMenu extends BasePage {
         FAQ.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADMINISTRATION.shouldBe(Condition.hidden);
         PROFILE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        LOGO.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public AdministrationPage administrationTabOpen() {
@@ -81,6 +84,11 @@ public class HeaderMenu extends BasePage {
                 .shouldBe(Condition.enabled)
                 .click();
         return new UserPanel();
+    }
+
+
+    public int getHeightLogo(){
+        return LOGO.getSize().getHeight();
     }
 
 }
