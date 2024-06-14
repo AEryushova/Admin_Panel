@@ -6,7 +6,6 @@ import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.authorization.CloseWebDriverDecorator;
-import admin.utils.preparationDataTests.headerMenu.NewAuthDecorator;
 import admin.utils.testUtils.*;
 import admin.utils.preparationDataTests.general.NotificationDecorator;
 import io.qameta.allure.Epic;

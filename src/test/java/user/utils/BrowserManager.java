@@ -3,8 +3,6 @@ package user.utils;
 import com.codeborne.selenide.Configuration;
 import user.data.DataInfo;
 import user.pages.AuthPage.AuthPage;
-import user.pages.HeaderMenu.HeaderMenu;
-import user.pages.HomePage.HomePage;
 
 import static com.codeborne.selenide.Selenide.*;
 

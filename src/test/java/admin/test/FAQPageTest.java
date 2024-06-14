@@ -19,7 +19,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -279,7 +278,7 @@ public class FAQPageTest extends BaseTest{
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
         Selenide.sleep(3000);
-        int countResult= doctorsPage.getCountDoctors();
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
         for (int i = 0; i < questionTexts.size(); i++) {
@@ -289,7 +288,7 @@ public class FAQPageTest extends BaseTest{
             boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFaqSearch().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
-        assertTrue(countResult<countAllDoctors);
+        assertTrue(countResult<countAllFaq);
     }
 
     @Feature("Поиск по faq")
@@ -298,8 +297,10 @@ public class FAQPageTest extends BaseTest{
     @Test
     void searchByInclusion() {
         faqPage.faqPage();
+        int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getSearchByInclusionFaq());
         Selenide.sleep(5000);
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
         for (int i = 0; i < questionTexts.size(); i++) {
@@ -309,6 +310,7 @@ public class FAQPageTest extends BaseTest{
             boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionFaq().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
+        assertTrue(countResult<countAllFaq);
     }
 
 
@@ -320,14 +322,17 @@ public class FAQPageTest extends BaseTest{
         faqPage.faqPage();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
         Selenide.sleep(3000);
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         int resultSearch=questionTexts.size();
         faqPage.clearSearchFieldThroughButton();
         Selenide.sleep(3000);
+        int countAllFaq= faqPage.getCountFaq();
         ElementsCollection questionAll =faqPage.getQuestionsFields();
         int allFaq=questionAll.size();
         assertEquals("", faqPage.getValueSearchField());
         assertTrue(resultSearch < allFaq);
+        assertTrue(countResult<countAllFaq);
     }
 
     @Feature("Поиск по faq")
@@ -338,14 +343,17 @@ public class FAQPageTest extends BaseTest{
         faqPage.faqPage();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
         Selenide.sleep(3000);
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         int resultSearch=questionTexts.size();
         faqPage.clearSearchField();
         Selenide.sleep(3000);
+        int countAllFaq= faqPage.getCountFaq();
         ElementsCollection questionAll =faqPage.getQuestionsFields();
         int allFaq=questionAll.size();
         assertEquals("", faqPage.getValueSearchField());
         assertTrue(resultSearch < allFaq);
+        assertTrue(countResult<countAllFaq);
     }
 
     @Feature("Поиск по faq")
@@ -354,8 +362,10 @@ public class FAQPageTest extends BaseTest{
     @Test
     void searchHighRegister() {
         faqPage.faqPage();
+        int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqHighRegister());
         Selenide.sleep(3000);
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
         for (int i = 0; i < questionTexts.size(); i++) {
@@ -365,6 +375,7 @@ public class FAQPageTest extends BaseTest{
             boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFaqHighRegister().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
+        assertTrue(countResult<countAllFaq);
     }
 
     @Feature("Поиск по faq")
@@ -373,8 +384,10 @@ public class FAQPageTest extends BaseTest{
     @Test
     void searchDifferentRegister() {
         faqPage.faqPage();
+        int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqHighRegister());
         Selenide.sleep(3000);
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
         for (int i = 0; i < questionTexts.size(); i++) {
@@ -384,19 +397,8 @@ public class FAQPageTest extends BaseTest{
             boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFaqHighRegister().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
+        assertTrue(countResult<countAllFaq);
     }
 
 }
-/*
-@Story("Возврат к хэдеру страницы faq")
-    @ExtendWith(AddSomeFaq.class)
-    @Test
-    void returnToStartPage() {
-        faqPage.scrollPage();
-        Selenide.sleep(2000);
-        assertTrue(faqPage.isReturnButtonAppear());
-        faqPage.returnToStartPage();
-        Selenide.sleep(2000);
-        assertFalse(faqPage.isReturnButtonAppear());
-    }
- */
+

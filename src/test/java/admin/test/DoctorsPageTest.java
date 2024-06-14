@@ -13,6 +13,7 @@ import admin.utils.testUtils.*;
 import admin.utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -20,10 +21,14 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Врачи")
@@ -41,10 +46,10 @@ public class DoctorsPageTest extends BaseTest {
     }
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         BrowserManager.openPagesAfterAuth();
-        doctorsPage=new DoctorsPage();
-        headerMenu= new HeaderMenu();
+        doctorsPage = new DoctorsPage();
+        headerMenu = new HeaderMenu();
         basePage = new BasePage();
         headerMenu.doctorsTabOpen();
     }
@@ -53,11 +58,11 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Успешная замена фотографии врачу в формате Jpeg и Png")
     @ExtendWith(DeletePhotoDoctorDecorator.class)
     @ParameterizedTest
-    @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg","src/test/resources/Photo 3,2mbPng.png"})
+    @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg", "src/test/resources/Photo 3,2mbPng.png"})
     void changePhotoDoctorValidFormat(String path) {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
@@ -76,7 +81,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void changePhotoDoctorLess4mb() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
@@ -90,14 +95,15 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Замена фотографии врачу с файлом в невалидном формате")
     @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
-    @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx","src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
+    @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
-        editPhoto.uploadPhoto(path);;
+        editPhoto.uploadPhoto(path);
+        ;
         assertEquals("Допускаются файлы с расширением jpg jpeg png", cardDoctor.getNotification());
         assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor().getPhoto_uri());
@@ -109,7 +115,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void closeWindowEditPhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.closeWindowEditPhoto();
@@ -122,7 +128,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void deletePhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.deletePhoto();
@@ -138,7 +144,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void deleteDefaultPhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.deletePhoto();
@@ -152,26 +158,26 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void addingSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.addIntelligenceSectionWindow();
         intelligenceWindow.fillFieldText(DataConfig.DataTest.getSection());
         intelligenceWindow.saveValue();
         Section section = cardDoctor.getSection();
-        assertEquals(DataConfig.DataTest.getSection(),section.getSection());
-        assertEquals(DataConfig.DataTest.getSection(),DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
+        assertEquals(DataConfig.DataTest.getSection(), section.getSection());
+        assertEquals(DataConfig.DataTest.getSection(), DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
         assertTrue(cardDoctor.isExistSection());
         assertFalse(intelligenceWindow.isWindowSectionAppear());
     }
 
     @Feature("Информация о враче")
     @Story("Добавление пустого раздела в инфо о враче")
-    @ExtendWith({DeleteSectionDecorator.class,NotificationDecorator.class})
+    @ExtendWith({DeleteSectionDecorator.class, NotificationDecorator.class})
     @Test
     void addSectionEmptyField() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.saveValue();
@@ -186,7 +192,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void cancelWindowAddSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
         intelligenceWindow.fillFieldText(DataConfig.DataTest.getSection());
@@ -203,7 +209,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void editSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         section.section();
@@ -211,17 +217,17 @@ public class DoctorsPageTest extends BaseTest {
         section.fillTitleField(DataConfig.DataTest.getNewSection());
         section.editSaveTitle();
         Selenide.sleep(2000);
-        assertEquals(DataConfig.DataTest.getNewSection(),section.getSection());
-        assertEquals(DataConfig.DataTest.getNewSection(),DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
+        assertEquals(DataConfig.DataTest.getNewSection(), section.getSection());
+        assertEquals(DataConfig.DataTest.getNewSection(), DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
     }
 
     @Feature("Информация о враче")
     @Story("Редактирование раздела в инфо о враче с пустым полем")
-    @ExtendWith({AddDeleteSectionDecorator.class,NotificationDecorator.class})
+    @ExtendWith({AddDeleteSectionDecorator.class, NotificationDecorator.class})
     @Test
     void editSectionEmptyField() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         section.editSaveTitle();
@@ -237,7 +243,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void deleteSection() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         section.deleteTitle();
@@ -254,27 +260,27 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void addingDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
         intelligenceWindow.addIntelligenceDescriptionWindow();
         intelligenceWindow.fillFieldText(DataConfig.DataTest.getDescription());
         intelligenceWindow.saveValue();
-        Description description= cardDoctor.getDescription();
-        assertEquals(DataConfig.DataTest.getDescription(),description.getDescription());
-        assertEquals(DataConfig.DataTest.getDescription(),DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
+        Description description = cardDoctor.getDescription();
+        assertEquals(DataConfig.DataTest.getDescription(), description.getDescription());
+        assertEquals(DataConfig.DataTest.getDescription(), DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
         assertTrue(cardDoctor.isExistDescription());
         assertFalse(intelligenceWindow.isWindowDescriptionAppear());
     }
 
     @Feature("Информация о враче")
     @Story("Добавление пустого описания к разделу в инфо о враче")
-    @ExtendWith({DeleteDescriptionDecorator.class,NotificationDecorator.class})
+    @ExtendWith({DeleteDescriptionDecorator.class, NotificationDecorator.class})
     @Test
     void addDescriptionEmptyField() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
@@ -291,7 +297,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void cancellationWindowAddDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Section section = cardDoctor.getSection();
         AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
@@ -309,7 +315,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void editDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Description description = cardDoctor.getDescription();
         description.description();
@@ -317,17 +323,17 @@ public class DoctorsPageTest extends BaseTest {
         description.fillDescriptionField(DataConfig.DataTest.getNewDescription());
         description.editSaveDescription();
         Selenide.sleep(2000);
-        assertEquals(DataConfig.DataTest.getNewDescription(),description.getDescription());
-        assertEquals(DataConfig.DataTest.getNewDescription(),DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
+        assertEquals(DataConfig.DataTest.getNewDescription(), description.getDescription());
+        assertEquals(DataConfig.DataTest.getNewDescription(), DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
     }
 
     @Feature("Информация о враче")
     @Story("Редактирование описания в инфо о враче с пустым полем")
-    @ExtendWith({AddDeleteDescriptionDecorator.class,NotificationDecorator.class})
+    @ExtendWith({AddDeleteDescriptionDecorator.class, NotificationDecorator.class})
     @Test
     void editDescriptionEmptyField() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Description description = cardDoctor.getDescription();
         description.editSaveDescription();
@@ -341,7 +347,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void deleteDescription() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         Description description = cardDoctor.getDescription();
         description.deleteDescription();
@@ -354,11 +360,11 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче текущей датой")
-    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackToday() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         cardDoctor.selectedPublishedFeedback();
         cardDoctor.noSelectedUnpublishedFeedback();
@@ -376,9 +382,9 @@ public class DoctorsPageTest extends BaseTest {
         assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
         assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
         assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
-        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getNamePatient(), DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -388,11 +394,11 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
-    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackCurrentMonth() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
@@ -406,9 +412,9 @@ public class DoctorsPageTest extends BaseTest {
         assertEquals(DataHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
         assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
         assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
-        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getNamePatient(), DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -418,11 +424,11 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в следующем месяце")
-    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackFutureMonth() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
@@ -437,9 +443,9 @@ public class DoctorsPageTest extends BaseTest {
         assertEquals(DataHelper.getNextMonthDate(), feedback.getDateFeedback());
         assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
         assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
-        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getNamePatient(), DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -449,11 +455,11 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в предыдущем месяце")
-    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackPreviousMonth() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
@@ -468,9 +474,9 @@ public class DoctorsPageTest extends BaseTest {
         assertEquals(DataHelper.getPreviousMonthDate(), feedback.getDateFeedback());
         assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
         assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
-        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getNamePatient(), DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -479,11 +485,11 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче текущей датой без использования календаря")
-    @ExtendWith({DeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackTodayNotUseCalendar() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
@@ -496,9 +502,9 @@ public class DoctorsPageTest extends BaseTest {
         assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
         assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
         assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
-        assertEquals(DataConfig.DataTest.getNamePatient(),DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(DataConfig.DataTest.getNamePatient(), DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -510,7 +516,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void closeWindowAddNewFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataHelper.generateText());
@@ -527,7 +533,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void addFeedbackEmptyFieldFio() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
@@ -540,7 +546,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void addFeedbackEmptyFieldText() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
@@ -549,11 +555,11 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование неопубликованного отзыва о враче")
-    @ExtendWith({AddDeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @ExtendWith({AddDeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void editUnpublishedFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         cardDoctor.selectedPublishedFeedback();
         cardDoctor.noSelectedUnpublishedFeedback();
@@ -568,9 +574,9 @@ public class DoctorsPageTest extends BaseTest {
         changeFeedback.saveChanges();
         feedback.feedbackUnpublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
-        assertEquals(DataConfig.DataTest.getNewFeedback(),feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getNewFeedback(), feedback.getTextFeedback());
         assertEquals(DataConfig.DataTest.getNewFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
         assertFalse(changeFeedback.isWindowAppear());
@@ -579,11 +585,11 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешная публикация неопубликованного отзыва о враче")
-    @ExtendWith({AddDeleteFeedbackDecorator.class,NotificationDecorator.class})
+    @ExtendWith({AddDeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void publicationUnpublishedFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
@@ -591,9 +597,9 @@ public class DoctorsPageTest extends BaseTest {
         feedback.publicationFeedback();
         feedback.feedbackPublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
-        assertEquals(DataConfig.DataTest.getFeedback(),feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
         assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(true,DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(true, DataBaseQuery.selectFeedback().getIs_published());
         assertFalse(cardDoctor.isSelectUnPublishedFeedback());
         assertTrue(cardDoctor.isSelectPublishedFeedback());
     }
@@ -601,11 +607,11 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование опубликованного отзыва о враче")
-    @ExtendWith({AddPublishedDeleteFeedback.class,NotificationDecorator.class})
+    @ExtendWith({AddPublishedDeleteFeedback.class, NotificationDecorator.class})
     @Test
     void editPublishedFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         cardDoctor.selectedPublishedFeedback();
         cardDoctor.noSelectedUnpublishedFeedback();
@@ -617,9 +623,9 @@ public class DoctorsPageTest extends BaseTest {
         changeFeedback.saveChanges();
         feedback.feedbackPublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
-        assertEquals(DataConfig.DataTest.getNewFeedback(),feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getNewFeedback(), feedback.getTextFeedback());
         assertEquals(DataConfig.DataTest.getNewFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(true,DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(true, DataBaseQuery.selectFeedback().getIs_published());
         assertFalse(cardDoctor.isSelectUnPublishedFeedback());
         assertTrue(cardDoctor.isSelectPublishedFeedback());
         assertFalse(changeFeedback.isWindowAppear());
@@ -628,20 +634,20 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное снятие с публикации опубликованного отзыва о враче")
-    @ExtendWith({AddPublishedDeleteFeedback.class,NotificationDecorator.class})
+    @ExtendWith({AddPublishedDeleteFeedback.class, NotificationDecorator.class})
     @Test
     void withdrawalPublicationFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackPublished();
         feedback.withdrawalPublication();
         feedback.feedbackUnpublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
-        assertEquals(DataConfig.DataTest.getFeedback(),feedback.getTextFeedback());
+        assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
         assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(false,DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
     }
@@ -652,7 +658,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void closeWindowEditFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
@@ -669,7 +675,7 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void editFeedbackEmptyFieldText() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
@@ -680,11 +686,11 @@ public class DoctorsPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное удаление неопубликованного отзыва о враче")
-    @ExtendWith({AddFeedbackDecorator.class,NotificationDecorator.class})
+    @ExtendWith({AddFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void deleteUnpublishedFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
@@ -701,23 +707,23 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void sortingUnpublishedFeedbacks() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu=cardDoctor.openNavigateMenu();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertTrue(cardDoctor.isSortingNewAppear());
-        String dateFeedbackToday=feedback.getDateFeedbackByIndex(0);
-        String dateFeedbackYesterday =feedback.getDateFeedbackByIndex(1);
+        String dateFeedbackToday = feedback.getDateFeedbackByIndex(0);
+        String dateFeedbackYesterday = feedback.getDateFeedbackByIndex(1);
         cardDoctor.sortingFeedbackNew();
         assertFalse(cardDoctor.isSortingNewAppear());
         assertTrue(cardDoctor.isSortingOldAppear());
-        assertEquals(dateFeedbackYesterday,feedback.getDateFeedbackByIndex(0));
-        assertEquals(dateFeedbackToday,feedback.getDateFeedbackByIndex(1));
+        assertEquals(dateFeedbackYesterday, feedback.getDateFeedbackByIndex(0));
+        assertEquals(dateFeedbackToday, feedback.getDateFeedbackByIndex(1));
         cardDoctor.sortingFeedbackOld();
         assertTrue(cardDoctor.isSortingNewAppear());
         assertFalse(cardDoctor.isSortingOldAppear());
-        assertEquals(dateFeedbackToday,feedback.getDateFeedbackByIndex(0));
-        assertEquals(dateFeedbackYesterday,feedback.getDateFeedbackByIndex(1));
+        assertEquals(dateFeedbackToday, feedback.getDateFeedbackByIndex(0));
+        assertEquals(dateFeedbackYesterday, feedback.getDateFeedbackByIndex(1));
     }
 
     @Story("Возврат на страницу Врачи с карточки врача")
@@ -730,7 +736,7 @@ public class DoctorsPageTest extends BaseTest {
 
     @Story("Закрытие уведомления на странице карточки врача по таймауту")
     @Test
-    void closeNotificationTimeout() throws InterruptedException {
+    void closeNotificationTimeout() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
@@ -752,15 +758,15 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void searchNameDoctor() {
         doctorsPage.doctorsPage();
-        int countAllDoctors= doctorsPage.getCountDoctors();
+        int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
         Selenide.sleep(3000);
-        int countResult= doctorsPage.getCountDoctors();
+        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (int i = 0; i < namesDoctors.size(); i++) {
             assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorNameSearch().toLowerCase()));
         }
-        assertTrue(countResult<countAllDoctors);
+        assertTrue(countResult < countAllDoctors);
     }
 
     @Feature("Поиск по врачам")
@@ -768,15 +774,15 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void searchSpecializationDoctor() {
         doctorsPage.doctorsPage();
-        int countAllDoctors= doctorsPage.getCountDoctors();
+        int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorSpecializationSearch());
         Selenide.sleep(3000);
-        int countResult= doctorsPage.getCountDoctors();
+        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
         for (int i = 0; i < specializationDoctors.size(); i++) {
             assertThat(specializationDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorSpecializationSearch().toLowerCase()));
         }
-        assertTrue(countResult<countAllDoctors);
+        assertTrue(countResult < countAllDoctors);
     }
 
     @Feature("Поиск по врачам")
@@ -784,10 +790,10 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void searchByInclusion() {
         doctorsPage.doctorsPage();
-        int countAllDoctors= doctorsPage.getCountDoctors();
+        int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getSearchByInclusionDoctors());
         Selenide.sleep(3000);
-        int countResult= doctorsPage.getCountDoctors();
+        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
         for (int i = 0; i < namesDoctors.size(); i++) {
@@ -797,7 +803,7 @@ public class DoctorsPageTest extends BaseTest {
             boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionDoctors().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
-        assertTrue(countResult<countAllDoctors);
+        assertTrue(countResult < countAllDoctors);
     }
 
 
@@ -808,17 +814,17 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
         Selenide.sleep(3000);
-        int countResult= doctorsPage.getCountDoctors();
+        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
-        int resultSearch=namesDoctorsSearch.size();
+        int resultSearch = namesDoctorsSearch.size();
         doctorsPage.clearSearchFieldThroughButton();
         Selenide.sleep(3000);
-        int countAllDoctors= doctorsPage.getCountDoctors();
-        ElementsCollection nameDoctorsAll=doctorsPage.getNamesDoctors();
-        int allDoctors=nameDoctorsAll.size();
+        int countAllDoctors = doctorsPage.getCountDoctors();
+        ElementsCollection nameDoctorsAll = doctorsPage.getNamesDoctors();
+        int allDoctors = nameDoctorsAll.size();
         assertEquals("", doctorsPage.getValueSearchField());
         assertTrue(resultSearch < allDoctors);
-        assertTrue(countResult<countAllDoctors);
+        assertTrue(countResult < countAllDoctors);
     }
 
     @Feature("Поиск по врачам")
@@ -828,17 +834,17 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
         Selenide.sleep(3000);
-        int countResult= doctorsPage.getCountDoctors();
+        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
-        int resultSearch=namesDoctorsSearch.size();
+        int resultSearch = namesDoctorsSearch.size();
         doctorsPage.clearSearchField();
         Selenide.sleep(3000);
-        int countAllDoctors= doctorsPage.getCountDoctors();
-        ElementsCollection nameDoctorsAll=doctorsPage.getNamesDoctors();
-        int allDoctors=nameDoctorsAll.size();
+        int countAllDoctors = doctorsPage.getCountDoctors();
+        ElementsCollection nameDoctorsAll = doctorsPage.getNamesDoctors();
+        int allDoctors = nameDoctorsAll.size();
         assertEquals("", doctorsPage.getValueSearchField());
         assertTrue(resultSearch < allDoctors);
-        assertTrue(countResult<countAllDoctors);
+        assertTrue(countResult < countAllDoctors);
     }
 
     @Feature("Поиск по врачам")
@@ -846,15 +852,15 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void searchHighRegister() {
         doctorsPage.doctorsPage();
-        int countAllDoctors= doctorsPage.getCountDoctors();
+        int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getFaqHighRegister());
         Selenide.sleep(3000);
-        int countResult= doctorsPage.getCountDoctors();
+        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (int i = 0; i < namesDoctors.size(); i++) {
             assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getFaqHighRegister().toLowerCase()));
         }
-        assertTrue(countResult<countAllDoctors);
+        assertTrue(countResult < countAllDoctors);
     }
 
     @Feature("Поиск по врачам")
@@ -862,37 +868,75 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void searchDifferentRegister() {
         doctorsPage.doctorsPage();
-        int countAllDoctors= doctorsPage.getCountDoctors();
+        int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getFaqDifferentRegister());
         Selenide.sleep(3000);
-        int countResult= doctorsPage.getCountDoctors();
+        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (int i = 0; i < namesDoctors.size(); i++) {
             assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getFaqDifferentRegister().toLowerCase()));
         }
-        assertTrue(countResult<countAllDoctors);
+        assertTrue(countResult < countAllDoctors);
+    }
+
+    @Feature("Сортировка по врачам")
+    @Story("Сортировка по отсутствию фото")
+    @Test
+    void sortingWithoutPhoto() {
+        doctorsPage.doctorsPage();
+        int countAllDoctors = doctorsPage.getCountDoctors();
+        doctorsPage.sortingPhotoNo();
+        Selenide.sleep(3000);
+        int countResult = doctorsPage.getCountDoctors();
+        List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
+        for (String attributeValue : photoDoctorsAttributes) {
+            assertThat(attributeValue, equalTo(DataConfig.DataTest.getDefaultPhoto().toLowerCase()));
+        }
+        assertTrue(countResult < countAllDoctors);
+    }
+
+    @Feature("Сортировка по врачам")
+    @Story("Сортировка по наличию фото")
+    @Test
+    void sortingWithPhoto() {
+        doctorsPage.doctorsPage();
+        int countAllDoctors = doctorsPage.getCountDoctors();
+        doctorsPage.sortingPhotoYes();
+        Selenide.sleep(3000);
+        int countResult = doctorsPage.getCountDoctors();
+        List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
+        for (String attributeValue : photoDoctorsAttributes) {
+            assertThat(attributeValue, not(DataConfig.DataTest.getDefaultPhoto().toLowerCase()));
+        }
+        assertTrue(countResult < countAllDoctors);
+    }
+
+    @Feature("Сортировка по врачам")
+    @Story("Сортировка по всем врачам")
+    @Test
+    void sortingWithAndWithoutPhoto() {
+        doctorsPage.doctorsPage();
+        doctorsPage.sortingPhotoNo();
+        Selenide.sleep(3000);
+        int countResult = doctorsPage.getCountDoctors();
+        doctorsPage.sortingPhotoAll();
+        Selenide.sleep(3000);
+        int countAllDoctors = doctorsPage.getCountDoctors();
+        List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
+        boolean withoutPhoto = false;
+        boolean withPhoto = false;
+        for (String attributeValue : photoDoctorsAttributes) {
+            if (attributeValue.equals(DataConfig.DataTest.getDefaultPhoto().toLowerCase())) {
+                withoutPhoto = true;
+            } else {
+                withPhoto = true;
+            }
+        }
+        assertTrue(withoutPhoto);
+        assertTrue(withPhoto);
+        assertTrue(countResult < countAllDoctors);
     }
 }
 
 
 
- /*
-    @Story("Возврат к хэдеру страницы карточки врача")
-    @Test
-    void returnToStartPageCardDoctor() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.scrollPage();
-        assertTrue(cardDoctor.isReturnButtonAppear());
-        cardDoctor.returnToStartPage();
-        assertFalse(cardDoctor.isReturnButtonAppear());
-    }
-
-    @Story("Возврат к хэдеру страницы врачей")
-    @Test
-    void returnToStartPageDoctors() {
-        doctorsPage.scrollPage();
-        assertTrue(doctorsPage.isReturnButtonAppear());
-        doctorsPage.returnToStartPage();
-        assertFalse(doctorsPage.isReturnButtonAppear());
-    }
-  */

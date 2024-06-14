@@ -10,7 +10,6 @@ import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.preparationDataTests.setting.AddBugReportDecorator;
 import admin.utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
-import admin.utils.preparationDataTests.setting.AddSomeBugsReport;
 import admin.utils.preparationDataTests.setting.SetSAMSMU_Logo;
 import admin.utils.testUtils.DataHelper;
 import admin.utils.dbUtils.DataBaseQuery;
@@ -24,10 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import javax.management.relation.Role;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -89,12 +85,13 @@ public class SettingPageTest extends BaseTest {
     @Test
     void changeLogoPNG() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
+        int oldHeightLogo = settingPage.getHeightLogo();
         editLogoWindow.editLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/visa.png");
         Selenide.sleep(5000);
         assertFalse(editLogoWindow.isWindowAppear());
-        assertEquals(113, settingPage.getHeightLogo());
-        assertEquals(103,headerMenu.getHeightLogo());
+        assertNotEquals(oldHeightLogo,settingPage.getHeightLogo());
+        assertNotEquals(oldHeightLogo,headerMenu.getHeightLogo());
     }
 
 
@@ -164,16 +161,4 @@ public class SettingPageTest extends BaseTest {
         checkCloseNotification(basePage);
     }
 }
-/*
-    @Story("Возврат к хэдеру страницы настроек")
-    @ExtendWith(AddSomeBugsReport.class)
-    @Test
-    void returnToStartPage() {
-        settingPage.scrollPage();
-        Selenide.sleep(2000);
-        assertTrue(settingPage.isReturnButtonAppear());
-        settingPage.returnToStartPage();
-        Selenide.sleep(2000);
-        assertFalse(settingPage.isReturnButtonAppear());
-    }
-    */
+

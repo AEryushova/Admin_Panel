@@ -226,5 +226,13 @@ public class DataBaseQuery {
         DataBaseManager.queryRunner("cab_lab_db").update(connection, "DELETE FROM feedbacks_employees");
     }
 
+    @SneakyThrows
+    public static ServiceCategories selectRulesPreparing() {
+        var selectInfo = "SELECT * FROM service_categories WHERE name = ? ";
+        var connection = DataBaseManager.getConnection("cab_lab_db");
+        var nameCategory = DataConfig.DataTest.getCategoryName();
+        return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, nameCategory, new BeanHandler<>(ServiceCategories.class));
+    }
+
 
 }

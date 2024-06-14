@@ -3,6 +3,9 @@ package admin.utils.testUtils;
 import admin.data.DataConfig;
 import admin.utils.preparationDataTests.requestAPI.PreparationDataService;
 import com.github.javafaker.Faker;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import lombok.Getter;
 
 import java.sql.Timestamp;
@@ -10,7 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Random;
 import java.util.UUID;
 
 
@@ -163,15 +165,9 @@ public class DataHelper {
         return prevMonthDate.format(formatter);
     }
 
-    public static String getStringCategory() {
-        String[] options = {"Лаборатория", "Диагностикa"};
-        Random rand = new Random();
-        return options[rand.nextInt(options.length)];
-    }
 
     //Генерирует и возвращает UUID для SQL-запросов//
     public static UUID generateUuid() {
-
         return UUID.randomUUID();
     }
 
@@ -188,30 +184,18 @@ public class DataHelper {
         return Timestamp.valueOf(oneDaysAgo);
     }
 
-    /*
-    //Генерирует логин, возвращает его и сохраняет значение в поле"//
-    public static String generateLogin() {
-        final String ALLOWED_CHARS = "abcdefghijklmnopqrstuvwxyz_";
-        final String DIGITS = "0123456789";
-        final int MAX_LENGTH = 10;
-
-        if (login == null) {
-            StringBuilder sb = new StringBuilder(1);
-            Random r = new Random();
-            sb.append(ALLOWED_CHARS.charAt(r.nextInt(ALLOWED_CHARS.length())));
-            for (int i = 1; i < MAX_LENGTH; i++) {
-                int charType = r.nextInt(3);
-                if (charType == 0) {
-                    sb.append(ALLOWED_CHARS.charAt(r.nextInt(ALLOWED_CHARS.length())));
-                } else {
-                    sb.append(DIGITS.charAt(r.nextInt(DIGITS.length())));
-                }
+    //Получает значение по ключу из json-объекта и возвращает его//
+    public static String getValueFromJson(String json, String key) {
+        Gson gson = new Gson();
+        JsonArray jsonArray = gson.fromJson(json, JsonArray.class);
+        if (jsonArray.size() > 0) {
+            JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+            if (jsonObject.has(key)) {
+                return jsonObject.get(key).getAsString();
             }
-
-            login = sb.toString();
         }
-        return login;
+        return null;
     }
-    */
+
 }
 

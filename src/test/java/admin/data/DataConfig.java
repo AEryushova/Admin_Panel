@@ -26,9 +26,7 @@ public class DataConfig {
         @Getter
         public static final String uriPersonalArea = "https://lk.mdapp.online";
         @Getter
-        public static final String environmentFreeze = "freeze";
-        @Getter
-        public static final String environmentStage = "stg";
+        public static final String environment = "freeze";
     }
 
 
@@ -75,6 +73,12 @@ public class DataConfig {
         public static final String feedback = "Очень хороший врач";
         @Getter
         public static final String newFeedback = "Прием прошел замечательно";
+        @Getter
+        public static final String categoryName = "Диагностика";
+        @Getter
+        public static final String ruleHeader = "Это заголовок правила";
+        @Getter
+        public static final String ruleDescription = "Это само правило";
     }
 
     public static class DataSearch {

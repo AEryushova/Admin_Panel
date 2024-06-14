@@ -8,7 +8,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ServicesPage {
+public class ServicesPageLK {
 
     private final SelenideElement tabNameService = $x("//span[text()='Услуги']");
     private final SelenideElement laboratoriesCategory = $x("//button[@data-locator='get-laboratories']");

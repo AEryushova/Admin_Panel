@@ -90,12 +90,6 @@ public class CardDoctorPage extends BasePage {
         return EMPTY_LIST_DESCRIPTION.exists();
     }
 
-    public void switchPublishedFeedback() {
-        NO_SELECTED_PUBLISHED_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .click();
-
-    }
 
     public void switchUnpublishedFeedback() {
         NO_SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible)

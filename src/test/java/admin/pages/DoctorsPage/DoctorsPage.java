@@ -6,9 +6,13 @@ import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -25,9 +29,11 @@ public class DoctorsPage extends BasePage {
     private final SelenideElement OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']");
     private final SelenideElement OPTION_YES = $x("//div[@class='U2Xk']/div[text()='Есть']");
     private final SelenideElement SHOW_DOCTOR_WITHOUT_DESCRIPTION = $x("//span[text()='Показать']//parent::button");
+    private final SelenideElement COUNT_DOCTORS=$x("//div[@class='wYqZ']/span[2]");
     private final ElementsCollection NAMES_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[1]");
     private final ElementsCollection SPECIALIZATIONS_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[2]");
-    private final SelenideElement COUNT_DOCTORS=$x("//div[@class='wYqZ']/span[2]");
+    private final ElementsCollection PHOTO_DOCTORS=$$x("//div[@class='eF30']/div[@class='Uw0W']/img");
+    private final ElementsCollection CARDS_DOCTORS = $$x("//div[@class='eF30']");
 
     public void doctorsPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -84,13 +90,18 @@ public class DoctorsPage extends BasePage {
                 .setValue(textSearch);
     }
 
-
     public ElementsCollection getNamesDoctors() {
         return NAMES_DOCTORS;
     }
 
     public ElementsCollection getSpecializationDoctors() {
         return SPECIALIZATIONS_DOCTORS;
+    }
+
+    public List<String> getPhotoDoctorsAttributes() {
+        return PHOTO_DOCTORS.stream()
+                .map(element -> element.getAttribute("src"))
+                .collect(Collectors.toList());
     }
 
     public void clearSearchFieldThroughButton() {

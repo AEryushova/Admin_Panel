@@ -7,13 +7,13 @@ import user.pages.DoctorsPage.DoctorsPage;
 import user.pages.FaqPage.FaqPage;
 import user.pages.HomePage.HomePage;
 import user.pages.MedicalCardPage.MedicalCardPage;
-import user.pages.ServicesPage.ServicesPage;
+import user.pages.ServicesPage.ServicesPageLK;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class HeaderMenu {
+public class HeaderMenuLK {
     private final SelenideElement homeButton = $x("//a[text()='Главная']");
     private final SelenideElement doctorsButton = $x("//a[text()='Врачи']");
     private final SelenideElement serviceButton = $x("//a[text()='Услуги']");
@@ -44,9 +44,9 @@ public class HeaderMenu {
         return new DoctorsPage();
     }
 
-    public ServicesPage servicesTabOpen(){
+    public ServicesPageLK servicesTabOpen(){
         serviceButton.click();
-        return new ServicesPage();
+        return new ServicesPageLK();
     }
 
     public MedicalCardPage medicalCardTabOpen(){

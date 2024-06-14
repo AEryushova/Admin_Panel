@@ -6,7 +6,7 @@ import user.pages.DentistryPage.DentistryPage;
 import user.pages.DoctorsPage.DoctorsPage;
 import user.pages.FaqPage.FaqPage;
 import user.pages.MedicalCardPage.MedicalCardPage;
-import user.pages.ServicesPage.ServicesPage;
+import user.pages.ServicesPage.ServicesPageLK;
 
 import java.time.Duration;
 
@@ -43,14 +43,14 @@ public class HomePage {
         return new MedicalCardPage();
     }
 
-    public ServicesPage openLaboratory(){
+    public ServicesPageLK openLaboratory(){
         laboratoryButton.click();
-        return new ServicesPage();
+        return new ServicesPageLK();
     }
 
-    public ServicesPage openDiagnostics(){
+    public ServicesPageLK openDiagnostics(){
         diagnosticsButton.click();
-        return new ServicesPage();
+        return new ServicesPageLK();
     }
 
     public DentistryPage openDentistry(){

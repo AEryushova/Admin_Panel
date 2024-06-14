@@ -1,5 +1,6 @@
 package admin.pages.ServicesPage;
 
+import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -18,16 +19,17 @@ public class ServicesPage extends BasePage {
     private final SelenideElement TAB_NAME = $x("//a[text()='Услуги']");
     private final SelenideElement SEARCH_SERVICES = $x("//input[@placeholder='Поиск услуги']");
     private final ElementsCollection CONTAINER_CATEGORY = $$x("//div[@class='qH7D']/span");
-    private final SelenideElement OTHER_SERVICES = $x("//span[text()='Иные услуги']//parent::div");
-    private final SelenideElement TELEMEDICINE = $x("//span[text()='Телемедицина']//parent::div");
-    private final SelenideElement DOCTORS = $x("//span[text()='Врачи']//parent::div");
-    private final SelenideElement LABORATORY = $x("//span[text()='Лаборатория']//parent::div");
-    private final SelenideElement DIAGNOSTICS = $x("//span[text()='Диагностика']//parent::div");
-    private final SelenideElement DENTISTRY = $x("//span[text()='Стоматология']//parent::div");
+    private final SelenideElement OTHER_SERVICES = $x("//span[text()='Иные услуги']//parent::div//parent::div[@class='ZAC4']");
+    private final SelenideElement TELEMEDICINE = $x("//span[text()='Телемедицина']//parent::div//parent::div[@class='ZAC4']");
+    private final SelenideElement DOCTORS = $x("//span[text()='Врачи']//parent::div//parent::div[@class='ZAC4']");
+    private final SelenideElement LABORATORY = $x("//span[text()='Лаборатория']//parent::div//parent::div[@class='ZAC4']");
+    private final SelenideElement DIAGNOSTICS = $x("//span[text()='Диагностика']//parent::div//parent::div[@class='ZAC4']");
+    private final SelenideElement DENTISTRY = $x("//span[text()='Стоматология']//parent::div//parent::div[@class='ZAC4']");
+    private final SelenideElement CATEGORY = $x("//span[text()='" + DataConfig.DataTest.getCategoryName() + "']//parent::div//parent::div[@class='ZAC4']");
 
 
-    private final SelenideElement expandCategoryLaboratory= $x("//span[text()='Лаборатория']//parent::div/following-sibling::div[@class='gm_s']");
-    private final SelenideElement rulesPreparingLaboratory= $x("//span[text()='Лаборатория']//parent::div/following-sibling::div[@class='Ie41']");
+    private final SelenideElement expandCategoryLaboratory = $x("//span[text()='Диагностика']//parent::div/following-sibling::div[@class='gm_s']");
+
 
     public void servicesPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -40,22 +42,28 @@ public class ServicesPage extends BasePage {
         DENTISTRY.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public CategoryWindow openCategory(){
-        expandCategoryLaboratory.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-        .click();
-        return new CategoryWindow();
-    }
 
-    public RulesPreparingWindow openRulesPreparing(){
-        rulesPreparingLaboratory.shouldBe(Condition.visible)
+    public RulesPreparingWindow openRulesPreparingCategory() {
+        CATEGORY.shouldBe(Condition.visible);
+        SelenideElement rulesPreparing = CATEGORY.$x("div[@class='Ie41']");
+        rulesPreparing.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
-        .click();
+                .click();
         return new RulesPreparingWindow();
     }
 
 
+
+    public CategoryWindow openCategory() {
+        expandCategoryLaboratory.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        return new CategoryWindow();
+    }
+
+
     public int getCategoryIndexByName(String categoryName) {
+        CATEGORY.shouldBe(Condition.visible);
         List<SelenideElement> categoryElements = CONTAINER_CATEGORY;
         for (int i = 0; i < categoryElements.size(); i++) {
             if (categoryElements.get(i).getText().equals(categoryName)) {
@@ -66,13 +74,13 @@ public class ServicesPage extends BasePage {
     }
 
     public void sequenceChangeCategory(String sourceName, String targetName) {
-        SelenideElement sourceCategory = getElementByName(sourceName);
-        SelenideElement targetCategory = getElementByName(targetName);
+        SelenideElement sourceCategory = getCategoryByName(sourceName);
+        SelenideElement targetCategory = getCategoryByName(targetName);
         sequenceChangeActive(sourceCategory, targetCategory);
     }
 
-    private SelenideElement getElementByName(String categoryName){
-    Map<String, SelenideElement> elementMap = new HashMap<>();
+    public SelenideElement getCategoryByName(String categoryName) {
+        Map<String, SelenideElement> elementMap = new HashMap<>();
         elementMap.put("Иные услуги", OTHER_SERVICES);
         elementMap.put("Телемедицина", TELEMEDICINE);
         elementMap.put("Врачи", DOCTORS);
@@ -81,7 +89,6 @@ public class ServicesPage extends BasePage {
         elementMap.put("Стоматология", DENTISTRY);
         return elementMap.get(categoryName);
     }
-
 
     private void sequenceChangeActive(SelenideElement categorySource, SelenideElement categoryTarget) {
         Actions actions = actions();

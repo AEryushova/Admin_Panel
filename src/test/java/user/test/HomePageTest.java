@@ -7,7 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import user.pages.AuthPage.AuthPage;
-import user.pages.HeaderMenu.HeaderMenu;
+import user.pages.HeaderMenu.HeaderMenuLK;
 import user.pages.HomePage.HomePage;
 import user.pages.HomePage.ReportBug;
 
@@ -39,7 +39,7 @@ public class HomePageTest {
         AuthPage authPage = new AuthPage();
         homePage = authPage.authorizationLK();
         homePage.homePage();
-        HeaderMenu headerBar = new HeaderMenu();
+        HeaderMenuLK headerBar = new HeaderMenuLK();
         headerBar.headerBarLK();
     }
 

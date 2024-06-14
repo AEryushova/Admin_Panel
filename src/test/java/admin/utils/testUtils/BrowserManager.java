@@ -23,14 +23,14 @@ public class BrowserManager {
     public static void openAdminPanel(){
         Configuration.holdBrowserOpen = true;
         open(DataConfig.Urls.getUriAdminPanel());
-        localStorage().setItem("Environment", DataConfig.Urls.getEnvironmentFreeze());
+        localStorage().setItem("Environment", DataConfig.Urls.getEnvironment());
         clearBrowserCookies();
     }
 
     public static void authGetCookie(String login, String password) {
         Configuration.holdBrowserOpen = true;
         open(DataConfig.Urls.getUriAdminPanel());
-        localStorage().setItem("Environment", DataConfig.Urls.getEnvironmentFreeze());
+        localStorage().setItem("Environment", DataConfig.Urls.getEnvironment());
         WebDriverRunner.getWebDriver().manage().deleteAllCookies();
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.authorization(login, password);
@@ -44,7 +44,7 @@ public class BrowserManager {
     public static void openPagesAfterAuth() {
         Configuration.holdBrowserOpen = true;
         open(DataConfig.Urls.getUriAdminPanel());
-        localStorage().setItem("Environment", DataConfig.Urls.getEnvironmentFreeze());
+        localStorage().setItem("Environment", DataConfig.Urls.getEnvironment());
         localStorage().setItem("accessToken", token);
         Selenide.refresh();
     }

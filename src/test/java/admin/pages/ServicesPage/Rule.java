@@ -7,7 +7,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class RuleWindow {
+public class Rule {
 
     public final SelenideElement WINDOW = $x("//div[@class='TW3C']");
     public final SelenideElement HEADER_FIELD = $x("//input[@placeholder='Укажите заголовок правила']");
@@ -17,7 +17,7 @@ public class RuleWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
 
 
-    public void ruleWindow() {
+    public void rule() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DESCRIPTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -50,6 +50,19 @@ public class RuleWindow {
                 .shouldBe(Condition.enabled)
                 .click();
     }
+
+    public String getHeaderRule() {
+        HEADER_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
+        return HEADER_FIELD.getValue();
+    }
+
+    public String getDescriptionRule() {
+        DESCRIPTION_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
+        return DESCRIPTION_FIELD.getValue();
+    }
+
 
     public void closeWindowRule() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)

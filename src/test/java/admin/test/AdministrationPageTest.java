@@ -776,17 +776,6 @@ public class AdministrationPageTest extends BaseTest {
     }
 }
 /*
-    @Story("Возврат к хэдеру страницы администрирования")
-    @Test
-    void returnToStartPage() {
-        adminPage.scrollPage();
-        Selenide.sleep(2000);
-        assertTrue(adminPage.isReturnButtonAppear());
-        adminPage.returnToStartPage();
-        Selenide.sleep(2000);
-        assertFalse(adminPage.isReturnButtonAppear());
-    }
-
     @Feature("Документация")
     @Story("Загрузка файла с прайсом")
     @Test
