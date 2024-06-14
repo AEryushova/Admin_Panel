@@ -105,24 +105,6 @@ public class DataHelper {
         return futureDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU")));
     }
 
-    //Возвращает дату, которая наступит через 2 дня от текущей даты в русской локали в формате "2024-04-03"//
-    public static String convertDateForDB() {
-        String futureDateString = generateFutureDateCurrentMonth();
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-        LocalDate date = LocalDate.parse(futureDateString, inputFormatter);
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return date.format(outputFormatter);
-    }
-
-    //Преобразовывает строку с датой и временем в строку с датой в формате "2024-04-03"//
-    public static String trimDateStringToDay(String dateTimeString) {
-        if (dateTimeString != null && !dateTimeString.isEmpty()) {
-            LocalDate date = LocalDate.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-            return date.toString();
-        }
-        return "";
-    }
-
     //Возвращает дату, которая наступит через 2 дня от текущей даты в цифровом формате "03.04.2023"//
     public static String generateActivationDateCurrentMonth() {
         LocalDate currentDate = LocalDate.now();

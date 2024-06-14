@@ -6,11 +6,9 @@ import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +31,6 @@ public class DoctorsPage extends BasePage {
     private final ElementsCollection NAMES_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[1]");
     private final ElementsCollection SPECIALIZATIONS_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[2]");
     private final ElementsCollection PHOTO_DOCTORS=$$x("//div[@class='eF30']/div[@class='Uw0W']/img");
-    private final ElementsCollection CARDS_DOCTORS = $$x("//div[@class='eF30']");
 
     public void doctorsPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));

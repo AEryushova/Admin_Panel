@@ -320,7 +320,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void exitAdminPanel() {
         authPage.authPage();
-        DoctorsPage doctorPage = authPage.authorization(DataConfig.UserData.getLoginSuperAdmin(), DataConfig.UserData.getPasswordSuperAdmin());
+        authPage.authorization(DataConfig.UserData.getLoginSuperAdmin(), DataConfig.UserData.getPasswordSuperAdmin());
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         userPanel.userPanelSuperAdmin();
         AuthorizationPage authPage=userPanel.exitAdminPanel();

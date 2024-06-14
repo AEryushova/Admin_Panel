@@ -7,7 +7,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.attribute;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class CardDoctorPage extends BasePage {
