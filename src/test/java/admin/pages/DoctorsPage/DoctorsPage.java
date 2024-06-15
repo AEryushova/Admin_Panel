@@ -9,6 +9,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -96,7 +97,8 @@ public class DoctorsPage extends BasePage {
     }
 
     public List<String> getPhotoDoctorsAttributes() {
-        return PHOTO_DOCTORS.stream()
+        return new ArrayList<>(PHOTO_DOCTORS)
+                .stream()
                 .map(element -> element.getAttribute("src"))
                 .collect(Collectors.toList());
     }

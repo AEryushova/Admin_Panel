@@ -2,11 +2,7 @@ package user.pages.HeaderMenu;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import user.pages.DentistryPage.DentistryPage;
-import user.pages.DoctorsPage.DoctorsPage;
-import user.pages.FaqPage.FaqPage;
 import user.pages.HomePage.HomePage;
-import user.pages.MedicalCardPage.MedicalCardPage;
 import user.pages.ServicesPage.ServicesPageLK;
 
 import java.time.Duration;
@@ -39,30 +35,11 @@ public class HeaderMenuLK {
         return new HomePage();
     }
 
-    public DoctorsPage doctorsTabOpen(){
-        doctorsButton.click();
-        return new DoctorsPage();
-    }
-
     public ServicesPageLK servicesTabOpen(){
         serviceButton.click();
         return new ServicesPageLK();
     }
 
-    public MedicalCardPage medicalCardTabOpen(){
-        medicalCardButton.click();
-        return new MedicalCardPage();
-    }
-
-    public DentistryPage dentistryTabOpen(){
-        dentistryButton.click();
-        return new DentistryPage();
-    }
-
-    public FaqPage settingTabOpen(){
-        faqButton.click();
-        return new FaqPage();
-    }
     public void openAndCloseProfilePatient(){
         cardPatientInfo.click();
     }

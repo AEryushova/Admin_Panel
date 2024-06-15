@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 public class DataBaseManager {
-    private static Map<String, DataSource> dataSourceMap = new HashMap<>();
+    private static final Map<String, DataSource> dataSourceMap = new HashMap<>();
 
     private DataBaseManager() {
     }

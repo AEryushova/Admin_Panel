@@ -76,9 +76,13 @@ public class DataConfig {
         @Getter
         public static final String categoryName = "Диагностика";
         @Getter
-        public static final String ruleHeader = "Это заголовок правила";
+        public static final String ruleTitle = "Это заголовок правила";
         @Getter
         public static final String ruleDescription = "Это само правило";
+        @Getter
+        public static final String newRuleTitle = "Измененный заголовок";
+        @Getter
+        public static final String newRuleDescription = "Измененное правило";
     }
 
     public static class DataSearch {

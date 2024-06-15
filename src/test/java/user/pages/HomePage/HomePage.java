@@ -3,8 +3,8 @@ package user.pages.HomePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import user.pages.DentistryPage.DentistryPage;
-import user.pages.DoctorsPage.DoctorsPage;
-import user.pages.FaqPage.FaqPage;
+import user.pages.DoctorsPageLK.DoctorsPageLK;
+import user.pages.FaqPageLK.FaqPageLK;
 import user.pages.MedicalCardPage.MedicalCardPage;
 import user.pages.ServicesPage.ServicesPageLK;
 
@@ -34,9 +34,9 @@ public class HomePage {
         faqButton.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public DoctorsPage makeAnAppointment(){
+    public DoctorsPageLK makeAnAppointment(){
         makeAppointmentButton.click();
-        return new DoctorsPage();
+        return new DoctorsPageLK();
     }
     public MedicalCardPage openMedicalCard(){
         medicalCardButton.click();
@@ -58,9 +58,9 @@ public class HomePage {
         return new DentistryPage();
     }
 
-    public FaqPage openFaq(){
+    public FaqPageLK openFaq(){
         faqButton.click();
-        return new FaqPage();
+        return new FaqPageLK ();
     }
 
     public ReportBug sendReportBug() {

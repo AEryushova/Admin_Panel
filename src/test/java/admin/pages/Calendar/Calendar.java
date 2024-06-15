@@ -1,4 +1,4 @@
-package admin.pages.Сalendar;
+package admin.pages.Calendar;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;

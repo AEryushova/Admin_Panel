@@ -5,7 +5,7 @@ import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.CardDoctorPage.*;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.HeaderMenu.HeaderMenu;
-import admin.pages.Сalendar.Calendar;
+import admin.pages.Calendar.Calendar;
 import admin.utils.preparationDataTests.doctors.*;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.general.NotificationDecorator;
@@ -13,6 +13,7 @@ import admin.utils.testUtils.*;
 import admin.utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
 
 import java.util.List;
 
@@ -34,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DoctorsPageTest extends BaseTest {
 
     private DoctorsPage doctorsPage;
-    private HeaderMenu headerMenu;
     private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
@@ -48,8 +49,8 @@ public class DoctorsPageTest extends BaseTest {
     void setUp() {
         BrowserManager.openPagesAfterAuth();
         doctorsPage = new DoctorsPage();
-        headerMenu = new HeaderMenu();
         basePage = new BasePage();
+        HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.doctorsTabOpen();
     }
 
@@ -62,7 +63,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFoto();
+        navigateMenu.openPhoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.editPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
@@ -81,7 +82,7 @@ public class DoctorsPageTest extends BaseTest {
     void changePhotoDoctorLess4mb() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFoto();
+        navigateMenu.openPhoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
@@ -98,7 +99,7 @@ public class DoctorsPageTest extends BaseTest {
     void changePhotoDoctorInvalidFormat(String path) {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFoto();
+        navigateMenu.openPhoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto(path);
@@ -114,7 +115,7 @@ public class DoctorsPageTest extends BaseTest {
     void closeWindowEditPhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFoto();
+        navigateMenu.openPhoto();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.closeWindowEditPhoto();
         assertFalse(editPhoto.isWindowAppear());
@@ -127,7 +128,7 @@ public class DoctorsPageTest extends BaseTest {
     void deletePhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFoto();
+        navigateMenu.openPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.deletePhoto();
         Selenide.sleep(3000);
@@ -143,7 +144,7 @@ public class DoctorsPageTest extends BaseTest {
     void deleteDefaultPhoto() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFoto();
+        navigateMenu.openPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.deletePhoto();
         assertEquals("Конфликт (409)", cardDoctor.getNotification());
@@ -750,6 +751,16 @@ public class DoctorsPageTest extends BaseTest {
         checkCloseNotification(basePage);
     }
 
+    @Story("Закрытие навигационного меню")
+    @Test
+    void closeNavigateMenu() {
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
+        navigateMenu.navigateMenu();
+        navigateMenu.closeNavigateMenu();
+        assertFalse(navigateMenu.isNavigateMenuDisplayed());
+    }
+
 
     @Feature("Поиск по врачам")
     @Story("Поиск врача по имени")
@@ -761,11 +772,12 @@ public class DoctorsPageTest extends BaseTest {
         Selenide.sleep(3000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
-        for (int i = 0; i < namesDoctors.size(); i++) {
-            assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorNameSearch().toLowerCase()));
+        for (SelenideElement nameDoctor : namesDoctors) {
+            assertThat(nameDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorNameSearch().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
+
 
     @Feature("Поиск по врачам")
     @Story("Поиск врача по специальности")
@@ -777,8 +789,8 @@ public class DoctorsPageTest extends BaseTest {
         Selenide.sleep(3000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
-        for (int i = 0; i < specializationDoctors.size(); i++) {
-            assertThat(specializationDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorSpecializationSearch().toLowerCase()));
+        for (SelenideElement specializationDoctor : specializationDoctors) {
+            assertThat(specializationDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorSpecializationSearch().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
@@ -809,7 +821,6 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Сброс поискового результата после очистки поля через кнопку")
     @Test
     void resetSearchResultDoctorsThroughButton() {
-        doctorsPage.doctorsPage();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
         Selenide.sleep(3000);
         int countResult = doctorsPage.getCountDoctors();
@@ -829,7 +840,6 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Сброс поискового результата после очистки поля")
     @Test
     void resetSearchResultDoctors() {
-        doctorsPage.doctorsPage();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
         Selenide.sleep(3000);
         int countResult = doctorsPage.getCountDoctors();
@@ -851,12 +861,12 @@ public class DoctorsPageTest extends BaseTest {
     void searchHighRegister() {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getFaqHighRegister());
+        doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameHighRegister());
         Selenide.sleep(3000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
-        for (int i = 0; i < namesDoctors.size(); i++) {
-            assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getFaqHighRegister().toLowerCase()));
+        for (SelenideElement nameDoctor : namesDoctors) {
+            assertThat(nameDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorNameHighRegister().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
@@ -867,12 +877,12 @@ public class DoctorsPageTest extends BaseTest {
     void searchDifferentRegister() {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getFaqDifferentRegister());
+        doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameDifferentRegister());
         Selenide.sleep(3000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
-        for (int i = 0; i < namesDoctors.size(); i++) {
-            assertThat(namesDoctors.get(i).getText().toLowerCase(), containsString(DataConfig.DataSearch.getFaqDifferentRegister().toLowerCase()));
+        for (SelenideElement nameDoctor : namesDoctors) {
+            assertThat(nameDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDoctorNameDifferentRegister().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
@@ -913,7 +923,6 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Сортировка по всем врачам")
     @Test
     void sortingWithAndWithoutPhoto() {
-        doctorsPage.doctorsPage();
         doctorsPage.sortingPhotoNo();
         Selenide.sleep(3000);
         int countResult = doctorsPage.getCountDoctors();

@@ -1,7 +1,7 @@
 package admin.utils.testUtils;
 
 import admin.data.DataConfig;
-import admin.utils.preparationDataTests.requestAPI.PreparationDataService;
+import admin.utils.APIUtils.PreparationDataSettingTest;
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -29,7 +29,7 @@ public class DataHelper {
 
     //Генерирует и возвращает ссылку на фото врача//
     public static String urlPhotoBuilder() {
-        return DataConfig.Urls.getUriPersonalArea() + PreparationDataService.getLocation();
+        return DataConfig.Urls.getUriPersonalArea() + PreparationDataSettingTest.getLocation();
     }
 
     //Возвращает текущую дату в английской локали в формате "01 April 2024"//
@@ -170,7 +170,7 @@ public class DataHelper {
     public static String getValueFromJson(String json, String key) {
         Gson gson = new Gson();
         JsonArray jsonArray = gson.fromJson(json, JsonArray.class);
-        if (jsonArray.size() > 0) {
+        if (!jsonArray.isEmpty()) {
             JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
             if (jsonObject.has(key)) {
                 return jsonObject.get(key).getAsString();

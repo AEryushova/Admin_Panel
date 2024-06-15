@@ -2,7 +2,7 @@ package admin.pages.AdministrationPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import admin.pages.Сalendar.Calendar;
+import admin.pages.Calendar.Calendar;
 
 
 import java.io.File;

@@ -1,7 +1,6 @@
 package admin.pages.DoctorsPage.CardDoctorPage;
 
 import admin.pages.BasePage.BasePage;
-import admin.pages.DoctorsPage.DoctorsPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
@@ -12,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class CardDoctorPage extends BasePage {
 
-    private final SelenideElement COMEBACK_BUTTON = $x("//span[text()='Вернуться назад']");
+    private final SelenideElement RETURN_BUTTON = $x("//span[text()='Вернуться назад']");
     private final SelenideElement DOCTOR_PHOTO = $x("//div[@class='zzfM']/img");
     private final SelenideElement EDIT_PHOTO_BUTTON = $x("//div[@class='ctFG']/div");
     private final SelenideElement DELETE_PHOTO_BUTTON = $x("//div[@class='ctFG']/div/following-sibling::div");
@@ -32,7 +31,7 @@ public class CardDoctorPage extends BasePage {
     private final SelenideElement NAVIGATE_MENU=$x("//div[@class='_odc']");
 
     public void cardDoctorPage() {
-        COMEBACK_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        RETURN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DOCTOR_PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_PHOTO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_PHOTO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -54,7 +53,6 @@ public class CardDoctorPage extends BasePage {
     }
 
     public String getSrcPhoto() {
-        DOCTOR_PHOTO.exists();
         return DOCTOR_PHOTO.getAttribute("src");
     }
 
@@ -142,11 +140,10 @@ public class CardDoctorPage extends BasePage {
         return FEEDBACK.exists();
     }
 
-    public DoctorsPage comebackDoctorsPage() {
-        COMEBACK_BUTTON.shouldBe(Condition.visible)
+    public void comebackDoctorsPage() {
+        RETURN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        return new DoctorsPage();
     }
 
     public boolean isSortingNewAppear() {

@@ -57,7 +57,6 @@ public class SettingPageTest extends BaseTest {
     @ExtendWith(AddDeleteBugReportDecorator.class)
     @Test
     void checkBugReport() {
-        settingPage.settingPage();
         BugReport bugReport =settingPage.bugReportCard();
         bugReport.bugReport();
         assertEquals(DataConfig.DataTest.getNamePatient(), bugReport.getAuthorText());

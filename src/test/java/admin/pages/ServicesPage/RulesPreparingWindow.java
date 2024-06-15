@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class RulesPreparingWindow {
 
-    public final SelenideElement WINDOW = $x("//div[@class='TW3C']");
+    public final SelenideElement WINDOW = $x("//button[text()='Добавить правило']//parent::div//parent::div//parent::div//parent::div//parent::div[@class='TW3C']");
     private final SelenideElement ADD_BUTTON = $x("//button[text()='Добавить правило']");
     private final SelenideElement DELETE_ALL_RULES_BUTTON = $x("//button[text()='Удалить все правила']");
     private final SelenideElement RULE = $x("//div[@class='A7Gv']");
@@ -25,18 +25,18 @@ public class RulesPreparingWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public AddRuleWindow addRulesWindow() {
+    public AddRuleWindow openAddRulesWindow() {
         ADD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new AddRuleWindow();
     }
 
-    public Rule openRule() {
+    public EditRuleWindow openEditRuleWindow() {
         OPEN_RULE.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        return new Rule();
+        return new EditRuleWindow();
     }
 
     public void deleteAllRules() {

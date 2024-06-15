@@ -2,7 +2,7 @@ package admin.pages.DoctorsPage.CardDoctorPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import admin.pages.Сalendar.Calendar;
+import admin.pages.Calendar.Calendar;
 
 
 import java.time.Duration;

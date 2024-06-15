@@ -226,6 +226,7 @@ public class DataBaseQuery {
         DataBaseManager.queryRunner("cab_lab_db").update(connection, "DELETE FROM feedbacks_employees");
     }
 
+
     @SneakyThrows
     public static ServiceCategories selectRulesPreparing() {
         var selectInfo = "SELECT * FROM service_categories WHERE name = ? ";

@@ -4,7 +4,7 @@ import admin.data.DataConfig;
 import admin.pages.AdministrationPage.*;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
-import admin.pages.Сalendar.Calendar;
+import admin.pages.Calendar.Calendar;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.administration.AdminAddDecorator;
 import admin.utils.preparationDataTests.administration.AdminAddDeleteDecorator;
@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AdministrationPageTest extends BaseTest {
 
     private AdministrationPage adminPage;
-    private HeaderMenu headerMenu;
     private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
@@ -42,8 +41,8 @@ public class AdministrationPageTest extends BaseTest {
     void setUp() {
         BrowserManager.openPagesAfterAuth();
         adminPage = new AdministrationPage();
-        headerMenu = new HeaderMenu();
         basePage = new BasePage();
+        HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.administrationTabOpen();
     }
 

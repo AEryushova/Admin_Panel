@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.SelenideElement;
-import admin.pages.Сalendar.Calendar;
+import admin.pages.Calendar.Calendar;
 import admin.utils.testUtils.DataHelper;
 
 import java.io.File;

@@ -43,7 +43,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ExtendWith(CloseWebDriverDecorator.class)
     @Test
     void authorizationSuperAdmin() {
-        authPage.authPage();
         DoctorsPage doctorPage = authPage.authorization(DataConfig.UserData.getLoginSuperAdmin(), DataConfig.UserData.getPasswordSuperAdmin());
         doctorPage.doctorsPage();
         headerMenu.headerBarSuperAdmin();
@@ -58,7 +57,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ExtendWith(CloseWebDriverDecorator.class)
     @Test
     void authorizationAdmin() {
-        authPage.authPage();
         DoctorsPage doctorPage = authPage.authorization(DataConfig.UserData.getLoginAdmin(), DataConfig.UserData.getPasswordAdmin());
         doctorPage.doctorsPage();
         headerMenu.headerBarAdmin();
@@ -319,7 +317,6 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Успешный выход из админ-панели")
     @Test
     void exitAdminPanel() {
-        authPage.authPage();
         authPage.authorization(DataConfig.UserData.getLoginSuperAdmin(), DataConfig.UserData.getPasswordSuperAdmin());
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         userPanel.userPanelSuperAdmin();

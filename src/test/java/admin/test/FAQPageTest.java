@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FAQPageTest extends BaseTest{
 
     private FaqPage faqPage;
-    private HeaderMenu headerMenu;
     private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
@@ -40,8 +39,8 @@ public class FAQPageTest extends BaseTest{
     void setUp(){
         BrowserManager.openPagesAfterAuth();
         faqPage=new FaqPage();
-        headerMenu= new HeaderMenu();
         basePage = new BasePage();
+        HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.faqTabOpen();
     }
 
@@ -50,7 +49,6 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith({DeleteFaqDecorator.class, NotificationDecorator.class})
     @Test
     void addFaqQuestion() {
-        faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.addQuestionWindow();
         addQuestionWindow.fillQuestionField(DataConfig.DataTest.getQuestion());
@@ -113,7 +111,6 @@ public class FAQPageTest extends BaseTest{
     @Story("Добавление нового faq-вопроса с пустым полем вопроса")
     @Test
     void addFaqQuestionEmptyFieldQuestion() {
-        faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.fillAnswerField(DataConfig.DataTest.getAnswer());
         assertFalse(addQuestionWindow.isEnabledAddButton());
@@ -124,7 +121,6 @@ public class FAQPageTest extends BaseTest{
     @Story("Добавление нового faq-вопроса с пустым полем ответа")
     @Test
     void addFaqQuestionEmptyFieldAnswer() {
-        faqPage.faqPage();
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.fillQuestionField(DataConfig.DataTest.getQuestion());
         assertFalse(addQuestionWindow.isEnabledAddButton());
@@ -263,7 +259,7 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddFaqDecorator.class)
     @Test
     void closeNotification() {
-        Question question = faqPage.getQuestion();;
+        Question question = faqPage.getQuestion();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.deleteQuestion();
         checkCloseNotification(basePage);
@@ -296,7 +292,6 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchByInclusion() {
-        faqPage.faqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getSearchByInclusionFaq());
         Selenide.sleep(5000);
@@ -319,7 +314,6 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddSomeFaq.class)
     @Test
     void resetSearchResultFaqThroughButton() {
-        faqPage.faqPage();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
         Selenide.sleep(3000);
         int countResult= faqPage.getCountFaq();
@@ -340,7 +334,6 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddSomeFaq.class)
     @Test
     void resetSearchResultFaq() {
-        faqPage.faqPage();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
         Selenide.sleep(3000);
         int countResult= faqPage.getCountFaq();
@@ -361,7 +354,6 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchHighRegister() {
-        faqPage.faqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqHighRegister());
         Selenide.sleep(3000);
@@ -383,7 +375,6 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchDifferentRegister() {
-        faqPage.faqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqHighRegister());
         Selenide.sleep(3000);

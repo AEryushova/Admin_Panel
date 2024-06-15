@@ -1,4 +1,4 @@
-package user.utils;
+package user.utils.testUtils;
 
 import com.codeborne.selenide.Configuration;
 import user.data.DataInfo;

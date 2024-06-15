@@ -2,7 +2,6 @@ package user.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import user.pages.modalWindowServices.RulesPreparingWindowLK;
 
 import java.time.Duration;
 

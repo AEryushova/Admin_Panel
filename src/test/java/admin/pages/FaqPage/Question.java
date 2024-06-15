@@ -12,7 +12,6 @@ import static com.codeborne.selenide.Selenide.$x;
 public class Question {
     private final SelenideElement EDIT_BUTTON = $x("//div[@class='UnAf hwSa eQX6']");
     private final ElementsCollection QUESTION_TEXTS = $$x("//div[@class='zxOH vkQg']/textarea");
-    private final ElementsCollection ANSWER_TEXTS = $$x("//div[@class='zxOH yCzg']/textarea");
     private final SelenideElement QUESTION_TEXT = $x("//div[@class='zxOH vkQg']/textarea");
     private final SelenideElement ANSWER_TEXT = $x("//div[@class='zxOH yCzg']/textarea");
 
@@ -32,7 +31,7 @@ public class Question {
 
     public String getQuestion() {
         QUESTION_TEXT.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);;
+                .shouldBe(Condition.exist);
         return QUESTION_TEXT.getText();
     }
 
@@ -48,9 +47,4 @@ public class Question {
         return questionText.getText();
     }
 
-    public String getAnswerByIndex(int index) {
-        SelenideElement answerText = ANSWER_TEXTS.get(index);
-        answerText.shouldBe(Condition.visible);
-        return answerText.getText();
-    }
 }
