@@ -20,7 +20,7 @@ public class HeaderMenu extends BasePage {
     private final SelenideElement SETTING = $x("//a[text()='Настройки']");
     private final SelenideElement FAQ = $x("//a[text()='FAQ']");
     private final SelenideElement ADMINISTRATION = $x("//a[text()='Администрирование']");
-    private final SelenideElement PROFILE_BUTTON = $x("//div[@class='wrap__dca9 MxFR DropdownWrap']");
+    private final SelenideElement PROFILE_BUTTON = $x("//button[@class='MxFR oAei']");
     private final SelenideElement LOGO=$x("//div[@class='AacY']/img");
 
 

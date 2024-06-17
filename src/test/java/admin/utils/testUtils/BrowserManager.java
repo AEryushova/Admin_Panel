@@ -43,6 +43,7 @@ public class BrowserManager {
 
     public static void openPagesAfterAuth() {
         Configuration.holdBrowserOpen = true;
+        Configuration.browserSize = "1920x1080";
         open(DataConfig.Urls.getUriAdminPanel());
         localStorage().setItem("Environment", DataConfig.Urls.getEnvironment());
         localStorage().setItem("accessToken", token);

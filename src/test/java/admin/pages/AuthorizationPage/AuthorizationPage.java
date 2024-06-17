@@ -11,11 +11,11 @@ import java.util.Objects;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AuthorizationPage extends BasePage {
-    private final SelenideElement LOGIN_FIELD = $x("//label[text()='Логин']/preceding-sibling::div/div/input");
-    private final SelenideElement PASSWORD_FIELD = $x("//label[text()='Пароль']/preceding-sibling::div/div/input");
-    private final SelenideElement CLEAR_LOGIN_BUTTON = $x("//label[text()='Логин']/preceding::div[@class='P1GK']");
-    private final SelenideElement SHOW_PASSWORD_BUTTON = $x("//label[text()='Пароль']/preceding::div[@class='P1GK']");
-    private final SelenideElement LOADER = $x("//div[@class='Loader__dcc3']");
+    private final SelenideElement LOGIN_FIELD = $x("//input[@name='login']");
+    private final SelenideElement PASSWORD_FIELD = $x("//input[@name='password']");
+    private final SelenideElement CLEAR_LOGIN_BUTTON = $x("//input[@name='login']//preceding-sibling::div[@class='m4oD']");
+    private final SelenideElement SHOW_PASSWORD_BUTTON = $x("//input[@name='password']//preceding-sibling::div[@class='m4oD']");
+    private final SelenideElement LOADER = $x("//div[@class='ocE_']");
     private final SelenideElement TO_COME_IN_BUTTON = $x("//button[text()='Войти']");
     private final SelenideElement ERROR_FIELD_LOGIN = $x("//input[@type='text']//following-sibling::div");
     private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@type='password']//following-sibling::div");
@@ -25,7 +25,9 @@ public class AuthorizationPage extends BasePage {
     public void authPage() {
         LOGIN_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        TO_COME_IN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TO_COME_IN_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        CLEAR_LOGIN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SHOW_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         LOGO.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
@@ -55,16 +57,10 @@ public class AuthorizationPage extends BasePage {
                 .setValue(password);
     }
 
-    public void pressToComeIn() {
+    public void clickToComeIn() {
         TO_COME_IN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-    }
-
-    public void clearPasswordField() {
-        PASSWORD_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .clear();
     }
 
     public void clickLoginField() {
@@ -77,18 +73,6 @@ public class AuthorizationPage extends BasePage {
         PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-    }
-
-    public void hoverLoginField() {
-        LOGIN_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .hover();
-    }
-
-    public void hoverPasswordField() {
-        PASSWORD_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .hover();
     }
 
     public void clearLoginClickButton() {
@@ -122,6 +106,10 @@ public class AuthorizationPage extends BasePage {
         SHOW_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+    }
+
+    public boolean isEnabledComeInButton(){
+        return TO_COME_IN_BUTTON.isEnabled();
     }
 
     public String getErrorFieldLogin() {

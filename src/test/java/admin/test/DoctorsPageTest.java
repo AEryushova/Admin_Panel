@@ -358,40 +358,6 @@ public class DoctorsPageTest extends BaseTest {
 
 
     @Feature("Отзывы о враче")
-    @Story("Успешное добавление отзыва о враче текущей датой")
-    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
-    @Test
-    void addFeedbackToday() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
-        cardDoctor.selectedPublishedFeedback();
-        cardDoctor.noSelectedUnpublishedFeedback();
-        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
-        addFeedbackWindow.addFeedbackWindow();
-        assertEquals(DataHelper.getCurrentDate(), addFeedbackWindow.getValuesButtonToday());
-        addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
-        addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
-        Calendar calendar = addFeedbackWindow.openCalendarSelectDate();
-        calendar.calendar();
-        calendar.selectDateActivationToday();
-        addFeedbackWindow.publishFeedbackButton();
-        Feedback feedback = cardDoctor.getFeedback();
-        assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
-        assertEquals(DataConfig.DataTest.getNamePatient(), feedback.getAuthorFeedback());
-        assertEquals(DataConfig.DataTest.getFeedback(), feedback.getTextFeedback());
-        assertEquals(DataConfig.DataTest.getNamePatient(), DataBaseQuery.selectFeedback().getAuthor());
-        assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
-        assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
-        assertTrue(cardDoctor.isExistFeedback());
-        assertTrue(cardDoctor.isSelectUnPublishedFeedback());
-        assertFalse(cardDoctor.isSelectPublishedFeedback());
-        assertFalse(addFeedbackWindow.isWindowAppear());
-    }
-
-
-    @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
     @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
@@ -483,7 +449,7 @@ public class DoctorsPageTest extends BaseTest {
     }
 
     @Feature("Отзывы о враче")
-    @Story("Успешное добавление отзыва о враче текущей датой без использования календаря")
+    @Story("Успешное добавление отзыва о враче текущей датой")
     @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackTodayNotUseCalendar() {

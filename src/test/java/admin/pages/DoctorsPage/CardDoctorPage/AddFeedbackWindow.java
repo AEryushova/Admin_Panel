@@ -14,7 +14,7 @@ public class AddFeedbackWindow {
 
     private final SelenideElement WINDOW = $x("//div[@class='SIqL']");
     private final SelenideElement FIO_FIELD = $x("//input[@name='fio']");
-    private final SelenideElement TODAY_BUTTON = $x("//div[@class='field__c8da container__ce0e']");
+    private final SelenideElement TODAY_BUTTON = $x("//div[@class='zMyf']");
     private final SelenideElement TEXT_FEEDBACK_FIELD = $x("//textarea[@placeholder='Введите текст отзыва']");
     private final SelenideElement PUBLISH_BUTTON = $x("//button[text()='Опубликовать']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='fio']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");

@@ -18,9 +18,9 @@ public class NewAdminWindow {
     private final SelenideElement CONFIRM_PASSWORD_FIELD = $x("//div[@id='popap_window']//input[@name=\"confirmPassword\"]");
     private final SelenideElement ADD_BUTTON = $x("//div[@id='popap_window']//button[text()='Добавить']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Добавить Администратора']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
-    private final SelenideElement CLEAR_FIELD_LOGIN_BUTTON = $x("//div[input[@name='login']]/div[@class='c51Z']");
-    private final SelenideElement CLEAR_FIELD_PASSWORD_BUTTON = $x("//div[input[@name='password']]/div[@class='c51Z']");
-    private final SelenideElement CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON = $x("//div[input[@name='confirmPassword']]/div[@class='c51Z']");
+    private final SelenideElement CLEAR_FIELD_LOGIN_BUTTON = $x("//input[@name='login']//preceding-sibling::div[@class='m4oD']");
+    private final SelenideElement CLEAR_FIELD_PASSWORD_BUTTON = $x("//input[@name='password']//preceding-sibling::div[@class='m4oD']");
+    private final SelenideElement CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON = $x("//input[@name='confirmPassword']//preceding-sibling::div[@class='m4oD']");
     private final SelenideElement ERROR_FIELD_LOGIN = $x("//input[@name='login']/following-sibling::div");
     private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@name='password']/following-sibling::div");
     private final SelenideElement ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");

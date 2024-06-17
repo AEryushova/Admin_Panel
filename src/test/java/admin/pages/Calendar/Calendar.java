@@ -10,22 +10,20 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class Calendar {
 
-    private final SelenideElement HEADER_CURRENT_MONTH = $x("//div[@class='pickerHeaderDate__a75e']");
-    private final SelenideElement SWITCH_LEFT_MONTH_BUTTON = $x("(//div[@class='pickerHeaderButton__b3f8'])[1]");
-    private final SelenideElement SWITCH_RIGHT_MONTH_BUTTON = $x("(//div[@class='pickerHeaderButton__b3f8'])[2]");
+    private final SelenideElement HEADER_CURRENT_MONTH = $x("//div[@class='react-datepicker__current-month']");
+    private final SelenideElement SWITCH_PREVIOUS_MONTH_BUTTON = $x("//button[@aria-label='Previous Month']");
+    private final SelenideElement SWITCH_NEXT_MONTH_BUTTON = $x("//button[@aria-label='Next Month']");
     private final SelenideElement DATE_ACTIVATION;
-    private final SelenideElement TODAY_BUTTON = $x("//div[text()='Сегодня']");
 
     public Calendar() {
-        this.DATE_ACTIVATION = $x("//div[@class='pickerDateUnit__f5d7' and text()='" + DataHelper.generateFutureDayCurrentMonth() + "']");
+        this.DATE_ACTIVATION = $x("//div[@role='option' and text()='" + DataHelper.generateFutureDayCurrentMonth() + "']");
     }
 
     public void calendar() {
         HEADER_CURRENT_MONTH.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        SWITCH_LEFT_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        SWITCH_RIGHT_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SWITCH_PREVIOUS_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SWITCH_NEXT_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DATE_ACTIVATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public void selectDateActivation() {
@@ -35,19 +33,13 @@ public class Calendar {
     }
 
     public void switchFutureMonth() {
-        SWITCH_RIGHT_MONTH_BUTTON.shouldBe(Condition.visible)
+        SWITCH_NEXT_MONTH_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     public void switchPreviousMonth() {
-        SWITCH_LEFT_MONTH_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .click();
-    }
-
-    public void selectDateActivationToday() {
-        TODAY_BUTTON.shouldBe(Condition.visible)
+        SWITCH_PREVIOUS_MONTH_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }

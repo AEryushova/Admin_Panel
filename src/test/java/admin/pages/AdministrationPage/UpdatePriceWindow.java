@@ -23,7 +23,7 @@ public class UpdatePriceWindow {
     private final SelenideElement FILE_INPUT_ELEMENT = $("input[type='file']");
     private final SelenideElement UPLOAD_BUTTON = $x("//span[text()='Загрузить']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Обновить прайс']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
-    private final SelenideElement TODAY_BUTTON = $x("//div[@class='field__c8da container__ce0e']");
+    private final SelenideElement TODAY_BUTTON = $x("//div[@class='zMyf']");
 
 
     public UpdatePriceWindow() {

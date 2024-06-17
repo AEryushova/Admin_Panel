@@ -32,10 +32,10 @@ public class DataHelper {
         return DataConfig.Urls.getUriPersonalArea() + PreparationDataSettingTest.getLocation();
     }
 
-    //Возвращает текущую дату в английской локали в формате "01 April 2024"//
+    //Возвращает текущую дату в формате "17.06.2024"
     public static String getCurrentDate() {
         LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.ENGLISH);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return currentDate.format(formatter);
     }
 
@@ -53,16 +53,15 @@ public class DataHelper {
         return currentDate.format(formatter);
     }
 
-    //Возвращает название текущего месяца и год в русской локали в формате "Апрель 2024"//
+    //Возвращает название текущего месяца и год в русской локали в формате "апрель 2024"
     public static String getCurrentMonthYear() {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"));
         String formattedDate = currentDate.format(formatter);
-        formattedDate = formattedDate.substring(0, 1).toUpperCase() + formattedDate.substring(1);
-        return formattedDate;
+        return formattedDate.toLowerCase();
     }
 
-    //Возвращает название следующего месяца и год в русской локали в формате "Май 2024"//
+    //Возвращает название следующего месяца и год в русской локали в формате "май 2024"
     public static String getFutureMonthYear() {
         LocalDate currentDate = LocalDate.now();
         int currentMonth = currentDate.getMonthValue();
@@ -71,12 +70,10 @@ public class DataHelper {
         int nextYear = currentMonth == 12 ? currentYear + 1 : currentYear;
         LocalDate nextMonthDate = LocalDate.of(nextYear, nextMonth, 1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"));
-        String formattedNextMonthYear = nextMonthDate.format(formatter);
-        formattedNextMonthYear = formattedNextMonthYear.substring(0, 1).toUpperCase() + formattedNextMonthYear.substring(1);
-        return formattedNextMonthYear;
+        return nextMonthDate.format(formatter).toLowerCase();
     }
 
-    //Возвращает название предыдущего месяца и год в русской локали в формате "Март 2024"//
+    //Возвращает название предыдущего месяца и год в русской локали в формате "март 2024"//
     public static String getPreviousMonthYear() {
         LocalDate currentDate = LocalDate.now();
         int currentMonth = currentDate.getMonthValue();
@@ -85,9 +82,7 @@ public class DataHelper {
         int previousYear = currentMonth == 1 ? currentYear - 1 : currentYear;
         LocalDate previousMonthDate = LocalDate.of(previousYear, previousMonth, 1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"));
-        String formattedPreviousMonthYear = previousMonthDate.format(formatter);
-        formattedPreviousMonthYear = formattedPreviousMonthYear.substring(0, 1).toUpperCase() + formattedPreviousMonthYear.substring(1);
-        return formattedPreviousMonthYear;
+        return previousMonthDate.format(formatter).toLowerCase();
     }
 
     //Возвращает день т.е только число, который наступит через 2 дня от текущей даты (текущего дня)//

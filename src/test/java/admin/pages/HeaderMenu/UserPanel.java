@@ -9,10 +9,11 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class UserPanel {
-    private final SelenideElement WINDOW =$x("//div[@class='hopi']");
-    private final SelenideElement ROLE_STATUS = $x("//div[@data-locator='container']/div/div/div/span[1]");
-    private final SelenideElement EXIT_BUTTON = $x("//span[text()='Выход']");
-    private final SelenideElement CHANGE_PASSWORD_BUTTON=$x("//span[text()='Сменить пароль']");
+    private final SelenideElement WINDOW =$x("//div[@class='iJul uLXf']");
+    private final SelenideElement ROLE_STATUS = $x("//div[@class='role_qp4S']/span");
+    private final SelenideElement LOGIN=$x("//span[@data-locator='admin-login']/span");
+    private final SelenideElement EXIT_BUTTON = $x("//span[@data-locator='logout-btn']");
+    private final SelenideElement CHANGE_PASSWORD_BUTTON=$x("//span[@data-locator='change-password-btn']");
 
     public void userPanelSuperAdmin() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -30,6 +31,11 @@ public class UserPanel {
     public String checkProfileInfoUser() {
         ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return ROLE_STATUS.getText();
+    }
+
+    public String checkLogin() {
+        LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return LOGIN.getText();
     }
 
     public ChangeMinePasswordWindow changePassword(){

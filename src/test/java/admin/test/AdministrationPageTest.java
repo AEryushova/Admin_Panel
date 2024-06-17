@@ -523,21 +523,9 @@ public class AdministrationPageTest extends BaseTest {
         assertFalse(updateOrderWindow.isWindowAppear());
     }
 
-    @Feature("Документация")
-    @Story("Успешное обновление приказа с текущей даты")
-    @ExtendWith(NotificationDecorator.class)
-    @Test
-    void updateOrderToday() {
-        UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
-        Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
-        calendar.selectDateActivationToday();
-        updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
-        assertFalse(updateOrderWindow.isWindowAppear());
-    }
 
     @Feature("Документация")
-    @Story("Успешное обновление приказа с текущей даты без использования календаря")
+    @Story("Успешное обновление приказа с текущей даты")
     @ExtendWith(NotificationDecorator.class)
     @Test
     void updateOrderTodayNotUseCalendar() {
@@ -604,21 +592,9 @@ public class AdministrationPageTest extends BaseTest {
         assertFalse(updatePriceWindow.isWindowAppear());
     }
 
-    @Feature("Документация")
-    @Story("Успешное обновление прайса с текущей даты")
-    @ExtendWith(NotificationDecorator.class)
-    @Test
-    void updatePriceToday() {
-        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
-        Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
-        calendar.selectDateActivationToday();
-        updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
-        assertFalse(updatePriceWindow.isWindowAppear());
-    }
 
     @Feature("Документация")
-    @Story("Успешное обновление прайса с текущей даты без использования календаря")
+    @Story("Успешное обновление прайса с текущей даты")
     @ExtendWith(NotificationDecorator.class)
     @Test
     void updatePriceTodayNotUseCalendar() {
