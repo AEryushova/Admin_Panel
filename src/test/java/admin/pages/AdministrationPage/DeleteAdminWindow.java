@@ -31,6 +31,7 @@ public class DeleteAdminWindow {
         NO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public boolean verifyLoginAdmin(String login){

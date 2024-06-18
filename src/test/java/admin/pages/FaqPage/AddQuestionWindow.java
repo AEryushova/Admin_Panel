@@ -13,7 +13,7 @@ public class AddQuestionWindow {
     private final SelenideElement QUESTION_FIELD = $x("//textarea[@placeholder='Укажите вопрос']");
     private final SelenideElement ANSWER_FIELD = $x("//textarea[@placeholder='Укажите ответ']");
     private final SelenideElement ADD_BUTTON = $x("//button[text()='Добавить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Новый Вопрос']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Новый Вопрос']/parent::div/parent::div/preceding-sibling::div");
 
 
     public void addQuestionWindow() {
@@ -63,6 +63,7 @@ public class AddQuestionWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public boolean isWindowAppear() {

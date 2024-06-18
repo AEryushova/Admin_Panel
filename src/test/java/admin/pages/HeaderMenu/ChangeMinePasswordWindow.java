@@ -14,8 +14,8 @@ public class ChangeMinePasswordWindow {
     private final SelenideElement NEW_PASSWORD_FIELD = $x("//input[@name='newPassword']");
     private final SelenideElement CHANGE_PASSWORD_BUTTON=$x("//button[text()='Сменить']");
     private final SelenideElement CANCEL_BUTTON=$x("//button[text()='Отменить']");
-    private final SelenideElement CLEAR_FIELD_OLD_PASSWORD = $x("//div[input[@name='oldPassword']]/div[@class='c51Z']");
-    private final SelenideElement CLEAR_FIELD_NEW_PASSWORD = $x("//div[input[@name='newPassword']]/div[@class='c51Z']");
+    private final SelenideElement CLEAR_FIELD_OLD_PASSWORD = $x("//input[@name='oldPassword']//preceding-sibling::div[@class='m4oD']");
+    private final SelenideElement CLEAR_FIELD_NEW_PASSWORD = $x("//input[@name='newPassword']//preceding-sibling::div[@class='m4oD']");
     private final SelenideElement ERROR_FIELD_OLD_PASSWORD = $x("//input[@name='oldPassword']/following-sibling::div");
     private final SelenideElement ERROR_FIELD_NEW_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
 
@@ -50,6 +50,7 @@ public class ChangeMinePasswordWindow {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
 

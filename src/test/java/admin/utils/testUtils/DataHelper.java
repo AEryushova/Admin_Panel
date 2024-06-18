@@ -1,8 +1,7 @@
 package admin.utils.testUtils;
 
-import admin.data.DataConfig;
+import admin.data.AppConfig;
 import admin.utils.APIUtils.PreparationDataSettingTest;
-import com.github.javafaker.Faker;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -20,17 +19,43 @@ public class DataHelper {
 
     @Getter
     public static String login;
-    private final static Faker faker = new Faker(new Locale("ru"));
-
-    //Генерирует и возвращает рандомный текст//
-    public static String generateText() {
-        return faker.company().catchPhrase();
-    }
 
     //Генерирует и возвращает ссылку на фото врача//
     public static String urlPhotoBuilder() {
-        return DataConfig.Urls.getUriPersonalArea() + PreparationDataSettingTest.getLocation();
+        return AppConfig.getUriPersonalArea() + PreparationDataSettingTest.getLocation();
     }
+
+    //Генерирует и возвращает UUID для SQL-запросов//
+    public static UUID generateUuid() {
+        return UUID.randomUUID();
+    }
+
+    //Генерирует и возвращает дату и время в формате Timestamp для SQL-запросов//
+    public static Timestamp generateDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+        return Timestamp.valueOf(now);
+    }
+
+    //Генерирует и возвращает дату и время - 1 день от текущей даты в формате Timestamp для SQL-запросов//
+    public static Timestamp generatePreviousDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime oneDaysAgo = now.minusDays(1);
+        return Timestamp.valueOf(oneDaysAgo);
+    }
+
+    //Получает значение по ключу из json-объекта и возвращает его//
+    public static String getValueFromJson(String json, String key) {
+        Gson gson = new Gson();
+        JsonArray jsonArray = gson.fromJson(json, JsonArray.class);
+        if (!jsonArray.isEmpty()) {
+            JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+            if (jsonObject.has(key)) {
+                return jsonObject.get(key).getAsString();
+            }
+        }
+        return null;
+    }
+
 
     //Возвращает текущую дату в формате "17.06.2024"
     public static String getCurrentDate() {
@@ -141,38 +166,5 @@ public class DataHelper {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU"));
         return prevMonthDate.format(formatter);
     }
-
-
-    //Генерирует и возвращает UUID для SQL-запросов//
-    public static UUID generateUuid() {
-        return UUID.randomUUID();
-    }
-
-    //Генерирует и возвращает дату и время в формате Timestamp для SQL-запросов//
-    public static Timestamp generateDateTime() {
-        LocalDateTime now = LocalDateTime.now();
-        return Timestamp.valueOf(now);
-    }
-
-    //Генерирует и возвращает дату и время - 1 день от текущей даты в формате Timestamp для SQL-запросов//
-    public static Timestamp generatePreviousDateTime() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime oneDaysAgo = now.minusDays(1);
-        return Timestamp.valueOf(oneDaysAgo);
-    }
-
-    //Получает значение по ключу из json-объекта и возвращает его//
-    public static String getValueFromJson(String json, String key) {
-        Gson gson = new Gson();
-        JsonArray jsonArray = gson.fromJson(json, JsonArray.class);
-        if (!jsonArray.isEmpty()) {
-            JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-            if (jsonObject.has(key)) {
-                return jsonObject.get(key).getAsString();
-            }
-        }
-        return null;
-    }
-
 }
 

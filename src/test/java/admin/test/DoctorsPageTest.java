@@ -337,6 +337,7 @@ public class DoctorsPageTest extends BaseTest {
         Description description = cardDoctor.getDescription();
         description.editSaveDescription();
         description.clearDescriptionField();
+        description.editSaveDescription();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
 
@@ -365,6 +366,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
         addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
@@ -395,6 +397,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
         addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
@@ -426,6 +429,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
         addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
@@ -456,7 +460,9 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        addFeedbackWindow.addFeedbackWindow();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
         addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
         addFeedbackWindow.publishFeedbackButton();
@@ -483,9 +489,10 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
-        addFeedbackWindow.fillFieldFio(DataHelper.generateText());
-        addFeedbackWindow.fillFieldTextFeedback(DataHelper.generateText());
+        addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
+        addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
         addFeedbackWindow.closeWindowAddFeedback();
         assertFalse(addFeedbackWindow.isWindowAppear());
         cardDoctor.openWindowAddFeedback();
@@ -500,6 +507,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldTextFeedback(DataConfig.DataTest.getFeedback());
         assertFalse(addFeedbackWindow.isEnabledPublishButton());
@@ -513,6 +521,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(DataConfig.DataTest.getNamePatient());
         assertFalse(addFeedbackWindow.isEnabledPublishButton());
@@ -526,6 +535,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         cardDoctor.selectedPublishedFeedback();
         cardDoctor.noSelectedUnpublishedFeedback();
         cardDoctor.switchUnpublishedFeedback();
@@ -556,6 +566,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
@@ -578,6 +589,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         cardDoctor.selectedPublishedFeedback();
         cardDoctor.noSelectedUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
@@ -605,6 +617,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackPublished();
         feedback.withdrawalPublication();
@@ -618,20 +631,22 @@ public class DoctorsPageTest extends BaseTest {
     }
 
     @Feature("Отзывы о враче")
-    @Story("Зануление полей в окне редактирования отзыва после закрытия окна")
+    @Story("Сохранение значений полей в окне редактирования отзыва после закрытия окна")
     @ExtendWith({AddPublishedDeleteFeedback.class})
     @Test
     void closeWindowEditFeedback() {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         Feedback feedback = cardDoctor.getFeedback();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
-        changeFeedback.fillFieldText(DataHelper.generateText());
+        changeFeedback.fillFieldText(DataConfig.DataTest.getNewFeedback());
         changeFeedback.closeWindowChangeFeedback();
         assertFalse(changeFeedback.isWindowAppear());
         feedback.editFeedback();
-        assertEquals("", changeFeedback.getValueTextFeedbackField());
+        assertEquals(DataConfig.DataTest.getFeedback(), changeFeedback.getValueTextFeedbackField());
+        assertEquals(DataConfig.DataTest.getFeedback(), DataBaseQuery.selectFeedback().getContent());
     }
 
     @Feature("Отзывы о враче")
@@ -642,6 +657,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         Feedback feedback = cardDoctor.getFeedback();
         ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
         changeFeedback.clearTextField();
@@ -657,6 +673,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.feedbackUnpublished();
@@ -674,6 +691,7 @@ public class DoctorsPageTest extends BaseTest {
         CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
+        Selenide.sleep(2000);
         cardDoctor.switchUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertTrue(cardDoctor.isSortingNewAppear());
@@ -735,7 +753,7 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (SelenideElement nameDoctor : namesDoctors) {
@@ -752,7 +770,7 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorSpecializationSearch());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
         for (SelenideElement specializationDoctor : specializationDoctors) {
@@ -768,37 +786,17 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getSearchByInclusionDoctors());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
         for (int i = 0; i < namesDoctors.size(); i++) {
-            String questionText = namesDoctors.get(i).getText();
-            String answerText = specializationDoctors.get(i).getText();
-            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionDoctors().toLowerCase());
-            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionDoctors().toLowerCase());
-            assertTrue(isQuestionFound || isAnswerFound);
+            String nameDoctor = namesDoctors.get(i).getText();
+            String specializationDoctor = specializationDoctors.get(i).getText();
+            boolean isNameFound = nameDoctor.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionDoctors().toLowerCase());
+            boolean isSpecializationFound = specializationDoctor.toLowerCase().contains(DataConfig.DataSearch.getSearchByInclusionDoctors().toLowerCase());
+            assertTrue(isNameFound || isSpecializationFound);
         }
-        assertTrue(countResult < countAllDoctors);
-    }
-
-
-    @Feature("Поиск по врачам")
-    @Story("Сброс поискового результата после очистки поля через кнопку")
-    @Test
-    void resetSearchResultDoctorsThroughButton() {
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
-        Selenide.sleep(3000);
-        int countResult = doctorsPage.getCountDoctors();
-        ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
-        int resultSearch = namesDoctorsSearch.size();
-        doctorsPage.clearSearchFieldThroughButton();
-        Selenide.sleep(3000);
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        ElementsCollection nameDoctorsAll = doctorsPage.getNamesDoctors();
-        int allDoctors = nameDoctorsAll.size();
-        assertEquals("", doctorsPage.getValueSearchField());
-        assertTrue(resultSearch < allDoctors);
         assertTrue(countResult < countAllDoctors);
     }
 
@@ -807,12 +805,12 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void resetSearchResultDoctors() {
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameSearch());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
         int resultSearch = namesDoctorsSearch.size();
         doctorsPage.clearSearchField();
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countAllDoctors = doctorsPage.getCountDoctors();
         ElementsCollection nameDoctorsAll = doctorsPage.getNamesDoctors();
         int allDoctors = nameDoctorsAll.size();
@@ -828,7 +826,7 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameHighRegister());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (SelenideElement nameDoctor : namesDoctors) {
@@ -844,7 +842,7 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DataConfig.DataSearch.getDoctorNameDifferentRegister());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (SelenideElement nameDoctor : namesDoctors) {
@@ -860,7 +858,7 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.sortingPhotoNo();
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
         for (String attributeValue : photoDoctorsAttributes) {
@@ -876,7 +874,7 @@ public class DoctorsPageTest extends BaseTest {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.sortingPhotoYes();
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
         for (String attributeValue : photoDoctorsAttributes) {
@@ -890,10 +888,10 @@ public class DoctorsPageTest extends BaseTest {
     @Test
     void sortingWithAndWithoutPhoto() {
         doctorsPage.sortingPhotoNo();
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         doctorsPage.sortingPhotoAll();
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countAllDoctors = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
         boolean withoutPhoto = false;

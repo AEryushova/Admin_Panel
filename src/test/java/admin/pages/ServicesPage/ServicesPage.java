@@ -18,6 +18,7 @@ public class ServicesPage extends BasePage {
 
     private final SelenideElement TAB_NAME = $x("//a[text()='Услуги']");
     private final SelenideElement SEARCH_SERVICES = $x("//input[@placeholder='Поиск услуги']");
+    private final SelenideElement CONTAINER_CATEGORIES = $x("//div[@class='nGmS']");
     private final ElementsCollection CONTAINER_CATEGORY = $$x("//div[@class='qH7D']/span");
     private final SelenideElement OTHER_SERVICES = $x("//span[text()='Иные услуги']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement TELEMEDICINE = $x("//span[text()='Телемедицина']//parent::div//parent::div[@class='ZAC4']");
@@ -43,9 +44,17 @@ public class ServicesPage extends BasePage {
     }
 
 
-    public RulesPreparingWindow openRulesPreparingCategory() {
-        CATEGORY.shouldBe(Condition.visible);
-        SelenideElement rulesPreparing = CATEGORY.$x("div[@class='Ie41']");
+    public RulesPreparingWindow openRulesPreparingCategory(String categoryName) {
+        Map<String, SelenideElement> elementMap = new HashMap<>();
+        elementMap.put("Иные услуги", OTHER_SERVICES);
+        elementMap.put("Телемедицина", TELEMEDICINE);
+        elementMap.put("Врачи", DOCTORS);
+        elementMap.put("Лаборатория", LABORATORY);
+        elementMap.put("Диагностика", DIAGNOSTICS);
+        elementMap.put("Стоматология", DENTISTRY);
+        SelenideElement category= elementMap.get(categoryName);
+        category.shouldBe(Condition.visible);
+        SelenideElement rulesPreparing = category.$x("div[@class='Ie41']");
         rulesPreparing.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -53,8 +62,9 @@ public class ServicesPage extends BasePage {
     }
 
 
-
-    public CategoryWindow openCategory() {
+    public CategoryWindow openCategory(String categoryName) {
+        CONTAINER_CATEGORIES.shouldBe(Condition.visible);
+        SelenideElement category = CONTAINER_CATEGORIES.$x("//span[text()='" + categoryName + "]//parent::div//parent::div[@class='ZAC4']");
         expandCategoryLaboratory.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -96,5 +106,15 @@ public class ServicesPage extends BasePage {
                 .moveToElement(categoryTarget)
                 .release()
                 .perform();
+    }
+
+
+    public RulesPreparingWindow openRulesPreparingCategory2() {
+        CATEGORY.shouldBe(Condition.visible);
+        SelenideElement rulesPreparing = CATEGORY.$x("div[@class='Ie41']");
+        rulesPreparing.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        return new RulesPreparingWindow();
     }
 }

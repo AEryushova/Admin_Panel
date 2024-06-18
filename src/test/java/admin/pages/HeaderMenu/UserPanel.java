@@ -10,21 +10,24 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class UserPanel {
     private final SelenideElement WINDOW =$x("//div[@class='iJul uLXf']");
-    private final SelenideElement ROLE_STATUS = $x("//div[@class='role_qp4S']/span");
-    private final SelenideElement LOGIN=$x("//span[@data-locator='admin-login']/span");
+    private final SelenideElement ROLE_STATUS = $x("//div[@data-locator='admin-role']/span");
+    private final SelenideElement LOGIN=$x("//div[@data-locator='admin-login']/span");
     private final SelenideElement EXIT_BUTTON = $x("//span[@data-locator='logout-btn']");
     private final SelenideElement CHANGE_PASSWORD_BUTTON=$x("//span[@data-locator='change-password-btn']");
 
     public void userPanelSuperAdmin() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EXIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     public void userPanelAdmin() {
+        WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        EXIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CHANGE_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        EXIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
 

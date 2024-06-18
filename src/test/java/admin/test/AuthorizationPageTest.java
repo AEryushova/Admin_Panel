@@ -49,8 +49,8 @@ public class AuthorizationPageTest extends BaseTest {
         headerMenu.headerBarSuperAdmin();
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         userPanel.userPanelSuperAdmin();
-        assertEquals(DataConfig.UserData.getLoginSuperAdmin(),userPanel.checkLogin());
         assertEquals("Супер-Администратор", userPanel.checkProfileInfoUser());
+        assertEquals(DataConfig.UserData.getLoginSuperAdmin(),userPanel.checkLogin());
         assertEquals(0, DataBaseQuery.selectAdmin(DataConfig.UserData.getLoginSuperAdmin()).getRole_id());
     }
 
@@ -65,8 +65,8 @@ public class AuthorizationPageTest extends BaseTest {
         headerMenu.headerBarAdmin();
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         userPanel.userPanelAdmin();
-        assertEquals(DataConfig.UserData.getLoginAdmin(),userPanel.checkLogin());
         assertEquals("Администратор", userPanel.checkProfileInfoUser());
+        assertEquals(DataConfig.UserData.getLoginAdmin(),userPanel.checkLogin());
         assertEquals(1, DataBaseQuery.selectAdmin(DataConfig.UserData.getLoginAdmin()).getRole_id());
     }
 

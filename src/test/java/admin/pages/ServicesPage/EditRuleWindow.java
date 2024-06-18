@@ -2,6 +2,7 @@ package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
@@ -51,6 +52,20 @@ public class EditRuleWindow {
                 .click();
     }
 
+    public void clearTitleField(){
+        TITLE_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .sendKeys(Keys.CONTROL, "a");
+        TITLE_FIELD.sendKeys(Keys.BACK_SPACE);
+    }
+
+    public void clearDescriptionField(){
+        DESCRIPTION_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .sendKeys(Keys.CONTROL, "a");
+        DESCRIPTION_FIELD.sendKeys(Keys.BACK_SPACE);
+    }
+
     public String getTitleRule() {
         TITLE_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
@@ -68,6 +83,7 @@ public class EditRuleWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public boolean isWindowAppear() {

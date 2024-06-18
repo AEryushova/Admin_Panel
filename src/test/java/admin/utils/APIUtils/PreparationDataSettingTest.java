@@ -1,6 +1,6 @@
 package admin.utils.APIUtils;
 
-import admin.data.DataConfig;
+import admin.data.AppConfig;
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
@@ -32,9 +32,9 @@ public class PreparationDataSettingTest {
     public static void authPatient() {
         tokenGetAuthPatient();
         given()
-                .baseUri(DataConfig.Urls.getUriPersonalArea())
+                .baseUri(AppConfig.getUriPersonalArea())
                 .header("Authorization", "Bearer " + tokenPatient)
-                .header("Environment", DataConfig.Urls.getEnvironment())
+                .header("Environment", AppConfig.getEnvironment())
                 .when()
                 .get("/api/clients/user-info")
                 .then()
@@ -44,8 +44,8 @@ public class PreparationDataSettingTest {
 
     private static void tokenGetAuthPatient() {
         Response response = given()
-                .baseUri(DataConfig.Urls.getUriPersonalArea())
-                .header("Environment", DataConfig.Urls.getEnvironment())
+                .baseUri(AppConfig.getUriPersonalArea())
+                .header("Environment", AppConfig.getEnvironment())
                 .queryParam("code", "123code")
                 .when()
                 .get("/api/clients/sign-in")
@@ -60,10 +60,10 @@ public class PreparationDataSettingTest {
     public static void addBugReportPatient(String message, String email, String author) {
         String bugReport=getBugReportJson(message,email,author);
         given()
-                .baseUri(DataConfig.Urls.getUriPersonalArea())
+                .baseUri(AppConfig.getUriPersonalArea())
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + tokenPatient)
-                .header("Environment", DataConfig.Urls.getEnvironment())
+                .header("Environment", AppConfig.getEnvironment())
                 .body(bugReport)
                 .when()
                 .post("/api/bug-reports")
@@ -79,9 +79,9 @@ public class PreparationDataSettingTest {
 
     public static void uploadPhoto(File file) {
         Response response = given()
-                .baseUri(DataConfig.Urls.getUriAdminPanel())
+                .baseUri(AppConfig.getUriAdminPanel())
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", DataConfig.Urls.getEnvironment())
+                .header("Environment", AppConfig.getEnvironment())
                 .contentType(ContentType.MULTIPART)
                 .multiPart("file", file)
                 .when()

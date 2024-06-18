@@ -15,14 +15,13 @@ public class FaqPage extends BasePage {
 
     private final SelenideElement TAB_NAME = $x("//a[text()='FAQ']");
     private final SelenideElement SEARCH_FAQ = $x("//input[@placeholder='Поиск по FAQ']");
-    private final SelenideElement CLEAR_SEARCH_FIELD_BUTTON = $x("//div[@class='InputAfter inputAfter__d6f9']");
     private final SelenideElement ADD_QUESTION = $x("//span[text()='Добавить вопрос']//parent::div//parent::button");
     private final ElementsCollection QUESTION_CARDS = $$x("//div[@class='dc4P']");
     private final SelenideElement QUESTION_CARD = $x("//div[@class='dc4P']");
     private final SelenideElement EMPTY_LIST_FAQ = $x("//span[text()='Список Пуст']");
-    private final ElementsCollection QUESTIONS_FIELDS=$$x("//div[@class='zxOH vkQg']/textarea");
+    private final ElementsCollection QUESTIONS_FIELDS = $$x("//div[@class='zxOH vkQg']/textarea");
     private final ElementsCollection ANSWER_FIELDS = $$x("//div[@class='zxOH yCzg']/textarea");
-    private final SelenideElement COUNT_FAQ=$x("//div[@class='wYqZ']/span[2]");
+    private final SelenideElement COUNT_FAQ = $x("//div[@class='wYqZ']/span[2]");
 
 
     public void faqPage() {
@@ -50,8 +49,15 @@ public class FaqPage extends BasePage {
         return QUESTION_CARD.exists();
     }
 
+    public boolean isExistQuestionsByIndex(int index) {
+        SelenideElement question = QUESTION_CARDS.get(index);
+        return question.exists();
+    }
+
 
     public Question getQuestion() {
+        QUESTION_CARD.shouldBe(Condition.visible,Duration.ofSeconds(5))
+                .shouldBe(Condition.exist,Duration.ofSeconds(5));
         return new Question();
     }
 
@@ -76,11 +82,6 @@ public class FaqPage extends BasePage {
         return ANSWER_FIELDS;
     }
 
-    public void clearSearchFieldThroughButton() {
-        CLEAR_SEARCH_FIELD_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .click();
-    }
 
     public void clearSearchField() {
         SEARCH_FAQ.shouldBe(Condition.visible)

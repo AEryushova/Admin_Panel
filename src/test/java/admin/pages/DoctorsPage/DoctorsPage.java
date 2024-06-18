@@ -20,7 +20,6 @@ public class DoctorsPage extends BasePage {
 
     private final SelenideElement TAB_NAME = $x("//div[@class='wYqZ']/span[text()='Врачи']");
     private final SelenideElement SEARCH_DOCTOR = $x("//input[@placeholder='Поиск по врачам']");
-    private final SelenideElement CLEAR_SEARCH_FIELD_BUTTON = $x("//div[@class='InputAfter inputAfter__d6f9']");
     private final SelenideElement CARD_DOCTOR = $x("//div[@class='eF30']");
     private final SelenideElement EDIT_BUTTON = $x("//span[text()='" + DataConfig.DataTest.getDoctorSpecialization() + "']/preceding-sibling::span[text()='" + DataConfig.DataTest.getDoctor() + "'] /parent::div/following-sibling::button[text()='Редактировать']");
     private final SelenideElement DROP_DOWN_PHOTO = $x("//button[@class='MxFR']");
@@ -101,12 +100,6 @@ public class DoctorsPage extends BasePage {
                 .stream()
                 .map(element -> element.getAttribute("src"))
                 .collect(Collectors.toList());
-    }
-
-    public void clearSearchFieldThroughButton() {
-        CLEAR_SEARCH_FIELD_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .click();
     }
 
     public void clearSearchField() {

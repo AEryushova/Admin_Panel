@@ -72,6 +72,7 @@ public class ChangeQuestionWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public boolean isWindowAppear() {

@@ -1,6 +1,6 @@
 package admin.utils.testUtils;
 
-import admin.data.DataConfig;
+import admin.data.AppConfig;
 import admin.pages.AuthorizationPage.AuthorizationPage;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -22,15 +22,15 @@ public class BrowserManager {
 
     public static void openAdminPanel(){
         Configuration.holdBrowserOpen = true;
-        open(DataConfig.Urls.getUriAdminPanel());
-        localStorage().setItem("Environment", DataConfig.Urls.getEnvironment());
+        open(AppConfig.getUriAdminPanel());
+        localStorage().setItem("Environment", AppConfig.getEnvironment());
         clearBrowserCookies();
     }
 
     public static void authGetCookie(String login, String password) {
         Configuration.holdBrowserOpen = true;
-        open(DataConfig.Urls.getUriAdminPanel());
-        localStorage().setItem("Environment", DataConfig.Urls.getEnvironment());
+        open(AppConfig.getUriAdminPanel());
+        localStorage().setItem("Environment", AppConfig.getEnvironment());
         WebDriverRunner.getWebDriver().manage().deleteAllCookies();
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.authorization(login, password);
@@ -44,8 +44,8 @@ public class BrowserManager {
     public static void openPagesAfterAuth() {
         Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
-        open(DataConfig.Urls.getUriAdminPanel());
-        localStorage().setItem("Environment", DataConfig.Urls.getEnvironment());
+        open(AppConfig.getUriAdminPanel());
+        localStorage().setItem("Environment", AppConfig.getEnvironment());
         localStorage().setItem("accessToken", token);
         Selenide.refresh();
     }

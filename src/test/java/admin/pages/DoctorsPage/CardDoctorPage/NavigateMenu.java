@@ -16,6 +16,7 @@ public class NavigateMenu {
     private final SelenideElement FEEDBACK=$x("//span[text()='Отзывы']/parent::div[@class='sMBP']");
 
 
+
     public void navigateMenu() {
         NAVIGATE_MENU.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -40,6 +41,7 @@ public class NavigateMenu {
         FEEDBACK.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+
     }
 
     public void closeNavigateMenu() {

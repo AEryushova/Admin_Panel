@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ChangeFeedbackWindow {
 
     private final SelenideElement WINDOW = $x("//div[@class='qJe_ OR_i']");
-    private final SelenideElement TEXT_FIELD = $x("//textarea");
+    private final SelenideElement TEXT_FIELD = $x("//div[@class='zxOH']/textarea");
     private final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf gvNC']");
 
@@ -56,6 +56,7 @@ public class ChangeFeedbackWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public boolean isWindowAppear() {

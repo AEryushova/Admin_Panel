@@ -18,18 +18,6 @@ public class DataConfig {
     }
 
 
-    public static class Urls {
-        @Getter
-        public static final String uriAdminPanel = "http://192.168.6.48:8083";
-        @Getter
-        public static final String domain = "192.168.6.48";
-        @Getter
-        public static final String uriPersonalArea = "https://lk.mdapp.online";
-        @Getter
-        public static final String environment = "freeze";
-    }
-
-
     public static class DataTest {
         @Getter
         public static final String newPasswordAdmin = "IIff123456$";
@@ -93,7 +81,7 @@ public class DataConfig {
         @Getter
         public static final String faqSearch = "врач";
         @Getter
-        public static final String searchByInclusionDoctors = "етс";
+        public static final String searchByInclusionDoctors = "етск";
         @Getter
         public static final String searchByInclusionFaq = "пис";
         @Getter

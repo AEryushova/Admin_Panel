@@ -1,7 +1,7 @@
 package admin.utils.APIUtils;
 
 
-import admin.data.DataConfig;
+import admin.data.AppConfig;
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -22,11 +22,11 @@ public class PreparationDataServicesTest {
 
 
     public static void addRuleCategory(UUID id, String title, String description) {
-        String rule = getAddRuleJson(id,title,description);
+        String rule = getAddRuleJson(id, title, description);
         given()
-                .baseUri(DataConfig.Urls.getUriAdminPanel())
+                .baseUri(AppConfig.getUriAdminPanel())
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", DataConfig.Urls.getEnvironment())
+                .header("Environment", AppConfig.getEnvironment())
                 .contentType(ContentType.JSON)
                 .body(rule)
                 .when()
@@ -49,9 +49,9 @@ public class PreparationDataServicesTest {
     public static void deleteRuleCategory(UUID id) {
         String rule = getDeleteRuleJson(id);
         given()
-                .baseUri(DataConfig.Urls.getUriAdminPanel())
+                .baseUri(AppConfig.getUriAdminPanel())
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", DataConfig.Urls.getEnvironment())
+                .header("Environment", AppConfig.getEnvironment())
                 .contentType(ContentType.JSON)
                 .body(rule)
                 .when()
@@ -65,4 +65,5 @@ public class PreparationDataServicesTest {
         jsonObject.add("sections", sections);
         return gson.toJson(jsonObject);
     }
+
 }

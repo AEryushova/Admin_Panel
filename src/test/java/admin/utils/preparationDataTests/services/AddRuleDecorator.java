@@ -22,6 +22,7 @@ public class AddRuleDecorator implements BeforeEachCallback {
     public void beforeEach(ExtensionContext context) throws Exception {
       UUID categoryId=DataBaseQuery.selectRulesPreparing().getId();
       setCategoryId(categoryId);
+      PreparationDataServicesTest.deleteRuleCategory(categoryId);
       PreparationDataServicesTest.addRuleCategory(categoryId, DataConfig.DataTest.getRuleTitle(),DataConfig.DataTest.getRuleDescription());
     }
 }

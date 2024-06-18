@@ -16,19 +16,19 @@ public class CardDoctorPage extends BasePage {
     private final SelenideElement EDIT_PHOTO_BUTTON = $x("//div[@class='ctFG']/div");
     private final SelenideElement DELETE_PHOTO_BUTTON = $x("//div[@class='ctFG']/div/following-sibling::div");
     private final SelenideElement ADD_SECTION = $x("//button[text()='Добавить раздел']");
-    private final SelenideElement SECTION =$x("//div[@class='aksW']");
-    private final SelenideElement DESCRIPTION =$x("//div[@class='IrCo']");
+    private final SelenideElement SECTION = $x("//div[@class='aksW']");
+    private final SelenideElement DESCRIPTION = $x("//div[@class='IrCo']");
     private final SelenideElement ADD_FEEDBACK = $x("//button[text()='Добавить отзыв']");
-    private final SelenideElement NO_SELECTED_PUBLISHED_BUTTON=$x("//span[text()='Опубликованные']/preceding-sibling::div");
-    private final SelenideElement SELECTED_PUBLISHED_BUTTON=$x("//span[text()='Опубликованные']/preceding-sibling::div/div[@class='WzjF']");
-    private final SelenideElement NO_SELECTED_UNPUBLISHED_BUTTON=$x("//span[text()='Неопубликованные']/preceding-sibling::div");
-    private final SelenideElement SELECTED_UNPUBLISHED_BUTTON=$x("//span[text()='Неопубликованные']/preceding-sibling::div/div[@class='WzjF']");
-    private final SelenideElement FEEDBACK=$x("//div[@class='qJe_']");
+    private final SelenideElement NO_SELECTED_PUBLISHED_BUTTON = $x("//span[text()='Опубликованные']/preceding-sibling::div");
+    private final SelenideElement SELECTED_PUBLISHED_BUTTON = $x("//span[text()='Опубликованные']/preceding-sibling::div/div[@class='WzjF']");
+    private final SelenideElement NO_SELECTED_UNPUBLISHED_BUTTON = $x("//span[text()='Неопубликованные']/preceding-sibling::div");
+    private final SelenideElement SELECTED_UNPUBLISHED_BUTTON = $x("//span[text()='Неопубликованные']/preceding-sibling::div/div[@class='WzjF']");
+    private final SelenideElement FEEDBACK = $x("//div[@class='qJe_']");
     private final SelenideElement SORTING_FEEDBACK_NEW = $x("//span[text()='Новые']//parent::div//parent::button");
     private final SelenideElement SORTING_FEEDBACK_OLD = $x("//span[text()='Старые ']//parent::div//parent::button");
-    private final SelenideElement EMPTY_LIST_SECTION =$x("//span[text()='Описание в карточке отсутствует!']");
-    private final SelenideElement EMPTY_LIST_DESCRIPTION =$x("//div[text()='Пустой список']");
-    private final SelenideElement NAVIGATE_MENU=$x("//div[@class='_odc']");
+    private final SelenideElement EMPTY_LIST_SECTION = $x("//span[text()='Описание в карточке отсутствует!']");
+    private final SelenideElement EMPTY_LIST_DESCRIPTION = $x("//div[text()='Пустой список']");
+    private final SelenideElement NAVIGATE_MENU = $x("//div[@class='_odc']");
 
     public void cardDoctorPage() {
         RETURN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -70,21 +70,24 @@ public class CardDoctorPage extends BasePage {
     public boolean isExistDescription() {
         return DESCRIPTION.exists();
     }
+
     public Section getSection() {
-        SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist, Duration.ofSeconds(5));
         return new Section();
     }
 
     public Description getDescription() {
-        DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist, Duration.ofSeconds(5));
         return new Description();
     }
 
-    public boolean isExistsEmptyListSection(){
+    public boolean isExistsEmptyListSection() {
         return EMPTY_LIST_SECTION.exists();
     }
 
-    public boolean isExistsEmptyListDescription(){
+    public boolean isExistsEmptyListDescription() {
         return EMPTY_LIST_DESCRIPTION.exists();
     }
 
@@ -95,32 +98,32 @@ public class CardDoctorPage extends BasePage {
                 .click();
     }
 
-    public void selectedPublishedFeedback(){
+    public void selectedPublishedFeedback() {
         SELECTED_PUBLISHED_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
     }
 
-    public void selectedUnpublishedFeedback(){
+    public void selectedUnpublishedFeedback() {
         SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
     }
 
-    public void noSelectedPublishedFeedback(){
+    public void noSelectedPublishedFeedback() {
         NO_SELECTED_PUBLISHED_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
     }
 
-    public void noSelectedUnpublishedFeedback(){
+    public void noSelectedUnpublishedFeedback() {
         NO_SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
     }
 
-    public boolean isSelectPublishedFeedback(){
+    public boolean isSelectPublishedFeedback() {
         return SELECTED_PUBLISHED_BUTTON.exists();
     }
 
 
-    public boolean isSelectUnPublishedFeedback(){
+    public boolean isSelectUnPublishedFeedback() {
         return SELECTED_UNPUBLISHED_BUTTON.exists();
     }
 
@@ -132,6 +135,8 @@ public class CardDoctorPage extends BasePage {
     }
 
     public Feedback getFeedback() {
+        FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist, Duration.ofSeconds(5));
         return new Feedback();
     }
 
@@ -150,7 +155,7 @@ public class CardDoctorPage extends BasePage {
         return SORTING_FEEDBACK_NEW.exists();
     }
 
-    public void sortingFeedbackNew(){
+    public void sortingFeedbackNew() {
         SORTING_FEEDBACK_NEW.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -160,20 +165,19 @@ public class CardDoctorPage extends BasePage {
         return SORTING_FEEDBACK_OLD.exists();
     }
 
-    public void sortingFeedbackOld(){
+    public void sortingFeedbackOld() {
         SORTING_FEEDBACK_OLD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
 
-   public NavigateMenu openNavigateMenu(){
-       NAVIGATE_MENU.shouldBe(Condition.visible)
-               .shouldBe(Condition.enabled)
-               .hover();
-       return new NavigateMenu();
-   }
-
+    public NavigateMenu openNavigateMenu() {
+        NAVIGATE_MENU.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .hover();
+        return new NavigateMenu();
+    }
 
 
 }

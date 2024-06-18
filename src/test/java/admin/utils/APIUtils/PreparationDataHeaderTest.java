@@ -1,6 +1,6 @@
 package admin.utils.APIUtils;
 
-import admin.data.DataConfig;
+import admin.data.AppConfig;
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -27,9 +27,9 @@ public class PreparationDataHeaderTest {
     public static void authAdmin(String login, String password) {
         tokenGetAuthAdmin(login, password);
         given()
-                .baseUri(DataConfig.Urls.getUriAdminPanel())
+                .baseUri(AppConfig.getUriAdminPanel())
                 .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment", DataConfig.Urls.getEnvironment())
+                .header("Environment", AppConfig.getEnvironment())
                 .when()
                 .get("/api/admins/admin-data")
                 .then()
@@ -39,8 +39,8 @@ public class PreparationDataHeaderTest {
     private static void tokenGetAuthAdmin(String login, String password) {
         String dataInfoJson = getDataInfoJson(login, password);
         Response response = given()
-                .baseUri(DataConfig.Urls.getUriAdminPanel())
-                .header("Environment", DataConfig.Urls.getEnvironment())
+                .baseUri(AppConfig.getUriAdminPanel())
+                .header("Environment", AppConfig.getEnvironment())
                 .contentType(ContentType.JSON)
                 .body(dataInfoJson)
                 .when()
@@ -68,9 +68,9 @@ public class PreparationDataHeaderTest {
     public static void changePasswordAdmin(String login, String newPassword) {
         String changePassword = getChangePasswordJson(login, newPassword);
         given()
-                .baseUri(DataConfig.Urls.getUriAdminPanel())
+                .baseUri(AppConfig.getUriAdminPanel())
                 .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment", DataConfig.Urls.getEnvironment())
+                .header("Environment", AppConfig.getEnvironment())
                 .contentType(ContentType.JSON)
                 .body(changePassword)
                 .when()

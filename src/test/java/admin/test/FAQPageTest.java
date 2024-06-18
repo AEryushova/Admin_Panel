@@ -73,7 +73,7 @@ public class FAQPageTest extends BaseTest{
         addQuestionWindow.fillAnswerField(DataConfig.DataTest.getAnswer());
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос уже существует", faqPage.getNotification());
-        assertTrue(faqPage.isExistQuestions());
+        assertFalse(faqPage.isExistQuestionsByIndex(1));
     }
 
     @Feature("Добавление нового faq-вопроса")
@@ -86,7 +86,7 @@ public class FAQPageTest extends BaseTest{
         addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос уже существует", faqPage.getNotification());
-        assertFalse(faqPage.isExistQuestions());
+        assertFalse(faqPage.isExistQuestionsByIndex(1));
     }
 
     @Feature("Добавление нового faq-вопроса")
@@ -100,10 +100,10 @@ public class FAQPageTest extends BaseTest{
         addQuestionWindow.addQuestion();
         Question question = faqPage.getQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
-        assertEquals("Могу ли я вернуть денежные средства?",question.getQuestion());
-        assertEquals(DataConfig.DataTest.getAnswer(),question.getAnswer());
+        assertEquals("Могу ли я вернуть денежные средства?",question.getQuestionByIndex(1));
+        assertEquals(DataConfig.DataTest.getAnswer(),question.getAnswerByIndex(1));
         assertEquals("Могу ли я вернуть денежные средства?", DataBaseQuery.selectFaqBySequence(1).getQuestion());
-        assertTrue(faqPage.isExistQuestions());
+        assertTrue(faqPage.isExistQuestionsByIndex(1));
         assertFalse(addQuestionWindow.isWindowAppear());
     }
 
@@ -198,14 +198,14 @@ public class FAQPageTest extends BaseTest{
     }
 
     @Feature("Редактирование faq-вопроса")
-    @Story("Зануление полей в окне редактирования faq-вопроса после закрытия окна")
+    @Story("Сохранение значений полей в окне редактирования faq-вопроса после закрытия окна")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void closeWindowEditQuestion() {
         Question question = faqPage.getQuestion();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
-        changeQuestionWindow.fillQuestionField(DataHelper.generateText());
-        changeQuestionWindow.fillAnswerField(DataHelper.generateText());
+        changeQuestionWindow.fillQuestionField(DataConfig.DataTest.getChangeQuestion());
+        changeQuestionWindow.fillAnswerField(DataConfig.DataTest.getChangeAnswer());
         changeQuestionWindow.closeWindowEditQuestion();
         Selenide.sleep(1000);
         assertFalse(changeQuestionWindow.isWindowAppear());
@@ -223,10 +223,14 @@ public class FAQPageTest extends BaseTest{
         Question question = faqPage.getQuestion();
         String firstQuestionText = question.getQuestionByIndex(0);
         String secondQuestionText = question.getQuestionByIndex(1);
+        String firstAnswerText=question.getAnswerByIndex(0);
+        String secondAnswerText=question.getAnswerByIndex(1);
         faqPage.sequenceChangeQuestions(0, 1);
         Selenide.sleep(1000);
         assertEquals(secondQuestionText, question.getQuestionByIndex(0));
         assertEquals(firstQuestionText, question.getQuestionByIndex(1));
+        assertEquals(secondAnswerText,question.getAnswerByIndex(0));
+        assertEquals(firstAnswerText,question.getAnswerByIndex(1));
         assertEquals(firstQuestionText,DataBaseQuery.selectFaqBySequence(1).getQuestion());
         assertEquals(secondQuestionText,DataBaseQuery.selectFaqBySequence(0).getQuestion());
     }
@@ -273,7 +277,7 @@ public class FAQPageTest extends BaseTest{
         faqPage.faqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
@@ -310,37 +314,17 @@ public class FAQPageTest extends BaseTest{
 
 
     @Feature("Поиск по faq")
-    @Story("Сброс поискового результата после очистки поля через кнопку")
-    @ExtendWith(AddSomeFaq.class)
-    @Test
-    void resetSearchResultFaqThroughButton() {
-        faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
-        Selenide.sleep(3000);
-        int countResult= faqPage.getCountFaq();
-        ElementsCollection questionTexts = faqPage.getQuestionsFields();
-        int resultSearch=questionTexts.size();
-        faqPage.clearSearchFieldThroughButton();
-        Selenide.sleep(3000);
-        int countAllFaq= faqPage.getCountFaq();
-        ElementsCollection questionAll =faqPage.getQuestionsFields();
-        int allFaq=questionAll.size();
-        assertEquals("", faqPage.getValueSearchField());
-        assertTrue(resultSearch < allFaq);
-        assertTrue(countResult<countAllFaq);
-    }
-
-    @Feature("Поиск по faq")
     @Story("Сброс поискового результата после очистки поля")
     @ExtendWith(AddSomeFaq.class)
     @Test
     void resetSearchResultFaq() {
         faqPage.searchFaq(DataConfig.DataSearch.getFaqSearch());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         int resultSearch=questionTexts.size();
         faqPage.clearSearchField();
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countAllFaq= faqPage.getCountFaq();
         ElementsCollection questionAll =faqPage.getQuestionsFields();
         int allFaq=questionAll.size();
@@ -356,7 +340,7 @@ public class FAQPageTest extends BaseTest{
     void searchHighRegister() {
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqHighRegister());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
@@ -377,7 +361,7 @@ public class FAQPageTest extends BaseTest{
     void searchDifferentRegister() {
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(DataConfig.DataSearch.getFaqHighRegister());
-        Selenide.sleep(3000);
+        Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();

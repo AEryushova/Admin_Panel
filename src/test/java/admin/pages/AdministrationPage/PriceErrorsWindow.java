@@ -54,7 +54,7 @@ public class PriceErrorsWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        CLOSE_WINDOW_BUTTON.shouldBe(Condition.hidden,Duration.ofSeconds(5));
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public boolean isWindowAppear() {

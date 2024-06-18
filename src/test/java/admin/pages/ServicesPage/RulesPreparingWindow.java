@@ -13,9 +13,8 @@ public class RulesPreparingWindow {
     private final SelenideElement ADD_BUTTON = $x("//button[text()='Добавить правило']");
     private final SelenideElement DELETE_ALL_RULES_BUTTON = $x("//button[text()='Удалить все правила']");
     private final SelenideElement RULE = $x("//div[@class='A7Gv']");
-    private final SelenideElement OPEN_RULE = $x("//div[@class='ei9k']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
-    private final SelenideElement EMPTY_LIST_RULE =$x("//span[text()='Список пуст']']");
+    private final SelenideElement EMPTY_LIST_RULE =$x("//span[text()='Список пуст']");
 
 
     public void rulesPreparingWindow() {
@@ -32,12 +31,13 @@ public class RulesPreparingWindow {
         return new AddRuleWindow();
     }
 
-    public EditRuleWindow openEditRuleWindow() {
-        OPEN_RULE.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .click();
-        return new EditRuleWindow();
+
+    public Rule getRule(){
+        RULE.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        return new Rule();
     }
+
 
     public void deleteAllRules() {
         DELETE_ALL_RULES_BUTTON.shouldBe(Condition.visible)
@@ -49,6 +49,7 @@ public class RulesPreparingWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public boolean isExistRule() {
