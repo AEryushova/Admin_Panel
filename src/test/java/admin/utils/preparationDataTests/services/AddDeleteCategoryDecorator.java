@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.UUID;
 
-public class AddDeleteRuleDecorator implements BeforeEachCallback, AfterEachCallback {
+public class AddDeleteCategoryDecorator implements BeforeEachCallback, AfterEachCallback {
 
     @Setter
     @Getter
@@ -20,6 +20,7 @@ public class AddDeleteRuleDecorator implements BeforeEachCallback, AfterEachCall
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
+        PreparationDataServicesTest.addCategory(DataConfig.DataTest.getNAME_CATEGORY());
         UUID categoryId= DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES()).getId();
         setCategoryId(categoryId);
         PreparationDataServicesTest.deleteRuleCategory(categoryId);
@@ -30,4 +31,6 @@ public class AddDeleteRuleDecorator implements BeforeEachCallback, AfterEachCall
     public void afterEach(ExtensionContext context) throws Exception {
         PreparationDataServicesTest.deleteRuleCategory(categoryId);
     }
+
+
 }

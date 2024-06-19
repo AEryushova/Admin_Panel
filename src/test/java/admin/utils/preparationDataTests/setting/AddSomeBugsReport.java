@@ -1,5 +1,6 @@
 package admin.utils.preparationDataTests.setting;
 
+import admin.data.DataConfig;
 import admin.utils.dbUtils.DataBaseQuery;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -10,13 +11,13 @@ public class AddSomeBugsReport implements BeforeEachCallback, AfterEachCallback 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllBugReports();
-        DataBaseQuery.addBugReport();
-        DataBaseQuery.addBugReport();
-        DataBaseQuery.addBugReport();
-        DataBaseQuery.addBugReport();
-        DataBaseQuery.addBugReport();
-        DataBaseQuery.addBugReport();
-        DataBaseQuery.addBugReport();
+        DataBaseQuery.addBugReport(DataConfig.DataTest.getMESSAGE_BUG_REPORT(),DataConfig.DataTest.getEMAIL_PATIENT(),DataConfig.DataTest.getNAME_PATIENT());
+        DataBaseQuery.addBugReport(DataConfig.DataTest.getMESSAGE_BUG_REPORT(),DataConfig.DataTest.getEMAIL_PATIENT(),DataConfig.DataTest.getNAME_PATIENT());
+        DataBaseQuery.addBugReport(DataConfig.DataTest.getMESSAGE_BUG_REPORT(),DataConfig.DataTest.getEMAIL_PATIENT(),DataConfig.DataTest.getNAME_PATIENT());
+        DataBaseQuery.addBugReport(DataConfig.DataTest.getMESSAGE_BUG_REPORT(),DataConfig.DataTest.getEMAIL_PATIENT(),DataConfig.DataTest.getNAME_PATIENT());
+        DataBaseQuery.addBugReport(DataConfig.DataTest.getMESSAGE_BUG_REPORT(),DataConfig.DataTest.getEMAIL_PATIENT(),DataConfig.DataTest.getNAME_PATIENT());
+        DataBaseQuery.addBugReport(DataConfig.DataTest.getMESSAGE_BUG_REPORT(),DataConfig.DataTest.getEMAIL_PATIENT(),DataConfig.DataTest.getNAME_PATIENT());
+        DataBaseQuery.addBugReport(DataConfig.DataTest.getMESSAGE_BUG_REPORT(),DataConfig.DataTest.getEMAIL_PATIENT(),DataConfig.DataTest.getNAME_PATIENT());
     }
 
     @Override

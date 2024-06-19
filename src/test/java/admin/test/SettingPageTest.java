@@ -40,7 +40,7 @@ public class SettingPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataConfig.UserData.getLoginAdmin(), DataConfig.UserData.getPasswordAdmin());
+        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
     }
 
     @BeforeEach
@@ -59,10 +59,10 @@ public class SettingPageTest extends BaseTest {
     void checkBugReport() {
         BugReport bugReport =settingPage.bugReportCard();
         bugReport.bugReport();
-        assertEquals(DataConfig.DataTest.getNamePatient(), bugReport.getAuthorText());
-        assertEquals(DataConfig.DataTest.getEmailPatient(), bugReport.getEmailAuthorText());
+        assertEquals(DataConfig.DataTest.getNAME_PATIENT(), bugReport.getAuthorText());
+        assertEquals(DataConfig.DataTest.getEMAIL_PATIENT(), bugReport.getEmailAuthorText());
         assertEquals(DataHelper.getCurrentDateRuYear(), bugReport.getDateText());
-        assertEquals(DataConfig.DataTest.getMessageBugReport(), bugReport.getReportText());
+        assertEquals(DataConfig.DataTest.getMESSAGE_BUG_REPORT(), bugReport.getReportText());
     }
 
     @Feature("Сообщения об ошибках")

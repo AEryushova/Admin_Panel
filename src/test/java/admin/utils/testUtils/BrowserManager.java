@@ -22,15 +22,15 @@ public class BrowserManager {
 
     public static void openAdminPanel(){
         Configuration.holdBrowserOpen = true;
-        open(AppConfig.getUriAdminPanel());
-        localStorage().setItem("Environment", AppConfig.getEnvironment());
+        open(AppConfig.getURI_ADMIN_PANEL());
+        localStorage().setItem("Environment", AppConfig.getENVIRONMENT());
         clearBrowserCookies();
     }
 
     public static void authGetCookie(String login, String password) {
         Configuration.holdBrowserOpen = true;
-        open(AppConfig.getUriAdminPanel());
-        localStorage().setItem("Environment", AppConfig.getEnvironment());
+        open(AppConfig.getURI_ADMIN_PANEL());
+        localStorage().setItem("Environment", AppConfig.getENVIRONMENT());
         WebDriverRunner.getWebDriver().manage().deleteAllCookies();
         AuthorizationPage authorizationPage = new AuthorizationPage();
         authorizationPage.authorization(login, password);
@@ -44,9 +44,11 @@ public class BrowserManager {
     public static void openPagesAfterAuth() {
         Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1920x1080";
-        open(AppConfig.getUriAdminPanel());
-        localStorage().setItem("Environment", AppConfig.getEnvironment());
+        open(AppConfig.getURI_ADMIN_PANEL());
+        localStorage().setItem("Environment", AppConfig.getENVIRONMENT());
         localStorage().setItem("accessToken", token);
+        Cookie cookie = new Cookie("token", token);
+        WebDriverRunner.getWebDriver().manage().addCookie(cookie);
         Selenide.refresh();
     }
 }

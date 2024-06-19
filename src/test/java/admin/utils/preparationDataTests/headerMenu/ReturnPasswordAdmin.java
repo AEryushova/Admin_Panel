@@ -11,10 +11,10 @@ public class ReturnPasswordAdmin implements AfterEachCallback {
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        PreparationDataHeaderTest.authAdmin(DataConfig.UserData.getLoginSuperAdmin(), DataConfig.UserData.getPasswordSuperAdmin());
-        PreparationDataHeaderTest.changePasswordAdmin(DataConfig.UserData.getLoginAdmin(), DataConfig.UserData.getPasswordAdmin());
+        PreparationDataHeaderTest.authAdmin(DataConfig.UserData.getLOGIN_SUPER_ADMIN(), DataConfig.UserData.getPASSWORD_SUPER_ADMIN());
+        PreparationDataHeaderTest.changePasswordAdmin(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
         Selenide.closeWebDriver();
-        BrowserManager.authGetCookie(DataConfig.UserData.getLoginAdmin(), DataConfig.UserData.getPasswordAdmin());
+        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
 
     }
 }

@@ -24,10 +24,10 @@ public class PreparationDataAdminTest {
     public static void createAdmin(String login, String password) {
         String dataInfoJson = getDataInfoJson(login, password);
         given()
-                .baseUri(AppConfig.getUriAdminPanel())
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppConfig.getEnvironment())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .body(dataInfoJson)
                 .when()
                 .post("/api/admins/sign-up")
@@ -38,11 +38,10 @@ public class PreparationDataAdminTest {
 
     public static void deleteAdmin(String login) {
         given()
-                .baseUri(AppConfig.getUriAdminPanel())
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .queryParam("login", login)
-                .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppConfig.getEnvironment())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .when()
                 .delete("/api/admins")
                 .then()

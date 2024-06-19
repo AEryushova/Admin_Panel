@@ -24,9 +24,9 @@ public class PreparationDataServicesTest {
     public static void addRuleCategory(UUID id, String title, String description) {
         String rule = getAddRuleJson(id, title, description);
         given()
-                .baseUri(AppConfig.getUriAdminPanel())
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppConfig.getEnvironment())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .contentType(ContentType.JSON)
                 .body(rule)
                 .when()
@@ -49,9 +49,9 @@ public class PreparationDataServicesTest {
     public static void deleteRuleCategory(UUID id) {
         String rule = getDeleteRuleJson(id);
         given()
-                .baseUri(AppConfig.getUriAdminPanel())
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppConfig.getEnvironment())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .contentType(ContentType.JSON)
                 .body(rule)
                 .when()
@@ -60,10 +60,41 @@ public class PreparationDataServicesTest {
                 .statusCode(204);
     }
 
-    public static String getDeleteRuleJson(UUID id) {
+    private static String getDeleteRuleJson(UUID id) {
         jsonObject.addProperty("id", id.toString());
         jsonObject.add("sections", sections);
         return gson.toJson(jsonObject);
+    }
+
+    public static void addCategory(String nameCategory) {
+        String categoryName = addCategoryJson(nameCategory);
+        given()
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", AppConfig.getENVIRONMENT())
+                .contentType(ContentType.JSON)
+                .body(categoryName)
+                .when()
+                .post("/api/services/admin/category")
+                .then()
+                .statusCode(201);
+    }
+
+    private static String addCategoryJson(String nameCategory) {
+        jsonObject.addProperty("name", nameCategory);
+        return gson.toJson(jsonObject);
+    }
+
+    public static void deleteCategory(String id) {
+        given()
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .queryParam("categoryId", id)
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", AppConfig.getENVIRONMENT())
+                .when()
+                .delete("/api/services/admin/category")
+                .then()
+                .statusCode(204);
     }
 
 }

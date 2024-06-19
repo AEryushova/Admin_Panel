@@ -18,18 +18,15 @@ public class ServicesPage extends BasePage {
 
     private final SelenideElement TAB_NAME = $x("//a[text()='Услуги']");
     private final SelenideElement SEARCH_SERVICES = $x("//input[@placeholder='Поиск услуги']");
-    private final SelenideElement CONTAINER_CATEGORIES = $x("//div[@class='nGmS']");
-    private final ElementsCollection CONTAINER_CATEGORY = $$x("//div[@class='qH7D']/span");
+    private final ElementsCollection CONTAINERS_CATEGORY = $$x("//div[@class='qH7D']/span");
     private final SelenideElement OTHER_SERVICES = $x("//span[text()='Иные услуги']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement TELEMEDICINE = $x("//span[text()='Телемедицина']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DOCTORS = $x("//span[text()='Врачи']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement LABORATORY = $x("//span[text()='Лаборатория']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DIAGNOSTICS = $x("//span[text()='Диагностика']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DENTISTRY = $x("//span[text()='Стоматология']//parent::div//parent::div[@class='ZAC4']");
-    private final SelenideElement CATEGORY = $x("//span[text()='" + DataConfig.DataTest.getCategoryName() + "']//parent::div//parent::div[@class='ZAC4']");
+    private final SelenideElement CATEGORY = $x("//span[text()='" + DataConfig.DataTest.getCATEGORY_RULES() + "']//parent::div//parent::div[@class='ZAC4']");
 
-
-    private final SelenideElement expandCategoryLaboratory = $x("//span[text()='Диагностика']//parent::div/following-sibling::div[@class='gm_s']");
 
 
     public void servicesPage() {
@@ -44,18 +41,9 @@ public class ServicesPage extends BasePage {
     }
 
 
-    public RulesPreparingWindow openRulesPreparingCategory(String categoryName) {
-        Map<String, SelenideElement> elementMap = new HashMap<>();
-        elementMap.put("Иные услуги", OTHER_SERVICES);
-        elementMap.put("Телемедицина", TELEMEDICINE);
-        elementMap.put("Врачи", DOCTORS);
-        elementMap.put("Лаборатория", LABORATORY);
-        elementMap.put("Диагностика", DIAGNOSTICS);
-        elementMap.put("Стоматология", DENTISTRY);
-        SelenideElement category= elementMap.get(categoryName);
-        category.shouldBe(Condition.visible);
-        SelenideElement rulesPreparing = category.$x("div[@class='Ie41']");
-        rulesPreparing.shouldBe(Condition.visible)
+    public RulesPreparingWindow openRulesPreparingCategory(String categoryName){
+        SelenideElement RULESPREPARING= searchCategory(categoryName).$x("div[@class='Ie41']");
+        RULESPREPARING.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new RulesPreparingWindow();
@@ -63,18 +51,23 @@ public class ServicesPage extends BasePage {
 
 
     public CategoryWindow openCategory(String categoryName) {
-        CONTAINER_CATEGORIES.shouldBe(Condition.visible);
-        SelenideElement category = CONTAINER_CATEGORIES.$x("//span[text()='" + categoryName + "]//parent::div//parent::div[@class='ZAC4']");
-        expandCategoryLaboratory.shouldBe(Condition.visible)
+        SelenideElement EXPANDCATEGORY= searchCategory(categoryName).$x("div[@class='gm_s']");
+        EXPANDCATEGORY.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new CategoryWindow();
     }
 
+    private SelenideElement searchCategory(String categoryName){
+        SelenideElement CATEGORY=$x("//span[text()='" + categoryName + "']//parent::div//parent::div[@class='ZAC4']");
+        CATEGORY.shouldBe(Condition.visible);
+        return CATEGORY;
+    }
+
 
     public int getCategoryIndexByName(String categoryName) {
         CATEGORY.shouldBe(Condition.visible);
-        List<SelenideElement> categoryElements = CONTAINER_CATEGORY;
+        List<SelenideElement> categoryElements = CONTAINERS_CATEGORY;
         for (int i = 0; i < categoryElements.size(); i++) {
             if (categoryElements.get(i).getText().equals(categoryName)) {
                 return i;

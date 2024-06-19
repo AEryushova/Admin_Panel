@@ -3,10 +3,19 @@ package admin.pages.ServicesPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class CategoryWindow {
     private final SelenideElement ADD_SECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button");
+    private final SelenideElement HEADER= $x("//div[@class='H5JJ']/span");
+    private final SelenideElement SECTION=$x("//div[@class='K9Fo']");
+
+
+
+
+
     private final SelenideElement EDIT_SECTION_BUTTON = $x("//span[text()='Общеклиническое исследование']/parent::div/following-sibling::div[@class='V5So']");
     private final SelenideElement DELETE_SECTION_BUTTON = $x("//span[text()='Общеклиническое исследование']/parent::div/following-sibling::div[@class='mJna']");
     private final SelenideElement RULES_PREPARING_SECTION = $x("//span[text()='Общеклиническое исследование']/parent::div/following-sibling::div[@class='tSFL']");
@@ -19,6 +28,10 @@ public class CategoryWindow {
     private final SelenideElement EXPAND_SUBSECTION = $x("//span[text()='Анализы крови']/parent::div/following-sibling::div[@class='xrjl']");
     private final SelenideElement SERVICE_INFO = $x("//span[text()='tmvp.9401.01']/preceding-sibling::div");
 
+    public void categoryWindow() {
+        ADD_SECTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        HEADER.shouldBe(Condition.visible, Duration.ofSeconds(5));
+    }
 
     public AddSectionWindow addSection() {
         ADD_SECTION_BUTTON.shouldBe(Condition.visible)
@@ -26,6 +39,11 @@ public class CategoryWindow {
                 .click();
         return new AddSectionWindow();
     }
+
+
+
+
+
 
     public EditSectionWindow editSection() {
         EDIT_SECTION_BUTTON.shouldBe(Condition.visible)
@@ -87,13 +105,13 @@ public class CategoryWindow {
                 .shouldBe(Condition.enabled)
                 .click();
     }
-
+/*
     public ServiceInfoWindow serviceInfo() {
         SERVICE_INFO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new ServiceInfoWindow();
     }
-
+*/
 
 }

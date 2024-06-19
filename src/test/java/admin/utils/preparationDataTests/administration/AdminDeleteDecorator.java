@@ -9,6 +9,6 @@ public class AdminDeleteDecorator implements AfterEachCallback {
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        PreparationDataAdminTest.deleteAdmin(DataConfig.DataTest.getLoginAdminTest());
+        PreparationDataAdminTest.deleteAdmin(DataConfig.DataTest.getLOGIN_ADMIN_TEST());
     }
 }

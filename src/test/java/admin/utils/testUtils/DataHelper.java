@@ -22,7 +22,7 @@ public class DataHelper {
 
     //Генерирует и возвращает ссылку на фото врача//
     public static String urlPhotoBuilder() {
-        return AppConfig.getUriPersonalArea() + PreparationDataSettingTest.getLocation();
+        return AppConfig.getURI_PERSONAL_AREA() + PreparationDataSettingTest.getLocation();
     }
 
     //Генерирует и возвращает UUID для SQL-запросов//

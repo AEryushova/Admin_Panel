@@ -8,89 +8,93 @@ public class DataConfig {
 
     public static class UserData {
         @Getter
-        public static final String loginSuperAdmin = "SUPER_ADMIN";
+        public static final String LOGIN_SUPER_ADMIN = "SUPER_ADMIN";
         @Getter
-        public static final String passwordSuperAdmin = "Qqqq123#";
+        public static final String PASSWORD_SUPER_ADMIN = "Qqqq123#";
         @Getter
-        public static final String loginAdmin = "ADMIN_TESTUI";
+        public static final String LOGIN_ADMIN = "ADMIN_TESTUI";
         @Getter
-        public static final String passwordAdmin = "WWqq123456!";
+        public static final String PASSWORD_ADMIN = "WWqq123456!";
     }
 
 
     public static class DataTest {
         @Getter
-        public static final String newPasswordAdmin = "IIff123456$";
+        public static final String NEW_PASSWORD_ADMIN = "IIff123456$";
         @Getter
-        public static final String loginAdminTest = "ADMIN_TESTUI_2";
+        public static final String LOGIN_ADMIN_TEST = "ADMIN_TESTUI_2";
         @Getter
-        public static final String passwordAdminTest = "QQss123456*";
+        public static final String PASSWORD_ADMIN_TEST = "QQss123456*";
         @Getter
-        public static final String newPasswordAdminTest = "RRjj123456#";
+        public static final String NEW_PASSWORD_ADMIN_TEST = "RRjj123456#";
         @Getter
-        public static final String doctor = "Fer3 Не ТРОГАТЬ";
+        public static final String DOCTOR = "Fer3 Не ТРОГАТЬ";
         @Getter
-        public static final String doctorSpecialization = "врач-оториноларинголог";
+        public static final String DOCTOR_SPECIALIZATION = "врач-оториноларинголог";
         @Getter
-        public static final String defaultPhoto = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
+        public static final String DEFAULT_PHOTO = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
         @Getter
-        public static File photo = new File("src/test/resources/Photo 3,7mbJpeg.jpg");
+        public static File PHOTO = new File("src/test/resources/Photo 3,7mbJpeg.jpg");
         @Getter
-        public static final String messageBugReport = "Не могу записаться к врачу";
+        public static final String MESSAGE_BUG_REPORT = "Не могу записаться к врачу";
         @Getter
-        public static final String emailPatient = "Test@mail.ru";
+        public static final String EMAIL_PATIENT = "Test@mail.ru";
         @Getter
-        public static final String namePatient = "Федоров Федор Федорович";
+        public static final String NAME_PATIENT = "Федоров Федор Федорович";
         @Getter
-        public static final String question = "Как вернуть деньги?";
+        public static final String QUESTION = "Как вернуть деньги?";
         @Getter
-        public static final String answer = "Никак";
+        public static final String ANSWER = "Никак";
         @Getter
-        public static final String changeQuestion = "Как записаться к врачу?";
+        public static final String CHANGE_QUESTION = "Как записаться к врачу?";
         @Getter
-        public static final String changeAnswer = "Записаться к врачу можно через вкладку 'Врачи'";
+        public static final String CHANGE_ANSWER = "Записаться к врачу можно через вкладку 'Врачи'";
         @Getter
-        public static final String section= "Образование";
+        public static final String SECTION = "Образование";
         @Getter
-        public static final String description = "Июнь 2008, Высшее образование - специалитет 'Лечебное дело''";
+        public static final String DESCRIPTION = "Июнь 2008, Высшее образование - специалитет 'Лечебное дело''";
         @Getter
-        public static final String newSection= "Сертификаты";
+        public static final String NEW_SECTION = "Сертификаты";
         @Getter
-        public static final String newDescription = "Оториноларингология сертификат № 0163180786836";
+        public static final String NEW_DESCRIPTION = "Оториноларингология сертификат № 0163180786836";
         @Getter
-        public static final String feedback = "Очень хороший врач";
+        public static final String FEEDBACK = "Очень хороший врач";
         @Getter
-        public static final String newFeedback = "Прием прошел замечательно";
+        public static final String NEW_FEEDBACK = "Прием прошел замечательно";
         @Getter
-        public static final String categoryName = "Диагностика";
+        public static final String CATEGORY_RULES = "Диагностика";
         @Getter
-        public static final String ruleTitle = "Это заголовок правила";
+        public static final String RULE_TITLE = "Это заголовок правила";
         @Getter
-        public static final String ruleDescription = "Это само правило";
+        public static final String RULE_DESCRIPTION = "Это само правило";
         @Getter
-        public static final String newRuleTitle = "Измененный заголовок";
+        public static final String NEW_RULE_TITLE = "Измененный заголовок";
         @Getter
-        public static final String newRuleDescription = "Измененное правило";
+        public static final String NEW_RULE_DESCRIPTION = "Измененное правило";
+        @Getter
+        public static final String NAME_CATEGORY = "Категория";
+        @Getter
+        public static final String NAME_SECTION = "Раздел для категории";
     }
 
     public static class DataSearch {
         @Getter
-        public static final String doctorNameSearch = "надежда";
+        public static final String DOCTOR_NAME_SEARCH = "надежда";
         @Getter
-        public static final String doctorSpecializationSearch = "терапевт";
+        public static final String DOCTOR_SPECIALIZATION_SEARCH = "терапевт";
         @Getter
-        public static final String faqSearch = "врач";
+        public static final String FAQ_SEARCH = "врач";
         @Getter
-        public static final String searchByInclusionDoctors = "етск";
+        public static final String SEARCH_BY_INCLUSION_DOCTORS = "етск";
         @Getter
-        public static final String searchByInclusionFaq = "пис";
+        public static final String SEARCH_BY_INCLUSION_FAQ = "пис";
         @Getter
-        public static final String doctorNameHighRegister = "НAДЕЖДА";
+        public static final String DOCTOR_NAME_HIGH_REGISTER = "НAДЕЖДА";
         @Getter
-        public static final String doctorNameDifferentRegister = "НаДеЖдА";
+        public static final String DOCTOR_NAME_DIFFERENT_REGISTER = "НаДеЖдА";
         @Getter
-        public static final String faqHighRegister = "ВРАЧ";
+        public static final String FAQ_HIGH_REGISTER = "ВРАЧ";
         @Getter
-        public static final String faqDifferentRegister = "ВрАч";
+        public static final String FAQ_DIFFERENT_REGISTER = "ВрАч";
     }
 }

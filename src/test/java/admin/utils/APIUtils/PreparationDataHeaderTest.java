@@ -27,9 +27,9 @@ public class PreparationDataHeaderTest {
     public static void authAdmin(String login, String password) {
         tokenGetAuthAdmin(login, password);
         given()
-                .baseUri(AppConfig.getUriAdminPanel())
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment", AppConfig.getEnvironment())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .when()
                 .get("/api/admins/admin-data")
                 .then()
@@ -39,8 +39,8 @@ public class PreparationDataHeaderTest {
     private static void tokenGetAuthAdmin(String login, String password) {
         String dataInfoJson = getDataInfoJson(login, password);
         Response response = given()
-                .baseUri(AppConfig.getUriAdminPanel())
-                .header("Environment", AppConfig.getEnvironment())
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .contentType(ContentType.JSON)
                 .body(dataInfoJson)
                 .when()
@@ -68,9 +68,9 @@ public class PreparationDataHeaderTest {
     public static void changePasswordAdmin(String login, String newPassword) {
         String changePassword = getChangePasswordJson(login, newPassword);
         given()
-                .baseUri(AppConfig.getUriAdminPanel())
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment", AppConfig.getEnvironment())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .contentType(ContentType.JSON)
                 .body(changePassword)
                 .when()

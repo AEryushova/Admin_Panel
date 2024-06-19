@@ -21,7 +21,7 @@ public class DoctorsPage extends BasePage {
     private final SelenideElement TAB_NAME = $x("//div[@class='wYqZ']/span[text()='Врачи']");
     private final SelenideElement SEARCH_DOCTOR = $x("//input[@placeholder='Поиск по врачам']");
     private final SelenideElement CARD_DOCTOR = $x("//div[@class='eF30']");
-    private final SelenideElement EDIT_BUTTON = $x("//span[text()='" + DataConfig.DataTest.getDoctorSpecialization() + "']/preceding-sibling::span[text()='" + DataConfig.DataTest.getDoctor() + "'] /parent::div/following-sibling::button[text()='Редактировать']");
+    private final SelenideElement EDIT_BUTTON = $x("//span[text()='" + DataConfig.DataTest.getDOCTOR_SPECIALIZATION() + "']/preceding-sibling::span[text()='" + DataConfig.DataTest.getDOCTOR() + "'] /parent::div/following-sibling::button[text()='Редактировать']");
     private final SelenideElement DROP_DOWN_PHOTO = $x("//button[@class='MxFR']");
     private final SelenideElement OPTION_ALL = $x("//div[@class='U2Xk']/div[text()='Все']");
     private final SelenideElement OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']");

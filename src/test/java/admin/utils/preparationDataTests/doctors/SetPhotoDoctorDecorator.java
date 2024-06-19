@@ -11,9 +11,9 @@ public class SetPhotoDoctorDecorator implements BeforeEachCallback {
 
         @Override
         public void beforeEach(ExtensionContext context) throws Exception {
-            PreparationDataSettingTest.uploadPhoto(DataConfig.DataTest.getPhoto());
+            PreparationDataSettingTest.uploadPhoto(DataConfig.DataTest.getPHOTO());
             String photoUri=DataHelper.urlPhotoBuilder();
-            DataBaseQuery.setPhotoDoctor(photoUri);
+            DataBaseQuery.setPhotoDoctor(photoUri,DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION());
         }
 
 

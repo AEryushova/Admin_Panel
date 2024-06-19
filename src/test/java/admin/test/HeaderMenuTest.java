@@ -32,7 +32,7 @@ public class HeaderMenuTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataConfig.UserData.getLoginAdmin(), DataConfig.UserData.getPasswordAdmin());
+        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
     }
 
     @BeforeEach
@@ -52,8 +52,8 @@ public class HeaderMenuTest {
         userPanel.userPanelAdmin();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.changeMinePasswordWindow();
-        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPasswordAdmin());
-        changeMinePassWindow.fillFieldNewPassword(DataConfig.DataTest.getNewPasswordAdmin());
+        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPASSWORD_ADMIN());
+        changeMinePassWindow.fillFieldNewPassword(DataConfig.DataTest.getNEW_PASSWORD_ADMIN());
         changeMinePassWindow.clickChangeButton();
         assertEquals("Пароль успешно обновлен",basePage.getNotification());
         assertFalse(changeMinePassWindow.isWindowAppear());
@@ -68,8 +68,8 @@ public class HeaderMenuTest {
     void changeMainPasswordEqualsPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPasswordAdmin());
-        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPasswordAdmin());
+        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPASSWORD_ADMIN());
+        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPASSWORD_ADMIN());
         changeMinePassWindow.clickChangeButton();
         assertEquals("Пароль успешно обновлен",basePage.getNotification());
         assertFalse(changeMinePassWindow.isWindowAppear());
@@ -83,8 +83,8 @@ public class HeaderMenuTest {
     void changeMainPasswordNotEqualsOldPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(DataConfig.DataTest.getNewPasswordAdminTest());
-        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPasswordAdmin());
+        changeMinePassWindow.fillFieldOldPassword(DataConfig.DataTest.getNEW_PASSWORD_ADMIN_TEST());
+        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPASSWORD_ADMIN());
         changeMinePassWindow.clickChangeButton();
         assertEquals("{\"error\":\"Задан неверный пароль\",\"innerError\":null,\"exception\":\"ValidationPlatformException\"}",basePage.getNotification());
         assertTrue(changeMinePassWindow.isWindowAppear());
@@ -96,7 +96,7 @@ public class HeaderMenuTest {
     void changeMainPasswordEmptyFieldsOldPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPasswordAdmin());
+        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPASSWORD_ADMIN());
         assertFalse(changeMinePassWindow.isEnabledChangeButton());
     }
 
@@ -106,7 +106,7 @@ public class HeaderMenuTest {
     void changeMainPasswordEmptyFieldsNewPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPasswordAdmin());
+        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPASSWORD_ADMIN());
         assertFalse(changeMinePassWindow.isEnabledChangeButton());
     }
 
@@ -198,7 +198,7 @@ public class HeaderMenuTest {
     void clearFieldOldPasswordThroughButtonClear(){
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPasswordAdmin());
+        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPASSWORD_ADMIN());
         changeMinePassWindow.clickClearButtonOldPasswordField();
         assertEquals("", changeMinePassWindow.getValueOldPasswordField());
         assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldOldPassword());
@@ -210,7 +210,7 @@ public class HeaderMenuTest {
     void clearFieldNewPasswordThroughButtonClear(){
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPasswordAdmin());
+        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPASSWORD_ADMIN());
         changeMinePassWindow.clickClearButtonNewPasswordField();
         assertEquals("", changeMinePassWindow.getValueNewPasswordField());
         assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldNewPassword());
@@ -223,8 +223,8 @@ public class HeaderMenuTest {
     void closeWindowChangeMainPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPasswordAdmin());
-        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPasswordAdmin());
+        changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPASSWORD_ADMIN());
+        changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPASSWORD_ADMIN());
         changeMinePassWindow.clickCancelButton();
         assertFalse(changeMinePassWindow.isWindowAppear());
         assertFalse(userPanel.isWindowAppear());

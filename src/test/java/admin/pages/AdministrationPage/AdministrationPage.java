@@ -18,9 +18,9 @@ public class AdministrationPage extends BasePage {
     private final SelenideElement UPDATE_ORDER = $x("//span[text()='Обновить приказ' ]//parent::div//parent::button");
     private final SelenideElement UPDATE_PRICE = $x("//span[text()='Обновить прайс' ]//parent::div//parent::button");
     private final SelenideElement ADD_ADMIN = $x("//span[text()='Добавить админа']//parent::div//parent::button");
-    private final SelenideElement CARD_ADMIN = $x("//input[@name='login' and @value='" + DataConfig.DataTest.getLoginAdminTest() + "']/parent::div/parent::div/parent::div");
-    private final SelenideElement CHANGE_PASSWORD = $x("//div[.//input[contains(@value, '" + DataConfig.DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
-    private final SelenideElement DELETE_ADMIN = $x("//div[.//input[contains(@value, '" + DataConfig.DataTest.getLoginAdminTest() + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
+    private final SelenideElement CARD_ADMIN = $x("//input[@name='login' and @value='" + DataConfig.DataTest.getLOGIN_ADMIN_TEST() + "']/parent::div/parent::div/parent::div");
+    private final SelenideElement CHANGE_PASSWORD = $x("//div[.//input[contains(@value, '" + DataConfig.DataTest.getLOGIN_ADMIN_TEST() + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
+    private final SelenideElement DELETE_ADMIN = $x("//div[.//input[contains(@value, '" + DataConfig.DataTest.getLOGIN_ADMIN_TEST() + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
 
 
     public void adminPage() {

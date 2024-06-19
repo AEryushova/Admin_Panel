@@ -1,6 +1,8 @@
 package admin.utils.preparationDataTests.doctors;
 
+import admin.data.DataConfig;
 import admin.utils.dbUtils.DataBaseQuery;
+import admin.utils.testUtils.DataHelper;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.extension.AfterEachCallback;
@@ -18,11 +20,11 @@ public class AddTwoFeedbackDecorator implements BeforeEachCallback, AfterEachCal
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        UUID doctorId = DataBaseQuery.selectInfoDoctor().getEmployee_id();
+        UUID doctorId = DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId);
-        DataBaseQuery.addYesterdayFeedback(doctorId);
+        DataBaseQuery.addFeedback(doctorId, DataConfig.DataTest.getNAME_PATIENT(),DataConfig.DataTest.getFEEDBACK(),false);
+        DataBaseQuery.addYesterdayFeedback(doctorId, DataConfig.DataTest.getNAME_PATIENT(),DataConfig.DataTest.getFEEDBACK(),false);
     }
 
     @Override

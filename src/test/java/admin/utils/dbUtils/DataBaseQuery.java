@@ -20,11 +20,9 @@ public class DataBaseQuery {
 
 
     @SneakyThrows
-    public static DoctorCard selectInfoDoctor() {
+    public static DoctorCard selectInfoDoctor(String doctorName, String doctorSpecialization) {
         var selectInfo = "SELECT * FROM employee_cards WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var doctorSpecialization = DataConfig.DataTest.getDoctorSpecialization();
-            var doctorName = DataConfig.DataTest.getDoctor();
             String[] nameParts = doctorName.split(" ");
             String firstName = nameParts[1];
             String secondName = nameParts[0];
@@ -35,12 +33,9 @@ public class DataBaseQuery {
 
 
     @SneakyThrows
-    public static void setDefaultPhotoDoctor() {
+    public static void setDefaultPhotoDoctor(String doctorName, String doctorSpecialization, String defaultPhoto) {
         var setDefaultPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var doctorName = DataConfig.DataTest.getDoctor();
-            var doctorSpecialization = DataConfig.DataTest.getDoctorSpecialization();
-            var defaultPhoto = DataConfig.DataTest.getDefaultPhoto();
             String[] nameParts = doctorName.split(" ");
             String firstName = nameParts[1];
             String secondName = nameParts[0];
@@ -51,11 +46,9 @@ public class DataBaseQuery {
 
 
     @SneakyThrows
-    public static void setPhotoDoctor(String urlPhoto) {
+    public static void setPhotoDoctor(String urlPhoto, String doctorName, String doctorSpecialization) {
         var setPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var doctorName = DataConfig.DataTest.getDoctor();
-            var doctorSpecialization = DataConfig.DataTest.getDoctorSpecialization();
             String[] nameParts = doctorName.split(" ");
             String firstName = nameParts[1];
             String secondName = nameParts[0];
@@ -73,12 +66,10 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addSection(UUID doctorId) {
+    public static void addSection(UUID doctorId,String title,int sequence) {
         var addSection = "INSERT INTO employee_details (employee_details_id,title,employee_card_employee_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             var employee_details_id = DataHelper.generateUuid();
-            var title = DataConfig.DataTest.getSection();
-            var sequence = 0;
             var created_at = DataHelper.generateDateTime();
             var updated_at = DataHelper.generateDateTime();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addSection, employee_details_id, title, doctorId, sequence, created_at, updated_at);
@@ -102,12 +93,10 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addDescription(UUID sectionId) {
+    public static void addDescription(UUID sectionId, String title,int sequence) {
         var addDescription = "INSERT INTO employee_expertises (employee_expertises_id,title,employee_details_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             var employee_expertises_id = DataHelper.generateUuid();
-            var title = DataConfig.DataTest.getDescription();
-            var sequence = 0;
             var created_at = DataHelper.generateDateTime();
             var updated_at = DataHelper.generateDateTime();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addDescription, employee_expertises_id, title, sectionId, sequence, created_at, updated_at);
@@ -131,12 +120,9 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addBugReport() {
+    public static void addBugReport(String message,String email,String author) {
         var addBugReport = "INSERT INTO bug_reports (id,message,email,author,created_at ) VALUES (?, ?, ?, ?, ?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var message = DataConfig.DataTest.getMessageBugReport();
-            var email = DataConfig.DataTest.getEmailPatient();
-            var author = DataConfig.DataTest.getNamePatient();
             var created_at = DataHelper.generateDateTime();
             var id = DataHelper.generateUuid();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addBugReport, id, message, email, author, created_at);
@@ -167,11 +153,9 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addFaq(int sequence) {
+    public static void addFaq(int sequence, String question, String answer) {
         var addFaq = "INSERT INTO faq (id,question,answer,created_at,updated_at, group_id, sequence ) VALUES (?, ?, ?, ?, ?,?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var question = DataConfig.DataTest.getQuestion();
-            var answer = DataConfig.DataTest.getAnswer();
             var id = DataHelper.generateUuid();
             var created_at = DataHelper.generateDateTime();
             var updated_at = DataHelper.generateDateTime();
@@ -208,28 +192,22 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addFeedback(UUID doctorId) {
+    public static void addFeedback(UUID doctorId,String author,String content,Boolean is_published) {
         var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
         var id = DataHelper.generateUuid();
-        var author = DataConfig.DataTest.getNamePatient();
-        var content = DataConfig.DataTest.getFeedback();
         var created_at = DataHelper.generateDateTime();
         var updated_at = DataHelper.generateDateTime();
-        var is_published = false;
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFeedback, id, doctorId, author, content, created_at, updated_at, is_published);
         }
     }
 
     @SneakyThrows
-    public static void addYesterdayFeedback(UUID doctorId) {
+    public static void addYesterdayFeedback(UUID doctorId,String author,String content, Boolean is_published) {
         var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
         var id = DataHelper.generateUuid();
-        var author = DataConfig.DataTest.getNamePatient();
-        var content = DataConfig.DataTest.getFeedback();
         var created_at = DataHelper.generatePreviousDateTime();
         var updated_at = DataHelper.generatePreviousDateTime();
-        var is_published = false;
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFeedback, id, doctorId, author, content, created_at, updated_at, is_published);
         }
@@ -252,10 +230,9 @@ public class DataBaseQuery {
 
 
     @SneakyThrows
-    public static ServiceCategories selectRulesPreparing() {
+    public static ServiceCategories selectRulesPreparing(String nameCategory) {
         var selectInfo = "SELECT * FROM service_categories WHERE name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var nameCategory = DataConfig.DataTest.getCategoryName();
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, nameCategory, new BeanHandler<>(ServiceCategories.class));
         }
     }

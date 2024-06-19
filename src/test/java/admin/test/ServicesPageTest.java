@@ -2,6 +2,7 @@ package admin.test;
 
 import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
+import admin.pages.FaqPage.Question;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.*;
 import admin.utils.dbUtils.DataBaseQuery;
@@ -32,7 +33,7 @@ public class ServicesPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataConfig.UserData.getLoginAdmin(), DataConfig.UserData.getPasswordAdmin());
+        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
     }
 
     @BeforeEach
@@ -49,23 +50,23 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleDecorator.class)
     @Test
     void addRulePreparingCategory() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
         rulePreparingWindow.rulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.openAddRulesWindow();
         addRuleWindow.addRuleWindow();
-        addRuleWindow.fillFieldTitle(DataConfig.DataTest.getRuleTitle());
-        addRuleWindow.fillFieldDescription(DataConfig.DataTest.getRuleDescription());
+        addRuleWindow.fillFieldTitle(DataConfig.DataTest.getRULE_TITLE());
+        addRuleWindow.fillFieldDescription(DataConfig.DataTest.getRULE_DESCRIPTION());
         addRuleWindow.clickSaveButton();
         Selenide.sleep(3000);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
         rule.rule();
-        EditRuleWindow editRuleWindow=rule.openEditRuleWindow();
-        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing();
-        assertEquals(DataConfig.DataTest.getRuleTitle(), editRuleWindow.getTitleRule());
-        assertEquals(DataConfig.DataTest.getRuleDescription(), editRuleWindow.getDescriptionRule());
-        assertEquals(DataConfig.DataTest.getRuleTitle(), preparingDescription.getTitle());
-        assertEquals(DataConfig.DataTest.getRuleDescription(), preparingDescription.getDescription());
+        EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
+        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES());
+        assertEquals(DataConfig.DataTest.getRULE_TITLE(), editRuleWindow.getTitleRule());
+        assertEquals(DataConfig.DataTest.getRULE_DESCRIPTION(), editRuleWindow.getDescriptionRule());
+        assertEquals(DataConfig.DataTest.getRULE_TITLE(), preparingDescription.getTitle());
+        assertEquals(DataConfig.DataTest.getRULE_DESCRIPTION(), preparingDescription.getDescription());
         assertFalse(addRuleWindow.isWindowAppear());
     }
 
@@ -74,9 +75,9 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith({DeleteRuleDecorator.class, NotificationDecorator.class})
     @Test
     void addRulePreparingCategoryEmptyFieldTitle() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
         AddRuleWindow addRuleWindow = rulePreparingWindow.openAddRulesWindow();
-        addRuleWindow.fillFieldDescription(DataConfig.DataTest.getRuleDescription());
+        addRuleWindow.fillFieldDescription(DataConfig.DataTest.getRULE_DESCRIPTION());
         addRuleWindow.clickSaveButton();
         assertEquals("Неверный запрос (400)", servicesPage.getNotification());
         assertFalse(rulePreparingWindow.isExistRule());
@@ -87,9 +88,9 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith({DeleteRuleDecorator.class, NotificationDecorator.class})
     @Test
     void addRulePreparingCategoryEmptyFieldDescription() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
         AddRuleWindow addRuleWindow = rulePreparingWindow.openAddRulesWindow();
-        addRuleWindow.fillFieldTitle(DataConfig.DataTest.getRuleTitle());
+        addRuleWindow.fillFieldTitle(DataConfig.DataTest.getRULE_TITLE());
         addRuleWindow.clickSaveButton();
         assertEquals("Неверный запрос (400)", servicesPage.getNotification());
         assertFalse(rulePreparingWindow.isExistRule());
@@ -100,7 +101,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith({DeleteRuleDecorator.class, NotificationDecorator.class})
     @Test
     void addRulePreparingCategoryEmptyFieldTitleDescription() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
         AddRuleWindow addRuleWindow = rulePreparingWindow.openAddRulesWindow();
         addRuleWindow.clickSaveButton();
         assertEquals("Неверный запрос (400)", servicesPage.getNotification());
@@ -112,14 +113,14 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleDecorator.class)
     @Test
     void closeWindowAddRulePreparingCategory() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
         AddRuleWindow addRuleWindow = rulePreparingWindow.openAddRulesWindow();
-        addRuleWindow.fillFieldTitle(DataConfig.DataTest.getRuleTitle());
-        addRuleWindow.fillFieldDescription(DataConfig.DataTest.getRuleDescription());
+        addRuleWindow.fillFieldTitle(DataConfig.DataTest.getRULE_TITLE());
+        addRuleWindow.fillFieldDescription(DataConfig.DataTest.getRULE_DESCRIPTION());
         addRuleWindow.closeWindowAddRule();
         assertFalse(addRuleWindow.isWindowAppear());
         assertFalse(rulePreparingWindow.isWindowAppear());
-        servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
+        servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
         rulePreparingWindow.openAddRulesWindow();
         assertEquals("", addRuleWindow.getValueTitleField());
         assertEquals("", addRuleWindow.getValueDescriptionField());
@@ -130,10 +131,10 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleDecorator.class)
     @Test
     void comebackRulesListFromWindowAddRulePreparingCategory() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
         AddRuleWindow addRuleWindow = rulePreparingWindow.openAddRulesWindow();
-        addRuleWindow.fillFieldTitle(DataConfig.DataTest.getRuleTitle());
-        addRuleWindow.fillFieldDescription(DataConfig.DataTest.getRuleDescription());
+        addRuleWindow.fillFieldTitle(DataConfig.DataTest.getRULE_TITLE());
+        addRuleWindow.fillFieldDescription(DataConfig.DataTest.getRULE_DESCRIPTION());
         addRuleWindow.returnRulesList();
         assertFalse(addRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
@@ -147,34 +148,34 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteRuleDecorator.class)
     @Test
     void editRulePreparingCategory() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
-        Rule rule=rulePreparingWindow.getRule();
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
+        Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
         editRuleWindow.editRuleWindow();
-        editRuleWindow.fillFieldTitle(DataConfig.DataTest.getNewRuleTitle());
-        editRuleWindow.fillFieldDescription(DataConfig.DataTest.getNewRuleDescription());
+        editRuleWindow.fillFieldTitle(DataConfig.DataTest.getNEW_RULE_TITLE());
+        editRuleWindow.fillFieldDescription(DataConfig.DataTest.getNEW_RULE_DESCRIPTION());
         editRuleWindow.changeRules();
         Selenide.sleep(3000);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.openEditRuleWindow();
-        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing();
-        assertEquals(DataConfig.DataTest.getNewRuleTitle(), editRuleWindow.getTitleRule());
-        assertEquals(DataConfig.DataTest.getNewRuleDescription(), editRuleWindow.getDescriptionRule());
-        assertEquals(DataConfig.DataTest.getNewRuleTitle(), preparingDescription.getTitle());
-        assertEquals(DataConfig.DataTest.getNewRuleDescription(), preparingDescription.getDescription());
+        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES());
+        assertEquals(DataConfig.DataTest.getNEW_RULE_TITLE(), editRuleWindow.getTitleRule());
+        assertEquals(DataConfig.DataTest.getNEW_RULE_DESCRIPTION(), editRuleWindow.getDescriptionRule());
+        assertEquals(DataConfig.DataTest.getNEW_RULE_TITLE(), preparingDescription.getTitle());
+        assertEquals(DataConfig.DataTest.getNEW_RULE_DESCRIPTION(), preparingDescription.getDescription());
     }
 
     @Feature("Управление правилами подготовки")
     @Story("Редактирование правила подоготовки к категории с пустым полем заголовка")
-    @ExtendWith({AddDeleteRuleDecorator.class,NotificationDecorator.class})
+    @ExtendWith({AddDeleteRuleDecorator.class, NotificationDecorator.class})
     @Test
     void editRulePreparingCategoryEmptyFieldTitle() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
-        Rule rule=rulePreparingWindow.getRule();
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
+        Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
         editRuleWindow.clearTitleField();
-        editRuleWindow.fillFieldDescription(DataConfig.DataTest.getNewRuleDescription());
+        editRuleWindow.fillFieldDescription(DataConfig.DataTest.getNEW_RULE_DESCRIPTION());
         editRuleWindow.changeRules();
         assertEquals("Неверный запрос (400)", servicesPage.getNotification());
         assertTrue(editRuleWindow.isWindowAppear());
@@ -182,13 +183,13 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Редактирование правила подоготовки к категории с пустым полем описания")
-    @ExtendWith({AddDeleteRuleDecorator.class,NotificationDecorator.class})
+    @ExtendWith({AddDeleteRuleDecorator.class, NotificationDecorator.class})
     @Test
     void editRulePreparingCategoryEmptyFieldDescription() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
-        Rule rule=rulePreparingWindow.getRule();
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
+        Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
-        editRuleWindow.fillFieldTitle(DataConfig.DataTest.getNewRuleTitle());
+        editRuleWindow.fillFieldTitle(DataConfig.DataTest.getNEW_RULE_TITLE());
         editRuleWindow.clearDescriptionField();
         editRuleWindow.changeRules();
         assertEquals("Неверный запрос (400)", servicesPage.getNotification());
@@ -197,11 +198,11 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Редактирование правила подоготовки к категории с пустыми полями")
-    @ExtendWith({AddDeleteRuleDecorator.class,NotificationDecorator.class})
+    @ExtendWith({AddDeleteRuleDecorator.class, NotificationDecorator.class})
     @Test
     void editRulePreparingCategoryEmptyFields() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
-        Rule rule=rulePreparingWindow.getRule();
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
+        Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
         editRuleWindow.clearTitleField();
         editRuleWindow.clearDescriptionField();
@@ -215,16 +216,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteRuleDecorator.class)
     @Test
     void editRulePreparingCategoryNotChangeSave() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
-        Rule rule=rulePreparingWindow.getRule();
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
+        Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
         editRuleWindow.changeRules();
         rule.openEditRuleWindow();
-        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing();
-        assertEquals(DataConfig.DataTest.getRuleTitle(), editRuleWindow.getTitleRule());
-        assertEquals(DataConfig.DataTest.getRuleDescription(), editRuleWindow.getDescriptionRule());
-        assertEquals(DataConfig.DataTest.getRuleTitle(), preparingDescription.getTitle());
-        assertEquals(DataConfig.DataTest.getRuleDescription(), preparingDescription.getDescription());
+        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES());
+        assertEquals(DataConfig.DataTest.getRULE_TITLE(), editRuleWindow.getTitleRule());
+        assertEquals(DataConfig.DataTest.getRULE_DESCRIPTION(), editRuleWindow.getDescriptionRule());
+        assertEquals(DataConfig.DataTest.getRULE_TITLE(), preparingDescription.getTitle());
+        assertEquals(DataConfig.DataTest.getRULE_DESCRIPTION(), preparingDescription.getDescription());
     }
 
     @Feature("Управление правилами подготовки")
@@ -232,21 +233,21 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteRuleDecorator.class)
     @Test
     void closeWindowEditRulePreparingCategory() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
-        Rule rule=rulePreparingWindow.getRule();
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
+        Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
-        editRuleWindow.fillFieldTitle(DataConfig.DataTest.getNewRuleTitle());
-        editRuleWindow.fillFieldDescription(DataConfig.DataTest.getNewRuleDescription());
+        editRuleWindow.fillFieldTitle(DataConfig.DataTest.getNEW_RULE_TITLE());
+        editRuleWindow.fillFieldDescription(DataConfig.DataTest.getNEW_RULE_DESCRIPTION());
         editRuleWindow.closeWindowRule();
         Selenide.sleep(1000);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.openEditRuleWindow();
-        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing();
-        assertEquals(DataConfig.DataTest.getRuleTitle(), editRuleWindow.getTitleRule());
-        assertEquals(DataConfig.DataTest.getRuleDescription(), editRuleWindow.getDescriptionRule());
-        assertEquals(DataConfig.DataTest.getRuleTitle(), preparingDescription.getTitle());
-        assertEquals(DataConfig.DataTest.getRuleDescription(), preparingDescription.getDescription());
+        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES());
+        assertEquals(DataConfig.DataTest.getRULE_TITLE(), editRuleWindow.getTitleRule());
+        assertEquals(DataConfig.DataTest.getRULE_DESCRIPTION(), editRuleWindow.getDescriptionRule());
+        assertEquals(DataConfig.DataTest.getRULE_TITLE(), preparingDescription.getTitle());
+        assertEquals(DataConfig.DataTest.getRULE_DESCRIPTION(), preparingDescription.getDescription());
     }
 
     @Feature("Управление правилами подготовки")
@@ -254,8 +255,8 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddRuleDecorator.class)
     @Test
     void deleteRulePreparingCategory() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
-        Rule rule=rulePreparingWindow.getRule();
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
+        Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
         editRuleWindow.deleteRules();
         Selenide.sleep(2000);
@@ -263,7 +264,7 @@ public class ServicesPageTest extends BaseTest {
         assertTrue(rulePreparingWindow.isWindowAppear());
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
-        assertEquals("[]", DataBaseQuery.selectRulesPreparing().getPreparing_description());
+        assertEquals("[]", DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES()).getPreparing_description());
     }
 
     @Feature("Управление правилами подготовки")
@@ -271,19 +272,19 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddRuleDecorator.class)
     @Test
     void deleteAllRulePreparingCategory() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
         rulePreparingWindow.deleteAllRules();
         Selenide.sleep(2000);
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
-        assertEquals("[]", DataBaseQuery.selectRulesPreparing().getPreparing_description());
+        assertEquals("[]", DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES()).getPreparing_description());
     }
 
     @Feature("Управление правилами подготовки")
     @Story("Закрытие окна правил подготовки к категории")
     @Test
     void closeWindowRulePreparingCategory() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCategoryName());
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(DataConfig.DataTest.getCATEGORY_RULES());
         rulePreparingWindow.closeWindowRulesPreparing();
         Selenide.sleep(2000);
         assertFalse(rulePreparingWindow.isWindowAppear());
@@ -298,10 +299,31 @@ public class ServicesPageTest extends BaseTest {
         assertFalse(rulePreparingWindow.isWindowAppear());
         assertEquals("Категория не найдена", servicesPage.getNotification());
     }
+}
+/*
+    @Feature("Управление категориями")
+    @Story("Успешное добавление раздела в категорию")
+    @ExtendWith(DeleteRuleDecorator.class)
+    @Test
+    void addSectionInCategory() {
+        CategoryWindow categoryWindow=servicesPage.openCategory(DataConfig.DataTest.getCATEGORY_RULES());
+        categoryWindow.categoryWindow();
+        AddSectionWindow addSectionWindow=categoryWindow.addSection();
+        addSectionWindow.addSectionWindow();
+        addSectionWindow.fillNameSectionField(DataConfig.DataTest.getNAME_SECTION());
+        addSectionWindow.clickAddSection();
 
+        Question question = faqPage.getQuestion();
+        assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
+        assertEquals(DataConfig.DataTest.getQUESTION(),question.getQuestion());
+        assertEquals(DataConfig.DataTest.getANSWER(),question.getAnswer());
+        assertEquals(DataConfig.DataTest.getQUESTION(), DataBaseQuery.selectFaq().getQuestion());
+        assertTrue(faqPage.isExistQuestions());
+        assertFalse(addSectionWindow.isWindowAppear());
+    }
 }
 
-/*
+
         @Story("Смена последовательности категорий")
         @Test
         void sequenceChangeQuestion () {

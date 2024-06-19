@@ -32,9 +32,9 @@ public class PreparationDataSettingTest {
     public static void authPatient() {
         tokenGetAuthPatient();
         given()
-                .baseUri(AppConfig.getUriPersonalArea())
+                .baseUri(AppConfig.getURI_PERSONAL_AREA())
                 .header("Authorization", "Bearer " + tokenPatient)
-                .header("Environment", AppConfig.getEnvironment())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .when()
                 .get("/api/clients/user-info")
                 .then()
@@ -44,8 +44,8 @@ public class PreparationDataSettingTest {
 
     private static void tokenGetAuthPatient() {
         Response response = given()
-                .baseUri(AppConfig.getUriPersonalArea())
-                .header("Environment", AppConfig.getEnvironment())
+                .baseUri(AppConfig.getURI_PERSONAL_AREA())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .queryParam("code", "123code")
                 .when()
                 .get("/api/clients/sign-in")
@@ -60,10 +60,10 @@ public class PreparationDataSettingTest {
     public static void addBugReportPatient(String message, String email, String author) {
         String bugReport=getBugReportJson(message,email,author);
         given()
-                .baseUri(AppConfig.getUriPersonalArea())
+                .baseUri(AppConfig.getURI_PERSONAL_AREA())
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + tokenPatient)
-                .header("Environment", AppConfig.getEnvironment())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .body(bugReport)
                 .when()
                 .post("/api/bug-reports")
@@ -79,9 +79,9 @@ public class PreparationDataSettingTest {
 
     public static void uploadPhoto(File file) {
         Response response = given()
-                .baseUri(AppConfig.getUriAdminPanel())
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppConfig.getEnvironment())
+                .header("Environment", AppConfig.getENVIRONMENT())
                 .contentType(ContentType.MULTIPART)
                 .multiPart("file", file)
                 .when()

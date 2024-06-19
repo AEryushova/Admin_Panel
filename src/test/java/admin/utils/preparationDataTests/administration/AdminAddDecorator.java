@@ -9,7 +9,7 @@ public class AdminAddDecorator implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataAdminTest.createAdmin(DataConfig.DataTest.getLoginAdminTest(), DataConfig.DataTest.getPasswordAdminTest());
+        PreparationDataAdminTest.createAdmin(DataConfig.DataTest.getLOGIN_ADMIN_TEST(), DataConfig.DataTest.getPASSWORD_ADMIN_TEST());
     }
 
 

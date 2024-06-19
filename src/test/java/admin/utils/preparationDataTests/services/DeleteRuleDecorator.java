@@ -1,5 +1,6 @@
 package admin.utils.preparationDataTests.services;
 
+import admin.data.DataConfig;
 import admin.utils.APIUtils.PreparationDataServicesTest;
 import admin.utils.dbUtils.DataBaseQuery;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class DeleteRuleDecorator implements BeforeEachCallback, AfterEachCallbac
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        UUID categoryId=DataBaseQuery.selectRulesPreparing().getId();
+        UUID categoryId=DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES()).getId();
         setCategoryId(categoryId);
         PreparationDataServicesTest.deleteRuleCategory(categoryId);
     }

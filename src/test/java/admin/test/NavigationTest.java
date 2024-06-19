@@ -24,7 +24,7 @@ public class NavigationTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataConfig.UserData.getLoginSuperAdmin(), DataConfig.UserData.getPasswordSuperAdmin());
+        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_SUPER_ADMIN(), DataConfig.UserData.getPASSWORD_SUPER_ADMIN());
     }
 
     @BeforeEach

@@ -10,6 +10,6 @@ public class AddFaqDecorator implements BeforeEachCallback {
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllFaq();
-        DataBaseQuery.addFaq(0);
+        DataBaseQuery.addFaq(0,DataConfig.DataTest.getQUESTION(),DataConfig.DataTest.getANSWER());
     }
 }

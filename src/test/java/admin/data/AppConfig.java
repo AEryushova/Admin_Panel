@@ -4,11 +4,9 @@ import lombok.Getter;
 
 public class AppConfig {
     @Getter
-    public static final String uriAdminPanel = "http://192.168.6.48:8083";
+    public static final String URI_ADMIN_PANEL = "http://192.168.6.48:8083";
     @Getter
-    public static final String domain = "192.168.6.48";
+    public static final String URI_PERSONAL_AREA = "https://lk.mdapp.online";
     @Getter
-    public static final String uriPersonalArea = "https://lk.mdapp.online";
-    @Getter
-    public static final String environment = "freeze";
+    public static final String ENVIRONMENT = "freeze";
 }

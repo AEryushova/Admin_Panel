@@ -1,5 +1,6 @@
 package admin.utils.preparationDataTests.doctors;
 
+import admin.data.DataConfig;
 import admin.utils.dbUtils.DataBaseQuery;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,13 +20,13 @@ public class AddDeleteDescriptionDecorator implements BeforeEachCallback, AfterE
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        UUID doctorId = DataBaseQuery.selectInfoDoctor().getEmployee_id();
+        UUID doctorId = DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearSection(doctorId);
-        DataBaseQuery.addSection(doctorId);
+        DataBaseQuery.addSection(doctorId,DataConfig.DataTest.getSECTION(),0);
         UUID sectionId = DataBaseQuery.selectSection(doctorId).getEmployee_details_id();
         setSectionId(sectionId);
-        DataBaseQuery.addDescription(sectionId);
+        DataBaseQuery.addDescription(sectionId, DataConfig.DataTest.getDESCRIPTION(),0);
     }
 
     @Override
