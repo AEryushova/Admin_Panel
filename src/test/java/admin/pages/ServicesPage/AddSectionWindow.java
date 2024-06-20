@@ -71,8 +71,10 @@ public class AddSectionWindow {
                 .click();
     }
 
-    public boolean isErrorNameFieldAppear() {
-        return ERROR_FIELD_NAME.exists();
+    public String getErrorFieldName() {
+        ERROR_FIELD_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist);
+        return ERROR_FIELD_NAME.getText();
     }
 
     public boolean isEnabledAddButton(){

@@ -1,6 +1,5 @@
 package admin.utils.dbUtils;
 
-import admin.data.DataConfig;
 import admin.utils.dbUtils.dbaseData.*;
 import admin.utils.testUtils.DataHelper;
 import lombok.SneakyThrows;
@@ -230,7 +229,7 @@ public class DataBaseQuery {
 
 
     @SneakyThrows
-    public static ServiceCategories selectRulesPreparing(String nameCategory) {
+    public static ServiceCategories selectServicesInfo(String nameCategory) {
         var selectInfo = "SELECT * FROM service_categories WHERE name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, nameCategory, new BeanHandler<>(ServiceCategories.class));

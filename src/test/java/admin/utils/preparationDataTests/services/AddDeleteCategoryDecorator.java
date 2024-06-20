@@ -17,20 +17,15 @@ public class AddDeleteCategoryDecorator implements BeforeEachCallback, AfterEach
     @Getter
     public static UUID categoryId;
 
-
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         PreparationDataServicesTest.addCategory(DataConfig.DataTest.getNAME_CATEGORY());
-        UUID categoryId= DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES()).getId();
+        UUID categoryId= DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_CATEGORY()).getId();
         setCategoryId(categoryId);
-        PreparationDataServicesTest.deleteRuleCategory(categoryId);
-        PreparationDataServicesTest.addRuleCategory(categoryId, DataConfig.DataTest.getRULE_TITLE(),DataConfig.DataTest.getRULE_DESCRIPTION());
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.deleteRuleCategory(categoryId);
+        PreparationDataServicesTest.deleteCategory(categoryId);
     }
-
-
 }

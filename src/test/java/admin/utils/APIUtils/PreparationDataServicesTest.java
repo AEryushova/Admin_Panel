@@ -85,10 +85,10 @@ public class PreparationDataServicesTest {
         return gson.toJson(jsonObject);
     }
 
-    public static void deleteCategory(String id) {
+    public static void deleteCategory(UUID id) {
         given()
                 .baseUri(AppConfig.getURI_ADMIN_PANEL())
-                .queryParam("categoryId", id)
+                .queryParam("categoryId", id.toString())
                 .header("Authorization", "Bearer " + BrowserManager.token)
                 .header("Environment", AppConfig.getENVIRONMENT())
                 .when()
@@ -96,5 +96,7 @@ public class PreparationDataServicesTest {
                 .then()
                 .statusCode(204);
     }
+
+
 
 }

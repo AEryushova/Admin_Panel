@@ -2,15 +2,12 @@ package admin.test;
 
 import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
-import admin.pages.FaqPage.Question;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.*;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.dbUtils.dbaseData.ServiceCategories;
 import admin.utils.preparationDataTests.general.NotificationDecorator;
-import admin.utils.preparationDataTests.services.AddDeleteRuleDecorator;
-import admin.utils.preparationDataTests.services.AddRuleDecorator;
-import admin.utils.preparationDataTests.services.DeleteRuleDecorator;
+import admin.utils.preparationDataTests.services.*;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -62,7 +59,7 @@ public class ServicesPageTest extends BaseTest {
         Rule rule = rulePreparingWindow.getRule();
         rule.rule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
-        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES());
+        ServiceCategories preparingDescription = DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getCATEGORY_RULES());
         assertEquals(DataConfig.DataTest.getRULE_TITLE(), editRuleWindow.getTitleRule());
         assertEquals(DataConfig.DataTest.getRULE_DESCRIPTION(), editRuleWindow.getDescriptionRule());
         assertEquals(DataConfig.DataTest.getRULE_TITLE(), preparingDescription.getTitle());
@@ -159,7 +156,7 @@ public class ServicesPageTest extends BaseTest {
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.openEditRuleWindow();
-        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES());
+        ServiceCategories preparingDescription = DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getCATEGORY_RULES());
         assertEquals(DataConfig.DataTest.getNEW_RULE_TITLE(), editRuleWindow.getTitleRule());
         assertEquals(DataConfig.DataTest.getNEW_RULE_DESCRIPTION(), editRuleWindow.getDescriptionRule());
         assertEquals(DataConfig.DataTest.getNEW_RULE_TITLE(), preparingDescription.getTitle());
@@ -221,7 +218,7 @@ public class ServicesPageTest extends BaseTest {
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
         editRuleWindow.changeRules();
         rule.openEditRuleWindow();
-        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES());
+        ServiceCategories preparingDescription = DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getCATEGORY_RULES());
         assertEquals(DataConfig.DataTest.getRULE_TITLE(), editRuleWindow.getTitleRule());
         assertEquals(DataConfig.DataTest.getRULE_DESCRIPTION(), editRuleWindow.getDescriptionRule());
         assertEquals(DataConfig.DataTest.getRULE_TITLE(), preparingDescription.getTitle());
@@ -243,7 +240,7 @@ public class ServicesPageTest extends BaseTest {
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.openEditRuleWindow();
-        ServiceCategories preparingDescription = DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES());
+        ServiceCategories preparingDescription = DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getCATEGORY_RULES());
         assertEquals(DataConfig.DataTest.getRULE_TITLE(), editRuleWindow.getTitleRule());
         assertEquals(DataConfig.DataTest.getRULE_DESCRIPTION(), editRuleWindow.getDescriptionRule());
         assertEquals(DataConfig.DataTest.getRULE_TITLE(), preparingDescription.getTitle());
@@ -264,7 +261,7 @@ public class ServicesPageTest extends BaseTest {
         assertTrue(rulePreparingWindow.isWindowAppear());
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
-        assertEquals("[]", DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES()).getPreparing_description());
+        assertEquals("[]", DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getCATEGORY_RULES()).getPreparing_description());
     }
 
     @Feature("Управление правилами подготовки")
@@ -277,7 +274,7 @@ public class ServicesPageTest extends BaseTest {
         Selenide.sleep(2000);
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
-        assertEquals("[]", DataBaseQuery.selectRulesPreparing(DataConfig.DataTest.getCATEGORY_RULES()).getPreparing_description());
+        assertEquals("[]", DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getCATEGORY_RULES()).getPreparing_description());
     }
 
     @Feature("Управление правилами подготовки")
@@ -299,28 +296,64 @@ public class ServicesPageTest extends BaseTest {
         assertFalse(rulePreparingWindow.isWindowAppear());
         assertEquals("Категория не найдена", servicesPage.getNotification());
     }
-}
-/*
+
     @Feature("Управление категориями")
     @Story("Успешное добавление раздела в категорию")
-    @ExtendWith(DeleteRuleDecorator.class)
+    @ExtendWith(AddDeleteCategorySectionDecorator.class)
     @Test
     void addSectionInCategory() {
-        CategoryWindow categoryWindow=servicesPage.openCategory(DataConfig.DataTest.getCATEGORY_RULES());
-        categoryWindow.categoryWindow();
-        AddSectionWindow addSectionWindow=categoryWindow.addSection();
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        categoryCard.categoryWindow();
+        AddSectionWindow addSectionWindow = categoryCard.addSection();
         addSectionWindow.addSectionWindow();
         addSectionWindow.fillNameSectionField(DataConfig.DataTest.getNAME_SECTION());
+        assertTrue(addSectionWindow.isEnabledAddButton());
         addSectionWindow.clickAddSection();
-
-        Question question = faqPage.getQuestion();
-        assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
-        assertEquals(DataConfig.DataTest.getQUESTION(),question.getQuestion());
-        assertEquals(DataConfig.DataTest.getANSWER(),question.getAnswer());
-        assertEquals(DataConfig.DataTest.getQUESTION(), DataBaseQuery.selectFaq().getQuestion());
-        assertTrue(faqPage.isExistQuestions());
+        Selenide.sleep(2000);
         assertFalse(addSectionWindow.isWindowAppear());
+        servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        assertTrue(categoryCard.isExistSectionCard());
+        SectionCard sectionCard = categoryCard.getSection();
+        assertEquals(DataConfig.DataTest.getNAME_SECTION(), sectionCard.getNameSection());
+        assertNotNull(DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SECTION()));
+        assertEquals(AddDeleteCategorySectionDecorator.getCategoryId(),DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SECTION()).getParent_id());
     }
+
+    @Feature("Управление категориями")
+    @Story("Зануление полей в окне добавления раздела в категорию и закрытие окна")
+    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @Test
+    void closeWindowAddSection() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        AddSectionWindow addSectionWindow = categoryCard.addSection();
+        addSectionWindow.fillNameSectionField(DataConfig.DataTest.getNAME_SECTION());
+        addSectionWindow.closeWindowAddSection();
+        assertFalse(addSectionWindow.isWindowAppear());
+        categoryCard.addSection();
+        assertEquals("", addSectionWindow.getValueNameField());
+    }
+
+    @Feature("Управление категориями")
+    @Story("Отображение уведомления об обязательности поля")
+    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @Test
+    void addedNewSectionObligatoryFields() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        AddSectionWindow addSectionWindow = categoryCard.addSection();
+        addSectionWindow.clickAddSection();
+        assertFalse(addSectionWindow.isEnabledAddButton());
+        assertEquals("Обязательное поле",addSectionWindow.getErrorFieldName());
+    }
+
+    @Feature("Управление категориями")
+    @Story("Очистка поля имени раздела через кнопку в окне добавления раздела")
+    @Test
+    void clearFieldNameThroughButtonClear() {
+
+    }
+}
+
+    /*
 }
 
 

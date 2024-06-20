@@ -50,12 +50,12 @@ public class ServicesPage extends BasePage {
     }
 
 
-    public CategoryWindow openCategory(String categoryName) {
+    public CategoryCard openCategory(String categoryName) {
         SelenideElement EXPANDCATEGORY= searchCategory(categoryName).$x("div[@class='gm_s']");
         EXPANDCATEGORY.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        return new CategoryWindow();
+        return new CategoryCard();
     }
 
     private SelenideElement searchCategory(String categoryName){
