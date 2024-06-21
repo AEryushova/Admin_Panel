@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.administration;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.utils.APIUtils.PreparationDataAdminTest;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;

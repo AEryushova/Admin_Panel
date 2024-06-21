@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.services;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.utils.APIUtils.PreparationDataServicesTest;
 import admin.utils.dbUtils.DataBaseQuery;
 import lombok.Getter;

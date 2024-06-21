@@ -1,6 +1,6 @@
 package admin.utils.APIUtils;
 
-import admin.data.AppConfig;
+import admin.config.AppConfig;
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -51,7 +51,7 @@ public class PreparationDataHeaderTest {
         tokenAdmin = response.getBody().jsonPath().getString("accessToken");
     }
 
-    public static String getDataInfoJson(String login, String password) {
+    private static String getDataInfoJson(String login, String password) {
         DataInfo dataInfo = new DataInfo(login, password);
         return gson.toJson(dataInfo);
     }

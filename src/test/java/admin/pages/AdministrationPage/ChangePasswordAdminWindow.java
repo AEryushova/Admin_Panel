@@ -14,6 +14,8 @@ public class ChangePasswordAdminWindow {
     private final SelenideElement CONFIRM_PASSWORD_FIELD = $x("//input[@name=\"confirmPassword\"]");
     private final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='Yimd']");
+    private final SelenideElement CLEAR_FIELD_NEW_PASSWORD_BUTTON = $x("//input[@name='newPassword']//preceding-sibling::div[@class='m4oD']");
+    private final SelenideElement CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON = $x("//input[@name='confirmPassword']//preceding-sibling::div[@class='m4oD']");
     private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
     private final SelenideElement ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");
 
@@ -63,6 +65,20 @@ public class ChangePasswordAdminWindow {
         CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+    }
+
+    public void clickClearButtonNewPasswordField() {
+        CLEAR_FIELD_NEW_PASSWORD_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        NEW_PASSWORD_FIELD.shouldHave(Condition.value(""),Duration.ofSeconds(5));
+    }
+
+    public void clickClearButtonConfirmPasswordField() {
+        CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        CONFIRM_PASSWORD_FIELD.shouldHave(Condition.value(""),Duration.ofSeconds(5));
     }
 
     public String getValuePasswordField() {

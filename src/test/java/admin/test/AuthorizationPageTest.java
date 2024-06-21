@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.dbUtils.DataBaseQuery;

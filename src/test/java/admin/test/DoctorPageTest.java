@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 
 import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import admin.pages.DoctorsPage.DoctorsPage;

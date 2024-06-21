@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.doctors;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.utils.APIUtils.PreparationDataSettingTest;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.testUtils.DataHelper;

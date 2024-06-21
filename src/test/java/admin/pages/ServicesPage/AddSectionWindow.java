@@ -69,6 +69,7 @@ public class AddSectionWindow {
         CLEAR_FIELD_NAME_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        NAME_FIELD.shouldHave(Condition.value(""),Duration.ofSeconds(5));
     }
 
     public String getErrorFieldName() {

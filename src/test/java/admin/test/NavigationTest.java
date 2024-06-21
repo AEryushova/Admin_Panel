@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.pages.AdministrationPage.AdministrationPage;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.FaqPage.FaqPage;

@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.headerMenu;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.utils.APIUtils.PreparationDataHeaderTest;
 import admin.utils.testUtils.BrowserManager;
 import com.codeborne.selenide.Selenide;

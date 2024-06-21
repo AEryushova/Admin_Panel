@@ -1,6 +1,6 @@
 package admin.utils.APIUtils;
 
-import admin.data.AppConfig;
+import admin.config.AppConfig;
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
@@ -58,13 +58,12 @@ public class PreparationDataSettingTest {
     }
 
     public static void addBugReportPatient(String message, String email, String author) {
-        String bugReport=getBugReportJson(message,email,author);
         given()
                 .baseUri(AppConfig.getURI_PERSONAL_AREA())
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + tokenPatient)
                 .header("Environment", AppConfig.getENVIRONMENT())
-                .body(bugReport)
+                .body(getBugReportJson(message,email,author))
                 .when()
                 .post("/api/bug-reports")
                 .then()

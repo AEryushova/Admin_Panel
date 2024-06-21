@@ -1,7 +1,7 @@
 package admin.utils.preparationDataTests.headerMenu;
 
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.utils.testUtils.BrowserManager;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.extension.AfterEachCallback;

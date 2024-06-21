@@ -1,6 +1,6 @@
 package admin.utils.testUtils;
 
-import admin.data.AppConfig;
+import admin.config.AppConfig;
 import admin.utils.APIUtils.PreparationDataSettingTest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

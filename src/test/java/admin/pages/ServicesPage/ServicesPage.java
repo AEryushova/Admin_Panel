@@ -1,6 +1,6 @@
 package admin.pages.ServicesPage;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.pages.BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -42,8 +42,8 @@ public class ServicesPage extends BasePage {
 
 
     public RulesPreparingWindow openRulesPreparingCategory(String categoryName){
-        SelenideElement RULESPREPARING= searchCategory(categoryName).$x("div[@class='Ie41']");
-        RULESPREPARING.shouldBe(Condition.visible)
+        SelenideElement RULES_PREPARING = searchCategory(categoryName).$x("div[@class='Ie41']");
+        RULES_PREPARING.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new RulesPreparingWindow();
@@ -51,8 +51,8 @@ public class ServicesPage extends BasePage {
 
 
     public CategoryCard openCategory(String categoryName) {
-        SelenideElement EXPANDCATEGORY= searchCategory(categoryName).$x("div[@class='gm_s']");
-        EXPANDCATEGORY.shouldBe(Condition.visible)
+        SelenideElement EXPAND_CATEGORY = searchCategory(categoryName).$x("div[@class='gm_s']");
+        EXPAND_CATEGORY.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new CategoryCard();

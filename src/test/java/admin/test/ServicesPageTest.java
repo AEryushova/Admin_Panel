@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.*;
@@ -345,30 +345,183 @@ public class ServicesPageTest extends BaseTest {
     void addedNewSectionObligatoryFields() {
         CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
         AddSectionWindow addSectionWindow = categoryCard.addSection();
-        addSectionWindow.clickAddSection();
+        addSectionWindow.clickFieldName();
         assertFalse(addSectionWindow.isEnabledAddButton());
         assertEquals("Обязательное поле",addSectionWindow.getErrorFieldName());
     }
 
     @Feature("Управление категориями")
     @Story("Очистка поля имени раздела через кнопку в окне добавления раздела")
+    @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void clearFieldNameThroughButtonClear() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        AddSectionWindow addSectionWindow = categoryCard.addSection();
+        addSectionWindow.fillNameSectionField(DataConfig.DataTest.getNAME_SECTION());
+        addSectionWindow.clearButtonNameField();
+        assertEquals("",addSectionWindow.getValueNameField());
+        assertEquals("Обязательное поле",addSectionWindow.getErrorFieldName());
+    }
 
+    @Feature("Управление категориями")
+    @Story("Отмена добавления раздела в категорию")
+    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @Test
+    void cancelAddSectionInCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        AddSectionWindow addSectionWindow = categoryCard.addSection();
+        addSectionWindow.cancelAddSection();
+        assertFalse(addSectionWindow.isWindowAppear());
+        assertFalse(categoryCard.isExistSectionCard());
+    }
+
+    @Feature("Управление категориями")
+    @Story("Успешное редактирование раздела в категории")
+    @ExtendWith(AddDeleteSectionDecorator.class)
+    @Test
+    void editSectionInCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.sectionCard();
+        EditSectionWindow editSectionWindow=sectionCard.editSection();
+        editSectionWindow.editSectionWindow();
+        editSectionWindow.fillNameField(DataConfig.DataTest.getNEW_NAME_SECTION());
+        editSectionWindow.saveChange();
+        Selenide.sleep(2000);
+        assertFalse(editSectionWindow.isWindowAppear());
+        servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        assertEquals(DataConfig.DataTest.getNEW_NAME_SECTION(), sectionCard.getNameSection());
+        assertNotNull(DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNEW_NAME_SECTION()));
+        assertEquals(AddDeleteSectionDecorator.getCategoryId(),DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNEW_NAME_SECTION()).getParent_id());
+    }
+
+    @Feature("Управление категориями")
+    @Story("Сохранение значений поля в окне редактирования раздела после закрытия окна")
+    @ExtendWith(AddDeleteSectionDecorator.class)
+    @Test
+    void closeWindowEditSectionInCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        SectionCard sectionCard = categoryCard.getSection();
+        EditSectionWindow editSectionWindow=sectionCard.editSection();
+        editSectionWindow.fillNameField(DataConfig.DataTest.getNEW_NAME_SECTION());
+        editSectionWindow.closeWindow();
+        assertFalse(editSectionWindow.isWindowAppear());
+        assertEquals(DataConfig.DataTest.getNAME_SECTION(), sectionCard.getNameSection());
+        assertNotNull(DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SECTION()));
+    }
+
+    @Feature("Управление категориями")
+    @Story("Сохранение значений поля без изменений данных")
+    @ExtendWith(AddDeleteSectionDecorator.class)
+    @Test
+    void editSectionInCategoryNotChangeSave() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        SectionCard sectionCard = categoryCard.getSection();
+        EditSectionWindow editSectionWindow=sectionCard.editSection();
+        editSectionWindow.saveChange();
+        Selenide.sleep(3000);
+        assertFalse(editSectionWindow.isWindowAppear());
+        servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        assertEquals(DataConfig.DataTest.getNAME_SECTION(), sectionCard.getNameSection());
+        assertNotNull(DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SECTION()));
+    }
+
+    @Feature("Управление категориями")
+    @Story("Редактирование названия раздела с пустым полем")
+    @ExtendWith(AddDeleteSectionDecorator.class)
+    @Test
+    void editSectionInCategoryEmptyFieldName() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        SectionCard sectionCard = categoryCard.getSection();
+        EditSectionWindow editSectionWindow=sectionCard.editSection();
+        editSectionWindow.clearNameField();
+        editSectionWindow.saveChange();
+        assertTrue(editSectionWindow.isWindowAppear());
+        assertNotNull(DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SECTION()));
+    }
+
+    @Feature("Управление категориями")
+    @Story("Успешное удаление раздела из категории")
+    @ExtendWith(AddSectionDecorator.class)
+    @Test
+    void deleteSectionInCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        SectionCard sectionCard = categoryCard.getSection();
+        DeleteSectionWindow deleteSectionWindow=sectionCard.deleteSection();
+        deleteSectionWindow.deleteSectionWindow();
+        assertTrue(deleteSectionWindow.verifyNameSection(DataConfig.DataTest.getNAME_SECTION()));
+        deleteSectionWindow.deleteSection();
+        Selenide.sleep(2000);
+        assertFalse(deleteSectionWindow.isWindowAppear());
+        servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        assertFalse(categoryCard.isExistSectionCard());
+        assertTrue(categoryCard.isExistEmptyList());
+        assertNull(DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SECTION()));
+    }
+
+    @Feature("Управление категориями")
+    @Story("Отмена удаления раздела из категории")
+    @ExtendWith(AddDeleteSectionDecorator.class)
+    @Test
+    void cancelDeleteSectionInCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        SectionCard sectionCard = categoryCard.getSection();
+        DeleteSectionWindow deleteSectionWindow=sectionCard.deleteSection();
+        deleteSectionWindow.cancelDeleteSection();
+        assertFalse(deleteSectionWindow.isWindowAppear());
+        assertTrue(categoryCard.isExistSectionCard());
+        assertNotNull(DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SECTION()));
+    }
+
+    @Feature("Управление категориями")
+    @Story("Закрытие окна удаления раздела из категории")
+    @ExtendWith(AddDeleteSectionDecorator.class)
+    @Test
+    void closeWindowDeleteSectionInCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        SectionCard sectionCard = categoryCard.getSection();
+        DeleteSectionWindow deleteSectionWindow=sectionCard.deleteSection();
+        deleteSectionWindow.closeWindowDeleteSection();
+        assertFalse(deleteSectionWindow.isWindowAppear());
+        assertTrue(categoryCard.isExistSectionCard());
+        assertNotNull(DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SECTION()));
+    }
+
+    @Feature("Управление категориями")
+    @Story("Успешное добавление подраздела в категорию")
+    @ExtendWith(AddDeleteSectionSubsectionDecorator.class)
+    @Test
+    void addSubsectionInCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        AddSectionWindow addSectionWindow=sectionCard.addSubsection();
+        addSectionWindow.fillNameSectionField(DataConfig.DataTest.getNAME_SUBSECTION());
+        assertTrue(addSectionWindow.isEnabledAddButton());
+        addSectionWindow.clickAddSection();
+        Selenide.sleep(2000);
+        assertFalse(addSectionWindow.isWindowAppear());
+        servicesPage.openCategory(DataConfig.DataTest.getNAME_CATEGORY());
+        sectionCard.openSection();
+        assertTrue(sectionCard.isExistSubsectionCard());
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
+        assertEquals(DataConfig.DataTest.getNAME_SUBSECTION(), subsectionCard.getNameSubsection());
+        assertNotNull(DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SUBSECTION()));
+        assertEquals(AddDeleteSectionSubsectionDecorator.getSectionId(),DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SUBSECTION()).getParent_id());
     }
 }
 
+
+
     /*
 }
-
-
         @Story("Смена последовательности категорий")
         @Test
         void sequenceChangeQuestion () {
 
             int sequenceFirstCategory = servicesPage.getCategoryIndexByName("Телемедицина");
             int sequenceSecondCategory = servicesPage.getCategoryIndexByName("Стоматология");
-            servicesPage.sequenceChangeCategory("Телемедицина", "Стоматология");
+            servicesPag.sequenceChangeCategory("Телемедицина", "Стоматология");
             int sequenceFirstCategory1 = servicesPage.getCategoryIndexByName("Стоматология");
             int sequenceSecondCategory1 = servicesPage.getCategoryIndexByName("Телемедицина");
             Assertions.assertEquals(sequenceFirstCategory, sequenceFirstCategory1);

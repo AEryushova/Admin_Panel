@@ -1,8 +1,7 @@
 package admin.utils.preparationDataTests.doctors;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.utils.dbUtils.DataBaseQuery;
-import admin.utils.testUtils.DataHelper;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.extension.AfterEachCallback;

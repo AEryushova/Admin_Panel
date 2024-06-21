@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.pages.AdministrationPage.*;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
@@ -245,37 +245,24 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Добавление нового админа")
-    @Story("Очистка поля логина через кнопку в окне добавления админа")
+    @Story("Очистка полей через кнопку в окне добавления админа")
     @Test
-    void clearFieldLoginThroughButtonClear() {
+    void clearFieldsAddAdminThroughButtonClear() {
         NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(DataConfig.DataTest.getLOGIN_ADMIN_TEST());
         newAdminWindow.clickClearButtonLoginField();
-        assertEquals("", newAdminWindow.getValueLoginField());
-        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldLogin());
-    }
-
-    @Feature("Добавление нового админа")
-    @Story("Очистка поля пароля через кнопку в окне добавления админа")
-    @Test
-    void clearFieldPasswordThroughButtonClear() {
-        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminPassword(DataConfig.DataTest.getPASSWORD_ADMIN_TEST());
         newAdminWindow.clickClearButtonPasswordField();
-        assertEquals("", newAdminWindow.getValuePasswordField());
-        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldPassword());
-    }
-
-    @Feature("Добавление нового админа")
-    @Story("Очистка поля подтверждения пароля через кнопку в окне добавления админа")
-    @Test
-    void clearFieldConfirmPasswordThroughButtonClear() {
-        NewAdminWindow newAdminWindow = adminPage.openWindowAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminConfirmPassword(DataConfig.DataTest.getPASSWORD_ADMIN_TEST());
         newAdminWindow.clickClearButtonConfirmPasswordField();
+        assertEquals("", newAdminWindow.getValueLoginField());
+        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldLogin());
+        assertEquals("", newAdminWindow.getValuePasswordField());
+        assertEquals("Обязательное поле", newAdminWindow.getErrorFieldPassword());
         assertEquals("", newAdminWindow.getValueConfirmPasswordField());
         assertEquals("Обязательное поле", newAdminWindow.getErrorFieldConfirmPassword());
     }
+
 
     @Feature("Добавление нового админа")
     @Story("Зануление полей в окне добавления админа и закрытие окна")
@@ -398,6 +385,22 @@ public class AdministrationPageTest extends BaseTest {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin(DataConfig.DataTest.getLOGIN_ADMIN_TEST());
         changePasswordAdminWindow.fillFieldNewPassword("wwqq123456#");
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
+    }
+
+    @Feature("Смена пароля админу")
+    @Story("Очистка полей через кнопку в окне изменения пароля админу")
+    @ExtendWith(AdminAddDeleteDecorator.class)
+    @Test
+    void clearFieldsThroughButtonClear() {
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.openWindowChangedPasswordAdmin(DataConfig.DataTest.getLOGIN_ADMIN_TEST());
+        changePasswordAdminWindow.fillFieldNewPassword(DataConfig.DataTest.getNEW_PASSWORD_ADMIN_TEST());
+        changePasswordAdminWindow.clickClearButtonNewPasswordField();
+        changePasswordAdminWindow.fillFieldConfirmPassword(DataConfig.DataTest.getNEW_PASSWORD_ADMIN_TEST());
+        changePasswordAdminWindow.clickClearButtonConfirmPasswordField();
+        assertEquals("", changePasswordAdminWindow.getValuePasswordField());
+        assertEquals("Обязательное поле", changePasswordAdminWindow.getErrorFieldPassword());
+        assertEquals("", changePasswordAdminWindow.getValueConfirmPasswordField());
+        assertEquals("Обязательное поле", changePasswordAdminWindow.getErrorFieldConfirmPassword());
     }
 
     @Feature("Смена пароля админу")

@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.doctors;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.utils.dbUtils.DataBaseQuery;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,5 @@
 package admin.utils.preparationDataTests.authorization;
 
-import admin.data.AppConfig;
-import admin.utils.testUtils.BrowserManager;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;

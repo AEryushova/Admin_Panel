@@ -1,6 +1,6 @@
 package admin.utils.testUtils;
 
-import admin.data.AppConfig;
+import admin.config.AppConfig;
 import admin.pages.AuthorizationPage.AuthorizationPage;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;

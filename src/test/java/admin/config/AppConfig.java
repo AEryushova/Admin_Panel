@@ -1,4 +1,4 @@
-package admin.data;
+package admin.config;
 
 import lombok.Getter;
 

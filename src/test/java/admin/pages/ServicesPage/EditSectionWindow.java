@@ -2,6 +2,7 @@ package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
@@ -34,11 +35,18 @@ public class EditSectionWindow {
                 .click();
     }
 
+    public void clearNameField(){
+        NAME_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .sendKeys(Keys.CONTROL, "a");
+        NAME_FIELD.sendKeys(Keys.BACK_SPACE);
+    }
+
     public void closeWindow() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
     public boolean isWindowAppear() {

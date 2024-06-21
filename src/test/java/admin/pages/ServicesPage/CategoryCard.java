@@ -8,9 +8,8 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class CategoryCard {
-    private final SelenideElement ADD_SECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button");
-    private final SelenideElement HEADER = $x("//div[@class='H5JJ']/span");
-    private final SelenideElement SECTION = $x("//div[@class='K9Fo']");
+    private final SelenideElement ADD_SECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button/parent::div[@class='nwH0']");
+    private final SelenideElement SECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
     private final SelenideElement EMPTY_LIST_SECTION = $x("//div[@class='kblo']/span");
 
 

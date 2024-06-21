@@ -1,6 +1,6 @@
 package admin.utils.APIUtils;
 
-import admin.data.AppConfig;
+import admin.config.AppConfig;
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
 import io.restassured.http.ContentType;
@@ -22,13 +22,12 @@ public class PreparationDataAdminTest {
     }
 
     public static void createAdmin(String login, String password) {
-        String dataInfoJson = getDataInfoJson(login, password);
         given()
                 .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + BrowserManager.token)
                 .header("Environment", AppConfig.getENVIRONMENT())
-                .body(dataInfoJson)
+                .body(getDataInfoJson(login, password))
                 .when()
                 .post("/api/admins/sign-up")
                 .then()

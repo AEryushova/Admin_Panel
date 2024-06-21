@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.setting;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.utils.dbUtils.DataBaseQuery;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;

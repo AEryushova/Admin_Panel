@@ -1,4 +1,4 @@
-package admin.data;
+package admin.config;
 
 import lombok.Getter;
 
@@ -77,6 +77,10 @@ public class DataConfig {
         public static final String NAME_CATEGORY = "Категория";
         @Getter
         public static final String NAME_SECTION = "Раздел для категории";
+        @Getter
+        public static final String NEW_NAME_SECTION = "Измененный раздел";
+        @Getter
+        public static final String NAME_SUBSECTION = "Подаздел для категории";
     }
 
     public static class DataSearch {

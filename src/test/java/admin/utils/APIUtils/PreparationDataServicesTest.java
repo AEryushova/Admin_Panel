@@ -1,7 +1,7 @@
 package admin.utils.APIUtils;
 
 
-import admin.data.AppConfig;
+import admin.config.AppConfig;
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -97,6 +97,24 @@ public class PreparationDataServicesTest {
                 .statusCode(204);
     }
 
+    public static void addSection(String nameSection,UUID parentId) {
+        given()
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", AppConfig.getENVIRONMENT())
+                .contentType(ContentType.JSON)
+                .body(addSectionJson(nameSection,parentId))
+                .when()
+                .post("/api/services/admin/category")
+                .then()
+                .statusCode(201);
+    }
+
+    private static String addSectionJson(String nameSection,UUID parentId) {
+        jsonObject.addProperty("parentId", parentId.toString());
+        jsonObject.addProperty("name", nameSection);
+        return gson.toJson(jsonObject);
+    }
 
 
 }

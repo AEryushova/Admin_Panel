@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.data.DataConfig;
+import admin.config.DataConfig;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.ChangeMinePasswordWindow;
 import admin.pages.HeaderMenu.HeaderMenu;
@@ -198,25 +198,17 @@ public class HeaderMenuTest {
 
 
     @Feature("Смена своего пароля админом")
-    @Story("Очистка поля старого пароля через кнопку в окне изменения своего пароля")
+    @Story("Очистка полей через кнопку в окне изменения своего пароля")
     @Test
-    void clearFieldOldPasswordThroughButtonClear(){
+    void clearFieldsThroughButtonClear(){
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldOldPassword(DataConfig.UserData.getPASSWORD_ADMIN());
         changeMinePassWindow.clickClearButtonOldPasswordField();
-        assertEquals("", changeMinePassWindow.getValueOldPasswordField());
-        assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldOldPassword());
-    }
-
-    @Feature("Смена своего пароля админом")
-    @Story("Очистка поля нового пароля через кнопку в окне изменения своего пароля")
-    @Test
-    void clearFieldNewPasswordThroughButtonClear(){
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
-        ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldNewPassword(DataConfig.UserData.getPASSWORD_ADMIN());
         changeMinePassWindow.clickClearButtonNewPasswordField();
+        assertEquals("", changeMinePassWindow.getValueOldPasswordField());
+        assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldOldPassword());
         assertEquals("", changeMinePassWindow.getValueNewPasswordField());
         assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldNewPassword());
     }
