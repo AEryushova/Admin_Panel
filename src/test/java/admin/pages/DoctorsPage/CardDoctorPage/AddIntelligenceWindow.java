@@ -55,11 +55,11 @@ public class AddIntelligenceWindow {
     }
 
     public boolean isWindowSectionAppear() {
-        return WINDOW_SECTION.exists();
+        return WINDOW_SECTION.isDisplayed();
     }
 
     public boolean isWindowDescriptionAppear() {
-        return WINDOW_DESCRIPTION .exists();
+        return WINDOW_DESCRIPTION .isDisplayed();
     }
 
 }

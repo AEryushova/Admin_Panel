@@ -64,11 +64,11 @@ public class CardDoctorPage extends BasePage {
     }
 
     public boolean isExistSection() {
-        return SECTION.exists();
+        return SECTION.isDisplayed();
     }
 
     public boolean isExistDescription() {
-        return DESCRIPTION.exists();
+        return DESCRIPTION.isDisplayed();
     }
 
     public Section getSection() {
@@ -84,11 +84,11 @@ public class CardDoctorPage extends BasePage {
     }
 
     public boolean isExistsEmptyListSection() {
-        return EMPTY_LIST_SECTION.exists();
+        return EMPTY_LIST_SECTION.isDisplayed();
     }
 
     public boolean isExistsEmptyListDescription() {
-        return EMPTY_LIST_DESCRIPTION.exists();
+        return EMPTY_LIST_DESCRIPTION.isDisplayed();
     }
 
 
@@ -119,12 +119,12 @@ public class CardDoctorPage extends BasePage {
     }
 
     public boolean isSelectPublishedFeedback() {
-        return SELECTED_PUBLISHED_BUTTON.exists();
+        return SELECTED_PUBLISHED_BUTTON.isDisplayed();
     }
 
 
     public boolean isSelectUnPublishedFeedback() {
-        return SELECTED_UNPUBLISHED_BUTTON.exists();
+        return SELECTED_UNPUBLISHED_BUTTON.isDisplayed();
     }
 
     public AddFeedbackWindow openWindowAddFeedback() {
@@ -142,7 +142,7 @@ public class CardDoctorPage extends BasePage {
 
 
     public boolean isExistFeedback() {
-        return FEEDBACK.exists();
+        return FEEDBACK.isDisplayed();
     }
 
     public void comebackDoctorsPage() {
@@ -152,7 +152,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     public boolean isSortingNewAppear() {
-        return SORTING_FEEDBACK_NEW.exists();
+        return SORTING_FEEDBACK_NEW.isDisplayed();
     }
 
     public void sortingFeedbackNew() {
@@ -162,7 +162,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     public boolean isSortingOldAppear() {
-        return SORTING_FEEDBACK_OLD.exists();
+        return SORTING_FEEDBACK_OLD.isDisplayed();
     }
 
     public void sortingFeedbackOld() {

@@ -56,7 +56,7 @@ public class UserPanel {
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 
 }

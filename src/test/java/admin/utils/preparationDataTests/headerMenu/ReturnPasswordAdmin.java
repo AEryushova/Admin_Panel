@@ -14,7 +14,7 @@ public class ReturnPasswordAdmin implements AfterEachCallback {
         PreparationDataHeaderTest.authAdmin(DataConfig.UserData.getLOGIN_SUPER_ADMIN(), DataConfig.UserData.getPASSWORD_SUPER_ADMIN());
         PreparationDataHeaderTest.changePasswordAdmin(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
         Selenide.closeWebDriver();
-        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
 
     }
 }

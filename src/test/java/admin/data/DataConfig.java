@@ -36,6 +36,8 @@ public class DataConfig {
         @Getter
         public static File PHOTO = new File("src/test/resources/Photo 3,7mbJpeg.jpg");
         @Getter
+        public static File LOGO = new File("src/test/resources/logo.png");
+        @Getter
         public static final String MESSAGE_BUG_REPORT = "Не могу записаться к врачу";
         @Getter
         public static final String EMAIL_PATIENT = "Test@mail.ru";

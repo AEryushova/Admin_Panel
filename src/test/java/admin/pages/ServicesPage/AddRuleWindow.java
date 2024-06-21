@@ -68,7 +68,7 @@ public class AddRuleWindow {
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 
 }

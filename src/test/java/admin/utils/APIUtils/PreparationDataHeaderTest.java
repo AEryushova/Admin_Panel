@@ -37,12 +37,11 @@ public class PreparationDataHeaderTest {
     }
 
     private static void tokenGetAuthAdmin(String login, String password) {
-        String dataInfoJson = getDataInfoJson(login, password);
         Response response = given()
                 .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .header("Environment", AppConfig.getENVIRONMENT())
                 .contentType(ContentType.JSON)
-                .body(dataInfoJson)
+                .body(getDataInfoJson(login, password))
                 .when()
                 .post("/api/admins/sign-in")
                 .then()
@@ -52,7 +51,7 @@ public class PreparationDataHeaderTest {
         tokenAdmin = response.getBody().jsonPath().getString("accessToken");
     }
 
-    private static String getDataInfoJson(String login, String password) {
+    public static String getDataInfoJson(String login, String password) {
         DataInfo dataInfo = new DataInfo(login, password);
         return gson.toJson(dataInfo);
     }
@@ -66,13 +65,12 @@ public class PreparationDataHeaderTest {
     }
 
     public static void changePasswordAdmin(String login, String newPassword) {
-        String changePassword = getChangePasswordJson(login, newPassword);
         given()
                 .baseUri(AppConfig.getURI_ADMIN_PANEL())
                 .header("Authorization", "Bearer " + tokenAdmin)
                 .header("Environment", AppConfig.getENVIRONMENT())
                 .contentType(ContentType.JSON)
-                .body(changePassword)
+                .body(getChangePasswordJson(login, newPassword))
                 .when()
                 .post("/api/admins/reset-password")
                 .then()

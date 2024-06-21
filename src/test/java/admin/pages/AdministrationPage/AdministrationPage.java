@@ -1,6 +1,5 @@
 package admin.pages.AdministrationPage;
 
-import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -18,9 +17,6 @@ public class AdministrationPage extends BasePage {
     private final SelenideElement UPDATE_ORDER = $x("//span[text()='Обновить приказ' ]//parent::div//parent::button");
     private final SelenideElement UPDATE_PRICE = $x("//span[text()='Обновить прайс' ]//parent::div//parent::button");
     private final SelenideElement ADD_ADMIN = $x("//span[text()='Добавить админа']//parent::div//parent::button");
-    private final SelenideElement CARD_ADMIN = $x("//input[@name='login' and @value='" + DataConfig.DataTest.getLOGIN_ADMIN_TEST() + "']/parent::div/parent::div/parent::div");
-    private final SelenideElement CHANGE_PASSWORD = $x("//div[.//input[contains(@value, '" + DataConfig.DataTest.getLOGIN_ADMIN_TEST() + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
-    private final SelenideElement DELETE_ADMIN = $x("//div[.//input[contains(@value, '" + DataConfig.DataTest.getLOGIN_ADMIN_TEST() + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
 
 
     public void adminPage() {
@@ -39,32 +35,44 @@ public class AdministrationPage extends BasePage {
         return new NewAdminWindow();
     }
 
-    public ChangePasswordAdminWindow openWindowChangedPasswordAdmin() {
-        CARD_ADMIN.shouldBe(Condition.visible);
-        CHANGE_PASSWORD.shouldBe(Condition.visible)
+    public ChangePasswordAdminWindow openWindowChangedPasswordAdmin(String login) {
+        searchCardAdmin(login).shouldBe(Condition.visible);
+        searchChangedPasswordAdmin(login).shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new ChangePasswordAdminWindow();
     }
 
-    public DeleteAdminWindow openWindowDeleteAdmin() {
-        CARD_ADMIN.shouldBe(Condition.visible);
-        DELETE_ADMIN.shouldBe(Condition.visible)
+    public DeleteAdminWindow openWindowDeleteAdmin(String login) {
+        searchCardAdmin(login).shouldBe(Condition.visible);
+        searchDeleteAdmin(login).shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new DeleteAdminWindow();
     }
 
-    public void adminCard(){
-        CARD_ADMIN.shouldBe(Condition.visible);
-        CHANGE_PASSWORD.shouldBe(Condition.visible)
+    public void adminCard(String login){
+        searchCardAdmin(login).shouldBe(Condition.visible);
+        searchChangedPasswordAdmin(login).shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
-        DELETE_ADMIN.shouldBe(Condition.visible)
+        searchDeleteAdmin(login).shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
     }
 
-    public boolean isExistAdminCard() {
-        return CARD_ADMIN.exists();
+    private SelenideElement searchCardAdmin(String login){
+        return $x("//input[@name='login' and @value='" + login + "']/parent::div/parent::div/parent::div");
+    }
+
+    private SelenideElement searchChangedPasswordAdmin(String login){
+        return $x("//div[.//input[contains(@value, '" + login + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
+    }
+
+    private SelenideElement searchDeleteAdmin(String login){
+        return $x("//div[.//input[contains(@value, '" + login + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
+    }
+
+    public boolean isVisibleAdminCard(String login) {
+        return searchCardAdmin(login).isDisplayed();
     }
 
     public UpdateLegalDocWindow updateOffer() {

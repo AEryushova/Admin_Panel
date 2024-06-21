@@ -82,6 +82,6 @@ public class UpdatePriceWindow {
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 }

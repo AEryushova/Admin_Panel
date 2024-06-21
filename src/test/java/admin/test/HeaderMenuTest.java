@@ -10,6 +10,7 @@ import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.preparationDataTests.headerMenu.NewAuthDecorator;
 import admin.utils.preparationDataTests.headerMenu.ReturnPasswordAdmin;
 import admin.utils.testUtils.*;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -32,16 +33,20 @@ public class HeaderMenuTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
     }
 
     @BeforeEach
     void setUp(){
-        BrowserManager.openPagesAfterAuth();
+        Selenide.refresh();
         headerMenu = new HeaderMenu();
         basePage = new BasePage();
     }
 
+    @AfterAll
+    static void closeWebDriver() {
+        Selenide.closeWebDriver();
+    }
 
     @Feature("Смена своего пароля админом")
     @Story("Успешная замена своего пароля")

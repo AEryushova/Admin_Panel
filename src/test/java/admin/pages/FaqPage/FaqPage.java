@@ -46,12 +46,12 @@ public class FaqPage extends BasePage {
     }
 
     public boolean isExistQuestions() {
-        return QUESTION_CARD.exists();
+        return QUESTION_CARD.isDisplayed();
     }
 
     public boolean isExistQuestionsByIndex(int index) {
         SelenideElement question = QUESTION_CARDS.get(index);
-        return question.exists();
+        return question.isDisplayed();
     }
 
 
@@ -102,6 +102,6 @@ public class FaqPage extends BasePage {
     }
 
     public boolean isExistsEmptyList() {
-        return EMPTY_LIST_FAQ.exists();
+        return EMPTY_LIST_FAQ.isDisplayed();
     }
 }

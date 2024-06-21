@@ -12,7 +12,7 @@ public class NewAuthDecorator implements AfterEachCallback {
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
         Selenide.closeWebDriver();
-        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
     }
 
 

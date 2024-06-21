@@ -125,11 +125,11 @@ public class AuthorizationPage extends BasePage {
     }
 
     public boolean isErrorLoginAppear() {
-        return ERROR_FIELD_LOGIN.exists();
+        return ERROR_FIELD_LOGIN.isDisplayed();
     }
 
     public boolean isErrorPasswordAppear() {
-        return ERROR_FIELD_PASSWORD.exists();
+        return ERROR_FIELD_PASSWORD.isDisplayed();
     }
 
 }

@@ -92,5 +92,18 @@ public class PreparationDataSettingTest {
                 .response();
         location = response.getBody().jsonPath().getString("location");
     }
+
+    public static void uploadLogo(File file) {
+        given()
+                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", AppConfig.getENVIRONMENT())
+                .contentType(ContentType.MULTIPART)
+                .multiPart("file", file)
+                .when()
+                .put("api/storage/logo.png")
+                .then()
+                .statusCode(201);
+    }
 }
 

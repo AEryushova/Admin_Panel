@@ -58,7 +58,7 @@ public class PriceErrorsWindow {
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 
 }

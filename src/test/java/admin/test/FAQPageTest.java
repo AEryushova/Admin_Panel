@@ -14,6 +14,7 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,16 +33,21 @@ public class FAQPageTest extends BaseTest{
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        HeaderMenu headerMenu = new HeaderMenu();
+        headerMenu.faqTabOpen();
     }
 
     @BeforeEach
     void setUp(){
-        BrowserManager.openPagesAfterAuth();
+        Selenide.refresh();
         faqPage=new FaqPage();
         basePage = new BasePage();
-        HeaderMenu headerMenu = new HeaderMenu();
-        headerMenu.faqTabOpen();
+    }
+
+    @AfterAll
+    static void closeWebDriver() {
+        Selenide.closeWebDriver();
     }
 
     @Feature("Добавление нового faq-вопроса")

@@ -82,22 +82,25 @@ public class NewAdminWindow {
                 .click();
     }
 
-    public void clearButtonLoginField() {
+    public void clickClearButtonLoginField() {
         CLEAR_FIELD_LOGIN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        LOGIN_FIELD.shouldHave(Condition.value(""),Duration.ofSeconds(5));
     }
 
     public void clickClearButtonPasswordField() {
         CLEAR_FIELD_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        PASSWORD_FIELD.shouldHave(Condition.value(""),Duration.ofSeconds(5));
     }
 
     public void clickClearButtonConfirmPasswordField() {
         CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        CONFIRM_PASSWORD_FIELD.shouldHave(Condition.value(""),Duration.ofSeconds(5));
 
     }
 
@@ -125,7 +128,7 @@ public class NewAdminWindow {
     }
 
     public boolean isErrorLoginAppear() {
-        return ERROR_FIELD_LOGIN.exists();
+        return ERROR_FIELD_LOGIN.isDisplayed();
     }
 
     public String getErrorFieldPassword() {
@@ -134,7 +137,7 @@ public class NewAdminWindow {
     }
 
     public boolean isErrorPasswordAppear() {
-        return ERROR_FIELD_PASSWORD.exists();
+        return ERROR_FIELD_PASSWORD.isDisplayed();
     }
 
     public String getErrorFieldConfirmPassword() {
@@ -150,7 +153,7 @@ public class NewAdminWindow {
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 
 }

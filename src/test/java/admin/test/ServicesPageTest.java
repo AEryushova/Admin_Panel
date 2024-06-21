@@ -30,16 +30,21 @@ public class ServicesPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        HeaderMenu headerMenu = new HeaderMenu();
+        headerMenu.servicesTabOpen();
     }
 
     @BeforeEach
     void setUp() {
-        BrowserManager.openPagesAfterAuth();
+        Selenide.refresh();
         servicesPage = new ServicesPage();
         basePage = new BasePage();
-        HeaderMenu headerMenu = new HeaderMenu();
-        headerMenu.servicesTabOpen();
+    }
+
+    @AfterAll
+    static void closeWebDriver() {
+        Selenide.closeWebDriver();
     }
 
     @Feature("Управление правилами подготовки")

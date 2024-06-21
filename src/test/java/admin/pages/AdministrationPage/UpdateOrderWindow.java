@@ -54,7 +54,7 @@ public class UpdateOrderWindow {
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 
 }

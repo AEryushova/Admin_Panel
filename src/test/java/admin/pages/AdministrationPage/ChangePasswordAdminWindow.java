@@ -1,6 +1,5 @@
 package admin.pages.AdministrationPage;
 
-import admin.data.DataConfig;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
@@ -10,19 +9,17 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ChangePasswordAdminWindow {
 
-    private final SelenideElement WINDOW = $x("//input[@name='login' and @value='"+ DataConfig.DataTest.getLOGIN_ADMIN_TEST() + "']/parent::div/parent::div/parent::div[@class='ya9N CXVi']");
-    private final SelenideElement HEADER_WINDOW = $x("//input[@name='login' and @value='"+ DataConfig.DataTest.getLOGIN_ADMIN_TEST() + "']");
+    private final SelenideElement WINDOW = $x("//div[@class='ya9N CXVi']");
     private final SelenideElement NEW_PASSWORD_FIELD = $x("//input[@name=\"newPassword\"]");
     private final SelenideElement CONFIRM_PASSWORD_FIELD = $x("//input[@name=\"confirmPassword\"]");
     private final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='login' and @value='"+ DataConfig.DataTest.getLOGIN_ADMIN_TEST() +"']/parent::div/parent::div/parent::div/div[@class='q2XL']/div");
+    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='Yimd']");
     private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
     private final SelenideElement ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");
 
 
     public void changePasswordAdminWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NEW_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
@@ -49,6 +46,11 @@ public class ChangePasswordAdminWindow {
 
     public boolean isEnabledSaveButton(){
         return SAVE_BUTTON.isEnabled();
+    }
+
+    public boolean isHeaderLoginAppear(String login){
+        SelenideElement HEADER_LOGIN = $x("//input[@name='login' and @value='"+ login + "']");
+        return HEADER_LOGIN.isDisplayed();
     }
 
     public void clickFieldNewPassword() {
@@ -86,7 +88,7 @@ public class ChangePasswordAdminWindow {
     }
 
     public boolean isErrorPasswordAppear() {
-        return ERROR_FIELD_PASSWORD.exists();
+        return ERROR_FIELD_PASSWORD.isDisplayed();
     }
 
     public void closeWindowChangePasswordAdmin() {
@@ -97,6 +99,6 @@ public class ChangePasswordAdminWindow {
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 }

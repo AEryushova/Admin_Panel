@@ -29,7 +29,7 @@ public class SettingPage extends BasePage {
     }
 
     public boolean isExistsBugReport() {
-        return BUG_REPORT.exists();
+        return BUG_REPORT.isDisplayed();
     }
 
     public EditLogoWindow openWindowEditLogo() {
@@ -44,6 +44,6 @@ public class SettingPage extends BasePage {
     }
 
     public boolean isExistsEmptyList(){
-        return EMPTY_LIST_BUG_REPORT.exists();
+        return EMPTY_LIST_BUG_REPORT.isDisplayed();
     }
 }

@@ -33,11 +33,11 @@ public class CategoryCard {
 
 
     public boolean isExistSectionCard(){
-        return SECTION.exists();
+        return SECTION.isDisplayed();
     }
 
     public boolean isExistEmptyList() {
-        return EMPTY_LIST_SECTION.exists();
+        return EMPTY_LIST_SECTION.isDisplayed();
     }
 
 }

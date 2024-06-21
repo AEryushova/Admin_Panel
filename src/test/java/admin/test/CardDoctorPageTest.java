@@ -4,16 +4,13 @@ import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.CardDoctorPage.*;
 import admin.pages.DoctorsPage.DoctorsPage;
-import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.Calendar.Calendar;
 import admin.utils.preparationDataTests.doctors.*;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.testUtils.*;
 import admin.utils.dbUtils.DataBaseQuery;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -22,36 +19,33 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Врачи")
-public class DoctorsPageTest extends BaseTest {
+public class CardDoctorPageTest extends BaseTest {
 
-    private DoctorsPage doctorsPage;
     private BasePage basePage;
+    private CardDoctorPage cardDoctor;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        DoctorsPage doctorsPage = new DoctorsPage();
+        doctorsPage.openCardDoctor(DataConfig.DataTest.getDOCTOR_SPECIALIZATION(), DataConfig.DataTest.getDOCTOR());
     }
 
     @BeforeEach
     void setUp() {
-        BrowserManager.openPagesAfterAuth();
-        doctorsPage = new DoctorsPage();
+        Selenide.refresh();
+        cardDoctor = new CardDoctorPage();
         basePage = new BasePage();
-        HeaderMenu headerMenu = new HeaderMenu();
-        headerMenu.doctorsTabOpen();
+    }
+
+    @AfterAll
+    static void closeWebDriver() {
+        Selenide.closeWebDriver();
     }
 
     @Feature("Замена фотографии врачу")
@@ -60,7 +54,6 @@ public class DoctorsPageTest extends BaseTest {
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg", "src/test/resources/Photo 3,2mbPng.png"})
     void changePhotoDoctorValidFormat(String path) {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         cardDoctor.cardDoctorPage();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openPhoto();
@@ -71,7 +64,7 @@ public class DoctorsPageTest extends BaseTest {
         editPhoto.uploadPhoto(path);
         Selenide.sleep(3000);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
-        assertNotEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getPhoto_uri());
+        assertNotEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(), DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getPhoto_uri());
         assertFalse(editPhoto.isWindowAppear());
     }
 
@@ -81,7 +74,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(NotificationDecorator.class)
     @Test
     void changePhotoDoctorLess4mb() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openPhoto();
         navigateMenu.closeNavigateMenu();
@@ -90,7 +82,7 @@ public class DoctorsPageTest extends BaseTest {
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
         assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getNotification());
         assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
-        assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getPhoto_uri());
+        assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(), DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getPhoto_uri());
     }
 
     @Feature("Замена фотографии врачу")
@@ -99,7 +91,6 @@ public class DoctorsPageTest extends BaseTest {
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openPhoto();
         navigateMenu.closeNavigateMenu();
@@ -108,7 +99,7 @@ public class DoctorsPageTest extends BaseTest {
         editPhoto.uploadPhoto(path);
         assertEquals("Допускаются файлы с расширением jpg jpeg png", cardDoctor.getNotification());
         assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
-        assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getPhoto_uri());
+        assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(), DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getPhoto_uri());
     }
 
 
@@ -116,7 +107,6 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Закрытие окна смены фотографии")
     @Test
     void closeWindowEditPhoto() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openPhoto();
         navigateMenu.closeNavigateMenu();
@@ -130,7 +120,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(SetPhotoDoctorDecorator.class)
     @Test
     void deletePhoto() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openPhoto();
         navigateMenu.closeNavigateMenu();
@@ -139,7 +128,7 @@ public class DoctorsPageTest extends BaseTest {
         Selenide.sleep(3000);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertEquals(DataConfig.DataTest.getDEFAULT_PHOTO(), cardDoctor.getSrcPhoto());
-        assertEquals(DataConfig.DataTest.getDEFAULT_PHOTO(), DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getPhoto_uri());
+        assertEquals(DataConfig.DataTest.getDEFAULT_PHOTO(), DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(), DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getPhoto_uri());
     }
 
     @Feature("Замена фотографии врачу")
@@ -147,7 +136,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({DeletePhotoDoctorDecorator.class, NotificationDecorator.class})
     @Test
     void deleteDefaultPhoto() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openPhoto();
         navigateMenu.closeNavigateMenu();
@@ -162,7 +150,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(DeleteSectionDecorator.class)
     @Test
     void addingSection() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -182,7 +169,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({DeleteSectionDecorator.class, NotificationDecorator.class})
     @Test
     void addSectionEmptyField() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -198,7 +184,6 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Отмена добавления раздела в инфо о враче и зануление полей")
     @Test
     void cancelWindowAddSection() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -216,7 +201,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSection() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -235,7 +219,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({AddDeleteSectionDecorator.class, NotificationDecorator.class})
     @Test
     void editSectionEmptyField() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -252,7 +235,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(AddSectionDecorator.class)
     @Test
     void deleteSection() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -270,7 +252,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
     void addingDescription() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -291,7 +272,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({DeleteDescriptionDecorator.class, NotificationDecorator.class})
     @Test
     void addDescriptionEmptyField() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -309,7 +289,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
     void cancellationWindowAddDescription() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -328,7 +307,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(AddDeleteDescriptionDecorator.class)
     @Test
     void editDescription() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -347,7 +325,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({AddDeleteDescriptionDecorator.class, NotificationDecorator.class})
     @Test
     void editDescriptionEmptyField() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -363,7 +340,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(AddDescriptionDecorator.class)
     @Test
     void deleteDescription() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -381,7 +357,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackCurrentMonth() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -413,7 +388,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackFutureMonth() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -446,7 +420,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackPreviousMonth() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -478,7 +451,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void addFeedbackTodayNotUseCalendar() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -508,7 +480,6 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Зануление полей в окне добавления отзыва после закрытия окна")
     @Test
     void closeWindowAddNewFeedback() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -527,7 +498,6 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Добавление нового отзыва с пустым полем ФИО")
     @Test
     void addFeedbackEmptyFieldFio() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -542,7 +512,6 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Добавление нового отзыва с пустым полем отзыва")
     @Test
     void addFeedbackEmptyFieldText() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -557,7 +526,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({AddDeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void editUnpublishedFeedback() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -589,7 +557,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({AddDeleteFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void publicationUnpublishedFeedback() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -613,7 +580,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({AddPublishedDeleteFeedback.class, NotificationDecorator.class})
     @Test
     void editPublishedFeedback() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -642,7 +608,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({AddPublishedDeleteFeedback.class, NotificationDecorator.class})
     @Test
     void withdrawalPublicationFeedback() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -664,7 +629,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({AddPublishedDeleteFeedback.class})
     @Test
     void closeWindowEditFeedback() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -684,7 +648,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({AddPublishedDeleteFeedback.class})
     @Test
     void editFeedbackEmptyFieldText() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -701,7 +664,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith({AddFeedbackDecorator.class, NotificationDecorator.class})
     @Test
     void deleteUnpublishedFeedback() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -720,7 +682,6 @@ public class DoctorsPageTest extends BaseTest {
     @ExtendWith(AddTwoFeedbackDecorator.class)
     @Test
     void sortingUnpublishedFeedbacks() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openFeedback();
         navigateMenu.closeNavigateMenu();
@@ -742,18 +703,10 @@ public class DoctorsPageTest extends BaseTest {
         assertEquals(dateFeedbackYesterday, feedback.getDateFeedbackByIndex(1));
     }
 
-    @Story("Возврат на страницу Врачи с карточки врача")
-    @Test
-    void returnToDoctorsPageFromCardDoctorPage() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
-        cardDoctor.comebackDoctorsPage();
-        doctorsPage.doctorsPage();
-    }
 
     @Story("Закрытие уведомления на странице карточки врача по таймауту")
     @Test
     void closeNotificationTimeout() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
         checkCloseNotificationTimeout(basePage);
@@ -762,7 +715,6 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Закрытие уведомления на странице карточки врача")
     @Test
     void closeNotification() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
         checkCloseNotification(basePage);
@@ -771,177 +723,12 @@ public class DoctorsPageTest extends BaseTest {
     @Story("Закрытие навигационного меню")
     @Test
     void closeNavigateMenu() {
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.navigateMenu();
         navigateMenu.closeNavigateMenu();
         assertFalse(navigateMenu.isNavigateMenuDisplayed());
     }
 
-
-    @Feature("Поиск по врачам")
-    @Story("Поиск врача по имени")
-    @Test
-    void searchNameDoctor() {
-        doctorsPage.doctorsPage();
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_NAME_SEARCH());
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
-        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
-        for (SelenideElement nameDoctor : namesDoctors) {
-            assertThat(nameDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDOCTOR_NAME_SEARCH().toLowerCase()));
-        }
-        assertTrue(countResult < countAllDoctors);
-    }
-
-
-    @Feature("Поиск по врачам")
-    @Story("Поиск врача по специальности")
-    @Test
-    void searchSpecializationDoctor() {
-        doctorsPage.doctorsPage();
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_SPECIALIZATION_SEARCH());
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
-        ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
-        for (SelenideElement specializationDoctor : specializationDoctors) {
-            assertThat(specializationDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDOCTOR_SPECIALIZATION_SEARCH().toLowerCase()));
-        }
-        assertTrue(countResult < countAllDoctors);
-    }
-
-    @Feature("Поиск по врачам")
-    @Story("Поиск по включению")
-    @Test
-    void searchByInclusion() {
-        doctorsPage.doctorsPage();
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getSEARCH_BY_INCLUSION_DOCTORS());
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
-        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
-        ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
-        for (int i = 0; i < namesDoctors.size(); i++) {
-            String nameDoctor = namesDoctors.get(i).getText();
-            String specializationDoctor = specializationDoctors.get(i).getText();
-            boolean isNameFound = nameDoctor.toLowerCase().contains(DataConfig.DataSearch.getSEARCH_BY_INCLUSION_DOCTORS().toLowerCase());
-            boolean isSpecializationFound = specializationDoctor.toLowerCase().contains(DataConfig.DataSearch.getSEARCH_BY_INCLUSION_DOCTORS().toLowerCase());
-            assertTrue(isNameFound || isSpecializationFound);
-        }
-        assertTrue(countResult < countAllDoctors);
-    }
-
-    @Feature("Поиск по врачам")
-    @Story("Сброс поискового результата после очистки поля")
-    @Test
-    void resetSearchResultDoctors() {
-        doctorsPage.doctorsPage();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_NAME_SEARCH());
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
-        ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
-        int resultSearch = namesDoctorsSearch.size();
-        doctorsPage.clearSearchField();
-        Selenide.sleep(5000);
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        ElementsCollection nameDoctorsAll = doctorsPage.getNamesDoctors();
-        int allDoctors = nameDoctorsAll.size();
-        assertEquals("", doctorsPage.getValueSearchField());
-        assertTrue(resultSearch < allDoctors);
-        assertTrue(countResult < countAllDoctors);
-    }
-
-    @Feature("Поиск по врачам")
-    @Story("Поиск по значению в верхнем регистре")
-    @Test
-    void searchHighRegister() {
-        doctorsPage.doctorsPage();
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_NAME_HIGH_REGISTER());
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
-        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
-        for (SelenideElement nameDoctor : namesDoctors) {
-            assertThat(nameDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDOCTOR_NAME_HIGH_REGISTER().toLowerCase()));
-        }
-        assertTrue(countResult < countAllDoctors);
-    }
-
-    @Feature("Поиск по врачам")
-    @Story("Поиск по значению в различном регистре")
-    @Test
-    void searchDifferentRegister() {
-        doctorsPage.doctorsPage();
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_NAME_DIFFERENT_REGISTER());
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
-        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
-        for (SelenideElement nameDoctor : namesDoctors) {
-            assertThat(nameDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDOCTOR_NAME_DIFFERENT_REGISTER().toLowerCase()));
-        }
-        assertTrue(countResult < countAllDoctors);
-    }
-
-    @Feature("Сортировка по врачам")
-    @Story("Сортировка по отсутствию фото")
-    @Test
-    void sortingWithoutPhoto() {
-        doctorsPage.doctorsPage();
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.sortingPhotoNo();
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
-        List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
-        for (String attributeValue : photoDoctorsAttributes) {
-            assertThat(attributeValue, equalTo(DataConfig.DataTest.getDEFAULT_PHOTO().toLowerCase()));
-        }
-        assertTrue(countResult < countAllDoctors);
-    }
-
-    @Feature("Сортировка по врачам")
-    @Story("Сортировка по наличию фото")
-    @Test
-    void sortingWithPhoto() {
-        doctorsPage.doctorsPage();
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.sortingPhotoYes();
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
-        List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
-        for (String attributeValue : photoDoctorsAttributes) {
-            assertThat(attributeValue, not(DataConfig.DataTest.getDEFAULT_PHOTO().toLowerCase()));
-        }
-        assertTrue(countResult < countAllDoctors);
-    }
-
-    @Feature("Сортировка по врачам")
-    @Story("Сортировка по всем врачам")
-    @Test
-    void sortingWithAndWithoutPhoto() {
-        doctorsPage.doctorsPage();
-        doctorsPage.sortingPhotoNo();
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
-        doctorsPage.sortingPhotoAll();
-        Selenide.sleep(5000);
-        int countAllDoctors = doctorsPage.getCountDoctors();
-        List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
-        boolean withoutPhoto = false;
-        boolean withPhoto = false;
-        for (String attributeValue : photoDoctorsAttributes) {
-            if (attributeValue.equals(DataConfig.DataTest.getDEFAULT_PHOTO().toLowerCase())) {
-                withoutPhoto = true;
-            } else {
-                withPhoto = true;
-            }
-        }
-        assertTrue(withoutPhoto);
-        assertTrue(withPhoto);
-        assertTrue(countResult < countAllDoctors);
-    }
 }
 
 

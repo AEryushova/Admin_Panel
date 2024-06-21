@@ -1,6 +1,5 @@
 package admin.pages.DoctorsPage;
 
-import admin.data.DataConfig;
 import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import com.codeborne.selenide.Condition;
@@ -21,7 +20,6 @@ public class DoctorsPage extends BasePage {
     private final SelenideElement TAB_NAME = $x("//div[@class='wYqZ']/span[text()='Врачи']");
     private final SelenideElement SEARCH_DOCTOR = $x("//input[@placeholder='Поиск по врачам']");
     private final SelenideElement CARD_DOCTOR = $x("//div[@class='eF30']");
-    private final SelenideElement EDIT_BUTTON = $x("//span[text()='" + DataConfig.DataTest.getDOCTOR_SPECIALIZATION() + "']/preceding-sibling::span[text()='" + DataConfig.DataTest.getDOCTOR() + "'] /parent::div/following-sibling::button[text()='Редактировать']");
     private final SelenideElement DROP_DOWN_PHOTO = $x("//button[@class='MxFR']");
     private final SelenideElement OPTION_ALL = $x("//div[@class='U2Xk']/div[text()='Все']");
     private final SelenideElement OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']");
@@ -40,7 +38,8 @@ public class DoctorsPage extends BasePage {
         CARD_DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    public CardDoctorPage openCardDoctor() {
+    public CardDoctorPage openCardDoctor(String specialization,String doctorName) {
+        SelenideElement EDIT_BUTTON=$x("//span[text()='" + specialization + "']/preceding-sibling::span[text()='" + doctorName + "'] /parent::div/following-sibling::button[text()='Редактировать']");
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

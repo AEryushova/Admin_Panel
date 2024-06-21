@@ -47,7 +47,7 @@ public class UpdateLegalDocWindow {
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 
 }

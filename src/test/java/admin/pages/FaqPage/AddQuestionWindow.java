@@ -67,6 +67,6 @@ public class AddQuestionWindow {
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 }

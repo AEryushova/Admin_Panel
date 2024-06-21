@@ -53,15 +53,15 @@ public class RulesPreparingWindow {
     }
 
     public boolean isExistRule() {
-        return RULE.exists();
+        return RULE.isDisplayed();
     }
 
     public boolean isExistsEmptyListRules(){
-        return EMPTY_LIST_RULE.exists();
+        return EMPTY_LIST_RULE.isDisplayed();
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 
 }

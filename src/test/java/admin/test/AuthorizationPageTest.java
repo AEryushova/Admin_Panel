@@ -8,6 +8,7 @@ import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.authorization.CloseWebDriverDecorator;
 import admin.utils.testUtils.*;
 import admin.utils.preparationDataTests.general.NotificationDecorator;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -31,12 +32,22 @@ public class AuthorizationPageTest extends BaseTest {
 
     @ExtendWith(AllureDecorator.class)
 
+    @BeforeAll
+    static void setUpAuth() {
+        BrowserManager.openAdminPanel();
+    }
+
     @BeforeEach
     void setUp() {
-        BrowserManager.openAdminPanel();
+        Selenide.refresh();
         authPage = new AuthorizationPage();
         headerMenu = new HeaderMenu();
         basePage = new BasePage();
+    }
+
+    @AfterAll
+    static void closeWebDriver() {
+        Selenide.closeWebDriver();
     }
 
     @Story("Успешная авторизация супер-админа")

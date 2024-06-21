@@ -38,6 +38,6 @@ public class BasePage {
     }
 
     public boolean notificationAppear() {
-        return NOTIFICATION.exists();
+        return NOTIFICATION.isDisplayed();
     }
 }

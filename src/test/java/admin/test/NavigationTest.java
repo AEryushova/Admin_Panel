@@ -9,8 +9,10 @@ import admin.pages.ServicesPage.ServicesPage;
 import admin.pages.SettingPage.SettingPage;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.testUtils.BrowserManager;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,13 +26,18 @@ public class NavigationTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.authGetCookie(DataConfig.UserData.getLOGIN_SUPER_ADMIN(), DataConfig.UserData.getPASSWORD_SUPER_ADMIN());
+        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_SUPER_ADMIN(), DataConfig.UserData.getPASSWORD_SUPER_ADMIN());
     }
 
     @BeforeEach
     void setUp(){
-        BrowserManager.openPagesAfterAuth();
+        Selenide.refresh();
         headerMenu = new HeaderMenu();
+    }
+
+    @AfterAll
+    static void closeWebDriver() {
+        Selenide.closeWebDriver();
     }
 
     @Feature("Навигация")

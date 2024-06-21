@@ -100,7 +100,7 @@ public class ChangeMinePasswordWindow {
     }
 
     public boolean isErrorOldPasswordAppear() {
-        return ERROR_FIELD_OLD_PASSWORD.exists();
+        return ERROR_FIELD_OLD_PASSWORD.isDisplayed();
     }
 
     public String getErrorFieldNewPassword() {
@@ -109,10 +109,10 @@ public class ChangeMinePasswordWindow {
     }
 
     public boolean isErrorNewPasswordAppear() {
-        return ERROR_FIELD_NEW_PASSWORD.exists();
+        return ERROR_FIELD_NEW_PASSWORD.isDisplayed();
     }
 
     public boolean isWindowAppear() {
-        return WINDOW.exists();
+        return WINDOW.isDisplayed();
     }
 }
