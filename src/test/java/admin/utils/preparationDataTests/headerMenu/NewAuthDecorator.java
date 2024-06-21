@@ -1,7 +1,7 @@
 package admin.utils.preparationDataTests.headerMenu;
 
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.utils.testUtils.BrowserManager;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.extension.AfterEachCallback;
@@ -12,7 +12,7 @@ public class NewAuthDecorator implements AfterEachCallback {
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
         Selenide.closeWebDriver();
-        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openAdminPanel(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
     }
 
 

@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.SettingPage.BugReport;
@@ -41,7 +41,7 @@ public class SettingPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openAdminPanel(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.settingTabOpen();
     }
@@ -66,10 +66,10 @@ public class SettingPageTest extends BaseTest {
     void checkBugReport() {
         BugReport bugReport =settingPage.bugReportCard();
         bugReport.bugReport();
-        assertEquals(DataConfig.DataTest.getNAME_PATIENT(), bugReport.getAuthorText());
-        assertEquals(DataConfig.DataTest.getEMAIL_PATIENT(), bugReport.getEmailAuthorText());
+        assertEquals(TestData.DataTest.getNAME_PATIENT(), bugReport.getAuthorText());
+        assertEquals(TestData.DataTest.getEMAIL_PATIENT(), bugReport.getEmailAuthorText());
         assertEquals(DataHelper.getCurrentDateRuYear(), bugReport.getDateText());
-        assertEquals(DataConfig.DataTest.getMESSAGE_BUG_REPORT(), bugReport.getReportText());
+        assertEquals(TestData.DataTest.getMESSAGE_BUG_REPORT(), bugReport.getReportText());
     }
 
     @Feature("Сообщения об ошибках")
@@ -143,7 +143,7 @@ public class SettingPageTest extends BaseTest {
     @Feature("Настройки личного кабинета")
     @Story("Закрытие окна замены логотипа")
     @Test
-    void closeWindowErrorsPrice() {
+    void closeWindowEditLogo() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
         editLogoWindow.closeWindowEditLogo();
         assertFalse(editLogoWindow.isWindowAppear());

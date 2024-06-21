@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.doctors;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.utils.APIUtils.PreparationDataSettingTest;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.testUtils.DataHelper;
@@ -11,9 +11,9 @@ public class SetPhotoDoctorDecorator implements BeforeEachCallback {
 
         @Override
         public void beforeEach(ExtensionContext context) throws Exception {
-            PreparationDataSettingTest.uploadPhoto(DataConfig.DataTest.getPHOTO());
+            PreparationDataSettingTest.uploadPhoto(TestData.DataTest.getPHOTO());
             String photoUri=DataHelper.urlPhotoBuilder();
-            DataBaseQuery.setPhotoDoctor(photoUri,DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION());
+            DataBaseQuery.setPhotoDoctor(photoUri, TestData.DataTest.getDOCTOR(), TestData.DataTest.getDOCTOR_SPECIALIZATION());
         }
 
 

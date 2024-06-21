@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.services;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.utils.APIUtils.PreparationDataServicesTest;
 import admin.utils.dbUtils.DataBaseQuery;
 import lombok.Getter;
@@ -20,9 +20,9 @@ public class AddRuleDecorator implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-      UUID categoryId=DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getCATEGORY_RULES()).getId();
+      UUID categoryId=DataBaseQuery.selectServicesInfo(TestData.DataTest.getCATEGORY_RULES()).getId();
       setCategoryId(categoryId);
       PreparationDataServicesTest.deleteRuleCategory(categoryId);
-      PreparationDataServicesTest.addRuleCategory(categoryId, DataConfig.DataTest.getRULE_TITLE(),DataConfig.DataTest.getRULE_DESCRIPTION());
+      PreparationDataServicesTest.addRuleCategory(categoryId, TestData.DataTest.getRULE_TITLE(), TestData.DataTest.getRULE_DESCRIPTION());
     }
 }

@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.pages.AdministrationPage.AdministrationPage;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.FaqPage.FaqPage;
@@ -26,7 +26,7 @@ public class NavigationTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_SUPER_ADMIN(), DataConfig.UserData.getPASSWORD_SUPER_ADMIN());
+        BrowserManager.openAdminPanel(TestData.UserData.LOGIN_SUPER_ADMIN, TestData.UserData.PASSWORD_SUPER_ADMIN);
     }
 
     @BeforeEach

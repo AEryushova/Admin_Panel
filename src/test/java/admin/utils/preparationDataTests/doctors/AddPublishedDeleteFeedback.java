@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.doctors;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.utils.dbUtils.DataBaseQuery;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +21,10 @@ public class AddPublishedDeleteFeedback implements BeforeEachCallback, AfterEach
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        UUID doctorId = DataBaseQuery.selectInfoDoctor(DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION()).getEmployee_id();
+        UUID doctorId = DataBaseQuery.selectInfoDoctor(TestData.DataTest.getDOCTOR(), TestData.DataTest.getDOCTOR_SPECIALIZATION()).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId, DataConfig.DataTest.getNAME_PATIENT(),DataConfig.DataTest.getFEEDBACK(),false);
+        DataBaseQuery.addFeedback(doctorId, TestData.DataTest.getNAME_PATIENT(), TestData.DataTest.getFEEDBACK(),false);
         UUID feedbackId=DataBaseQuery.selectFeedback().getId();
         setFeedbackId(feedbackId);
         DataBaseQuery.publishedFeedback(feedbackId);

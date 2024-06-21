@@ -1,6 +1,6 @@
 package admin.utils.testUtils;
 
-import admin.config.AppConfig;
+import admin.data.AppData;
 import admin.utils.APIUtils.PreparationDataSettingTest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -22,7 +22,7 @@ public class DataHelper {
 
     //Генерирует и возвращает ссылку на фото врача//
     public static String urlPhotoBuilder() {
-        return AppConfig.getURI_PERSONAL_AREA() + PreparationDataSettingTest.getLocation();
+        return AppData.URI_PERSONAL_AREA + PreparationDataSettingTest.getLocation();
     }
 
     //Генерирует и возвращает UUID для SQL-запросов//

@@ -1,19 +1,17 @@
-package admin.config;
+package admin.data;
 
+import lombok.Data;
 import lombok.Getter;
 
 import java.io.File;
 
-public class DataConfig {
+public class TestData {
 
+    @Data
     public static class UserData {
-        @Getter
         public static final String LOGIN_SUPER_ADMIN = "SUPER_ADMIN";
-        @Getter
         public static final String PASSWORD_SUPER_ADMIN = "Qqqq123#";
-        @Getter
         public static final String LOGIN_ADMIN = "ADMIN_TESTUI";
-        @Getter
         public static final String PASSWORD_ADMIN = "WWqq123456!";
     }
 

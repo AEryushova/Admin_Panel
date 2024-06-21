@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.pages.BasePage.BasePage;
 import admin.pages.FaqPage.*;
 import admin.pages.HeaderMenu.HeaderMenu;
@@ -33,7 +33,7 @@ public class FAQPageTest extends BaseTest{
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openAdminPanel(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.faqTabOpen();
     }
@@ -57,14 +57,14 @@ public class FAQPageTest extends BaseTest{
     void addFaqQuestion() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.addQuestionWindow();
-        addQuestionWindow.fillQuestionField(DataConfig.DataTest.getQUESTION());
-        addQuestionWindow.fillAnswerField(DataConfig.DataTest.getANSWER());
+        addQuestionWindow.fillQuestionField(TestData.DataTest.getQUESTION());
+        addQuestionWindow.fillAnswerField(TestData.DataTest.getANSWER());
         addQuestionWindow.addQuestion();
         Question question = faqPage.getQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
-        assertEquals(DataConfig.DataTest.getQUESTION(),question.getQuestion());
-        assertEquals(DataConfig.DataTest.getANSWER(),question.getAnswer());
-        assertEquals(DataConfig.DataTest.getQUESTION(), DataBaseQuery.selectFaq().getQuestion());
+        assertEquals(TestData.DataTest.getQUESTION(),question.getQuestion());
+        assertEquals(TestData.DataTest.getANSWER(),question.getAnswer());
+        assertEquals(TestData.DataTest.getQUESTION(), DataBaseQuery.selectFaq().getQuestion());
         assertTrue(faqPage.isExistQuestions());
         assertFalse(addQuestionWindow.isWindowAppear());
     }
@@ -75,8 +75,8 @@ public class FAQPageTest extends BaseTest{
     @Test
     void addFaqQuestionAlreadyExistQuestionAnswer() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
-        addQuestionWindow.fillQuestionField(DataConfig.DataTest.getQUESTION());
-        addQuestionWindow.fillAnswerField(DataConfig.DataTest.getANSWER());
+        addQuestionWindow.fillQuestionField(TestData.DataTest.getQUESTION());
+        addQuestionWindow.fillAnswerField(TestData.DataTest.getANSWER());
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос уже существует", faqPage.getNotification());
         assertFalse(faqPage.isExistQuestionsByIndex(1));
@@ -88,7 +88,7 @@ public class FAQPageTest extends BaseTest{
     @Test
     void addFaqQuestionAlreadyExistQuestion() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
-        addQuestionWindow.fillQuestionField(DataConfig.DataTest.getQUESTION());
+        addQuestionWindow.fillQuestionField(TestData.DataTest.getQUESTION());
         addQuestionWindow.fillAnswerField("Деньги можно вернуть при обращении в бухгалтерию");
         addQuestionWindow.addQuestion();
         assertEquals("Вопрос уже существует", faqPage.getNotification());
@@ -102,12 +102,12 @@ public class FAQPageTest extends BaseTest{
     void addFaqQuestionAlreadyExistAnswer() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.fillQuestionField("Могу ли я вернуть денежные средства?");
-        addQuestionWindow.fillAnswerField(DataConfig.DataTest.getANSWER());
+        addQuestionWindow.fillAnswerField(TestData.DataTest.getANSWER());
         addQuestionWindow.addQuestion();
         Question question = faqPage.getQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
         assertEquals("Могу ли я вернуть денежные средства?",question.getQuestionByIndex(1));
-        assertEquals(DataConfig.DataTest.getANSWER(),question.getAnswerByIndex(1));
+        assertEquals(TestData.DataTest.getANSWER(),question.getAnswerByIndex(1));
         assertEquals("Могу ли я вернуть денежные средства?", DataBaseQuery.selectFaqBySequence(1).getQuestion());
         assertTrue(faqPage.isExistQuestionsByIndex(1));
         assertFalse(addQuestionWindow.isWindowAppear());
@@ -118,7 +118,7 @@ public class FAQPageTest extends BaseTest{
     @Test
     void addFaqQuestionEmptyFieldQuestion() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
-        addQuestionWindow.fillAnswerField(DataConfig.DataTest.getANSWER());
+        addQuestionWindow.fillAnswerField(TestData.DataTest.getANSWER());
         assertFalse(addQuestionWindow.isEnabledAddButton());
     }
 
@@ -128,7 +128,7 @@ public class FAQPageTest extends BaseTest{
     @Test
     void addFaqQuestionEmptyFieldAnswer() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
-        addQuestionWindow.fillQuestionField(DataConfig.DataTest.getQUESTION());
+        addQuestionWindow.fillQuestionField(TestData.DataTest.getQUESTION());
         assertFalse(addQuestionWindow.isEnabledAddButton());
     }
 
@@ -137,8 +137,8 @@ public class FAQPageTest extends BaseTest{
     @Test
     void closeWindowAddNewQuestion() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
-        addQuestionWindow.fillQuestionField(DataConfig.DataTest.getQUESTION());
-        addQuestionWindow.fillAnswerField(DataConfig.DataTest.getANSWER());
+        addQuestionWindow.fillQuestionField(TestData.DataTest.getQUESTION());
+        addQuestionWindow.fillAnswerField(TestData.DataTest.getANSWER());
         addQuestionWindow.closeWindowAddQuestion();
         assertFalse(addQuestionWindow.isWindowAppear());
         faqPage.openWindowAddQuestion();
@@ -155,13 +155,13 @@ public class FAQPageTest extends BaseTest{
         question.question();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.changeQuestionWindow();
-        changeQuestionWindow.fillQuestionField(DataConfig.DataTest.getCHANGE_QUESTION());
-        changeQuestionWindow.fillAnswerField(DataConfig.DataTest.getCHANGE_ANSWER());
+        changeQuestionWindow.fillQuestionField(TestData.DataTest.getCHANGE_QUESTION());
+        changeQuestionWindow.fillAnswerField(TestData.DataTest.getCHANGE_ANSWER());
         changeQuestionWindow.saveChangesQuestion();
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
-        assertEquals(DataConfig.DataTest.getCHANGE_QUESTION(),question.getQuestion());
-        assertEquals(DataConfig.DataTest.getCHANGE_ANSWER(),question.getAnswer());
-        assertEquals(DataConfig.DataTest.getCHANGE_QUESTION(), DataBaseQuery.selectFaq().getQuestion());
+        assertEquals(TestData.DataTest.getCHANGE_QUESTION(),question.getQuestion());
+        assertEquals(TestData.DataTest.getCHANGE_ANSWER(),question.getAnswer());
+        assertEquals(TestData.DataTest.getCHANGE_QUESTION(), DataBaseQuery.selectFaq().getQuestion());
         assertFalse(changeQuestionWindow.isWindowAppear());
     }
 
@@ -173,7 +173,7 @@ public class FAQPageTest extends BaseTest{
         Question question = faqPage.getQuestion();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.clearQuestionField();
-        changeQuestionWindow.fillAnswerField(DataConfig.DataTest.getCHANGE_ANSWER());
+        changeQuestionWindow.fillAnswerField(TestData.DataTest.getCHANGE_ANSWER());
         assertFalse(changeQuestionWindow.isEnabledSaveButton());
     }
 
@@ -197,9 +197,9 @@ public class FAQPageTest extends BaseTest{
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.saveChangesQuestion();
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
-        assertEquals(DataConfig.DataTest.getQUESTION(),question.getQuestion());
-        assertEquals(DataConfig.DataTest.getANSWER(),question.getAnswer());
-        assertEquals(DataConfig.DataTest.getQUESTION(), DataBaseQuery.selectFaq().getQuestion());
+        assertEquals(TestData.DataTest.getQUESTION(),question.getQuestion());
+        assertEquals(TestData.DataTest.getANSWER(),question.getAnswer());
+        assertEquals(TestData.DataTest.getQUESTION(), DataBaseQuery.selectFaq().getQuestion());
         assertFalse(changeQuestionWindow.isWindowAppear());
     }
 
@@ -210,15 +210,15 @@ public class FAQPageTest extends BaseTest{
     void closeWindowEditQuestion() {
         Question question = faqPage.getQuestion();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
-        changeQuestionWindow.fillQuestionField(DataConfig.DataTest.getCHANGE_QUESTION());
-        changeQuestionWindow.fillAnswerField(DataConfig.DataTest.getCHANGE_ANSWER());
+        changeQuestionWindow.fillQuestionField(TestData.DataTest.getCHANGE_QUESTION());
+        changeQuestionWindow.fillAnswerField(TestData.DataTest.getCHANGE_ANSWER());
         changeQuestionWindow.closeWindowEditQuestion();
         Selenide.sleep(1000);
         assertFalse(changeQuestionWindow.isWindowAppear());
         question.openWindowChangeQuestion();
-        assertEquals(DataConfig.DataTest.getQUESTION(),question.getQuestion());
-        assertEquals(DataConfig.DataTest.getANSWER(),question.getAnswer());
-        assertEquals(DataConfig.DataTest.getQUESTION(), DataBaseQuery.selectFaq().getQuestion());
+        assertEquals(TestData.DataTest.getQUESTION(),question.getQuestion());
+        assertEquals(TestData.DataTest.getANSWER(),question.getAnswer());
+        assertEquals(TestData.DataTest.getQUESTION(), DataBaseQuery.selectFaq().getQuestion());
     }
 
     @Feature("Редактирование faq-вопроса")
@@ -282,7 +282,7 @@ public class FAQPageTest extends BaseTest{
     void searchNameFaq() {
         faqPage.faqPage();
         int countAllFaq= faqPage.getCountFaq();
-        faqPage.searchFaq(DataConfig.DataSearch.getFAQ_SEARCH());
+        faqPage.searchFaq(TestData.DataSearch.getFAQ_SEARCH());
         Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
@@ -290,8 +290,8 @@ public class FAQPageTest extends BaseTest{
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
-            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getFAQ_SEARCH().toLowerCase());
-            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFAQ_SEARCH().toLowerCase());
+            boolean isQuestionFound = questionText.toLowerCase().contains(TestData.DataSearch.getFAQ_SEARCH().toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(TestData.DataSearch.getFAQ_SEARCH().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
         assertTrue(countResult<countAllFaq);
@@ -304,7 +304,7 @@ public class FAQPageTest extends BaseTest{
     void searchByInclusion() {
         faqPage.faqPage();
         int countAllFaq= faqPage.getCountFaq();
-        faqPage.searchFaq(DataConfig.DataSearch.getSEARCH_BY_INCLUSION_FAQ());
+        faqPage.searchFaq(TestData.DataSearch.getSEARCH_BY_INCLUSION_FAQ());
         Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
@@ -312,8 +312,8 @@ public class FAQPageTest extends BaseTest{
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
-            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getSEARCH_BY_INCLUSION_FAQ().toLowerCase());
-            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getSEARCH_BY_INCLUSION_FAQ().toLowerCase());
+            boolean isQuestionFound = questionText.toLowerCase().contains(TestData.DataSearch.getSEARCH_BY_INCLUSION_FAQ().toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(TestData.DataSearch.getSEARCH_BY_INCLUSION_FAQ().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
         assertTrue(countResult<countAllFaq);
@@ -325,7 +325,7 @@ public class FAQPageTest extends BaseTest{
     @ExtendWith(AddSomeFaq.class)
     @Test
     void resetSearchResultFaq() {
-        faqPage.searchFaq(DataConfig.DataSearch.getFAQ_SEARCH());
+        faqPage.searchFaq(TestData.DataSearch.getFAQ_SEARCH());
         Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
@@ -347,7 +347,7 @@ public class FAQPageTest extends BaseTest{
     void searchHighRegister() {
         faqPage.faqPage();
         int countAllFaq= faqPage.getCountFaq();
-        faqPage.searchFaq(DataConfig.DataSearch.getFAQ_HIGH_REGISTER());
+        faqPage.searchFaq(TestData.DataSearch.getFAQ_HIGH_REGISTER());
         Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
@@ -355,8 +355,8 @@ public class FAQPageTest extends BaseTest{
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
-            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getFAQ_HIGH_REGISTER().toLowerCase());
-            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFAQ_HIGH_REGISTER().toLowerCase());
+            boolean isQuestionFound = questionText.toLowerCase().contains(TestData.DataSearch.getFAQ_HIGH_REGISTER().toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(TestData.DataSearch.getFAQ_HIGH_REGISTER().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
         assertTrue(countResult<countAllFaq);
@@ -369,7 +369,7 @@ public class FAQPageTest extends BaseTest{
     void searchDifferentRegister() {
         faqPage.faqPage();
         int countAllFaq= faqPage.getCountFaq();
-        faqPage.searchFaq(DataConfig.DataSearch.getFAQ_HIGH_REGISTER());
+        faqPage.searchFaq(TestData.DataSearch.getFAQ_HIGH_REGISTER());
         Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
@@ -377,8 +377,8 @@ public class FAQPageTest extends BaseTest{
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
-            boolean isQuestionFound = questionText.toLowerCase().contains(DataConfig.DataSearch.getFAQ_HIGH_REGISTER().toLowerCase());
-            boolean isAnswerFound = answerText.toLowerCase().contains(DataConfig.DataSearch.getFAQ_HIGH_REGISTER().toLowerCase());
+            boolean isQuestionFound = questionText.toLowerCase().contains(TestData.DataSearch.getFAQ_HIGH_REGISTER().toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(TestData.DataSearch.getFAQ_HIGH_REGISTER().toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
         assertTrue(countResult<countAllFaq);

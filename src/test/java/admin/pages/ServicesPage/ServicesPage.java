@@ -1,6 +1,6 @@
 package admin.pages.ServicesPage;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.pages.BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -25,7 +25,7 @@ public class ServicesPage extends BasePage {
     private final SelenideElement LABORATORY = $x("//span[text()='Лаборатория']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DIAGNOSTICS = $x("//span[text()='Диагностика']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DENTISTRY = $x("//span[text()='Стоматология']//parent::div//parent::div[@class='ZAC4']");
-    private final SelenideElement CATEGORY = $x("//span[text()='" + DataConfig.DataTest.getCATEGORY_RULES() + "']//parent::div//parent::div[@class='ZAC4']");
+    private final SelenideElement CATEGORY = $x("//span[text()='" + TestData.DataTest.getCATEGORY_RULES() + "']//parent::div//parent::div[@class='ZAC4']");
 
 
 

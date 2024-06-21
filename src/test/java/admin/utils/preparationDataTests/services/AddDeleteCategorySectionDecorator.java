@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.services;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.utils.APIUtils.PreparationDataServicesTest;
 import admin.utils.dbUtils.DataBaseQuery;
 import lombok.Getter;
@@ -20,14 +20,14 @@ public class AddDeleteCategorySectionDecorator implements BeforeEachCallback, Af
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.addCategory(DataConfig.DataTest.getNAME_CATEGORY());
-        UUID categoryId= DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_CATEGORY()).getId();
+        PreparationDataServicesTest.addCategory(TestData.DataTest.getNAME_CATEGORY());
+        UUID categoryId= DataBaseQuery.selectServicesInfo(TestData.DataTest.getNAME_CATEGORY()).getId();
         setCategoryId(categoryId);
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        UUID sectionId=DataBaseQuery.selectServicesInfo(DataConfig.DataTest.getNAME_SECTION()).getId();
+        UUID sectionId=DataBaseQuery.selectServicesInfo(TestData.DataTest.getNAME_SECTION()).getId();
         PreparationDataServicesTest.deleteCategory(sectionId);
         PreparationDataServicesTest.deleteCategory(categoryId);
     }

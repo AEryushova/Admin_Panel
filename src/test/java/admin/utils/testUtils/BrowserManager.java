@@ -1,16 +1,19 @@
 package admin.utils.testUtils;
 
-import admin.config.AppConfig;
-import admin.pages.AuthorizationPage.AuthorizationPage;
+import admin.data.AppData;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.Cookie;
 
-
 import static com.codeborne.selenide.Selenide.*;
+import static io.restassured.RestAssured.given;
 
 public class BrowserManager {
 
@@ -18,26 +21,47 @@ public class BrowserManager {
     @Getter
     public static String token;
 
+    private static final Gson gson = new Gson();
+    private static final JsonObject jsonObject = new JsonObject();
 
-    public static void openAdminPanel(){
+    private BrowserManager() {
+    }
+
+    public static void openBrowser(){
         Configuration.holdBrowserOpen = true;
-        open(AppConfig.getURI_ADMIN_PANEL());
-        localStorage().setItem("Environment", AppConfig.getENVIRONMENT());
+        open(AppData.URI_ADMIN_PANEL);
+        localStorage().setItem("Environment", AppData.ENVIRONMENT);
         clearBrowserCookies();
     }
 
-    public static void openBrowser(String login, String password) {
+    public static void openAdminPanel(String login, String password) {
+        Response response = given()
+                .baseUri(AppData.URI_ADMIN_PANEL)
+                .header("Environment", AppData.ENVIRONMENT)
+                .contentType(ContentType.JSON)
+                .body(getDataInfoJson(login, password))
+                .when()
+                .post("/api/admins/sign-in")
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+        token = response.getBody().jsonPath().getString("accessToken");
         Configuration.holdBrowserOpen = true;
-        open(AppConfig.getURI_ADMIN_PANEL());
-        localStorage().setItem("Environment", AppConfig.getENVIRONMENT());
+        open(AppData.URI_ADMIN_PANEL);
+        localStorage().setItem("Environment", AppData.ENVIRONMENT);
         clearBrowserCookies();
         localStorage().removeItem("accessToken");
-        AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.authorization(login, password);
-        Selenide.sleep(7000);
-        Cookie authCookie = WebDriverRunner.getWebDriver().manage().getCookieNamed("token");
-        String token = (authCookie != null) ? authCookie.getValue() : null;
-        setToken(token);
+        WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
+        localStorage().setItem("accessToken", token);
+        Selenide.refresh();
+    }
+
+
+    private static String getDataInfoJson(String login, String password) {
+        jsonObject.addProperty("login", login);
+        jsonObject.addProperty("password", password);
+        return gson.toJson(jsonObject);
     }
 
 }

@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 
 import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import admin.pages.DoctorsPage.DoctorsPage;
@@ -32,7 +32,7 @@ public class DoctorPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openBrowser(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        BrowserManager.openAdminPanel(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
     }
 
     @BeforeEach
@@ -51,7 +51,7 @@ public class DoctorPageTest extends BaseTest {
     @Test
     void returnToDoctorsPageFromCardDoctorPage() {
         doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor(DataConfig.DataTest.getDOCTOR_SPECIALIZATION(), DataConfig.DataTest.getDOCTOR());
+        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor(TestData.DataTest.getDOCTOR_SPECIALIZATION(), TestData.DataTest.getDOCTOR());
         cardDoctor.comebackDoctorsPage();
         doctorsPage.doctorsPage();
     }
@@ -62,12 +62,12 @@ public class DoctorPageTest extends BaseTest {
     void searchNameDoctor() {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_NAME_SEARCH());
+        doctorsPage.searchDoctor(TestData.DataSearch.getDOCTOR_NAME_SEARCH());
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (SelenideElement nameDoctor : namesDoctors) {
-            assertThat(nameDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDOCTOR_NAME_SEARCH().toLowerCase()));
+            assertThat(nameDoctor.getText().toLowerCase(), containsString(TestData.DataSearch.getDOCTOR_NAME_SEARCH().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
@@ -79,12 +79,12 @@ public class DoctorPageTest extends BaseTest {
     void searchSpecializationDoctor() {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_SPECIALIZATION_SEARCH());
+        doctorsPage.searchDoctor(TestData.DataSearch.getDOCTOR_SPECIALIZATION_SEARCH());
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
         for (SelenideElement specializationDoctor : specializationDoctors) {
-            assertThat(specializationDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDOCTOR_SPECIALIZATION_SEARCH().toLowerCase()));
+            assertThat(specializationDoctor.getText().toLowerCase(), containsString(TestData.DataSearch.getDOCTOR_SPECIALIZATION_SEARCH().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
@@ -95,7 +95,7 @@ public class DoctorPageTest extends BaseTest {
     void searchByInclusion() {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getSEARCH_BY_INCLUSION_DOCTORS());
+        doctorsPage.searchDoctor(TestData.DataSearch.getSEARCH_BY_INCLUSION_DOCTORS());
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
@@ -103,8 +103,8 @@ public class DoctorPageTest extends BaseTest {
         for (int i = 0; i < namesDoctors.size(); i++) {
             String nameDoctor = namesDoctors.get(i).getText();
             String specializationDoctor = specializationDoctors.get(i).getText();
-            boolean isNameFound = nameDoctor.toLowerCase().contains(DataConfig.DataSearch.getSEARCH_BY_INCLUSION_DOCTORS().toLowerCase());
-            boolean isSpecializationFound = specializationDoctor.toLowerCase().contains(DataConfig.DataSearch.getSEARCH_BY_INCLUSION_DOCTORS().toLowerCase());
+            boolean isNameFound = nameDoctor.toLowerCase().contains(TestData.DataSearch.getSEARCH_BY_INCLUSION_DOCTORS().toLowerCase());
+            boolean isSpecializationFound = specializationDoctor.toLowerCase().contains(TestData.DataSearch.getSEARCH_BY_INCLUSION_DOCTORS().toLowerCase());
             assertTrue(isNameFound || isSpecializationFound);
         }
         assertTrue(countResult < countAllDoctors);
@@ -115,7 +115,7 @@ public class DoctorPageTest extends BaseTest {
     @Test
     void resetSearchResultDoctors() {
         doctorsPage.doctorsPage();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_NAME_SEARCH());
+        doctorsPage.searchDoctor(TestData.DataSearch.getDOCTOR_NAME_SEARCH());
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
@@ -136,12 +136,12 @@ public class DoctorPageTest extends BaseTest {
     void searchHighRegister() {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_NAME_HIGH_REGISTER());
+        doctorsPage.searchDoctor(TestData.DataSearch.getDOCTOR_NAME_HIGH_REGISTER());
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (SelenideElement nameDoctor : namesDoctors) {
-            assertThat(nameDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDOCTOR_NAME_HIGH_REGISTER().toLowerCase()));
+            assertThat(nameDoctor.getText().toLowerCase(), containsString(TestData.DataSearch.getDOCTOR_NAME_HIGH_REGISTER().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
@@ -152,12 +152,12 @@ public class DoctorPageTest extends BaseTest {
     void searchDifferentRegister() {
         doctorsPage.doctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.searchDoctor(DataConfig.DataSearch.getDOCTOR_NAME_DIFFERENT_REGISTER());
+        doctorsPage.searchDoctor(TestData.DataSearch.getDOCTOR_NAME_DIFFERENT_REGISTER());
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         for (SelenideElement nameDoctor : namesDoctors) {
-            assertThat(nameDoctor.getText().toLowerCase(), containsString(DataConfig.DataSearch.getDOCTOR_NAME_DIFFERENT_REGISTER().toLowerCase()));
+            assertThat(nameDoctor.getText().toLowerCase(), containsString(TestData.DataSearch.getDOCTOR_NAME_DIFFERENT_REGISTER().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
@@ -173,7 +173,7 @@ public class DoctorPageTest extends BaseTest {
         int countResult = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
         for (String attributeValue : photoDoctorsAttributes) {
-            assertThat(attributeValue, equalTo(DataConfig.DataTest.getDEFAULT_PHOTO().toLowerCase()));
+            assertThat(attributeValue, equalTo(TestData.DataTest.getDEFAULT_PHOTO().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
@@ -189,7 +189,7 @@ public class DoctorPageTest extends BaseTest {
         int countResult = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
         for (String attributeValue : photoDoctorsAttributes) {
-            assertThat(attributeValue, not(DataConfig.DataTest.getDEFAULT_PHOTO().toLowerCase()));
+            assertThat(attributeValue, not(TestData.DataTest.getDEFAULT_PHOTO().toLowerCase()));
         }
         assertTrue(countResult < countAllDoctors);
     }
@@ -209,7 +209,7 @@ public class DoctorPageTest extends BaseTest {
         boolean withoutPhoto = false;
         boolean withPhoto = false;
         for (String attributeValue : photoDoctorsAttributes) {
-            if (attributeValue.equals(DataConfig.DataTest.getDEFAULT_PHOTO().toLowerCase())) {
+            if (attributeValue.equals(TestData.DataTest.getDEFAULT_PHOTO().toLowerCase())) {
                 withoutPhoto = true;
             } else {
                 withPhoto = true;

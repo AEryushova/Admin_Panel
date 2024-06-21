@@ -1,35 +1,29 @@
 package admin.utils.APIUtils;
 
-import admin.config.AppConfig;
+import admin.data.AppData;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Value;
+
 
 import static io.restassured.RestAssured.given;
 
 public class PreparationDataHeaderTest {
     private static final Gson gson = new Gson();
+    private static final JsonObject jsonObject = new JsonObject();
 
     @Getter
     private static String tokenAdmin;
 
 
-    @Value
-    @AllArgsConstructor
-    private static class DataInfo {
-        String login;
-        String password;
-    }
-
     public static void authAdmin(String login, String password) {
         tokenGetAuthAdmin(login, password);
         given()
-                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .baseUri(AppData.URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .header("Environment", AppData.ENVIRONMENT)
                 .when()
                 .get("/api/admins/admin-data")
                 .then()
@@ -38,8 +32,8 @@ public class PreparationDataHeaderTest {
 
     private static void tokenGetAuthAdmin(String login, String password) {
         Response response = given()
-                .baseUri(AppConfig.getURI_ADMIN_PANEL())
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .baseUri(AppData.URI_ADMIN_PANEL)
+                .header("Environment", AppData.ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(getDataInfoJson(login, password))
                 .when()
@@ -52,23 +46,17 @@ public class PreparationDataHeaderTest {
     }
 
     private static String getDataInfoJson(String login, String password) {
-        DataInfo dataInfo = new DataInfo(login, password);
-        return gson.toJson(dataInfo);
+        jsonObject.addProperty("login", login);
+        jsonObject.addProperty("password", password);
+        return gson.toJson(jsonObject);
     }
 
-
-    @Value
-    @AllArgsConstructor
-    private static class DataChangePassword {
-        String login;
-        String newPassword;
-    }
 
     public static void changePasswordAdmin(String login, String newPassword) {
         given()
-                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .baseUri(AppData.URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .header("Environment", AppData.ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(getChangePasswordJson(login, newPassword))
                 .when()
@@ -78,8 +66,9 @@ public class PreparationDataHeaderTest {
     }
 
     private static String getChangePasswordJson(String login, String newPassword) {
-        DataChangePassword dataChangePassword = new DataChangePassword(login, newPassword);
-        return gson.toJson(dataChangePassword);
+        jsonObject.addProperty("login", login);
+        jsonObject.addProperty("newPassword", newPassword);
+        return gson.toJson(jsonObject);
     }
 }
 

@@ -1,32 +1,26 @@
 package admin.utils.APIUtils;
 
-import admin.config.AppConfig;
+import admin.data.AppData;
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
-import lombok.AllArgsConstructor;
-import lombok.Value;
+
 
 import static io.restassured.RestAssured.given;
 
 public class PreparationDataAdminTest {
+
     private static final Gson gson = new Gson();
+    private static final JsonObject jsonObject = new JsonObject();
 
-
-    @Value
-    @AllArgsConstructor
-    private static class DataInfo {
-        String login;
-        String password;
-
-    }
 
     public static void createAdmin(String login, String password) {
         given()
-                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .baseUri(AppData.URI_ADMIN_PANEL)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .header("Environment", AppData.ENVIRONMENT)
                 .body(getDataInfoJson(login, password))
                 .when()
                 .post("/api/admins/sign-up")
@@ -37,10 +31,10 @@ public class PreparationDataAdminTest {
 
     public static void deleteAdmin(String login) {
         given()
-                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .baseUri(AppData.URI_ADMIN_PANEL)
                 .queryParam("login", login)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .header("Environment", AppData.ENVIRONMENT)
                 .when()
                 .delete("/api/admins")
                 .then()
@@ -48,8 +42,9 @@ public class PreparationDataAdminTest {
     }
 
     private static String getDataInfoJson(String login, String password) {
-        DataInfo dataInfo = new DataInfo(login, password);
-        return gson.toJson(dataInfo);
+        jsonObject.addProperty("login", login);
+        jsonObject.addProperty("password", password);
+        return gson.toJson(jsonObject);
     }
 
 }

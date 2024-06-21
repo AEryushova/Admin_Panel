@@ -1,13 +1,13 @@
 package admin.utils.APIUtils;
 
-import admin.config.AppConfig;
+import admin.data.AppData;
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Value;
+
 
 import java.io.File;
 
@@ -16,25 +16,19 @@ import static io.restassured.RestAssured.given;
 public class PreparationDataSettingTest {
 
     private static final Gson gson = new Gson();
+    private static final JsonObject jsonObject = new JsonObject();
     private static String tokenPatient;
 
     @Getter
     public static String location;
 
-    @Value
-    @AllArgsConstructor
-    private static class BugReportInfo {
-        String message;
-        String email;
-        String author;
-    }
 
     public static void authPatient() {
         tokenGetAuthPatient();
         given()
-                .baseUri(AppConfig.getURI_PERSONAL_AREA())
+                .baseUri(AppData.URI_PERSONAL_AREA)
                 .header("Authorization", "Bearer " + tokenPatient)
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .header("Environment", AppData.ENVIRONMENT)
                 .when()
                 .get("/api/clients/user-info")
                 .then()
@@ -44,8 +38,8 @@ public class PreparationDataSettingTest {
 
     private static void tokenGetAuthPatient() {
         Response response = given()
-                .baseUri(AppConfig.getURI_PERSONAL_AREA())
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .baseUri(AppData.URI_PERSONAL_AREA)
+                .header("Environment", AppData.ENVIRONMENT)
                 .queryParam("code", "123code")
                 .when()
                 .get("/api/clients/sign-in")
@@ -59,10 +53,10 @@ public class PreparationDataSettingTest {
 
     public static void addBugReportPatient(String message, String email, String author) {
         given()
-                .baseUri(AppConfig.getURI_PERSONAL_AREA())
+                .baseUri(AppData.URI_PERSONAL_AREA)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + tokenPatient)
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .header("Environment", AppData.ENVIRONMENT)
                 .body(getBugReportJson(message,email,author))
                 .when()
                 .post("/api/bug-reports")
@@ -71,16 +65,18 @@ public class PreparationDataSettingTest {
     }
 
     private static String getBugReportJson(String message, String email, String author) {
-        BugReportInfo bugReport=new BugReportInfo(message,email,author);
-        return gson.toJson(bugReport);
+        jsonObject.addProperty("message", message);
+        jsonObject.addProperty("email", email);
+        jsonObject.addProperty("author", author);
+        return gson.toJson(jsonObject);
     }
 
 
     public static void uploadPhoto(File file) {
         Response response = given()
-                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .baseUri(AppData.URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .header("Environment", AppData.ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)
                 .multiPart("file", file)
                 .when()
@@ -94,9 +90,9 @@ public class PreparationDataSettingTest {
 
     public static void uploadLogo(File file) {
         given()
-                .baseUri(AppConfig.getURI_ADMIN_PANEL())
+                .baseUri(AppData.URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppConfig.getENVIRONMENT())
+                .header("Environment", AppData.ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)
                 .multiPart("file", file)
                 .when()

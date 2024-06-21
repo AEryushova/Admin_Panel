@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.administration;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.utils.APIUtils.PreparationDataAdminTest;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -10,12 +10,12 @@ public class AdminAddDeleteDecorator implements BeforeEachCallback, AfterEachCal
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataAdminTest.createAdmin(DataConfig.DataTest.getLOGIN_ADMIN_TEST(), DataConfig.DataTest.getPASSWORD_ADMIN_TEST());
+        PreparationDataAdminTest.createAdmin(TestData.DataTest.getLOGIN_ADMIN_TEST(), TestData.DataTest.getPASSWORD_ADMIN_TEST());
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        PreparationDataAdminTest.deleteAdmin(DataConfig.DataTest.getLOGIN_ADMIN_TEST());
+        PreparationDataAdminTest.deleteAdmin(TestData.DataTest.getLOGIN_ADMIN_TEST());
     }
 
 }

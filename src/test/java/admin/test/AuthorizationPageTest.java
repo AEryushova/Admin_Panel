@@ -1,6 +1,6 @@
 package admin.test;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.dbUtils.DataBaseQuery;
@@ -34,7 +34,7 @@ public class AuthorizationPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel();
+        BrowserManager.openBrowser();
     }
 
     @BeforeEach
@@ -55,14 +55,14 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void authorizationSuperAdmin() {
         authPage.authPage();
-        DoctorsPage doctorPage = authPage.authorization(DataConfig.UserData.getLOGIN_SUPER_ADMIN(), DataConfig.UserData.getPASSWORD_SUPER_ADMIN());
+        DoctorsPage doctorPage = authPage.authorization(TestData.UserData.LOGIN_SUPER_ADMIN, TestData.UserData.PASSWORD_SUPER_ADMIN);
         doctorPage.doctorsPage();
         headerMenu.headerBarSuperAdmin();
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         userPanel.userPanelSuperAdmin();
         assertEquals("Супер-Администратор", userPanel.checkProfileInfoUser());
-        assertEquals(DataConfig.UserData.getLOGIN_SUPER_ADMIN(),userPanel.checkLogin());
-        assertEquals(0, DataBaseQuery.selectAdmin(DataConfig.UserData.getLOGIN_SUPER_ADMIN()).getRole_id());
+        assertEquals(TestData.UserData.LOGIN_SUPER_ADMIN,userPanel.checkLogin());
+        assertEquals(0, DataBaseQuery.selectAdmin(TestData.UserData.LOGIN_SUPER_ADMIN).getRole_id());
     }
 
 
@@ -71,21 +71,21 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void authorizationAdmin() {
         authPage.authPage();
-        DoctorsPage doctorPage = authPage.authorization(DataConfig.UserData.getLOGIN_ADMIN(), DataConfig.UserData.getPASSWORD_ADMIN());
+        DoctorsPage doctorPage = authPage.authorization(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
         doctorPage.doctorsPage();
         headerMenu.headerBarAdmin();
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         userPanel.userPanelAdmin();
         assertEquals("Администратор", userPanel.checkProfileInfoUser());
-        assertEquals(DataConfig.UserData.getLOGIN_ADMIN(),userPanel.checkLogin());
-        assertEquals(1, DataBaseQuery.selectAdmin(DataConfig.UserData.getLOGIN_ADMIN()).getRole_id());
+        assertEquals(TestData.UserData.LOGIN_ADMIN,userPanel.checkLogin());
+        assertEquals(1, DataBaseQuery.selectAdmin(TestData.UserData.LOGIN_ADMIN).getRole_id());
     }
 
     @Story("Авторизация админа с неверным паролем")
     @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminWrongPassword() {
-        authPage.fillLoginField(DataConfig.UserData.getLOGIN_ADMIN());
+        authPage.fillLoginField(TestData.UserData.LOGIN_ADMIN);
         authPage.fillPasswordField("WWqq123456!78");
         authPage.clickToComeIn();
         assertTrue(authPage.isEnabledComeInButton());
@@ -96,8 +96,8 @@ public class AuthorizationPageTest extends BaseTest {
     @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminNonExistent() {
-        authPage.fillLoginField(DataConfig.DataTest.getLOGIN_ADMIN_TEST());
-        authPage.fillPasswordField(DataConfig.DataTest.getPASSWORD_ADMIN_TEST());
+        authPage.fillLoginField(TestData.DataTest.getLOGIN_ADMIN_TEST());
+        authPage.fillPasswordField(TestData.DataTest.getPASSWORD_ADMIN_TEST());
         authPage.clickToComeIn();
         assertTrue(authPage.isEnabledComeInButton());
         assertEquals("AuthorizationAdminClient::SignIn: Ошибка авторизации.", authPage.getNotification());
@@ -107,7 +107,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Авторизация админа без логина")
     @Test
     void authorizationAdminNotLogin() {
-        authPage.fillPasswordField(DataConfig.DataTest.getPASSWORD_ADMIN_TEST());
+        authPage.fillPasswordField(TestData.DataTest.getPASSWORD_ADMIN_TEST());
         authPage.authPage();
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -115,7 +115,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Авторизация админа без пароля")
     @Test
     void authorizationAdminNotPassword() {
-        authPage.fillLoginField(DataConfig.DataTest.getLOGIN_ADMIN_TEST());
+        authPage.fillLoginField(TestData.DataTest.getLOGIN_ADMIN_TEST());
         authPage.authPage();
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -123,7 +123,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Очистка поля логина через кнопку в форме авторизации")
     @Test
     void clearLoginFieldThroughButtonClear() {
-        authPage.fillLoginField(DataConfig.DataTest.getLOGIN_ADMIN_TEST());
+        authPage.fillLoginField(TestData.DataTest.getLOGIN_ADMIN_TEST());
         authPage.clearLoginClickButton();
         authPage.authPage();
         assertEquals("", authPage.getValueLoginField());
@@ -133,7 +133,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Скрытие пароля при его вводе в поле пароля")
     @Test
     void fillPasswordHideValue() {
-        authPage.fillPasswordField(DataConfig.DataTest.getPASSWORD_ADMIN_TEST());
+        authPage.fillPasswordField(TestData.DataTest.getPASSWORD_ADMIN_TEST());
         authPage.authPage();
         assertTrue(authPage.isHidePassword());
     }
@@ -141,7 +141,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Отображение и скрытие введенного пароля в поле пароля")
     @Test
     void showPasswordValue() {
-        authPage.fillPasswordField(DataConfig.DataTest.getPASSWORD_ADMIN_TEST());
+        authPage.fillPasswordField(TestData.DataTest.getPASSWORD_ADMIN_TEST());
         authPage.showPassword();
         authPage.authPage();
         assertFalse(authPage.isHidePassword());
@@ -233,7 +233,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Закрытие уведомления на странице авторизации по таймауту")
     @Test
     void closeNotificationTimeout()  {
-        authPage.fillLoginField(DataConfig.UserData.getLOGIN_ADMIN());
+        authPage.fillLoginField(TestData.UserData.LOGIN_ADMIN);
         authPage.fillPasswordField("WWqq123456!78");
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
@@ -243,7 +243,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Закрытие уведомления на странице авторизации")
     @Test
     void closeNotification() {
-        authPage.fillLoginField(DataConfig.UserData.getLOGIN_ADMIN());
+        authPage.fillLoginField(TestData.UserData.LOGIN_ADMIN);
         authPage.fillPasswordField("WWqq123456!78");
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
@@ -254,7 +254,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Успешный выход из админ-панели")
     @Test
     void exitAdminPanel() {
-        authPage.authorization(DataConfig.UserData.getLOGIN_SUPER_ADMIN(), DataConfig.UserData.getPASSWORD_SUPER_ADMIN());
+        authPage.authorization(TestData.UserData.LOGIN_SUPER_ADMIN, TestData.UserData.PASSWORD_SUPER_ADMIN);
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         userPanel.userPanelSuperAdmin();
         AuthorizationPage authPage=userPanel.exitAdminPanel();

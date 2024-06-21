@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.doctors;
 
-import admin.config.DataConfig;
+import admin.data.TestData;
 import admin.utils.dbUtils.DataBaseQuery;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -10,12 +10,12 @@ public class DeletePhotoDoctorDecorator implements BeforeEachCallback , AfterEac
 
         @Override
         public void beforeEach(ExtensionContext context) throws Exception {
-                DataBaseQuery.setDefaultPhotoDoctor(DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION(),DataConfig.DataTest.getDEFAULT_PHOTO());
+                DataBaseQuery.setDefaultPhotoDoctor(TestData.DataTest.getDOCTOR(), TestData.DataTest.getDOCTOR_SPECIALIZATION(), TestData.DataTest.getDEFAULT_PHOTO());
         }
 
         @Override
         public void afterEach(ExtensionContext context) throws Exception {
-                DataBaseQuery.setDefaultPhotoDoctor(DataConfig.DataTest.getDOCTOR(),DataConfig.DataTest.getDOCTOR_SPECIALIZATION(),DataConfig.DataTest.getDEFAULT_PHOTO());
+                DataBaseQuery.setDefaultPhotoDoctor(TestData.DataTest.getDOCTOR(), TestData.DataTest.getDOCTOR_SPECIALIZATION(), TestData.DataTest.getDEFAULT_PHOTO());
         }
 }
 

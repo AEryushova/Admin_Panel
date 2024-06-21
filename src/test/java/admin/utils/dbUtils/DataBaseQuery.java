@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class DataBaseQuery {
 
+
     @SneakyThrows
     public static Admins selectAdmin(String login) {
         var selectAdmin = "SELECT * FROM platform.users INNER JOIN platform.users_roles ON users.id=users_roles.user_id WHERE username = ?";
