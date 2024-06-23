@@ -10,12 +10,12 @@ public class AllureDecorator implements BeforeAllCallback, AfterAllCallback {
 
 
     @Override
-    public void beforeAll(ExtensionContext context) throws Exception {
+    public void beforeAll(ExtensionContext context){
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @Override
-    public void afterAll(ExtensionContext context) throws Exception {
+    public void afterAll(ExtensionContext context) {
         SelenideLogger.removeListener("allure");
     }
 }

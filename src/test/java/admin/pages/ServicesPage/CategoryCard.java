@@ -13,7 +13,7 @@ public class CategoryCard {
     private final SelenideElement EMPTY_LIST_SECTION = $x("//div[@class='kblo']/span");
 
 
-    public void categoryWindow() {
+    public void categoryCard() {
         ADD_SECTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 

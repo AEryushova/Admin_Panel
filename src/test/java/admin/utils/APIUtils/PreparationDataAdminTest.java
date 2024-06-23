@@ -1,12 +1,13 @@
 package admin.utils.APIUtils;
 
-import admin.data.AppData;
+
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 
 
+import static appData.AppData.*;
 import static io.restassured.RestAssured.given;
 
 public class PreparationDataAdminTest {
@@ -17,10 +18,10 @@ public class PreparationDataAdminTest {
 
     public static void createAdmin(String login, String password) {
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .body(getDataInfoJson(login, password))
                 .when()
                 .post("/api/admins/sign-up")
@@ -31,10 +32,10 @@ public class PreparationDataAdminTest {
 
     public static void deleteAdmin(String login) {
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .queryParam("login", login)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment",ENVIRONMENT)
                 .when()
                 .delete("/api/admins")
                 .then()

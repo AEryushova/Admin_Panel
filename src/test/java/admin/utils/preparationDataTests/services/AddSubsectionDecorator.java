@@ -10,15 +10,19 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.UUID;
 
-import static admin.data.TestData.DataTest.NAME_CATEGORY;
-import static admin.data.TestData.DataTest.NAME_SECTION;
+import static admin.data.TestData.DataTest.*;
 
-public class AddSectionDecorator implements BeforeEachCallback, AfterEachCallback {
+public class AddSubsectionDecorator implements BeforeEachCallback, AfterEachCallback {
 
     @Setter
     @Getter
     public static UUID categoryId;
-
+    @Getter
+    @Setter
+    public static UUID sectionId;
+    @Getter
+    @Setter
+    public static UUID subsectionId;
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
@@ -26,10 +30,16 @@ public class AddSectionDecorator implements BeforeEachCallback, AfterEachCallbac
         UUID categoryId= DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getId();
         setCategoryId(categoryId);
         PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
+        UUID sectionId= DataBaseQuery.selectServicesInfo(NAME_SECTION).getId();
+        setSectionId(sectionId);
+        PreparationDataServicesTest.addSection(NAME_SUBSECTION,sectionId);
+        UUID subsectionId= DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getId();
+        setSubsectionId(subsectionId);
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
+        PreparationDataServicesTest.deleteCategory(sectionId);
         PreparationDataServicesTest.deleteCategory(categoryId);
     }
 }

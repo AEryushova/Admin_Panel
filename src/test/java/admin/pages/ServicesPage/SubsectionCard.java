@@ -46,11 +46,10 @@ public class SubsectionCard {
     }
 
 
-    public ServiceCard openSubsection() {
+    public void openSubsection() {
         EXPAND_SUBSECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        return new ServiceCard();
     }
 
     public ServiceCard getServices() {

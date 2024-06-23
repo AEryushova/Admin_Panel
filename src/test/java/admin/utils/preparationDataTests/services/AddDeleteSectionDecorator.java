@@ -1,6 +1,6 @@
 package admin.utils.preparationDataTests.services;
 
-import admin.data.TestData;
+
 import admin.utils.APIUtils.PreparationDataServicesTest;
 import admin.utils.dbUtils.DataBaseQuery;
 import lombok.Getter;
@@ -10,6 +10,9 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.UUID;
+
+import static admin.data.TestData.DataTest.NAME_CATEGORY;
+import static admin.data.TestData.DataTest.NAME_SECTION;
 
 public class AddDeleteSectionDecorator implements BeforeEachCallback, AfterEachCallback {
 
@@ -22,11 +25,11 @@ public class AddDeleteSectionDecorator implements BeforeEachCallback, AfterEachC
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.addCategory(TestData.DataTest.getNAME_CATEGORY());
-        UUID categoryId= DataBaseQuery.selectServicesInfo(TestData.DataTest.getNAME_CATEGORY()).getId();
+        PreparationDataServicesTest.addCategory(NAME_CATEGORY);
+        UUID categoryId= DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getId();
         setCategoryId(categoryId);
-        PreparationDataServicesTest.addSection(TestData.DataTest.getNAME_SECTION(),categoryId);
-        UUID sectionId= DataBaseQuery.selectServicesInfo(TestData.DataTest.getNAME_SECTION()).getId();
+        PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
+        UUID sectionId= DataBaseQuery.selectServicesInfo(NAME_SECTION).getId();
         setSectionId(sectionId);
     }
 

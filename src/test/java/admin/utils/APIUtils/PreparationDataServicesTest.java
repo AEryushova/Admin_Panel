@@ -1,13 +1,13 @@
 package admin.utils.APIUtils;
 
 
-import admin.data.AppData;
+
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
-
+import static appData.AppData.*;
 
 import java.util.UUID;
 
@@ -24,9 +24,9 @@ public class PreparationDataServicesTest {
     public static void addRuleCategory(UUID id, String title, String description) {
         String rule = getAddRuleJson(id, title, description);
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(rule)
                 .when()
@@ -49,9 +49,9 @@ public class PreparationDataServicesTest {
     public static void deleteRuleCategory(UUID id) {
         String rule = getDeleteRuleJson(id);
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(rule)
                 .when()
@@ -69,9 +69,9 @@ public class PreparationDataServicesTest {
     public static void addCategory(String nameCategory) {
         String categoryName = addCategoryJson(nameCategory);
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(categoryName)
                 .when()
@@ -87,10 +87,10 @@ public class PreparationDataServicesTest {
 
     public static void deleteCategory(UUID id) {
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .queryParam("categoryId", id.toString())
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .when()
                 .delete("/api/services/admin/category")
                 .then()
@@ -99,9 +99,9 @@ public class PreparationDataServicesTest {
 
     public static void addSection(String nameSection,UUID parentId) {
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(addSectionJson(nameSection,parentId))
                 .when()

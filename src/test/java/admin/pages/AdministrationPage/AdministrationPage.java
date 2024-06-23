@@ -5,6 +5,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 
+
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -27,6 +28,7 @@ public class AdministrationPage extends BasePage {
         UPDATE_PRICE.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_ADMIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
+
 
     public NewAdminWindow openWindowAddedNewAdmin() {
         ADD_ADMIN.shouldBe(Condition.visible)

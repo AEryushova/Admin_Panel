@@ -1,18 +1,20 @@
 package admin.utils.preparationDataTests.faq;
 
 
-import admin.data.TestData;
 import admin.utils.dbUtils.DataBaseQuery;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+
+import static admin.data.TestData.DataTest.ANSWER;
+import static admin.data.TestData.DataTest.QUESTION;
 
 public class AddDeleteFaqDecorator implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllFaq();
-        DataBaseQuery.addFaq(0, TestData.DataTest.getQUESTION(), TestData.DataTest.getANSWER());
+        DataBaseQuery.addFaq(0, QUESTION, ANSWER);
     }
 
     @Override

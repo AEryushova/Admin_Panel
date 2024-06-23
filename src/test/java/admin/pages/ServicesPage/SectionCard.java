@@ -48,11 +48,10 @@ public class SectionCard {
     }
 
 
-    public SubsectionCard openSection() {
+    public void openSection() {
         EXPAND_SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        return new SubsectionCard();
     }
 
     public AddSectionWindow addSubsection() {

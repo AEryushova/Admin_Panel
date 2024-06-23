@@ -1,13 +1,13 @@
 package admin.utils.APIUtils;
 
-import admin.data.AppData;
+
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.Getter;
-
+import static appData.AppData.*;
 
 import java.io.File;
 
@@ -26,9 +26,9 @@ public class PreparationDataSettingTest {
     public static void authPatient() {
         tokenGetAuthPatient();
         given()
-                .baseUri(AppData.URI_PERSONAL_AREA)
+                .baseUri(URI_PERSONAL_AREA)
                 .header("Authorization", "Bearer " + tokenPatient)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .when()
                 .get("/api/clients/user-info")
                 .then()
@@ -38,8 +38,8 @@ public class PreparationDataSettingTest {
 
     private static void tokenGetAuthPatient() {
         Response response = given()
-                .baseUri(AppData.URI_PERSONAL_AREA)
-                .header("Environment", AppData.ENVIRONMENT)
+                .baseUri(URI_PERSONAL_AREA)
+                .header("Environment", ENVIRONMENT)
                 .queryParam("code", "123code")
                 .when()
                 .get("/api/clients/sign-in")
@@ -53,10 +53,10 @@ public class PreparationDataSettingTest {
 
     public static void addBugReportPatient(String message, String email, String author) {
         given()
-                .baseUri(AppData.URI_PERSONAL_AREA)
+                .baseUri(URI_PERSONAL_AREA)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + tokenPatient)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .body(getBugReportJson(message,email,author))
                 .when()
                 .post("/api/bug-reports")
@@ -74,9 +74,9 @@ public class PreparationDataSettingTest {
 
     public static void uploadPhoto(File file) {
         Response response = given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)
                 .multiPart("file", file)
                 .when()
@@ -90,9 +90,9 @@ public class PreparationDataSettingTest {
 
     public static void uploadLogo(File file) {
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)
                 .multiPart("file", file)
                 .when()

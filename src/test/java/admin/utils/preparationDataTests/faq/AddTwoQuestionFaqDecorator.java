@@ -12,8 +12,8 @@ public class AddTwoQuestionFaqDecorator implements BeforeEachCallback, AfterEach
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllFaq();
-        DataBaseQuery.addFaq(0, TestData.DataTest.getQUESTION(), TestData.DataTest.getANSWER());
-        DataBaseQuery.addFaq(1, TestData.DataTest.getCHANGE_QUESTION(), TestData.DataTest.getCHANGE_ANSWER());
+        DataBaseQuery.addFaq(0, TestData.DataTest.QUESTION, TestData.DataTest.ANSWER);
+        DataBaseQuery.addFaq(1, TestData.DataTest.CHANGE_QUESTION, TestData.DataTest.CHANGE_ANSWER);
     }
 
     @Override

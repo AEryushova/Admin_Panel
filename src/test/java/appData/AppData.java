@@ -1,4 +1,4 @@
-package admin.data;
+package appData;
 
 import lombok.Data;
 

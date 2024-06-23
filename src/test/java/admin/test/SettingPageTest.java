@@ -66,10 +66,10 @@ public class SettingPageTest extends BaseTest {
     void checkBugReport() {
         BugReport bugReport =settingPage.bugReportCard();
         bugReport.bugReport();
-        assertEquals(TestData.DataTest.getNAME_PATIENT(), bugReport.getAuthorText());
-        assertEquals(TestData.DataTest.getEMAIL_PATIENT(), bugReport.getEmailAuthorText());
+        assertEquals(TestData.DataTest.NAME_PATIENT, bugReport.getAuthorText());
+        assertEquals(TestData.DataTest.EMAIL_PATIENT, bugReport.getEmailAuthorText());
         assertEquals(DataHelper.getCurrentDateRuYear(), bugReport.getDateText());
-        assertEquals(TestData.DataTest.getMESSAGE_BUG_REPORT(), bugReport.getReportText());
+        assertEquals(TestData.DataTest.MESSAGE_BUG_REPORT, bugReport.getReportText());
     }
 
     @Feature("Сообщения об ошибках")

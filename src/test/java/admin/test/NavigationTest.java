@@ -1,6 +1,5 @@
 package admin.test;
 
-import admin.data.TestData;
 import admin.pages.AdministrationPage.AdministrationPage;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.FaqPage.FaqPage;
@@ -10,6 +9,7 @@ import admin.pages.SettingPage.SettingPage;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.testUtils.BrowserManager;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterAll;
@@ -17,7 +17,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import static admin.data.TestData.UserData.*;
 
+@Epic("Навигационное меню")
 public class NavigationTest {
 
     private HeaderMenu headerMenu;
@@ -26,7 +28,7 @@ public class NavigationTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(TestData.UserData.LOGIN_SUPER_ADMIN, TestData.UserData.PASSWORD_SUPER_ADMIN);
+        BrowserManager.openAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
     }
 
     @BeforeEach

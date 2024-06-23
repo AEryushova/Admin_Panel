@@ -1,6 +1,5 @@
 package admin.utils.testUtils;
 
-import admin.data.AppData;
 import admin.utils.APIUtils.PreparationDataSettingTest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -14,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.UUID;
 
+import static appData.AppData.URI_PERSONAL_AREA;
+
 
 public class DataHelper {
 
@@ -22,7 +23,7 @@ public class DataHelper {
 
     //Генерирует и возвращает ссылку на фото врача//
     public static String urlPhotoBuilder() {
-        return AppData.URI_PERSONAL_AREA + PreparationDataSettingTest.getLocation();
+        return URI_PERSONAL_AREA + PreparationDataSettingTest.getLocation();
     }
 
     //Генерирует и возвращает UUID для SQL-запросов//

@@ -1,6 +1,5 @@
 package admin.utils.testUtils;
 
-import admin.data.AppData;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
@@ -12,6 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.Cookie;
 
+import static appData.AppData.ENVIRONMENT;
+import static appData.AppData.URI_ADMIN_PANEL;
 import static com.codeborne.selenide.Selenide.*;
 import static io.restassured.RestAssured.given;
 
@@ -29,15 +30,15 @@ public class BrowserManager {
 
     public static void openBrowser(){
         Configuration.holdBrowserOpen = true;
-        open(AppData.URI_ADMIN_PANEL);
-        localStorage().setItem("Environment", AppData.ENVIRONMENT);
+        open(URI_ADMIN_PANEL);
+        localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();
     }
 
     public static void openAdminPanel(String login, String password) {
         Response response = given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
-                .header("Environment", AppData.ENVIRONMENT)
+                .baseUri(URI_ADMIN_PANEL)
+                .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(getDataInfoJson(login, password))
                 .when()
@@ -48,8 +49,8 @@ public class BrowserManager {
                 .response();
         token = response.getBody().jsonPath().getString("accessToken");
         Configuration.holdBrowserOpen = true;
-        open(AppData.URI_ADMIN_PANEL);
-        localStorage().setItem("Environment", AppData.ENVIRONMENT);
+        open(URI_ADMIN_PANEL);
+        localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();
         localStorage().removeItem("accessToken");
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));

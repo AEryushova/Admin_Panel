@@ -1,6 +1,5 @@
 package admin.pages.ServicesPage;
 
-import admin.data.TestData;
 import admin.pages.BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -8,9 +7,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -25,7 +22,7 @@ public class ServicesPage extends BasePage {
     private final SelenideElement LABORATORY = $x("//span[text()='Лаборатория']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DIAGNOSTICS = $x("//span[text()='Диагностика']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DENTISTRY = $x("//span[text()='Стоматология']//parent::div//parent::div[@class='ZAC4']");
-    private final SelenideElement CATEGORY = $x("//span[text()='" + TestData.DataTest.getCATEGORY_RULES() + "']//parent::div//parent::div[@class='ZAC4']");
+
 
 
 
@@ -58,7 +55,7 @@ public class ServicesPage extends BasePage {
         return new CategoryCard();
     }
 
-    private SelenideElement searchCategory(String categoryName){
+    public SelenideElement searchCategory(String categoryName){
         SelenideElement CATEGORY=$x("//span[text()='" + categoryName + "']//parent::div//parent::div[@class='ZAC4']");
         CATEGORY.shouldBe(Condition.visible);
         return CATEGORY;
@@ -66,7 +63,6 @@ public class ServicesPage extends BasePage {
 
 
     public int getCategoryIndexByName(String categoryName) {
-        CATEGORY.shouldBe(Condition.visible);
         List<SelenideElement> categoryElements = CONTAINERS_CATEGORY;
         for (int i = 0; i < categoryElements.size(); i++) {
             if (categoryElements.get(i).getText().equals(categoryName)) {
@@ -76,38 +72,14 @@ public class ServicesPage extends BasePage {
         throw new IllegalArgumentException("Category not found: " + categoryName);
     }
 
-    public void sequenceChangeCategory(String sourceName, String targetName) {
-        SelenideElement sourceCategory = getCategoryByName(sourceName);
-        SelenideElement targetCategory = getCategoryByName(targetName);
-        sequenceChangeActive(sourceCategory, targetCategory);
-    }
 
-    public SelenideElement getCategoryByName(String categoryName) {
-        Map<String, SelenideElement> elementMap = new HashMap<>();
-        elementMap.put("Иные услуги", OTHER_SERVICES);
-        elementMap.put("Телемедицина", TELEMEDICINE);
-        elementMap.put("Врачи", DOCTORS);
-        elementMap.put("Лаборатория", LABORATORY);
-        elementMap.put("Диагностика", DIAGNOSTICS);
-        elementMap.put("Стоматология", DENTISTRY);
-        return elementMap.get(categoryName);
-    }
-
-    private void sequenceChangeActive(SelenideElement categorySource, SelenideElement categoryTarget) {
+    public void changeDisplaySequence(String sourceName, String targetName) {
+        SelenideElement categorySource = searchCategory(sourceName);
+        SelenideElement categoryTarget = searchCategory(targetName);
         Actions actions = actions();
         actions.clickAndHold(categorySource)
                 .moveToElement(categoryTarget)
                 .release()
                 .perform();
-    }
-
-
-    public RulesPreparingWindow openRulesPreparingCategory2() {
-        CATEGORY.shouldBe(Condition.visible);
-        SelenideElement rulesPreparing = CATEGORY.$x("div[@class='Ie41']");
-        rulesPreparing.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .click();
-        return new RulesPreparingWindow();
     }
 }

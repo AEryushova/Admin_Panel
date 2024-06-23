@@ -1,13 +1,12 @@
 package admin.test;
 
-import admin.data.TestData;
+
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.ChangeMinePasswordWindow;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.general.NotificationDecorator;
-import admin.utils.preparationDataTests.headerMenu.NewAuthDecorator;
 import admin.utils.preparationDataTests.headerMenu.ReturnPasswordAdmin;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
@@ -18,12 +17,12 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import static admin.data.TestData.DataTest.*;
+import static admin.data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Epic("Меню навигации")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Epic("Профайл меню")
 public class HeaderMenuTest {
 
     private HeaderMenu headerMenu;
@@ -33,7 +32,7 @@ public class HeaderMenuTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
+        BrowserManager.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
@@ -57,8 +56,8 @@ public class HeaderMenuTest {
         userPanel.userPanelAdmin();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.changeMinePasswordWindow();
-        changeMinePassWindow.fillFieldOldPassword(TestData.UserData.PASSWORD_ADMIN);
-        changeMinePassWindow.fillFieldNewPassword(TestData.DataTest.getNEW_PASSWORD_ADMIN());
+        changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldNewPassword(NEW_PASSWORD_ADMIN);
         changeMinePassWindow.clickChangeButton();
         assertEquals("Пароль успешно обновлен",basePage.getNotification());
         assertFalse(changeMinePassWindow.isWindowAppear());
@@ -73,8 +72,8 @@ public class HeaderMenuTest {
     void changeMainPasswordEqualsPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(TestData.UserData.PASSWORD_ADMIN);
-        changeMinePassWindow.fillFieldNewPassword(TestData.UserData.PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickChangeButton();
         assertEquals("Пароль успешно обновлен",basePage.getNotification());
         assertFalse(changeMinePassWindow.isWindowAppear());
@@ -88,8 +87,8 @@ public class HeaderMenuTest {
     void changeMainPasswordNotEqualsOldPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(TestData.DataTest.getNEW_PASSWORD_ADMIN_TEST());
-        changeMinePassWindow.fillFieldNewPassword(TestData.UserData.PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldOldPassword(NEW_PASSWORD_ADMIN_TEST);
+        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickChangeButton();
         assertEquals("{\"error\":\"Задан неверный пароль\",\"innerError\":null,\"exception\":\"ValidationPlatformException\"}",basePage.getNotification());
         assertTrue(changeMinePassWindow.isWindowAppear());
@@ -101,7 +100,7 @@ public class HeaderMenuTest {
     void changeMainPasswordEmptyFieldsOldPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldNewPassword(TestData.UserData.PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         assertFalse(changeMinePassWindow.isEnabledChangeButton());
     }
 
@@ -111,7 +110,7 @@ public class HeaderMenuTest {
     void changeMainPasswordEmptyFieldsNewPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(TestData.UserData.PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
         assertFalse(changeMinePassWindow.isEnabledChangeButton());
     }
 
@@ -203,9 +202,9 @@ public class HeaderMenuTest {
     void clearFieldsThroughButtonClear(){
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(TestData.UserData.PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickClearButtonOldPasswordField();
-        changeMinePassWindow.fillFieldNewPassword(TestData.UserData.PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickClearButtonNewPasswordField();
         assertEquals("", changeMinePassWindow.getValueOldPasswordField());
         assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldOldPassword());
@@ -220,8 +219,8 @@ public class HeaderMenuTest {
     void closeWindowChangeMainPassword() {
         UserPanel userPanel=headerMenu.openAndCloseProfile();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
-        changeMinePassWindow.fillFieldOldPassword(TestData.UserData.PASSWORD_ADMIN);
-        changeMinePassWindow.fillFieldNewPassword(TestData.UserData.PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickCancelButton();
         assertFalse(changeMinePassWindow.isWindowAppear());
         assertFalse(userPanel.isWindowAppear());
@@ -232,7 +231,6 @@ public class HeaderMenuTest {
     }
 
 
-    @Feature("Панель пользователя")
     @Story("Закрытие панели пользователя")
     @Test
     void closeUserPanel() {

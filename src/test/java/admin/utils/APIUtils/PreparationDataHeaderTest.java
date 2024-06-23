@@ -1,13 +1,13 @@
 package admin.utils.APIUtils;
 
-import admin.data.AppData;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.Getter;
 
-
+import static appData.AppData.*;
 import static io.restassured.RestAssured.given;
 
 public class PreparationDataHeaderTest {
@@ -21,9 +21,9 @@ public class PreparationDataHeaderTest {
     public static void authAdmin(String login, String password) {
         tokenGetAuthAdmin(login, password);
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment",ENVIRONMENT)
                 .when()
                 .get("/api/admins/admin-data")
                 .then()
@@ -32,8 +32,8 @@ public class PreparationDataHeaderTest {
 
     private static void tokenGetAuthAdmin(String login, String password) {
         Response response = given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
-                .header("Environment", AppData.ENVIRONMENT)
+                .baseUri(URI_ADMIN_PANEL)
+                .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(getDataInfoJson(login, password))
                 .when()
@@ -54,9 +54,9 @@ public class PreparationDataHeaderTest {
 
     public static void changePasswordAdmin(String login, String newPassword) {
         given()
-                .baseUri(AppData.URI_ADMIN_PANEL)
+                .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment", AppData.ENVIRONMENT)
+                .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(getChangePasswordJson(login, newPassword))
                 .when()
