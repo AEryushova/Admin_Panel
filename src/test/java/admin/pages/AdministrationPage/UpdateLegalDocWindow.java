@@ -2,6 +2,7 @@ package admin.pages.AdministrationPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.io.File;
 import java.time.Duration;
@@ -19,6 +20,8 @@ public class UpdateLegalDocWindow {
     private final SelenideElement UPLOAD_BUTTON = $x("//span[text()='Загрузить документ']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Изменить ссылку документа']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
+
+    @Step("Верифицировать окно добавления оферты и политики обработки")
     public void uploadDocWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -27,18 +30,22 @@ public class UpdateLegalDocWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Загрузить файл '{0}'")
     public void uploadValidDoc(String pathFilesOffer) {
         FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
     }
 
+    @Step("Загрузить файл '{0}'")
     public void uploadInvalidDoc(String pathFilesOffer) {
         FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
     }
 
+    @Step("Получить ссылку на загруженный файл")
     public String getSrcDoc() {
         return DOC_IMAGE.getAttribute("src");
     }
 
+    @Step("Закрыть окно добавления оферты и политики обработки")
     public void closeWindowUpdateLegalDoc() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -46,6 +53,7 @@ public class UpdateLegalDocWindow {
         WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    @Step("Проверить отображение окна добавления оферты и политики обработки")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

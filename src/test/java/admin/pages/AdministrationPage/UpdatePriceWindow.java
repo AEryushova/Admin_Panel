@@ -6,6 +6,7 @@ import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.SelenideElement;
 import admin.pages.Calendar.Calendar;
 import admin.utils.testUtils.DataHelper;
+import io.qameta.allure.Step;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,6 +31,7 @@ public class UpdatePriceWindow {
         this.ACTIVATION_DATES_DOWNLOAD = $x("//span[text()='" + DataHelper.generateActivationDateCurrentMonth() + "']/parent::div");
     }
 
+    @Step("Верифицировать окно добавления прайса")
     public void updatePriceWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -39,6 +41,7 @@ public class UpdatePriceWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Открыть календарь")
     public Calendar openCalendarUpdatePrice() {
         TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -46,14 +49,17 @@ public class UpdatePriceWindow {
         return new Calendar();
     }
 
+    @Step("Загрузить файл '{0}'")
     public void uploadPrice(String pathFilesPrice) {
         FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesPrice));
     }
 
+    @Step("Открыть окно ошибок прайса")
     public PriceErrorsWindow priceErrorsWindow() {
         return new PriceErrorsWindow();
     }
 
+    @Step("Получить дату с календаря")
     public String getValuesButtonToday() {
         TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
@@ -74,6 +80,7 @@ public class UpdatePriceWindow {
         return downloadedFile;
     }
 
+    @Step("Закрыть окно добавления прайса")
     public void closeWindowUpdatePrice() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -81,6 +88,7 @@ public class UpdatePriceWindow {
         WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    @Step("Проверить отображение окна добавления прайса")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

@@ -1,14 +1,18 @@
 package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
+import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class CategoryCard {
     private final SelenideElement ADD_SECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button/parent::div[@class='nwH0']");
+    private final ElementsCollection CONTAINER_SECTIONS = $$x("//div[@class='OurO']/span");
     private final SelenideElement SECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
     private final SelenideElement EMPTY_LIST_SECTION = $x("//div[@class='kblo']/span");
 
@@ -28,6 +32,32 @@ public class CategoryCard {
         SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist, Duration.ofSeconds(5));
         return new SectionCard();
+    }
+
+    public int getSectionIndexByName(String sectionName) {
+        List<SelenideElement> sectionElements = CONTAINER_SECTIONS;
+        for (int i = 0; i < sectionElements.size(); i++) {
+            if (sectionElements.get(i).getText().equals(sectionName)) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("Section not found: " + sectionName);
+    }
+
+    public void changeDisplaySequence(String sourceName, String targetName) {
+        SelenideElement sectionSource = searchSection(sourceName);
+        SelenideElement sectionTarget = searchSection(targetName);
+        Actions actions = actions();
+        actions.clickAndHold(sectionSource)
+                .moveToElement(sectionTarget)
+                .release()
+                .perform();
+    }
+
+    public SelenideElement searchSection(String sectionName){
+        SelenideElement SECTION =$x("//span[text()='" + sectionName + "']//parent::div//parent::div[@class='K9Fo']");
+        SECTION.shouldBe(Condition.visible);
+        return SECTION;
     }
 
 

@@ -15,6 +15,7 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import admin.utils.preparationDataTests.general.AllureDecorator;
+
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +31,7 @@ public class ServicesPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
+        BrowserManager.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.servicesTabOpen();
     }
@@ -321,7 +322,7 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         assertEquals(NAME_SECTION, sectionCard.getNameSection());
         assertNotNull(DataBaseQuery.selectServicesInfo(NAME_SECTION));
-        assertEquals(AddDeleteCategorySectionDecorator.getCategoryId(),DataBaseQuery.selectServicesInfo(NAME_SECTION).getParent_id());
+        assertEquals(AddDeleteCategorySectionDecorator.getCategoryId(), DataBaseQuery.selectServicesInfo(NAME_SECTION).getParent_id());
     }
 
     @Feature("Управление категориями")
@@ -347,7 +348,7 @@ public class ServicesPageTest extends BaseTest {
         AddSectionWindow addSectionWindow = categoryCard.addSection();
         addSectionWindow.clickFieldName();
         assertFalse(addSectionWindow.isEnabledAddButton());
-        assertEquals("Обязательное поле",addSectionWindow.getErrorFieldName());
+        assertEquals("Обязательное поле", addSectionWindow.getErrorFieldName());
     }
 
     @Feature("Управление категориями")
@@ -359,8 +360,8 @@ public class ServicesPageTest extends BaseTest {
         AddSectionWindow addSectionWindow = categoryCard.addSection();
         addSectionWindow.fillNameSectionField(NAME_SECTION);
         addSectionWindow.clearButtonNameField();
-        assertEquals("",addSectionWindow.getValueNameField());
-        assertEquals("Обязательное поле",addSectionWindow.getErrorFieldName());
+        assertEquals("", addSectionWindow.getValueNameField());
+        assertEquals("Обязательное поле", addSectionWindow.getErrorFieldName());
     }
 
     @Feature("Управление категориями")
@@ -383,7 +384,7 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.sectionCard();
-        EditSectionWindow editSectionWindow=sectionCard.editSection();
+        EditSectionWindow editSectionWindow = sectionCard.editSection();
         editSectionWindow.editSectionWindow();
         editSectionWindow.fillNameField(NEW_NAME_SECTION);
         editSectionWindow.saveChange();
@@ -392,7 +393,7 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.openCategory(NAME_CATEGORY);
         assertEquals(NEW_NAME_SECTION, sectionCard.getNameSection());
         assertNotNull(DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION));
-        assertEquals(AddDeleteSectionDecorator.getCategoryId(),DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getParent_id());
+        assertEquals(AddDeleteSectionDecorator.getCategoryId(), DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getParent_id());
     }
 
     @Feature("Управление категориями")
@@ -402,7 +403,7 @@ public class ServicesPageTest extends BaseTest {
     void closeWindowEditSectionInCategory() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
-        EditSectionWindow editSectionWindow=sectionCard.editSection();
+        EditSectionWindow editSectionWindow = sectionCard.editSection();
         editSectionWindow.fillNameField(NEW_NAME_SECTION);
         editSectionWindow.closeWindow();
         assertFalse(editSectionWindow.isWindowAppear());
@@ -417,7 +418,7 @@ public class ServicesPageTest extends BaseTest {
     void editSectionInCategoryNotChangeSave() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
-        EditSectionWindow editSectionWindow=sectionCard.editSection();
+        EditSectionWindow editSectionWindow = sectionCard.editSection();
         editSectionWindow.saveChange();
         Selenide.sleep(3000);
         assertFalse(editSectionWindow.isWindowAppear());
@@ -433,7 +434,7 @@ public class ServicesPageTest extends BaseTest {
     void editSectionInCategoryEmptyFieldName() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
-        EditSectionWindow editSectionWindow=sectionCard.editSection();
+        EditSectionWindow editSectionWindow = sectionCard.editSection();
         editSectionWindow.clearNameField();
         editSectionWindow.saveChange();
         assertTrue(editSectionWindow.isWindowAppear());
@@ -447,7 +448,7 @@ public class ServicesPageTest extends BaseTest {
     void deleteSectionInCategory() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
-        DeleteSectionWindow deleteSectionWindow=sectionCard.deleteSection();
+        DeleteSectionWindow deleteSectionWindow = sectionCard.deleteSection();
         deleteSectionWindow.deleteSectionWindow();
         assertTrue(deleteSectionWindow.verifyNameSection(NAME_SECTION));
         deleteSectionWindow.deleteSection();
@@ -466,7 +467,7 @@ public class ServicesPageTest extends BaseTest {
     void cancelDeleteSectionInCategory() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
-        DeleteSectionWindow deleteSectionWindow=sectionCard.deleteSection();
+        DeleteSectionWindow deleteSectionWindow = sectionCard.deleteSection();
         deleteSectionWindow.cancelDeleteSection();
         assertFalse(deleteSectionWindow.isWindowAppear());
         assertTrue(categoryCard.isExistSectionCard());
@@ -480,7 +481,7 @@ public class ServicesPageTest extends BaseTest {
     void closeWindowDeleteSectionInCategory() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
-        DeleteSectionWindow deleteSectionWindow=sectionCard.deleteSection();
+        DeleteSectionWindow deleteSectionWindow = sectionCard.deleteSection();
         deleteSectionWindow.closeWindowDeleteSection();
         assertFalse(deleteSectionWindow.isWindowAppear());
         assertTrue(categoryCard.isExistSectionCard());
@@ -495,7 +496,7 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.openSection();
-        AddSectionWindow addSectionWindow=sectionCard.addSubsection();
+        AddSectionWindow addSectionWindow = sectionCard.addSubsection();
         addSectionWindow.fillNameSectionField(NAME_SUBSECTION);
         assertTrue(addSectionWindow.isEnabledAddButton());
         addSectionWindow.clickAddSection();
@@ -507,7 +508,7 @@ public class ServicesPageTest extends BaseTest {
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         assertEquals(NAME_SUBSECTION, subsectionCard.getNameSubsection());
         assertNotNull(DataBaseQuery.selectServicesInfo(NAME_SUBSECTION));
-        assertEquals(AddDeleteSectionSubsectionDecorator.getSectionId(),DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getParent_id());
+        assertEquals(AddDeleteSectionSubsectionDecorator.getSectionId(), DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getParent_id());
     }
 
     @Feature("Управление категориями")
@@ -518,9 +519,9 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.openSection();
-        SubsectionCard subsectionCard=sectionCard.getSubsection();
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
         subsectionCard.subsectionCard();
-        EditSectionWindow editSectionWindow=subsectionCard.editSubsection();
+        EditSectionWindow editSectionWindow = subsectionCard.editSubsection();
         editSectionWindow.fillNameField(NEW_NAME_SUBSECTION);
         editSectionWindow.saveChange();
         Selenide.sleep(2000);
@@ -529,7 +530,7 @@ public class ServicesPageTest extends BaseTest {
         sectionCard.openSection();
         assertEquals(NEW_NAME_SUBSECTION, subsectionCard.getNameSubsection());
         assertNotNull(DataBaseQuery.selectServicesInfo(NEW_NAME_SUBSECTION));
-        assertEquals(AddDeleteSubsectionDecorator.getSectionId(),DataBaseQuery.selectServicesInfo(NEW_NAME_SUBSECTION).getParent_id());
+        assertEquals(AddDeleteSubsectionDecorator.getSectionId(), DataBaseQuery.selectServicesInfo(NEW_NAME_SUBSECTION).getParent_id());
     }
 
     @Feature("Управление категориями")
@@ -540,8 +541,8 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.openSection();
-        SubsectionCard subsectionCard=sectionCard.getSubsection();
-        DeleteSectionWindow deleteSectionWindow=subsectionCard.deleteSubsection();
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
+        DeleteSectionWindow deleteSectionWindow = subsectionCard.deleteSubsection();
         assertTrue(deleteSectionWindow.verifyNameSection(NAME_SUBSECTION));
         deleteSectionWindow.deleteSection();
         Selenide.sleep(2000);
@@ -559,24 +560,36 @@ public class ServicesPageTest extends BaseTest {
     @Test
     void changeDisplaySequenceCategories() {
         Selenide.sleep(5000);
-        int sequenceFirstCategory = servicesPage.getCategoryIndexByName(CATEGORY_RULES); /*4*/
-        int sequenceSecondCategory = servicesPage.getCategoryIndexByName(NAME_CATEGORY); /*6*/
-        int sequenceFirstCategoryDB=DataBaseQuery.selectServicesInfo(CATEGORY_RULES).getSequence(); /*4*/
-        int sequenceSecondCategoryDB=DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getSequence(); /*50*/
+        int sequenceFirstCategory = servicesPage.getCategoryIndexByName(CATEGORY_RULES);
+        int sequenceSecondCategory = servicesPage.getCategoryIndexByName(NAME_CATEGORY);
+        int sequenceFirstCategoryDB = DataBaseQuery.selectServicesInfo(CATEGORY_RULES).getSequence();
+        int sequenceSecondCategoryDB = DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getSequence();
         servicesPage.changeDisplaySequence(CATEGORY_RULES, NAME_CATEGORY);
         Selenide.sleep(5000);
         assertEquals(sequenceFirstCategory, servicesPage.getCategoryIndexByName(NAME_CATEGORY));
         assertEquals(sequenceSecondCategory, servicesPage.getCategoryIndexByName(CATEGORY_RULES));
-        assertEquals(sequenceFirstCategoryDB,DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getSequence());
-        assertEquals(sequenceSecondCategoryDB,DataBaseQuery.selectServicesInfo(CATEGORY_RULES).getSequence());
+        assertEquals(sequenceFirstCategoryDB, DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getSequence());
+        assertEquals(sequenceSecondCategoryDB, DataBaseQuery.selectServicesInfo(CATEGORY_RULES).getSequence());
     }
 
     @Feature("Управление категориями")
     @Story("Смена последовательности отображения разделов")
-    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @ExtendWith(AddTwoSections.class)
     @Test
     void changeDisplaySequenceSections() {
-
+        Selenide.sleep(5000);
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        int sequenceFirstSection = categoryCard.getSectionIndexByName(NAME_SECTION);
+        int sequenceSecondSection = categoryCard.getSectionIndexByName(NEW_NAME_SECTION);
+        int sequenceFirstSectionDB = DataBaseQuery.selectServicesInfo(NAME_SECTION).getSequence();
+        int sequenceSecondSectionDB = DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getSequence();
+        categoryCard.changeDisplaySequence(NAME_SECTION, NEW_NAME_SECTION);
+        servicesPage.openCategory(NAME_CATEGORY);
+        Selenide.sleep(5000);
+        assertEquals(sequenceFirstSection, categoryCard.getSectionIndexByName(NEW_NAME_SECTION));
+        assertEquals(sequenceSecondSection, categoryCard.getSectionIndexByName(NAME_SECTION));
+        assertEquals(sequenceFirstSectionDB, DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getSequence());
+        assertEquals(sequenceSecondSectionDB, DataBaseQuery.selectServicesInfo(NAME_SECTION).getSequence());
 
     }
 }

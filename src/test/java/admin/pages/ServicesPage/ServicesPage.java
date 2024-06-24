@@ -15,7 +15,7 @@ public class ServicesPage extends BasePage {
 
     private final SelenideElement TAB_NAME = $x("//a[text()='Услуги']");
     private final SelenideElement SEARCH_SERVICES = $x("//input[@placeholder='Поиск услуги']");
-    private final ElementsCollection CONTAINERS_CATEGORY = $$x("//div[@class='qH7D']/span");
+    private final ElementsCollection CONTAINER_CATEGORIES = $$x("//div[@class='qH7D']/span");
     private final SelenideElement OTHER_SERVICES = $x("//span[text()='Иные услуги']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement TELEMEDICINE = $x("//span[text()='Телемедицина']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DOCTORS = $x("//span[text()='Врачи']//parent::div//parent::div[@class='ZAC4']");
@@ -63,7 +63,7 @@ public class ServicesPage extends BasePage {
 
 
     public int getCategoryIndexByName(String categoryName) {
-        List<SelenideElement> categoryElements = CONTAINERS_CATEGORY;
+        List<SelenideElement> categoryElements = CONTAINER_CATEGORIES;
         for (int i = 0; i < categoryElements.size(); i++) {
             if (categoryElements.get(i).getText().equals(categoryName)) {
                 return i;

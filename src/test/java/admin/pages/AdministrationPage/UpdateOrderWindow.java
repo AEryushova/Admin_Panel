@@ -3,6 +3,7 @@ package admin.pages.AdministrationPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import admin.pages.Calendar.Calendar;
+import io.qameta.allure.Step;
 
 
 import java.io.File;
@@ -20,7 +21,7 @@ public class UpdateOrderWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Обновить приказ']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
     private final SelenideElement TODAY_BUTTON = $x("//div[@class='zMyf']");
 
-
+    @Step("Верифицировать окно добавления приказа")
     public void updateOrderWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -29,6 +30,7 @@ public class UpdateOrderWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Открыть календарь")
     public Calendar openCalendarUpdateOrder() {
         TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -36,16 +38,19 @@ public class UpdateOrderWindow {
         return new Calendar();
     }
 
+    @Step("Загрузить файл '{0}'")
     public void uploadOrder(String pathFilesOffer) {
         FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
     }
 
+    @Step("Получить дату с календаря")
     public String getValuesButtonToday() {
         TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
         return TODAY_BUTTON.getText();
     }
 
+    @Step("Закрыть окно добавления приказа")
     public void closeWindowUpdateOrder() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -53,6 +58,7 @@ public class UpdateOrderWindow {
         WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    @Step("Проверить отображение окна добавления приказа")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

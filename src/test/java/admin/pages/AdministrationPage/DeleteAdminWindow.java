@@ -2,6 +2,7 @@ package admin.pages.AdministrationPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -15,18 +16,21 @@ public class DeleteAdminWindow {
     private final SelenideElement YES_BUTTON = $x("//button[text()='Да']");
     private final SelenideElement NO_BUTTON = $x("//button[text()='Нет']");
 
+    @Step("Верифицировать окно удаления админа")
     public void deleteAdminWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         YES_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Нажать кнопку удаления админа")
     public void deleteAdmin() {
         YES_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать кнопку отмены удаления админа")
     public void cancelDeleteAdmin() {
         NO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -34,6 +38,7 @@ public class DeleteAdminWindow {
         WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    @Step("Проверить отображение админа '{0}' в заголовке окна")
     public boolean verifyLoginAdmin(String login){
         return HEADER_WINDOW.has(text("Вы действительно хотите удалить администратора " + login + " ?"));
     }

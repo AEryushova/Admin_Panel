@@ -40,8 +40,8 @@ public class AddTwoSections implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.deleteCategory(sectionIdFirst);
         PreparationDataServicesTest.deleteCategory(sectionIdSecond);
+        PreparationDataServicesTest.deleteCategory(sectionIdFirst);
         PreparationDataServicesTest.deleteCategory(categoryId);
     }
 }
