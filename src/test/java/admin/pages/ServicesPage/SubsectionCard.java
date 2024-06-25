@@ -52,7 +52,7 @@ public class SubsectionCard {
                 .click();
     }
 
-    public ServiceCard getServices() {
+    public ServiceCard getService() {
         SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist, Duration.ofSeconds(5));
         return new ServiceCard();

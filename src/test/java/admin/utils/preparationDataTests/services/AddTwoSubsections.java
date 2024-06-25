@@ -12,17 +12,20 @@ import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
 
-public class AddTwoSections implements BeforeEachCallback, AfterEachCallback {
+public class AddTwoSubsections implements BeforeEachCallback, AfterEachCallback {
 
     @Setter
     @Getter
     public static UUID categoryId;
     @Setter
     @Getter
-    public static UUID sectionIdFirst;
+    public static UUID sectionId;
     @Setter
     @Getter
-    public static UUID sectionIdSecond;
+    public static UUID subsectionIdFirst;
+    @Setter
+    @Getter
+    public static UUID subsectionIdSecond;
 
 
     @Override
@@ -31,17 +34,22 @@ public class AddTwoSections implements BeforeEachCallback, AfterEachCallback {
         UUID categoryId= DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getId();
         setCategoryId(categoryId);
         PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
-        UUID sectionIdFirst= DataBaseQuery.selectServicesInfo(NAME_SECTION).getId();
-        setSectionIdFirst(sectionIdFirst);
-        PreparationDataServicesTest.addSection(NEW_NAME_SECTION,categoryId);
-        UUID sectionIdSecond= DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getId();
-        setSectionIdSecond(sectionIdSecond);
+        UUID sectionId= DataBaseQuery.selectServicesInfo(NAME_SECTION).getId();
+        setSectionId(sectionId);
+        PreparationDataServicesTest.addSection(NAME_SUBSECTION,sectionId);
+        UUID subsectionIdFirst= DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getId();
+        setSubsectionIdFirst(subsectionIdFirst);
+        PreparationDataServicesTest.addSection(NEW_NAME_SUBSECTION,sectionId);
+        UUID subsectionIdSecond= DataBaseQuery.selectServicesInfo(NEW_NAME_SUBSECTION).getId();
+        setSubsectionIdSecond(subsectionIdSecond);
+
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.deleteCategory(sectionIdFirst);
-        PreparationDataServicesTest.deleteCategory(sectionIdSecond);
+        PreparationDataServicesTest.deleteCategory(subsectionIdFirst);
+        PreparationDataServicesTest.deleteCategory(subsectionIdSecond);
+        PreparationDataServicesTest.deleteCategory(sectionId);
         PreparationDataServicesTest.deleteCategory(categoryId);
     }
 }

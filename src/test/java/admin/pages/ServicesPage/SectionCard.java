@@ -1,16 +1,20 @@
 package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
+import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class SectionCard {
 
     private final SelenideElement NAME_SECTION=$x("//div[@class='CtIw' and @draggable='true']/div/div[@class='OurO']/span");
     private final SelenideElement EDIT_SECTION_BUTTON = $x("//div[@class='V5So']");
+    private final ElementsCollection CONTAINER_SECTIONS = $$x("//div[@class='OurO']/span");
     private final SelenideElement DELETE_SECTION_BUTTON = $x("//div[@class='mJna']");
     private final SelenideElement RULES_PREPARING_SECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='tSFL']");
     private final SelenideElement EXPAND_SECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='xrjl']");
@@ -65,6 +69,32 @@ public class SectionCard {
         SUBSECTION.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist, Duration.ofSeconds(5));
         return new SubsectionCard();
+    }
+
+    public int getSubsectionIndexByName(String subsectionName) {
+        List<SelenideElement> subsectionElements = CONTAINER_SECTIONS;
+        for (int i = 0; i < subsectionElements.size(); i++) {
+            if (subsectionElements.get(i).getText().equals(subsectionName)) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("Section not found: " + subsectionName);
+    }
+
+    public void changeDisplaySequence(String sourceName, String targetName) {
+        SelenideElement subsectionSource = searchSubsection(sourceName);
+        SelenideElement subsectionTarget = searchSubsection(targetName);
+        Actions actions = actions();
+        actions.clickAndHold(subsectionSource)
+                .moveToElement(subsectionTarget)
+                .release()
+                .perform();
+    }
+
+    public SelenideElement searchSubsection(String subsectionName){
+        SelenideElement SUBSECTION =$x("//span[text()='" + subsectionName + "']//parent::div//parent::div[@class='K9Fo']");
+        SUBSECTION.shouldBe(Condition.visible);
+        return SUBSECTION;
     }
 
     public boolean isExistSubsectionCard(){

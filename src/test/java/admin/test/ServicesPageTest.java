@@ -584,13 +584,76 @@ public class ServicesPageTest extends BaseTest {
         int sequenceFirstSectionDB = DataBaseQuery.selectServicesInfo(NAME_SECTION).getSequence();
         int sequenceSecondSectionDB = DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getSequence();
         categoryCard.changeDisplaySequence(NAME_SECTION, NEW_NAME_SECTION);
+        Selenide.sleep(9000);
         servicesPage.openCategory(NAME_CATEGORY);
-        Selenide.sleep(5000);
         assertEquals(sequenceFirstSection, categoryCard.getSectionIndexByName(NEW_NAME_SECTION));
         assertEquals(sequenceSecondSection, categoryCard.getSectionIndexByName(NAME_SECTION));
         assertEquals(sequenceFirstSectionDB, DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getSequence());
         assertEquals(sequenceSecondSectionDB, DataBaseQuery.selectServicesInfo(NAME_SECTION).getSequence());
-
     }
+
+    @Feature("Управление категориями")
+    @Story("Смена последовательности отображения подразделов")
+    @ExtendWith(AddTwoSubsections.class)
+    @Test
+    void changeDisplaySequenceSubsections() {
+        Selenide.sleep(5000);
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        int sequenceFirstSubsection = sectionCard.getSubsectionIndexByName(NAME_SUBSECTION);
+        int sequenceSecondSubsection = sectionCard.getSubsectionIndexByName(NEW_NAME_SUBSECTION);
+        int sequenceFirstSubsectionDB = DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getSequence();
+        int sequenceSecondSubsectionDB = DataBaseQuery.selectServicesInfo(NEW_NAME_SUBSECTION).getSequence();
+        sectionCard.changeDisplaySequence(NAME_SUBSECTION, NEW_NAME_SUBSECTION);
+        Selenide.sleep(9000);
+        servicesPage.openCategory(NAME_CATEGORY);
+        sectionCard.openSection();
+        assertEquals(sequenceFirstSubsection, categoryCard.getSectionIndexByName(NEW_NAME_SUBSECTION));
+        assertEquals(sequenceSecondSubsection, categoryCard.getSectionIndexByName(NAME_SUBSECTION));
+        assertEquals(sequenceFirstSubsectionDB, DataBaseQuery.selectServicesInfo(NEW_NAME_SUBSECTION).getSequence());
+        assertEquals(sequenceSecondSubsectionDB, DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getSequence());
+    }
+
+    @Feature("Управление категориями")
+    @Story("Удаление раздела, имеющего подраздел")
+    @ExtendWith({AddDeleteSubsectionDecorator.class,NotificationDecorator.class})
+    @Test
+    void deleteSectionThatHasSectionInCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        DeleteSectionWindow deleteSectionWindow = sectionCard.deleteSection();
+        deleteSectionWindow.deleteSection();
+        assertEquals("Нельзя удалить категорию, т.к. имеются дочерние объекты", servicesPage.getNotification());
+        assertFalse(deleteSectionWindow.isWindowAppear());
+        sectionCard.openSection();
+        Selenide.sleep(5000);
+        assertTrue(sectionCard.isExistSubsectionCard());
+        assertFalse(sectionCard.isExistEmptyList());
+        assertNotNull(DataBaseQuery.selectServicesInfo(NAME_SUBSECTION));
+    }
+
+    @Feature("Управление услугами")
+    @Story("Открытие карточки услуги")
+    @ExtendWith(AddDeleteSubsectionDecorator.class)
+    @Test
+    void openCardService() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        SubsectionCard subsectionCard=sectionCard.getSubsection();
+        subsectionCard.openSubsection();
+        ServiceCard serviceCard=subsectionCard.getService();
+        serviceCard.serviceCard();
+        String nameService=serviceCard.getNameService();
+        String codeService=serviceCard.getCodeService();
+        ServiceWindow serviceWindow=serviceCard.openServiceInfo();
+        serviceWindow.serviceWindowGeneralInfo();
+        assertEquals(nameService,serviceWindow.getNameService());
+        assertEquals( NAME_CATEGORY + NAME_SECTION + NAME_SUBSECTION + nameService,serviceWindow.getPathService());
+        assertEquals(codeService,serviceWindow.getCodeService());
+    }
+
+
 }
 

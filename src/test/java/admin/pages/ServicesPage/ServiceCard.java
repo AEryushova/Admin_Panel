@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ServiceCard {
 
     private final SelenideElement NAME_SERVICE =$x("//div[@class='HsQQ']/span");
+    private final SelenideElement CODE_SERVICE =$x("//div[@class='j95E']//following-sibling::span");
     private final SelenideElement SERVICE_BUTTON = $x("//div[@class='j95E']");
 
     public void serviceCard() {
@@ -21,6 +22,12 @@ public class ServiceCard {
         NAME_SERVICE.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return NAME_SERVICE.getText();
+    }
+
+    public String getCodeService(){
+        CODE_SERVICE.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
+        return CODE_SERVICE.getText();
     }
 
     public ServiceWindow openServiceInfo(){
