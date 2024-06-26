@@ -6,7 +6,6 @@ import admin.pages.HeaderMenu.ChangeMinePasswordWindow;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.preparationDataTests.headerMenu.ReturnPasswordAdmin;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
@@ -49,10 +48,10 @@ public class HeaderMenuTest {
 
     @Feature("Смена своего пароля админом")
     @Story("Успешная замена своего пароля")
-    @ExtendWith({ReturnPasswordAdmin.class, NotificationDecorator.class})
+    @ExtendWith(ReturnPasswordAdmin.class)
     @Test
     void changeMainPassword() {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         userPanel.userPanelAdmin();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.changeMinePasswordWindow();
@@ -67,10 +66,10 @@ public class HeaderMenuTest {
 
     @Feature("Смена своего пароля админом")
     @Story("Успешная замена своего пароля при совпадающем старом и новом пароле")
-    @ExtendWith({ReturnPasswordAdmin.class,NotificationDecorator.class})
+    @ExtendWith(ReturnPasswordAdmin.class)
     @Test
     void changeMainPasswordEqualsPassword() {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
         changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
@@ -82,10 +81,9 @@ public class HeaderMenuTest {
 
     @Feature("Смена своего пароля админом")
     @Story("Успешная замена своего пароля при не совпадающем старом пароле")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void changeMainPasswordNotEqualsOldPassword() {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldOldPassword(NEW_PASSWORD_ADMIN_TEST);
         changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
@@ -98,7 +96,7 @@ public class HeaderMenuTest {
     @Story("Замена своего пароля с пустым полем старого пароля")
     @Test
     void changeMainPasswordEmptyFieldsOldPassword() {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         assertFalse(changeMinePassWindow.isEnabledChangeButton());
@@ -108,7 +106,7 @@ public class HeaderMenuTest {
     @Story("Замена своего пароля с пустым полем нового пароля")
     @Test
     void changeMainPasswordEmptyFieldsNewPassword() {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
         assertFalse(changeMinePassWindow.isEnabledChangeButton());
@@ -119,7 +117,7 @@ public class HeaderMenuTest {
     @Story("Отображение уведомления об обязательности полей")
     @Test
     void changeMainPasswordObligatoryFields() {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.clickFieldOldPassword();
         changeMinePassWindow.clickFieldNewPassword();
@@ -134,7 +132,7 @@ public class HeaderMenuTest {
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq12#", "Wwqq123456789#QQgg12345678"})
     void changeMainPasswordOldPassword_7_26_Symbol(String password) {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldOldPassword(password);
         assertEquals("Пароль не валиден", changeMinePassWindow.getErrorFieldOldPassword());
@@ -145,7 +143,7 @@ public class HeaderMenuTest {
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
     void changeMainPasswordOldPassword_8_9_24_25Symbol(String password) {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldOldPassword(password);
         assertFalse(changeMinePassWindow.isErrorOldPasswordAppear());
@@ -156,7 +154,7 @@ public class HeaderMenuTest {
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
     void changeMainPasswordOldPasswordNotLatinValue(String password) {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldOldPassword(password);
         assertEquals("Пароль не валиден", changeMinePassWindow.getErrorFieldOldPassword());
@@ -167,7 +165,7 @@ public class HeaderMenuTest {
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq12#", "Wwqq123456789#QQgg12345678"})
     void changeMainPasswordNewPassword_7_26_Symbol(String password) {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldNewPassword(password);
         assertEquals("Пароль не валиден", changeMinePassWindow.getErrorFieldNewPassword());
@@ -178,7 +176,7 @@ public class HeaderMenuTest {
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
     void changeMainPasswordNewPassword_8_9_24_25Symbol(String password) {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldNewPassword(password);
         assertFalse(changeMinePassWindow.isErrorNewPasswordAppear());
@@ -189,7 +187,7 @@ public class HeaderMenuTest {
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
     void changeMainPasswordNewPasswordNotLatinValue(String password) {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldNewPassword(password);
         assertEquals("Пароль не валиден", changeMinePassWindow.getErrorFieldNewPassword());
@@ -200,7 +198,7 @@ public class HeaderMenuTest {
     @Story("Очистка полей через кнопку в окне изменения своего пароля")
     @Test
     void clearFieldsThroughButtonClear(){
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickClearButtonOldPasswordField();
@@ -217,14 +215,14 @@ public class HeaderMenuTest {
     @Story("Зануление полей в окне изменения своего пароля и закрытие окна")
     @Test
     void closeWindowChangeMainPassword() {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.changePassword();
         changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
         changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickCancelButton();
         assertFalse(changeMinePassWindow.isWindowAppear());
         assertFalse(userPanel.isWindowAppear());
-        headerMenu.openAndCloseProfile();
+        headerMenu.openAndCloseUserPanel();
         userPanel.changePassword();
         assertEquals("", changeMinePassWindow.getValueOldPasswordField());
         assertEquals("", changeMinePassWindow.getValueNewPasswordField());
@@ -234,8 +232,8 @@ public class HeaderMenuTest {
     @Story("Закрытие панели пользователя")
     @Test
     void closeUserPanel() {
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
-        headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
+        headerMenu.openAndCloseUserPanel();
         assertFalse(userPanel.isWindowAppear());
     }
 

@@ -3,6 +3,7 @@ package admin.pages.DoctorsPage.CardDoctorPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -21,7 +22,7 @@ public class Feedback {
     private final SelenideElement WITHDRAWAL_PUBLICATION = $x("//button[text()='Снять публикацию']");
     private final SelenideElement DELETE_BUTTON = $x("//button[text()='Удалить']");
 
-
+    @Step("Верифицировать неопубликованный отзыв")
     public void feedbackUnpublished() {
         FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DATE_FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -32,6 +33,7 @@ public class Feedback {
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Верифицировать опубликованный отзыв")
     public void feedbackPublished() {
         FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DATE_FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -41,30 +43,35 @@ public class Feedback {
         WITHDRAWAL_PUBLICATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Получить дату отзыва")
     public String getDateFeedback() {
         DATE_FEEDBACK.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return DATE_FEEDBACK.getText();
     }
 
+    @Step("Получить дату отзыва по индексу '{0}'")
     public String getDateFeedbackByIndex(int index) {
         SelenideElement date = DATES_FEEDBACKS.get(index);
         date.shouldBe(Condition.visible);
         return date.getText();
     }
 
+    @Step("Получить автора отзыва")
     public String getAuthorFeedback() {
         AUTHOR.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return AUTHOR.getText();
     }
 
+    @Step("Получить текст отзыва")
     public String getTextFeedback() {
         TEXT.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return TEXT.getText();
     }
 
+    @Step("Нажать на кнопку изменения отзыва")
     public ChangeFeedbackWindow editFeedback() {
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -72,18 +79,21 @@ public class Feedback {
         return new ChangeFeedbackWindow();
     }
 
+    @Step("Нажать на кнопку публикации")
     public void publicationFeedback() {
         PUBLICATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать на кнопку снятия с публикации")
     public void withdrawalPublication() {
         WITHDRAWAL_PUBLICATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать на кнопку удаления")
     public void deleteFeedback() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)

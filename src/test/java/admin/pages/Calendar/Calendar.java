@@ -3,6 +3,7 @@ package admin.pages.Calendar;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import admin.utils.testUtils.DataHelper;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -19,6 +20,7 @@ public class Calendar {
         this.DATE_ACTIVATION = $x("//div[@role='option' and text()='" + DataHelper.generateFutureDayCurrentMonth() + "']");
     }
 
+    @Step("Верифицировать окно календаря")
     public void calendar() {
         HEADER_CURRENT_MONTH.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SWITCH_PREVIOUS_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -26,24 +28,28 @@ public class Calendar {
         DATE_ACTIVATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Нажать на выбранную в календаре дату")
     public void selectDateActivation() {
         DATE_ACTIVATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать на кнопку переключения на следующий месяц")
     public void switchFutureMonth() {
         SWITCH_NEXT_MONTH_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать на кнопку переключения на предыдущий месяц")
     public void switchPreviousMonth() {
         SWITCH_PREVIOUS_MONTH_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Получить название текущего месяца в календаре")
     public String getCurrentMonthCalendar() {
         HEADER_CURRENT_MONTH.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);

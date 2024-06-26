@@ -4,6 +4,7 @@ import admin.pages.BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
@@ -23,9 +24,7 @@ public class ServicesPage extends BasePage {
     private final SelenideElement DIAGNOSTICS = $x("//span[text()='Диагностика']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DENTISTRY = $x("//span[text()='Стоматология']//parent::div//parent::div[@class='ZAC4']");
 
-
-
-
+    @Step("Верифицировать страницу Услуги")
     public void servicesPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SEARCH_SERVICES.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -37,7 +36,7 @@ public class ServicesPage extends BasePage {
         DENTISTRY.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-
+    @Step("Нажать кнопку открытия правил подготовки к категории")
     public RulesPreparingWindow openRulesPreparingCategory(String categoryName){
         SelenideElement RULES_PREPARING = searchCategory(categoryName).$x("div[@class='Ie41']");
         RULES_PREPARING.shouldBe(Condition.visible)
@@ -46,7 +45,7 @@ public class ServicesPage extends BasePage {
         return new RulesPreparingWindow();
     }
 
-
+    @Step("Нажать кнопку раскрытия категории")
     public CategoryCard openCategory(String categoryName) {
         SelenideElement EXPAND_CATEGORY = searchCategory(categoryName).$x("div[@class='gm_s']");
         EXPAND_CATEGORY.shouldBe(Condition.visible)
@@ -55,13 +54,14 @@ public class ServicesPage extends BasePage {
         return new CategoryCard();
     }
 
+    @Step("Найти категорию с названием '{0}'")
     public SelenideElement searchCategory(String categoryName){
         SelenideElement CATEGORY=$x("//span[text()='" + categoryName + "']//parent::div//parent::div[@class='ZAC4']");
         CATEGORY.shouldBe(Condition.visible);
         return CATEGORY;
     }
 
-
+    @Step("Получить индекс категории по названию '{0}'")
     public int getCategoryIndexByName(String categoryName) {
         List<SelenideElement> categoryElements = CONTAINER_CATEGORIES;
         for (int i = 0; i < categoryElements.size(); i++) {
@@ -72,7 +72,7 @@ public class ServicesPage extends BasePage {
         throw new IllegalArgumentException("Category not found: " + categoryName);
     }
 
-
+    @Step("Поменять местами категорию с названием '{0}' и категорию с названием '{1}'")
     public void changeDisplaySequence(String sourceName, String targetName) {
         SelenideElement categorySource = searchCategory(sourceName);
         SelenideElement categoryTarget = searchCategory(targetName);

@@ -9,7 +9,6 @@ import admin.utils.preparationDataTests.administration.AdminAddDecorator;
 import admin.utils.preparationDataTests.administration.AdminAddDeleteDecorator;
 import admin.utils.preparationDataTests.administration.AdminDeleteDecorator;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -54,7 +53,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Добавление нового админа")
     @Story("Успешное добавление нового админа")
     @DisplayName("Успешное добавление нового админа")
-    @ExtendWith({AdminDeleteDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AdminDeleteDecorator.class)
     @Test
     void addedNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
@@ -75,7 +74,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Добавление нового админа")
     @Story("Добавление нового админа с уже существующим логином")
     @DisplayName("Добавление нового админа с уже существующим логином")
-    @ExtendWith({AdminAddDeleteDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void addedNewAdminAlreadyExisting() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
@@ -281,8 +280,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Добавление нового админа")
-    @Story("Зануление полей в окне добавления админа и закрытие окна")
-    @DisplayName("Зануление полей в окне добавления админа и закрытие окна")
+    @Story("Сброс значений полей в окне добавления админа после закрытия окна")
+    @DisplayName("Сброс значений полей в окне добавления админа после закрытия окна")
     @Test
     void closeWindowAddedNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
@@ -298,10 +297,10 @@ public class AdministrationPageTest extends BaseTest {
     }
 
 
-    @Feature("Смена пароля админу")
-    @Story("Успешная смена пароля админу")
-    @DisplayName("Успешная смена пароля админу")
-    @ExtendWith({AdminAddDeleteDecorator.class, NotificationDecorator.class})
+    @Feature("Замена пароля админу")
+    @Story("Успешная замена пароля админу")
+    @DisplayName("Успешная замена пароля админу")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdmin() {
         adminPage.adminCard(LOGIN_ADMIN_TEST);
@@ -315,9 +314,9 @@ public class AdministrationPageTest extends BaseTest {
         assertFalse(changePasswordAdminWindow.isWindowAppear());
     }
 
-    @Feature("Смена пароля админу")
-    @Story("Смена пароля админу с пустым полем пароля")
-    @DisplayName("Смена пароля админу с пустым полем пароля")
+    @Feature("Замена пароля админу")
+    @Story("Замена пароля админу с пустым полем пароля")
+    @DisplayName("Замена пароля админу с пустым полем пароля")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdminEmptyFieldsPassword() {
@@ -328,8 +327,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Смена пароля админу")
-    @Story("Смена пароля админу с пустым полем подтверждения пароля")
-    @DisplayName("Смена пароля админу с пустым полем подтверждения пароля")
+    @Story("Замена пароля админу с пустым полем подтверждения пароля")
+    @DisplayName("Замена пароля админу с пустым полем подтверждения пароля")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdminEmptyFieldsConfirmPassword() {
@@ -338,7 +337,7 @@ public class AdministrationPageTest extends BaseTest {
         assertFalse(changePasswordAdminWindow.isEnabledSaveButton());
     }
 
-    @Feature("Смена пароля админу")
+    @Feature("Замена пароля админу")
     @Story("Отображение уведомления об обязательности полей")
     @DisplayName("Отображение уведомления об обязательности полей")
     @ExtendWith(AdminAddDeleteDecorator.class)
@@ -351,7 +350,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Обязательное поле", changePasswordAdminWindow.getErrorFieldConfirmPassword());
     }
 
-    @Feature("Смена пароля админу")
+    @Feature("Замена пароля админу")
     @Story("Ввод не соответствующего пароля при подтверждении")
     @DisplayName("Ввод не соответствующего пароля при подтверждении")
     @ExtendWith(AdminAddDeleteDecorator.class)
@@ -366,7 +365,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Не соответствует паролю", changePasswordAdminWindow.getErrorFieldConfirmPassword());
     }
 
-    @Feature("Смена пароля админу")
+    @Feature("Замена пароля админу")
     @Story("Ввод не валидного пароля из 7 символов")
     @DisplayName("Ввод не валидного пароля из 7 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
@@ -377,7 +376,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
-    @Feature("Смена пароля админу")
+    @Feature("Замена пароля админу")
     @Story("Ввод валидного пароля из 8,9,24 и 25 символов")
     @DisplayName("Ввод валидного пароля из 8,9,24 и 25 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
@@ -390,7 +389,7 @@ public class AdministrationPageTest extends BaseTest {
     }
 
 
-    @Feature("Смена пароля админу")
+    @Feature("Замена пароля админу")
     @Story("Ввод не валидного пароля из 26 символов")
     @DisplayName("Ввод не валидного пароля из 26 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
@@ -401,7 +400,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
-    @Feature("Смена пароля админу")
+    @Feature("Замена пароля админу")
     @Story("Ввод не валидного пароля без латинской буквы, без спецсимвола, без латинской буквы в верхнем регистре,без латинской буквы в нижнем регистре, без цифр, с пробелом ")
     @DisplayName("Ввод не валидного пароля без латинской буквы, без спецсимвола, без латинской буквы в верхнем регистре,без латинской буквы в нижнем регистре, без цифр, с пробелом ")
     @ExtendWith(AdminAddDeleteDecorator.class)
@@ -413,7 +412,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
-    @Feature("Смена пароля админу")
+    @Feature("Замена пароля админу")
     @Story("Очистка полей через кнопку в окне изменения пароля админу")
     @DisplayName("Очистка полей через кнопку в окне изменения пароля админу")
     @ExtendWith(AdminAddDeleteDecorator.class)
@@ -430,9 +429,9 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Обязательное поле", changePasswordAdminWindow.getErrorFieldConfirmPassword());
     }
 
-    @Feature("Смена пароля админу")
-    @Story("Зануление полей в окне смены пароля админу и закрытие окна")
-    @DisplayName("Зануление полей в окне смены пароля админу и закрытие окна")
+    @Feature("Замена пароля админу")
+    @Story("Сброс значений полей в окне смены пароля админу при закрытии окна")
+    @DisplayName("Сброс значений полей в окне смены пароля админу при закрытии окна")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void closeWindowChangePasswordAdmin() {
@@ -461,7 +460,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Удаление админа")
     @Story("Успешное удаление админа")
     @DisplayName("Успешное удаление админа")
-    @ExtendWith({AdminAddDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AdminAddDecorator.class)
     @Test
     void deleteAdmin() {
         adminPage.adminCard(LOGIN_ADMIN_TEST);
@@ -524,7 +523,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Успешное обновление приказа с даты в текущем месяце")
     @DisplayName("Успешное обновление приказа с даты в текущем месяце")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updateOrderCurrentMonth() {
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
@@ -542,7 +540,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Успешное обновление приказа с даты в следующем месяце")
     @DisplayName("Успешное обновление приказа с даты в следующем месяце")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updateOrderFutureMonth() {
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
@@ -558,7 +555,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Успешное обновление приказа с даты в предыдущем месяце")
     @DisplayName("Успешное обновление приказа с даты в предыдущем месяце")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updateOrderPreviousMonth() {
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
@@ -575,7 +571,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Успешное обновление приказа с текущей даты")
     @DisplayName("Успешное обновление приказа с текущей даты")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updateOrderTodayNotUseCalendar() {
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
@@ -597,7 +592,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Успешное обновление прайса с даты в текущем месяце")
     @DisplayName("Успешное обновление прайса с даты в текущем месяце")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updatePriceCurrentMonth() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
@@ -615,7 +609,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Успешное обновление прайса с даты в следующем месяце")
     @DisplayName("Успешное обновление прайса с даты в следующем месяце")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updatePriceFutureMonth() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
@@ -632,7 +625,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Успешное обновление прайса с даты в прошлом месяце")
     @DisplayName("Успешное обновление прайса с даты в прошлом месяце")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updatePricePreviousMonth() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
@@ -649,7 +641,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Успешное обновление прайса с текущей даты")
     @DisplayName("Успешное обновление прайса с текущей даты")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updatePriceTodayNotUseCalendar() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
@@ -671,7 +662,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Обновление оферты с файлом в невалидном формате")
     @DisplayName("Обновление оферты с файлом в невалидном формате")
-    @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта, Политика обработки jpeg.jpg",})
     void updateOfferInvalidFormat(String path) {
@@ -685,7 +675,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Обновление политики обработки с файлом в невалидном формате")
     @DisplayName("Обновление политики обработки с файлом в невалидном формате")
-    @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта, Политика обработки jpeg.jpg"})
     void updateProcessingPolicyInvalidFormat(String path) {
@@ -699,7 +688,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Обновление приказа с ошибкой в строке")
     @DisplayName("Обновление приказа с ошибкой в строке")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updateOrderStringError() {
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
@@ -711,7 +699,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Обновление приказа с файлом в невалидном формате")
     @DisplayName("Обновление приказа с файлом в невалидном формате")
-    @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки jpeg.jpg", "src/test/resources/Оферта.pdf"})
     void updateOrderInvalidFormat(String path) {
@@ -725,7 +712,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Обновление прайса с ошибкой в строке")
     @DisplayName("Обновление прайса с ошибкой в строке")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void updatePriceCurrentMonthStringError() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
@@ -787,7 +773,6 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Документация")
     @Story("Обновление прайса с файлом в невалидном формате")
     @DisplayName("Обновление прайса с файлом в невалидном формате")
-    @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки jpeg.jpg", "src/test/resources/Оферта.pdf"})
     void updatePriceInvalidFormat(String path) {

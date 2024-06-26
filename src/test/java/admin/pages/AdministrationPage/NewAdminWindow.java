@@ -64,6 +64,7 @@ public class NewAdminWindow {
                 .shouldBe(Condition.enabled)
                 .click();
     }
+
     @Step("Проверить доступность для нажатия кнопки добавления админа")
     public boolean isEnabledAddButton(){
         return ADD_BUTTON.isEnabled();

@@ -5,6 +5,7 @@ import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
@@ -30,6 +31,7 @@ public class DoctorsPage extends BasePage {
     private final ElementsCollection SPECIALIZATIONS_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[2]");
     private final ElementsCollection PHOTO_DOCTORS=$$x("//div[@class='eF30']/div[@class='Uw0W']/img");
 
+    @Step("Верифицировать страницу Врачи")
     public void doctorsPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SEARCH_DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -38,6 +40,7 @@ public class DoctorsPage extends BasePage {
         CARD_DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Нажать на кнопку редактирования информации о враче с именем '{1}' и специализацией '{0}'")
     public CardDoctorPage openCardDoctor(String specialization,String doctorName) {
         SelenideElement EDIT_BUTTON=$x("//span[text()='" + specialization + "']/preceding-sibling::span[text()='" + doctorName + "'] /parent::div/following-sibling::button[text()='Редактировать']");
         EDIT_BUTTON.shouldBe(Condition.visible)
@@ -46,6 +49,7 @@ public class DoctorsPage extends BasePage {
         return new CardDoctorPage();
     }
 
+    @Step("Нажать на кнопку сортировки врачей без фотографии")
     public void sortingPhotoNo() {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -55,6 +59,7 @@ public class DoctorsPage extends BasePage {
                 .click();
     }
 
+    @Step("Нажать на кнопку сортировки врачей с фотографией")
     public void sortingPhotoYes() {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -64,6 +69,7 @@ public class DoctorsPage extends BasePage {
                 .click();
     }
 
+    @Step("Нажать на кнопку сортировки всех врачей")
     public void sortingPhotoAll() {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -73,27 +79,31 @@ public class DoctorsPage extends BasePage {
                 .click();
     }
 
+    @Step("Нажать на кнопку сортировки врачей без описания")
     public void showDoctorCardNoDescription() {
         SHOW_DOCTOR_WITHOUT_DESCRIPTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
-
+    @Step("Ввести в поле поиска '{0}'")
     public void searchDoctor(String textSearch) {
         SEARCH_DOCTOR.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(textSearch);
     }
 
+    @Step("Получить имена врачей")
     public ElementsCollection getNamesDoctors() {
         return NAMES_DOCTORS;
     }
 
+    @Step("Получить специализации врачей")
     public ElementsCollection getSpecializationDoctors() {
         return SPECIALIZATIONS_DOCTORS;
     }
 
+    @Step("Получить ссылки на фотографии врачей")
     public List<String> getPhotoDoctorsAttributes() {
         return new ArrayList<>(PHOTO_DOCTORS)
                 .stream()
@@ -101,6 +111,7 @@ public class DoctorsPage extends BasePage {
                 .collect(Collectors.toList());
     }
 
+    @Step("Очистить поле поиска")
     public void clearSearchField() {
         SEARCH_DOCTOR.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -108,12 +119,14 @@ public class DoctorsPage extends BasePage {
         SEARCH_DOCTOR.sendKeys(Keys.BACK_SPACE);
     }
 
+    @Step("Получить значение поля поиска")
     public String getValueSearchField() {
         SEARCH_DOCTOR.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
         return SEARCH_DOCTOR.getValue();
     }
 
+    @Step("Получить количество врачей")
     public int getCountDoctors() {
         COUNT_DOCTORS.shouldBe(Condition.visible);
         return Integer.parseInt(COUNT_DOCTORS.getText().split(" ")[0]);

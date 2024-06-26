@@ -2,6 +2,7 @@ package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -17,7 +18,7 @@ public class DeleteSectionWindow {
     private final SelenideElement CANCEL_BUTTON = $x("//button[text()='Отменить']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Удалить Раздел']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
-
+    @Step("Верифицировать окно удаления раздела")
     public void deleteSectionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -27,24 +28,27 @@ public class DeleteSectionWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-
+    @Step("Нажать кнопку удаления")
     public void deleteSection(){
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать кнопку отмены")
     public void cancelDeleteSection(){
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Верифицировать название раздела")
     public boolean verifyNameSection(String nameSection){
         return TEXT_WINDOW.has(text("Раздел \"" + nameSection + "\" будет безвозвратно удален и все имеющиеся услуги внутри него будут перенесены в категорию \"Иные услуги\". \n" +
                 "Заранее убедитесь, что нет услуг которые должны быть отображены клиенту."));
     }
 
+    @Step("Закрыть окно удаления раздела")
     public void closeWindowDeleteSection() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -52,6 +56,7 @@ public class DeleteSectionWindow {
         WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    @Step("Проверить отображение окна удаления раздела")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

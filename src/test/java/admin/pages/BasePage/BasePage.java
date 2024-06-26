@@ -3,6 +3,7 @@ package admin.pages.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 import static com.codeborne.selenide.Condition.visible;
@@ -19,17 +20,15 @@ public class BasePage {
     private final SelenideElement FOOTER_PAGE = $x("//span[text()='@ Самарский государственный медицинский университет']");
     private final SelenideElement RETURN_TO_START_BUTTON = $x("//div[@class='_x1E']");
 
+
+    @Step("Получить текст нотификации")
     public String getNotification() {
         NOTIFICATION.shouldBe(visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist);
         return NOTIFICATION.getText();
     }
 
-    public boolean isNotificationVisible() {
-        return NOTIFICATION.is(visible);
-    }
-
-
+    @Step("Нажать на кнопку закрытия нотификации")
     public void closeNotification() {
         CLOSE_NOTIFICATION.shouldBe(visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
@@ -37,6 +36,7 @@ public class BasePage {
         NOTIFICATION.shouldBe(Condition.hidden);
     }
 
+    @Step("Проверить отображение нотификации")
     public boolean notificationAppear() {
         return NOTIFICATION.isDisplayed();
     }

@@ -6,7 +6,6 @@ import admin.pages.HeaderMenu.HeaderMenu;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.faq.*;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
@@ -53,7 +52,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Успешное добавление нового faq-вопроса")
-    @ExtendWith({DeleteFaqDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteFaqDecorator.class)
     @Test
     void addFaqQuestion() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -72,7 +71,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим заголовком и ответом")
-    @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
+    @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void addFaqQuestionAlreadyExistQuestionAnswer() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -85,7 +84,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим заголовком")
-    @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
+    @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void addFaqQuestionAlreadyExistQuestion() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -98,7 +97,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим ответом")
-    @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
+    @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void addFaqQuestionAlreadyExistAnswer() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -149,7 +148,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Редактирование faq-вопроса")
     @Story("Успешное редактирование faq-вопроса")
-    @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
+    @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void editQuestion() {
         Question question = faqPage.getQuestion();
@@ -191,7 +190,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Редактирование faq-вопроса")
     @Story("Сохранение faq-вопроса без изменений данных")
-    @ExtendWith({AddDeleteFaqDecorator.class,NotificationDecorator.class})
+    @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void editQuestionNotChangeSave() {
         Question question = faqPage.getQuestion();
@@ -244,7 +243,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Удаление faq-вопроса")
     @Story("Успешное удаление faq-вопроса")
-    @ExtendWith({AddFaqDecorator.class,NotificationDecorator.class})
+    @ExtendWith(AddFaqDecorator.class)
     @Test
     void deleteQuestion() {
         Question question = faqPage.getQuestion();

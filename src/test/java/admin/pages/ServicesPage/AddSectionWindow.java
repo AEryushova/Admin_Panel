@@ -2,6 +2,7 @@ package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -18,6 +19,7 @@ public class AddSectionWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Добавить Раздел']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
     private final SelenideElement ERROR_FIELD_NAME = $x("//input[@name='name']/following-sibling::div");
 
+    @Step("Верифицировать окно добавления нового раздела")
     public void addSectionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -27,18 +29,21 @@ public class AddSectionWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Ввести в поле названия '{0}'")
     public void fillNameSectionField(String name) {
         NAME_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(name);
     }
 
+    @Step("Нажать кнопку добавления")
     public void clickAddSection() {
         ADD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать кнопку отмены")
     public void cancelAddSection() {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -46,25 +51,21 @@ public class AddSectionWindow {
     }
 
 
-    public void closeWindowAddSection() {
-        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .click();
-        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
-    }
-
+    @Step("Получить значение поля названия")
     public String getValueNameField() {
         NAME_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
         return NAME_FIELD.getValue();
     }
 
+    @Step("Нажать на поле названия")
     public void clickFieldName() {
         NAME_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать на кнопку очищения поля названия")
     public void clearButtonNameField() {
         CLEAR_FIELD_NAME_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -72,16 +73,27 @@ public class AddSectionWindow {
         NAME_FIELD.shouldHave(Condition.value(""),Duration.ofSeconds(5));
     }
 
+    @Step("Получить текст ошибки поля названия")
     public String getErrorFieldName() {
         ERROR_FIELD_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist);
         return ERROR_FIELD_NAME.getText();
     }
 
+    @Step("Проверить доступность для нажатия кнопки добавления раздела")
     public boolean isEnabledAddButton(){
         return ADD_BUTTON.isEnabled();
     }
 
+    @Step("Закрыть окно добавления нового раздела")
+    public void closeWindowAddSection() {
+        CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+    }
+
+    @Step("Проверить отображение окна добавления нового раздела")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

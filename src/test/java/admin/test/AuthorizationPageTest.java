@@ -6,7 +6,6 @@ import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.authorization.CloseWebDriverDecorator;
 import admin.utils.testUtils.*;
-import admin.utils.preparationDataTests.general.NotificationDecorator;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -59,7 +58,7 @@ public class AuthorizationPageTest extends BaseTest {
         DoctorsPage doctorPage = authPage.authorization(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
         doctorPage.doctorsPage();
         headerMenu.headerBarSuperAdmin();
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         userPanel.userPanelSuperAdmin();
         assertEquals("Супер-Администратор", userPanel.checkProfileInfoUser());
         assertEquals(LOGIN_SUPER_ADMIN,userPanel.checkLogin());
@@ -75,7 +74,7 @@ public class AuthorizationPageTest extends BaseTest {
         DoctorsPage doctorPage = authPage.authorization(LOGIN_ADMIN, PASSWORD_ADMIN);
         doctorPage.doctorsPage();
         headerMenu.headerBarAdmin();
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         userPanel.userPanelAdmin();
         assertEquals("Администратор", userPanel.checkProfileInfoUser());
         assertEquals(LOGIN_ADMIN,userPanel.checkLogin());
@@ -83,7 +82,6 @@ public class AuthorizationPageTest extends BaseTest {
     }
 
     @Story("Авторизация админа с неверным паролем")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminWrongPassword() {
         authPage.fillLoginField(LOGIN_ADMIN);
@@ -94,7 +92,6 @@ public class AuthorizationPageTest extends BaseTest {
     }
 
     @Story("Авторизация несуществующего админа")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void authorizationAdminNonExistent() {
         authPage.fillLoginField(LOGIN_ADMIN_TEST);
@@ -256,7 +253,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void exitAdminPanel() {
         authPage.authorization(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
-        UserPanel userPanel=headerMenu.openAndCloseProfile();
+        UserPanel userPanel=headerMenu.openAndCloseUserPanel();
         userPanel.userPanelSuperAdmin();
         AuthorizationPage authPage=userPanel.exitAdminPanel();
         authPage.authPage();

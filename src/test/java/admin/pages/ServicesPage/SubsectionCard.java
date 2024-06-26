@@ -2,6 +2,7 @@ package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -16,6 +17,7 @@ public class SubsectionCard {
     private final SelenideElement SERVICE = $x("//div[@class='hzR2']");
     private final SelenideElement EMPTY_LIST_SERVICE = $x("//div[@class='b8mg']/span");
 
+    @Step("Верифицировать карточку подраздела")
     public void subsectionCard() {
         NAME_SUBSECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_SUBSECTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -24,7 +26,7 @@ public class SubsectionCard {
         EXPAND_SUBSECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-
+    @Step("Нажать кнопку редактирования подраздела")
     public EditSectionWindow editSubsection() {
         EDIT_SUBSECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -32,6 +34,7 @@ public class SubsectionCard {
         return new EditSectionWindow();
     }
 
+    @Step("Нажать кнопку удаления подраздела")
     public DeleteSectionWindow deleteSubsection() {
         DELETE_SUBSECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -39,30 +42,33 @@ public class SubsectionCard {
         return new DeleteSectionWindow();
     }
 
+    @Step("Получить название подраздела")
     public String getNameSubsection(){
         NAME_SUBSECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return NAME_SUBSECTION.getText();
     }
 
-
+    @Step("Нажать кнопку раскрытия подраздела")
     public void openSubsection() {
         EXPAND_SUBSECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Получить услугу")
     public ServiceCard getService() {
         SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist, Duration.ofSeconds(5));
         return new ServiceCard();
     }
 
-
+    @Step("Проверить отображение информации о пустом списке услуг")
     public boolean isExistEmptyList() {
         return EMPTY_LIST_SERVICE.isDisplayed();
     }
 
+    @Step("Проверить отображение услуги")
     public boolean isExistService(){
         return SERVICE.isDisplayed();
     }

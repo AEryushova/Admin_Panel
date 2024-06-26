@@ -3,6 +3,7 @@ package admin.pages.ServicesPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
@@ -22,6 +23,7 @@ public class SectionCard {
     private final SelenideElement SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
     private final SelenideElement EMPTY_LIST_SUBSECTION = $x("//div[@class='b8mg']/span");
 
+    @Step("Верифицировать карточку раздела")
     public void sectionCard() {
         NAME_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_SECTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -30,6 +32,7 @@ public class SectionCard {
         EXPAND_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Нажать кнопку редактирования раздела")
     public EditSectionWindow editSection() {
         EDIT_SECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -37,6 +40,7 @@ public class SectionCard {
         return new EditSectionWindow();
     }
 
+    @Step("Нажать кнопку удаления раздела")
     public DeleteSectionWindow deleteSection() {
         DELETE_SECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -44,20 +48,21 @@ public class SectionCard {
         return new DeleteSectionWindow();
     }
 
-
+    @Step("Получить название раздела")
     public String getNameSection(){
         NAME_SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return NAME_SECTION.getText();
     }
 
-
+    @Step("Нажать кнопку раскрытия раздела")
     public void openSection() {
         EXPAND_SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать кнопку добавления подраздела")
     public AddSectionWindow addSubsection() {
         ADD_SUBSECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -65,12 +70,14 @@ public class SectionCard {
         return new AddSectionWindow();
     }
 
+    @Step("Получить подраздел")
     public SubsectionCard getSubsection() {
         SUBSECTION.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist, Duration.ofSeconds(5));
         return new SubsectionCard();
     }
 
+    @Step("Получить индекс подраздела по названию '{0}'")
     public int getSubsectionIndexByName(String subsectionName) {
         List<SelenideElement> subsectionElements = CONTAINER_SECTIONS;
         for (int i = 0; i < subsectionElements.size(); i++) {
@@ -81,6 +88,7 @@ public class SectionCard {
         throw new IllegalArgumentException("Section not found: " + subsectionName);
     }
 
+    @Step("Поменять местами раздел с названием '{0}' и раздел с названием '{1}'")
     public void changeDisplaySequence(String sourceName, String targetName) {
         SelenideElement subsectionSource = searchSubsection(sourceName);
         SelenideElement subsectionTarget = searchSubsection(targetName);
@@ -91,16 +99,19 @@ public class SectionCard {
                 .perform();
     }
 
+    @Step("Найти подраздел с названием '{0}'")
     public SelenideElement searchSubsection(String subsectionName){
         SelenideElement SUBSECTION =$x("//span[text()='" + subsectionName + "']//parent::div//parent::div[@class='K9Fo']");
         SUBSECTION.shouldBe(Condition.visible);
         return SUBSECTION;
     }
 
+    @Step("Проверить отображение подраздела")
     public boolean isExistSubsectionCard(){
         return SUBSECTION.isDisplayed();
     }
 
+    @Step("Проверить отображение информации о пустом списке подразделов")
     public boolean isExistEmptyList() {
         return EMPTY_LIST_SUBSECTION.isDisplayed();
     }

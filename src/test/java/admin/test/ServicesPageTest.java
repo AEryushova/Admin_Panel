@@ -5,7 +5,6 @@ import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.*;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.dbUtils.dbaseData.ServiceCategories;
-import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.preparationDataTests.services.*;
 import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
@@ -75,7 +74,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Добавление правила подоготовки к категории с пустым полем заголовка")
-    @ExtendWith({DeleteRuleDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteRuleDecorator.class)
     @Test
     void addRulePreparingCategoryEmptyFieldTitle() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -88,7 +87,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Добавление правила подоготовки к категории с пустым полем описания")
-    @ExtendWith({DeleteRuleDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteRuleDecorator.class)
     @Test
     void addRulePreparingCategoryEmptyFieldDescription() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -101,7 +100,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Добавление правила подоготовки к категории с пустыми полями заголовка и описания")
-    @ExtendWith({DeleteRuleDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteRuleDecorator.class)
     @Test
     void addRulePreparingCategoryEmptyFieldTitleDescription() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -171,7 +170,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Редактирование правила подоготовки к категории с пустым полем заголовка")
-    @ExtendWith({AddDeleteRuleDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AddDeleteRuleDecorator.class)
     @Test
     void editRulePreparingCategoryEmptyFieldTitle() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -186,7 +185,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Редактирование правила подоготовки к категории с пустым полем описания")
-    @ExtendWith({AddDeleteRuleDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AddDeleteRuleDecorator.class)
     @Test
     void editRulePreparingCategoryEmptyFieldDescription() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -201,7 +200,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Редактирование правила подоготовки к категории с пустыми полями")
-    @ExtendWith({AddDeleteRuleDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AddDeleteRuleDecorator.class)
     @Test
     void editRulePreparingCategoryEmptyFields() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -295,7 +294,6 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Открытие правил подготовки к категории Иные услуги")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void openRulePreparingCategoryOtherServices() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory("Иные услуги");
@@ -579,15 +577,15 @@ public class ServicesPageTest extends BaseTest {
     void changeDisplaySequenceSections() {
         Selenide.sleep(5000);
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
-        int sequenceFirstSection = categoryCard.getSectionIndexByName(NAME_SECTION);
-        int sequenceSecondSection = categoryCard.getSectionIndexByName(NEW_NAME_SECTION);
+        int sequenceFirstSection = categoryCard.getSectionByName(NAME_SECTION);
+        int sequenceSecondSection = categoryCard.getSectionByName(NEW_NAME_SECTION);
         int sequenceFirstSectionDB = DataBaseQuery.selectServicesInfo(NAME_SECTION).getSequence();
         int sequenceSecondSectionDB = DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getSequence();
         categoryCard.changeDisplaySequence(NAME_SECTION, NEW_NAME_SECTION);
         Selenide.sleep(9000);
         servicesPage.openCategory(NAME_CATEGORY);
-        assertEquals(sequenceFirstSection, categoryCard.getSectionIndexByName(NEW_NAME_SECTION));
-        assertEquals(sequenceSecondSection, categoryCard.getSectionIndexByName(NAME_SECTION));
+        assertEquals(sequenceFirstSection, categoryCard.getSectionByName(NEW_NAME_SECTION));
+        assertEquals(sequenceSecondSection, categoryCard.getSectionByName(NAME_SECTION));
         assertEquals(sequenceFirstSectionDB, DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getSequence());
         assertEquals(sequenceSecondSectionDB, DataBaseQuery.selectServicesInfo(NAME_SECTION).getSequence());
     }
@@ -609,15 +607,15 @@ public class ServicesPageTest extends BaseTest {
         Selenide.sleep(9000);
         servicesPage.openCategory(NAME_CATEGORY);
         sectionCard.openSection();
-        assertEquals(sequenceFirstSubsection, categoryCard.getSectionIndexByName(NEW_NAME_SUBSECTION));
-        assertEquals(sequenceSecondSubsection, categoryCard.getSectionIndexByName(NAME_SUBSECTION));
+        assertEquals(sequenceFirstSubsection, categoryCard.getSectionByName(NEW_NAME_SUBSECTION));
+        assertEquals(sequenceSecondSubsection, categoryCard.getSectionByName(NAME_SUBSECTION));
         assertEquals(sequenceFirstSubsectionDB, DataBaseQuery.selectServicesInfo(NEW_NAME_SUBSECTION).getSequence());
         assertEquals(sequenceSecondSubsectionDB, DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getSequence());
     }
 
     @Feature("Управление категориями")
     @Story("Удаление раздела, имеющего подраздел")
-    @ExtendWith({AddDeleteSubsectionDecorator.class,NotificationDecorator.class})
+    @ExtendWith(AddDeleteSubsectionDecorator.class)
     @Test
     void deleteSectionThatHasSectionInCategory() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);

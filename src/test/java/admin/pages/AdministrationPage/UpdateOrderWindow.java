@@ -43,7 +43,7 @@ public class UpdateOrderWindow {
         FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
     }
 
-    @Step("Получить дату с календаря")
+    @Step("Получить текущую дату с календаря")
     public String getValuesButtonToday() {
         TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);

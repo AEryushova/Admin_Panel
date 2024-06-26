@@ -20,7 +20,7 @@ public class ChangePasswordAdminWindow {
     private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
     private final SelenideElement ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");
 
-    @Step("Верифицировать окно смены пароля админу")
+    @Step("Верифицировать окно замены пароля админу")
     public void changePasswordAdminWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NEW_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));

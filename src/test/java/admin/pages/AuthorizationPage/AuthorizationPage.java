@@ -4,6 +4,7 @@ import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.DoctorsPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 import java.util.Objects;
@@ -21,7 +22,7 @@ public class AuthorizationPage extends BasePage {
     private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@type='password']//following-sibling::div");
     private final SelenideElement LOGO=$x("//div[@class='RDMc']/img");
 
-
+    @Step("Верифицировать страницу Авторизации")
     public void authPage() {
         LOGIN_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -31,6 +32,7 @@ public class AuthorizationPage extends BasePage {
         LOGO.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Авторизоваться с логином '{0}' и паролем '{1}'")
     public DoctorsPage authorization(String login, String password) {
         LOGIN_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -45,53 +47,62 @@ public class AuthorizationPage extends BasePage {
         return new DoctorsPage();
     }
 
+    @Step("Ввести в поле логина '{0}'")
     public void fillLoginField(String login) {
         LOGIN_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(login);
     }
 
+    @Step("Ввести в поле пароля '{0}'")
     public void fillPasswordField(String password) {
         PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(password);
     }
 
+    @Step("Нажать кнопку входа")
     public void clickToComeIn() {
         TO_COME_IN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать на поле логина")
     public void clickLoginField() {
         LOGIN_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать на поле пароля")
     public void clickPasswordField() {
         PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Нажать на кнопку очищения поля логина")
     public void clearLoginClickButton() {
         CLEAR_LOGIN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Получить значение поля логина")
     public String getValueLoginField() {
         LOGIN_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return LOGIN_FIELD.getValue();
     }
 
+    @Step("Проверить видимость значения введеного пароля")
     public boolean isHidePassword() {
         PASSWORD_FIELD.shouldBe(Condition.visible);
         return Objects.equals(PASSWORD_FIELD.getAttribute("type"), "password");
     }
 
+    @Step("Нажать на кнопку отображения значения пароля")
     public void showPassword() {
         PASSWORD_FIELD.shouldBe(Condition.visible)
         .shouldHave(Condition.attribute("type", "password"));
@@ -100,6 +111,7 @@ public class AuthorizationPage extends BasePage {
                 .click();
     }
 
+    @Step("Нажать на кнопку скрытия значения пароля")
     public void hidePassword() {
         PASSWORD_FIELD.shouldBe(Condition.visible)
         .shouldHave(Condition.attribute("type", "text"));
@@ -108,26 +120,31 @@ public class AuthorizationPage extends BasePage {
                 .click();
     }
 
+    @Step("Проверить доступность для нажатия кнопки входа")
     public boolean isEnabledComeInButton(){
         return TO_COME_IN_BUTTON.isEnabled();
     }
 
+    @Step("Получить текст ошибки поля логина")
     public String getErrorFieldLogin() {
         ERROR_FIELD_LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist);
         return ERROR_FIELD_LOGIN.getText();
     }
 
+    @Step("Получить текст ошибки поля пароля")
     public String getErrorFieldPassword() {
         ERROR_FIELD_PASSWORD.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.exist);
         return ERROR_FIELD_PASSWORD.getText();
     }
 
+    @Step("Проверить отображение ошибки поля логина")
     public boolean isErrorLoginAppear() {
         return ERROR_FIELD_LOGIN.isDisplayed();
     }
 
+    @Step("Проверить отображение ошибки поля пароля")
     public boolean isErrorPasswordAppear() {
         return ERROR_FIELD_PASSWORD.isDisplayed();
     }

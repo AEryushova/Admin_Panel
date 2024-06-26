@@ -6,7 +6,6 @@ import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.Calendar.Calendar;
 import admin.utils.preparationDataTests.doctors.*;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.testUtils.*;
 import admin.utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Selenide;
@@ -72,7 +71,6 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Замена фотографии врачу")
     @Story("Замена фотографии врачу с файлом весом более 4mb")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void changePhotoDoctorLess4mb() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -88,7 +86,6 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Замена фотографии врачу")
     @Story("Замена фотографии врачу с файлом в невалидном формате")
-    @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
@@ -134,7 +131,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Замена фотографии врачу")
     @Story("Удаление дефолтной фотографии врача")
-    @ExtendWith({DeletePhotoDoctorDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeletePhotoDoctorDecorator.class)
     @Test
     void deleteDefaultPhoto() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -154,27 +151,27 @@ public class CardDoctorPageTest extends BaseTest {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
-        AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
-        intelligenceWindow.addIntelligenceSectionWindow();
-        intelligenceWindow.fillFieldText(SECTION);
-        intelligenceWindow.saveValue();
+        AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.openWindowAddSection();
+        addInfoDoctorWindow.addInfoDoctorWindow();
+        addInfoDoctorWindow.fillFieldText(SECTION);
+        addInfoDoctorWindow.saveValue();
         Section section = cardDoctor.getSection();
         assertEquals(SECTION, section.getSection());
         assertEquals(SECTION, DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
         assertTrue(cardDoctor.isExistSection());
-        assertFalse(intelligenceWindow.isWindowSectionAppear());
+        assertFalse(addInfoDoctorWindow.isWindowAppear());
     }
 
     @Feature("Информация о враче")
     @Story("Добавление пустого раздела в инфо о враче")
-    @ExtendWith({DeleteSectionDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteSectionDecorator.class)
     @Test
     void addSectionEmptyField() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
-        AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
-        intelligenceWindow.saveValue();
+        AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.openWindowAddSection();
+        addInfoDoctorWindow.saveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
         assertFalse(cardDoctor.isExistSection());
         assertNull(DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()));
@@ -188,12 +185,12 @@ public class CardDoctorPageTest extends BaseTest {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
-        AddIntelligenceWindow intelligenceWindow = cardDoctor.openWindowAddSection();
-        intelligenceWindow.fillFieldText(SECTION);
-        intelligenceWindow.cancelAdd();
-        assertFalse(intelligenceWindow.isWindowSectionAppear());
+        AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.openWindowAddSection();
+        addInfoDoctorWindow.fillFieldText(SECTION);
+        addInfoDoctorWindow.cancelAddInfoDoctor();
+        assertFalse(addInfoDoctorWindow.isWindowAppear());
         cardDoctor.openWindowAddSection();
-        assertEquals("", intelligenceWindow.getValueField());
+        assertEquals("", addInfoDoctorWindow.getValueField());
     }
 
 
@@ -217,7 +214,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Редактирование раздела в инфо о враче с пустым полем")
-    @ExtendWith({AddDeleteSectionDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSectionEmptyField() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -257,28 +254,28 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
-        AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
-        intelligenceWindow.addIntelligenceDescriptionWindow();
-        intelligenceWindow.fillFieldText(DESCRIPTION);
-        intelligenceWindow.saveValue();
+        AddInfoDoctorWindow addInfoDoctorWindow = section.openWindowAddDescription();
+        addInfoDoctorWindow.addInfoDoctorWindow();
+        addInfoDoctorWindow.fillFieldText(DESCRIPTION);
+        addInfoDoctorWindow.saveValue();
         Description description = cardDoctor.getDescription();
         assertEquals(DESCRIPTION, description.getDescription());
         assertEquals(DESCRIPTION, DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
         assertTrue(cardDoctor.isExistDescription());
-        assertFalse(intelligenceWindow.isWindowDescriptionAppear());
+        assertFalse(addInfoDoctorWindow.isWindowAppear());
     }
 
     @Feature("Информация о враче")
     @Story("Добавление пустого описания к разделу в инфо о враче")
-    @ExtendWith({DeleteDescriptionDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
     void addDescriptionEmptyField() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
-        AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
-        intelligenceWindow.saveValue();
+        AddInfoDoctorWindow addInfoDoctorWindow = section.openWindowAddDescription();
+        addInfoDoctorWindow.saveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
         assertFalse(cardDoctor.isExistDescription());
         assertNull(DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()));
@@ -294,12 +291,12 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
-        AddIntelligenceWindow intelligenceWindow = section.openWindowAddDescription();
-        intelligenceWindow.fillFieldText(DESCRIPTION);
-        intelligenceWindow.cancelAdd();
-        assertFalse(intelligenceWindow.isWindowDescriptionAppear());
+        AddInfoDoctorWindow addInfoDoctorWindow = section.openWindowAddDescription();
+        addInfoDoctorWindow.fillFieldText(DESCRIPTION);
+        addInfoDoctorWindow.cancelAddInfoDoctor();
+        assertFalse(addInfoDoctorWindow.isWindowAppear());
         section.openWindowAddDescription();
-        assertEquals("", intelligenceWindow.getValueField());
+        assertEquals("", addInfoDoctorWindow.getValueField());
     }
 
 
@@ -323,7 +320,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Редактирование описания в инфо о враче с пустым полем")
-    @ExtendWith({AddDeleteDescriptionDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AddDeleteDescriptionDecorator.class)
     @Test
     void editDescriptionEmptyField() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -355,7 +352,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
-    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackCurrentMonth() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -366,7 +363,7 @@ public class CardDoctorPageTest extends BaseTest {
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
         assertEquals(DataHelper.getCurrentDate(), addFeedbackWindow.getValuesButtonToday());
-        Calendar calendar = addFeedbackWindow.openCalendarSelectDate();
+        Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.selectDateActivation();
         addFeedbackWindow.publishFeedbackButton();
         cardDoctor.selectedUnpublishedFeedback();
@@ -387,7 +384,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в следующем месяце")
-    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackFutureMonth() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -397,7 +394,7 @@ public class CardDoctorPageTest extends BaseTest {
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
-        Calendar calendar = addFeedbackWindow.openCalendarSelectDate();
+        Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.switchFutureMonth();
         calendar.selectDateActivation();
         addFeedbackWindow.publishFeedbackButton();
@@ -419,7 +416,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в предыдущем месяце")
-    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackPreviousMonth() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -429,7 +426,7 @@ public class CardDoctorPageTest extends BaseTest {
         AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
-        Calendar calendar = addFeedbackWindow.openCalendarSelectDate();
+        Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.switchPreviousMonth();
         calendar.selectDateActivation();
         addFeedbackWindow.publishFeedbackButton();
@@ -450,7 +447,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче текущей датой")
-    @ExtendWith({DeleteFeedbackDecorator.class, NotificationDecorator.class})
+    @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackTodayNotUseCalendar() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -525,7 +522,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование неопубликованного отзыва о враче")
-    @ExtendWith({AddDeleteFeedbackDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AddDeleteFeedbackDecorator.class)
     @Test
     void editUnpublishedFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -556,7 +553,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешная публикация неопубликованного отзыва о враче")
-    @ExtendWith({AddDeleteFeedbackDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AddDeleteFeedbackDecorator.class)
     @Test
     void publicationUnpublishedFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -579,7 +576,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование опубликованного отзыва о враче")
-    @ExtendWith({AddPublishedDeleteFeedback.class, NotificationDecorator.class})
+    @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void editPublishedFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -607,7 +604,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное снятие с публикации опубликованного отзыва о враче")
-    @ExtendWith({AddPublishedDeleteFeedback.class, NotificationDecorator.class})
+    @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void withdrawalPublicationFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -628,7 +625,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Сохранение значений полей в окне редактирования отзыва после закрытия окна")
-    @ExtendWith({AddPublishedDeleteFeedback.class})
+    @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void closeWindowEditFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -647,7 +644,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Редактирование отзыва с пустым полем отзыва")
-    @ExtendWith({AddPublishedDeleteFeedback.class})
+    @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void editFeedbackEmptyFieldText() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -663,7 +660,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное удаление неопубликованного отзыва о враче")
-    @ExtendWith({AddFeedbackDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AddFeedbackDecorator.class)
     @Test
     void deleteUnpublishedFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();

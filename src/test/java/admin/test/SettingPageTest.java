@@ -7,7 +7,6 @@ import admin.pages.SettingPage.BugReport;
 import admin.pages.SettingPage.SettingPage;
 import admin.pages.SettingPage.EditLogoWindow;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.preparationDataTests.general.NotificationDecorator;
 import admin.utils.preparationDataTests.setting.AddBugReportDecorator;
 import admin.utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
 import admin.utils.preparationDataTests.setting.SetSAMSMU_Logo;
@@ -74,7 +73,7 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Сообщения об ошибках")
     @Story("Успешное удаление баг-репорта")
-    @ExtendWith({AddBugReportDecorator.class, NotificationDecorator.class})
+    @ExtendWith(AddBugReportDecorator.class)
     @Test
     void deleteBugReport() {
         BugReport bugReport =settingPage.bugReportCard();
@@ -103,7 +102,6 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа в формате JPEG")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void changeLogoJPEG() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
@@ -115,7 +113,6 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа весом более 4mb")
-    @ExtendWith(NotificationDecorator.class)
     @Test
     void changeLogoLess4mb() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
@@ -128,7 +125,6 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа с файлом в невалидном формате")
-    @ExtendWith(NotificationDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Политика обработки персональных данных.pdf"})
     void changeLogoInvalidFormat(String path) {

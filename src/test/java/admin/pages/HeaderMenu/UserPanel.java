@@ -3,6 +3,7 @@ package admin.pages.HeaderMenu;
 import admin.pages.AuthorizationPage.AuthorizationPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -15,6 +16,7 @@ public class UserPanel {
     private final SelenideElement EXIT_BUTTON = $x("//span[@data-locator='logout-btn']");
     private final SelenideElement CHANGE_PASSWORD_BUTTON=$x("//span[@data-locator='change-password-btn']");
 
+    @Step("Верифицировать юзер-панели для Суперадмина")
     public void userPanelSuperAdmin() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -22,6 +24,7 @@ public class UserPanel {
         EXIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Верифицировать юзер-панели для Админа")
     public void userPanelAdmin() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -30,17 +33,19 @@ public class UserPanel {
         EXIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-
+    @Step("Получить роль юзера")
     public String checkProfileInfoUser() {
         ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return ROLE_STATUS.getText();
     }
 
+    @Step("Получить логин юзера")
     public String checkLogin() {
         LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return LOGIN.getText();
     }
 
+    @Step("Нажать на кнопку изменения своего пароля")
     public ChangeMinePasswordWindow changePassword(){
         CHANGE_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
@@ -48,6 +53,7 @@ public class UserPanel {
         return new ChangeMinePasswordWindow();
     }
 
+    @Step("Нажать на кнопку выхода из админ-панели")
     public AuthorizationPage exitAdminPanel() {
         EXIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
@@ -55,6 +61,7 @@ public class UserPanel {
         return new AuthorizationPage();
     }
 
+    @Step("Проверить отображение юзер-панели")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

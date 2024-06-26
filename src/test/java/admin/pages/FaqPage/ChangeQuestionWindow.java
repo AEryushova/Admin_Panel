@@ -2,6 +2,7 @@ package admin.pages.FaqPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
@@ -16,6 +17,7 @@ public class ChangeQuestionWindow {
     private final SelenideElement DELETE_BUTTON = $x("//button[text()='Удалить']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf hwSa Er9P']");
 
+    @Step("Верифицировать окно изменения вопроса")
     public void changeQuestionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         QUESTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -25,18 +27,21 @@ public class ChangeQuestionWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Ввести в поле вопроса '{0}'")
     public void fillQuestionField(String question) {
         QUESTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(question);
     }
 
+    @Step("Ввести в поле ответа '{0}'")
     public void fillAnswerField(String answer) {
         ANSWER_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(answer);
     }
 
+    @Step("Очистить поле вопроса")
     public void clearQuestionField(){
         QUESTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -44,6 +49,7 @@ public class ChangeQuestionWindow {
         QUESTION_FIELD.sendKeys(Keys.BACK_SPACE);
     }
 
+    @Step("Очистить поле ответа")
     public void clearAnswerField(){
         ANSWER_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -51,23 +57,26 @@ public class ChangeQuestionWindow {
         ANSWER_FIELD.sendKeys(Keys.BACK_SPACE);
     }
 
+    @Step("Нажать кнопку сохранения")
     public void saveChangesQuestion() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Проверить доступность для нажатия кнопки сохранения вопроса")
     public boolean isEnabledSaveButton(){
         return SAVE_BUTTON.isEnabled();
     }
 
+    @Step("Нажать кнопку удаления")
     public void deleteQuestion() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
-
+    @Step("Закрыть окно изменения вопроса")
     public void closeWindowEditQuestion() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -75,6 +84,7 @@ public class ChangeQuestionWindow {
         WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    @Step("Проверить отображение окна изменения вопроса")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

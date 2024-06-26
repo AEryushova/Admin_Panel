@@ -2,6 +2,7 @@ package admin.pages.DoctorsPage.CardDoctorPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.io.File;
 import java.time.Duration;
@@ -18,7 +19,7 @@ public class EditPhotoDoctorWindow {
     private final SelenideElement UPLOAD_BUTTON = $x("//span[text()='загрузить']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Редактирование фотографии']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
-
+    @Step("Верифицировать окно изменения фотографии")
     public void editPhotoDoctorWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -27,11 +28,13 @@ public class EditPhotoDoctorWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Загрузить файл '{0}'")
     public void uploadPhoto(String pathFilesOffer) {
         FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
 
     }
 
+    @Step("Закрыть окно изменения фотографии")
     public void closeWindowEditPhoto() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -39,6 +42,7 @@ public class EditPhotoDoctorWindow {
         WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    @Step("Проверить отображение окна изменения фотографии")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

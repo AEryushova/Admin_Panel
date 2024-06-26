@@ -40,7 +40,7 @@ public class UpdateLegalDocWindow {
         FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
     }
 
-    @Step("Получить ссылку на загруженный файл")
+    @Step("Получить ссылку на файл")
     public String getSrcDoc() {
         return DOC_IMAGE.getAttribute("src");
     }

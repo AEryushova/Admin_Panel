@@ -59,7 +59,7 @@ public class UpdatePriceWindow {
         return new PriceErrorsWindow();
     }
 
-    @Step("Получить дату с календаря")
+    @Step("Получить текущую дату с календаря")
     public String getValuesButtonToday() {
         TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);

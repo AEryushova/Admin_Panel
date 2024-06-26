@@ -2,6 +2,7 @@ package admin.pages.FaqPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -15,7 +16,7 @@ public class AddQuestionWindow {
     private final SelenideElement ADD_BUTTON = $x("//button[text()='Добавить']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Новый Вопрос']/parent::div/parent::div/preceding-sibling::div");
 
-
+    @Step("Верифицировать окно добавления нового вопроса")
     public void addQuestionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -25,40 +26,47 @@ public class AddQuestionWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Ввести в поле вопроса '{0}'")
     public void fillQuestionField(String question) {
         QUESTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(question);
     }
 
+    @Step("Ввести в поле ответа '{0}'")
     public void fillAnswerField(String answer) {
         ANSWER_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(answer);
     }
 
+    @Step("Нажать кнопку добавления")
     public void addQuestion() {
         ADD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Проверить доступность для нажатия кнопки добавления вопроса")
     public boolean isEnabledAddButton(){
         return ADD_BUTTON.isEnabled();
     }
 
+    @Step("Получить значение поля вопроса")
     public String getValueQuestionField() {
         QUESTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return QUESTION_FIELD.getValue();
     }
 
+    @Step("Получить значение поля ответа")
     public String getValueAnswerField() {
         ANSWER_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return ANSWER_FIELD.getValue();
     }
 
+    @Step("Закрыть окно добавления нового вопроса")
     public void closeWindowAddQuestion() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -66,6 +74,7 @@ public class AddQuestionWindow {
         WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    @Step("Проверить отображение окна добавления нового вопроса")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

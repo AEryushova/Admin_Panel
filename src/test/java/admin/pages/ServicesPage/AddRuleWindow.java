@@ -2,6 +2,7 @@ package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -15,6 +16,7 @@ public class AddRuleWindow {
     public final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='вернуться назад']/parent::div/parent::div/parent::div/parent::div/preceding-sibling::div[@class='UnAf Ee5G']");
 
+    @Step("Верифицировать окно добавления нового правила")
     public void addRuleWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         RETURN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -24,36 +26,42 @@ public class AddRuleWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Ввести в поле заголовка '{0}'")
     public void fillFieldTitle(String header) {
         TITLE_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(header);
     }
 
+    @Step("Ввести в поле описания '{0}'")
     public void fillFieldDescription(String description) {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(description);
     }
 
+    @Step("Нажать кнопку сохранения")
     public void clickSaveButton() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Получить значение поля заголовка")
     public String getValueTitleField() {
         TITLE_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return TITLE_FIELD.getValue();
     }
 
+    @Step("Получить значение поля описания")
     public String getValueDescriptionField() {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return DESCRIPTION_FIELD.getValue();
     }
 
+    @Step("Закрыть окно добавления нового правила")
     public void closeWindowAddRule() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -61,12 +69,14 @@ public class AddRuleWindow {
         WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
     }
 
+    @Step("Нажать кнопку возвращения назад")
     public void returnRulesList() {
         RETURN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @Step("Проверить отображение окна добавления нового правила")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }
