@@ -22,6 +22,7 @@ import static admin.data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Карточка врача")
+@DisplayName("Карточка врача")
 public class CardDoctorPageTest extends BaseTest {
 
     private BasePage basePage;
@@ -50,6 +51,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Замена фотографии врачу")
     @Story("Успешная замена фотографии врачу в формате Jpeg и Png")
+    @DisplayName("Успешная замена фотографии врачу в формате Jpeg и Png")
     @ExtendWith(DeletePhotoDoctorDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg", "src/test/resources/Photo 3,2mbPng.png"})
@@ -71,6 +73,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Замена фотографии врачу")
     @Story("Замена фотографии врачу с файлом весом более 4mb")
+    @DisplayName("Замена фотографии врачу с файлом весом более 4mb")
     @Test
     void changePhotoDoctorLess4mb() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -86,6 +89,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Замена фотографии врачу")
     @Story("Замена фотографии врачу с файлом в невалидном формате")
+    @DisplayName("Замена фотографии врачу с файлом в невалидном формате")
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
@@ -103,6 +107,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Замена фотографии врачу")
     @Story("Закрытие окна смены фотографии")
+    @DisplayName("Закрытие окна смены фотографии")
     @Test
     void closeWindowEditPhoto() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -115,6 +120,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Замена фотографии врачу")
     @Story("Успешное удаление фотографии врача")
+    @DisplayName("Успешное удаление фотографии врача")
     @ExtendWith(SetPhotoDoctorDecorator.class)
     @Test
     void deletePhoto() {
@@ -131,6 +137,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Замена фотографии врачу")
     @Story("Удаление дефолтной фотографии врача")
+    @DisplayName("Удаление дефолтной фотографии врача")
     @ExtendWith(DeletePhotoDoctorDecorator.class)
     @Test
     void deleteDefaultPhoto() {
@@ -145,6 +152,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Успешное добавление раздела в инфо о враче")
+    @DisplayName("Успешное добавление раздела в инфо о враче")
     @ExtendWith(DeleteSectionDecorator.class)
     @Test
     void addingSection() {
@@ -164,6 +172,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Добавление пустого раздела в инфо о враче")
+    @DisplayName("Добавление пустого раздела в инфо о враче")
     @ExtendWith(DeleteSectionDecorator.class)
     @Test
     void addSectionEmptyField() {
@@ -180,6 +189,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Отмена добавления раздела в инфо о враче и зануление полей")
+    @DisplayName("Отмена добавления раздела в инфо о враче и зануление полей")
     @Test
     void cancelWindowAddSection() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -196,6 +206,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Успешное редактирование раздела в инфо о враче")
+    @DisplayName("Успешное редактирование раздела в инфо о враче")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSection() {
@@ -214,6 +225,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Редактирование раздела в инфо о враче с пустым полем")
+    @DisplayName("Редактирование раздела в инфо о враче с пустым полем")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSectionEmptyField() {
@@ -230,6 +242,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Успешное удаление раздела в инфо о враче")
+    @DisplayName("Успешное удаление раздела в инфо о враче")
     @ExtendWith(AddSectionDecorator.class)
     @Test
     void deleteSection() {
@@ -247,6 +260,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Успешное добавление описания к разделу в инфо о враче")
+    @DisplayName("Успешное добавление описания к разделу в инфо о враче")
     @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
     void addingDescription() {
@@ -267,6 +281,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Добавление пустого описания к разделу в инфо о враче")
+    @DisplayName("Добавление пустого описания к разделу в инфо о враче")
     @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
     void addDescriptionEmptyField() {
@@ -284,6 +299,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Отмена добавления описания к разделу в инфо о враче и зануление полей")
+    @DisplayName("Отмена добавления описания к разделу в инфо о враче и зануление полей")
     @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
     void cancellationWindowAddDescription() {
@@ -302,6 +318,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Успешное редактирование описания к разделу в инфо о враче")
+    @DisplayName("Успешное редактирование описания к разделу в инфо о враче")
     @ExtendWith(AddDeleteDescriptionDecorator.class)
     @Test
     void editDescription() {
@@ -320,6 +337,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Редактирование описания в инфо о враче с пустым полем")
+    @DisplayName("Редактирование описания в инфо о враче с пустым полем")
     @ExtendWith(AddDeleteDescriptionDecorator.class)
     @Test
     void editDescriptionEmptyField() {
@@ -335,6 +353,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Информация о враче")
     @Story("Успешное удаление описания к разделу в инфо о враче")
+    @DisplayName("Успешное удаление описания к разделу в инфо о враче")
     @ExtendWith(AddDescriptionDecorator.class)
     @Test
     void deleteDescription() {
@@ -352,6 +371,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
+    @DisplayName("Успешное добавление отзыва о врачу датой в текущем месяце")
     @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackCurrentMonth() {
@@ -384,6 +404,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в следующем месяце")
+    @DisplayName("Успешное добавление отзыва о враче датой в следующем месяце")
     @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackFutureMonth() {
@@ -416,6 +437,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в предыдущем месяце")
+    @DisplayName("Успешное добавление отзыва о враче датой в предыдущем месяце")
     @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackPreviousMonth() {
@@ -447,6 +469,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче текущей датой")
+    @DisplayName("Успешное добавление отзыва о враче текущей датой")
     @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackTodayNotUseCalendar() {
@@ -476,7 +499,8 @@ public class CardDoctorPageTest extends BaseTest {
     }
 
     @Feature("Отзывы о враче")
-    @Story("Зануление полей в окне добавления отзыва после закрытия окна")
+    @Story("Сброс значений полей в окне добавления отзыва при закрытии окна")
+    @DisplayName("Сброс значений полей в окне добавления отзыва при закрытии окна")
     @Test
     void closeWindowAddNewFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -495,6 +519,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Добавление нового отзыва с пустым полем ФИО")
+    @DisplayName("Добавление нового отзыва с пустым полем ФИО")
     @Test
     void addFeedbackEmptyFieldFio() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -509,6 +534,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Добавление нового отзыва с пустым полем отзыва")
+    @DisplayName("Добавление нового отзыва с пустым полем отзыва")
     @Test
     void addFeedbackEmptyFieldText() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -522,6 +548,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование неопубликованного отзыва о враче")
+    @DisplayName("Успешное редактирование неопубликованного отзыва о враче")
     @ExtendWith(AddDeleteFeedbackDecorator.class)
     @Test
     void editUnpublishedFeedback() {
@@ -553,6 +580,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешная публикация неопубликованного отзыва о враче")
+    @DisplayName("Успешная публикация неопубликованного отзыва о враче")
     @ExtendWith(AddDeleteFeedbackDecorator.class)
     @Test
     void publicationUnpublishedFeedback() {
@@ -576,6 +604,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование опубликованного отзыва о враче")
+    @DisplayName("Успешное редактирование опубликованного отзыва о враче")
     @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void editPublishedFeedback() {
@@ -604,6 +633,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное снятие с публикации опубликованного отзыва о враче")
+    @DisplayName("Успешное снятие с публикации опубликованного отзыва о враче")
     @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void withdrawalPublicationFeedback() {
@@ -625,6 +655,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Сохранение значений полей в окне редактирования отзыва после закрытия окна")
+    @DisplayName("Сохранение значений полей в окне редактирования отзыва после закрытия окна")
     @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void closeWindowEditFeedback() {
@@ -644,6 +675,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Редактирование отзыва с пустым полем отзыва")
+    @DisplayName("Редактирование отзыва с пустым полем отзыва")
     @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void editFeedbackEmptyFieldText() {
@@ -660,6 +692,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Успешное удаление неопубликованного отзыва о враче")
+    @DisplayName("Успешное удаление неопубликованного отзыва о враче")
     @ExtendWith(AddFeedbackDecorator.class)
     @Test
     void deleteUnpublishedFeedback() {
@@ -678,6 +711,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @Feature("Отзывы о враче")
     @Story("Сортировка неопубликованных отзывов о враче")
+    @DisplayName("Сортировка неопубликованных отзывов о враче")
     @ExtendWith(AddTwoFeedbackDecorator.class)
     @Test
     void sortingUnpublishedFeedbacks() {
@@ -704,6 +738,7 @@ public class CardDoctorPageTest extends BaseTest {
 
 
     @Story("Закрытие уведомления на странице карточки врача по таймауту")
+    @DisplayName("Закрытие уведомления на странице карточки врача по таймауту")
     @Test
     void closeNotificationTimeout() {
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
@@ -712,6 +747,7 @@ public class CardDoctorPageTest extends BaseTest {
     }
 
     @Story("Закрытие уведомления на странице карточки врача")
+    @DisplayName("Закрытие уведомления на странице карточки врача")
     @Test
     void closeNotification() {
         EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
@@ -720,6 +756,7 @@ public class CardDoctorPageTest extends BaseTest {
     }
 
     @Story("Закрытие навигационного меню")
+    @DisplayName("Закрытие навигационного меню")
     @Test
     void closeNavigateMenu() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();

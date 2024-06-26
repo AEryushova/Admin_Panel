@@ -24,6 +24,7 @@ import static admin.data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Администрирование")
+@DisplayName("Страница Администрирования")
 public class AdministrationPageTest extends BaseTest {
 
     private AdministrationPage adminPage;
@@ -168,8 +169,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Добавление нового админа")
-    @Story("Ввод валидного логина из 31 и 32 символов")
-    @DisplayName("Ввод валидного логина из 31 и 32 символов")
+    @Story("Ввод граничных значений логина из 31 и 32 символов")
+    @DisplayName("Ввод граничных значений логина из 31 и 32 символов")
     @ParameterizedTest
     @ValueSource(strings = {"ANNA_TEST_ADMIN123456789_ANNA_1", "ANNA_TEST_ADMIN123456789_ANNA_12"})
     void addedNewAdminLogin_31_32_Symbol(String login) {
@@ -180,8 +181,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Добавление нового админа")
-    @Story("Ввод не валидного логина из 33 символов")
-    @DisplayName("Ввод не валидного логина из 33 символов")
+    @Story("Ввод граничных значений логина из 33 символов")
+    @DisplayName("Ввод граничных значений логина из 33 символов")
     @Test
     void addedNewAdminLogin_33_Symbol() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
@@ -214,8 +215,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Добавление нового админа")
-    @Story("Ввод не валидного пароля из 7 и 26 символов")
-    @DisplayName("Ввод не валидного пароля из 7 и 26 символов")
+    @Story("Ввод граничных значений пароля из 7 и 26 символов")
+    @DisplayName("Ввод граничных значений пароля из 7 и 26 символов")
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq12#", "Wwqq123456789#QQgg12345678"})
     void addedNewAdminPassword_7_26_Symbol(String password) {
@@ -225,8 +226,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Добавление нового админа")
-    @Story("Ввод валидного пароля из 8,9,24 и 25 символов")
-    @DisplayName("Ввод валидного пароля из 8,9,24 и 25 символов")
+    @Story("Ввод граничных значений пароля из 8,9,24 и 25 символов")
+    @DisplayName("Ввод граничных значений пароля из 8,9,24 и 25 символов")
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
     void addedNewAdminPassword_8_9_24_25_Symbol(String password) {
@@ -366,8 +367,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Замена пароля админу")
-    @Story("Ввод не валидного пароля из 7 символов")
-    @DisplayName("Ввод не валидного пароля из 7 символов")
+    @Story("Ввод граничных значений пароля из 7 символов")
+    @DisplayName("Ввод граничных значений пароля из 7 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdmin_7_Symbol() {
@@ -377,8 +378,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Замена пароля админу")
-    @Story("Ввод валидного пароля из 8,9,24 и 25 символов")
-    @DisplayName("Ввод валидного пароля из 8,9,24 и 25 символов")
+    @Story("Ввод граничных значений пароля из 8,9,24 и 25 символов")
+    @DisplayName("Ввод граничных значений пароля из 8,9,24 и 25 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
@@ -390,8 +391,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Замена пароля админу")
-    @Story("Ввод не валидного пароля из 26 символов")
-    @DisplayName("Ввод не валидного пароля из 26 символов")
+    @Story("Ввод граничных значений пароля из 26 символов")
+    @DisplayName("Ввод граничных значений пароля из 26 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdmin_26_Symbol() {

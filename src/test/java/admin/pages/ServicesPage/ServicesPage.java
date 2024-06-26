@@ -36,7 +36,7 @@ public class ServicesPage extends BasePage {
         DENTISTRY.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    @Step("Нажать кнопку открытия правил подготовки к категории")
+    @Step("Нажать кнопку открытия правил подготовки к категории '{0}'")
     public RulesPreparingWindow openRulesPreparingCategory(String categoryName){
         SelenideElement RULES_PREPARING = searchCategory(categoryName).$x("div[@class='Ie41']");
         RULES_PREPARING.shouldBe(Condition.visible)

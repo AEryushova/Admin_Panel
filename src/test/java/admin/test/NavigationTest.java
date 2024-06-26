@@ -12,14 +12,12 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static admin.data.TestData.UserData.*;
 
 @Epic("Навигационное меню")
+@DisplayName("Навигационное меню")
 public class NavigationTest {
 
     private HeaderMenu headerMenu;
@@ -44,6 +42,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Переход на вкладку докторов")
+    @DisplayName("Переход на вкладку докторов")
     @Test
     void openDoctorsPage() {
         headerMenu.headerBarSuperAdmin();
@@ -53,6 +52,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Сохранение вкладки докторов")
+    @DisplayName("Сохранение вкладки докторов")
     @Test
     void saveDoctorsPage() {
         headerMenu.headerBarSuperAdmin();
@@ -64,6 +64,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Переход на вкладку услуг")
+    @DisplayName("Переход на вкладку услуг")
     @Test
     void openServicesPage() {
         headerMenu.headerBarSuperAdmin();
@@ -73,6 +74,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Сохранение вкладки услуг")
+    @DisplayName("Сохранение вкладки услуг")
     @Test
     void saveServicesPage() {
         headerMenu.headerBarSuperAdmin();
@@ -84,6 +86,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Переход на вкладку faq")
+    @DisplayName("Переход на вкладку faq")
     @Test
     void openFaqPage() {
         headerMenu.headerBarSuperAdmin();
@@ -93,6 +96,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Сохранение вкладки faq")
+    @DisplayName("Сохранение вкладки faq")
     @Test
     void saveFaqPage() {
         headerMenu.headerBarSuperAdmin();
@@ -104,6 +108,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Переход на вкладку настроек")
+    @DisplayName("Переход на вкладку настроек")
     @Test
     void openSettingPage() {
         headerMenu.headerBarSuperAdmin();
@@ -113,6 +118,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Сохранение вклакди настроек")
+    @DisplayName("Сохранение вклакди настроек")
     @Test
     void saveSettingPage() {
         headerMenu.headerBarSuperAdmin();
@@ -124,6 +130,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Переход на вкладку администрирования")
+    @DisplayName("Переход на вкладку администрирования")
     @Test
     void openAdministrationPage() {
         headerMenu.headerBarSuperAdmin();
@@ -133,6 +140,7 @@ public class NavigationTest {
 
     @Feature("Навигация")
     @Story("Сохранение вкладки администрирования")
+    @DisplayName("Сохранение вкладки администрирования")
     @Test
     void saveAdministrationPage() {
         headerMenu.headerBarSuperAdmin();

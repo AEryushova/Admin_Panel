@@ -14,7 +14,7 @@ import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
 
-public class AddRuleDecorator implements BeforeEachCallback {
+public class AddRuleCategoryDecorator implements BeforeEachCallback {
 
     @Setter
     @Getter

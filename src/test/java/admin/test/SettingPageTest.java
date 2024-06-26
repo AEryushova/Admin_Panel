@@ -17,10 +17,7 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -28,6 +25,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Настройки")
+@DisplayName("Страница Настройки")
 public class SettingPageTest extends BaseTest {
 
     private SettingPage settingPage;
@@ -60,6 +58,7 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Сообщения об ошибках")
     @Story("Отображение баг-репорта в админ-панели после отправки пациентом")
+    @DisplayName("Отображение баг-репорта в админ-панели после отправки пациентом")
     @ExtendWith(AddDeleteBugReportDecorator.class)
     @Test
     void checkBugReport() {
@@ -73,6 +72,7 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Сообщения об ошибках")
     @Story("Успешное удаление баг-репорта")
+    @DisplayName("Успешное удаление баг-репорта")
     @ExtendWith(AddBugReportDecorator.class)
     @Test
     void deleteBugReport() {
@@ -86,6 +86,7 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Успешная замена логотипа в формате PNG")
+    @DisplayName("Успешная замена логотипа в формате PNG")
     @ExtendWith(SetSAMSMU_Logo.class)
     @Test
     void changeLogoPNG() {
@@ -102,6 +103,7 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа в формате JPEG")
+    @DisplayName("Замена логотипа в формате JPEG")
     @Test
     void changeLogoJPEG() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
@@ -113,6 +115,7 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа весом более 4mb")
+    @DisplayName("Замена логотипа весом более 4mb")
     @Test
     void changeLogoLess4mb() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
@@ -125,6 +128,7 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа с файлом в невалидном формате")
+    @DisplayName("Замена логотипа с файлом в невалидном формате")
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Политика обработки персональных данных.pdf"})
     void changeLogoInvalidFormat(String path) {
@@ -138,6 +142,7 @@ public class SettingPageTest extends BaseTest {
 
     @Feature("Настройки личного кабинета")
     @Story("Закрытие окна замены логотипа")
+    @DisplayName("Закрытие окна замены логотипа")
     @Test
     void closeWindowEditLogo() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
@@ -147,6 +152,7 @@ public class SettingPageTest extends BaseTest {
 
 
     @Story("Закрытие уведомления на странице настроек по таймауту")
+    @DisplayName("Закрытие уведомления на странице настроек по таймауту")
     @Test
     void closeNotificationTimeout() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
@@ -156,6 +162,7 @@ public class SettingPageTest extends BaseTest {
     }
 
     @Story("Закрытие уведомления на странице настроек")
+    @DisplayName("Закрытие уведомления на странице настроек")
     @Test
     void closeNotification() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();

@@ -70,6 +70,14 @@ public class SectionCard {
         return new AddSectionWindow();
     }
 
+    @Step("Нажать кнопку открытия правил подготовки к разделу")
+    public RulesPreparingWindow openRulesPreparingSection(){
+        RULES_PREPARING_SECTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        return new RulesPreparingWindow();
+    }
+
     @Step("Получить подраздел")
     public SubsectionCard getSubsection() {
         SUBSECTION.shouldBe(Condition.visible, Duration.ofSeconds(5))

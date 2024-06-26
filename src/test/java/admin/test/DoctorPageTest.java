@@ -24,6 +24,7 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Врачи")
+@DisplayName("Страница Врачи")
 public class DoctorPageTest extends BaseTest {
 
     private DoctorsPage doctorsPage;
@@ -48,6 +49,7 @@ public class DoctorPageTest extends BaseTest {
 
     @Feature("Открытие карточки врача")
     @Story("Открытие карточки врача и возврат к списку врачей")
+    @DisplayName("Открытие карточки врача и возврат к списку врачей")
     @Test
     void returnToDoctorsPageFromCardDoctorPage() {
         doctorsPage.doctorsPage();
@@ -57,7 +59,8 @@ public class DoctorPageTest extends BaseTest {
     }
 
     @Feature("Поиск по врачам")
-    @Story("Поиск врача по имени")
+    @Story("Поиск врачей по имени")
+    @DisplayName("Поиск врачей по имени")
     @Test
     void searchNameDoctor() {
         doctorsPage.doctorsPage();
@@ -74,7 +77,8 @@ public class DoctorPageTest extends BaseTest {
 
 
     @Feature("Поиск по врачам")
-    @Story("Поиск врача по специальности")
+    @Story("Поиск врачей по специальности")
+    @DisplayName("Поиск врачей по специальности")
     @Test
     void searchSpecializationDoctor() {
         doctorsPage.doctorsPage();
@@ -90,7 +94,8 @@ public class DoctorPageTest extends BaseTest {
     }
 
     @Feature("Поиск по врачам")
-    @Story("Поиск по включению")
+    @Story("Поиск врачей по включению")
+    @DisplayName("Поиск врачей по включению")
     @Test
     void searchByInclusion() {
         doctorsPage.doctorsPage();
@@ -111,7 +116,8 @@ public class DoctorPageTest extends BaseTest {
     }
 
     @Feature("Поиск по врачам")
-    @Story("Сброс поискового результата после очистки поля")
+    @Story("Сброс поискового результата врачей после очистки поля")
+    @DisplayName("Сброс поискового результата врачей после очистки поля")
     @Test
     void resetSearchResultDoctors() {
         doctorsPage.doctorsPage();
@@ -131,7 +137,8 @@ public class DoctorPageTest extends BaseTest {
     }
 
     @Feature("Поиск по врачам")
-    @Story("Поиск по значению в верхнем регистре")
+    @Story("Поиск врачей по значению в верхнем регистре")
+    @DisplayName("Поиск врачей по значению в верхнем регистре")
     @Test
     void searchHighRegister() {
         doctorsPage.doctorsPage();
@@ -147,7 +154,8 @@ public class DoctorPageTest extends BaseTest {
     }
 
     @Feature("Поиск по врачам")
-    @Story("Поиск по значению в различном регистре")
+    @Story("Поиск врачей по значению в различном регистре")
+    @DisplayName("Поиск врачей по значению в различном регистре")
     @Test
     void searchDifferentRegister() {
         doctorsPage.doctorsPage();
@@ -163,7 +171,8 @@ public class DoctorPageTest extends BaseTest {
     }
 
     @Feature("Сортировка по врачам")
-    @Story("Сортировка по отсутствию фото")
+    @Story("Сортировка врачей по отсутствию фото")
+    @DisplayName("Сортировка врачей по отсутствию фото")
     @Test
     void sortingWithoutPhoto() {
         doctorsPage.doctorsPage();
@@ -179,7 +188,8 @@ public class DoctorPageTest extends BaseTest {
     }
 
     @Feature("Сортировка по врачам")
-    @Story("Сортировка по наличию фото")
+    @Story("Сортировка врачей по наличию фото")
+    @DisplayName("Сортировка врачей по наличию фото")
     @Test
     void sortingWithPhoto() {
         doctorsPage.doctorsPage();
@@ -196,6 +206,7 @@ public class DoctorPageTest extends BaseTest {
 
     @Feature("Сортировка по врачам")
     @Story("Сортировка по всем врачам")
+    @DisplayName("Сортировка по всем врачам")
     @Test
     void sortingWithAndWithoutPhoto() {
         doctorsPage.doctorsPage();

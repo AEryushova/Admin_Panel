@@ -56,6 +56,14 @@ public class SubsectionCard {
                 .click();
     }
 
+    @Step("Нажать кнопку открытия правил подготовки к подразделу")
+    public RulesPreparingWindow openRulesPreparingSubsection(){
+        RULES_PREPARING_SUBSECTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        return new RulesPreparingWindow();
+    }
+
     @Step("Получить услугу")
     public ServiceCard getService() {
         SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5))

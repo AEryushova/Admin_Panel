@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @Epic("Услуги")
+@DisplayName("Страница Услуги")
 public class ServicesPageTest extends BaseTest {
 
     private ServicesPage servicesPage;
@@ -48,8 +49,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Успешное добавление правила подоготовки к категории")
-    @ExtendWith(DeleteRuleDecorator.class)
+    @Story("Успешное добавление правила подготовки к категории")
+    @DisplayName("Успешное добавление правила подготовки к категории")
+    @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void addRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -73,8 +75,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Добавление правила подоготовки к категории с пустым полем заголовка")
-    @ExtendWith(DeleteRuleDecorator.class)
+    @Story("Добавление правила подготовки к категории с пустым полем заголовка")
+    @DisplayName("Добавление правила подготовки к категории с пустым полем заголовка")
+    @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void addRulePreparingCategoryEmptyFieldTitle() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -86,8 +89,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Добавление правила подоготовки к категории с пустым полем описания")
-    @ExtendWith(DeleteRuleDecorator.class)
+    @Story("Добавление правила подготовки к категории с пустым полем описания")
+    @DisplayName("Добавление правила подготовки к категории с пустым полем описания")
+    @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void addRulePreparingCategoryEmptyFieldDescription() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -99,8 +103,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Добавление правила подоготовки к категории с пустыми полями заголовка и описания")
-    @ExtendWith(DeleteRuleDecorator.class)
+    @Story("Добавление правила подготовки к категории с пустыми полями заголовка и описания")
+    @DisplayName("Добавление правила подготовки к категории с пустыми полями заголовка и описания")
+    @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void addRulePreparingCategoryEmptyFieldTitleDescription() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -111,8 +116,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Зануление полей в окне добавления правила подоготовки после закрытия окна")
-    @ExtendWith(DeleteRuleDecorator.class)
+    @Story("Сброс значений полей в окне добавления правила подготовки при закрытии окна")
+    @DisplayName("Сброс значений полей в окне добавления правила подготовки при закрытии окна")
+    @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void closeWindowAddRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -129,8 +135,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Отмена добавления правила подоготовки после возврата к списку правил")
-    @ExtendWith(DeleteRuleDecorator.class)
+    @Story("Отмена добавления правила подготовки после возврата к списку правил")
+    @DisplayName("Отмена добавления правила подготовки после возврата к списку правил")
+    @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void comebackRulesListFromWindowAddRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -146,8 +153,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Успешное редактирование правила подоготовки к категории")
-    @ExtendWith(AddDeleteRuleDecorator.class)
+    @Story("Успешное редактирование правила подготовки к категории")
+    @DisplayName("Успешное редактирование правила подготовки к категории")
+    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void editRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -169,8 +177,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Редактирование правила подоготовки к категории с пустым полем заголовка")
-    @ExtendWith(AddDeleteRuleDecorator.class)
+    @Story("Редактирование правила подготовки к категории с пустым полем заголовка")
+    @DisplayName("Редактирование правила подготовки к категории с пустым полем заголовка")
+    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void editRulePreparingCategoryEmptyFieldTitle() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -184,8 +193,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Редактирование правила подоготовки к категории с пустым полем описания")
-    @ExtendWith(AddDeleteRuleDecorator.class)
+    @Story("Редактирование правила подготовки к категории с пустым полем описания")
+    @DisplayName("Редактирование правила подготовки к категории с пустым полем описания")
+    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void editRulePreparingCategoryEmptyFieldDescription() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -199,8 +209,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Редактирование правила подоготовки к категории с пустыми полями")
-    @ExtendWith(AddDeleteRuleDecorator.class)
+    @Story("Редактирование правила подготовки к категории с пустыми полями")
+    @DisplayName("Редактирование правила подготовки к категории с пустыми полями")
+    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void editRulePreparingCategoryEmptyFields() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -214,8 +225,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Сохранение правила подоготовки к категории без изменений")
-    @ExtendWith(AddDeleteRuleDecorator.class)
+    @Story("Сохранение правила подготовки к категории без изменений")
+    @DisplayName("Сохранение правила подготовки к категории без изменений")
+    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void editRulePreparingCategoryNotChangeSave() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -231,8 +243,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Сохранение значений в окне редактирования правила подоготовки к категории после закрытия окна")
-    @ExtendWith(AddDeleteRuleDecorator.class)
+    @Story("Сохранение значений в окне редактирования правила подготовки к категории после закрытия окна")
+    @DisplayName("Сохранение значений в окне редактирования правила подготовки к категории после закрытия окна")
+    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void closeWindowEditRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -253,8 +266,9 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
-    @Story("Успешное удаление правила подоготовки к категории")
-    @ExtendWith(AddRuleDecorator.class)
+    @Story("Успешное удаление правила подготовки к категории")
+    @DisplayName("Успешное удаление правила подготовки к категории")
+    @ExtendWith(AddRuleCategoryDecorator.class)
     @Test
     void deleteRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -271,7 +285,8 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Успешное удаление всех правил подготовки к категории")
-    @ExtendWith(AddRuleDecorator.class)
+    @DisplayName("Успешное удаление всех правил подготовки к категории")
+    @ExtendWith(AddRuleCategoryDecorator.class)
     @Test
     void deleteAllRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -283,7 +298,157 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
+    @Story("Успешное добавление правила подготовки к разделу")
+    @DisplayName("Успешное добавление правила подготовки к разделу")
+    @ExtendWith(AddDeleteSectionDecorator.class)
+    @Test
+    void addRulePreparingSection() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        RulesPreparingWindow rulePreparingWindow=sectionCard.openRulesPreparingSection();
+        AddRuleWindow addRuleWindow = rulePreparingWindow.openAddRulesWindow();
+        addRuleWindow.fillFieldTitle(RULE_TITLE);
+        addRuleWindow.fillFieldDescription(RULE_DESCRIPTION);
+        addRuleWindow.clickSaveButton();
+        Selenide.sleep(3000);
+        assertTrue(rulePreparingWindow.isExistRule());
+        Rule rule = rulePreparingWindow.getRule();
+        EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
+        ServiceCategories preparingDescription = DataBaseQuery.selectServicesInfo(NAME_SECTION);
+        assertEquals(RULE_TITLE, editRuleWindow.getTitleRule());
+        assertEquals(RULE_DESCRIPTION, editRuleWindow.getDescriptionRule());
+        assertEquals(RULE_TITLE, preparingDescription.getTitle());
+        assertEquals(RULE_DESCRIPTION, preparingDescription.getDescription());
+        assertFalse(addRuleWindow.isWindowAppear());
+    }
+
+    @Feature("Управление правилами подготовки")
+    @Story("Успешное редактирование правила подготовки к разделу")
+    @DisplayName("Успешное редактирование правила подготовки к разделу")
+    @ExtendWith(AddDeleteSectionRuleDecorator.class)
+    @Test
+    void editRulePreparingSection() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        RulesPreparingWindow rulePreparingWindow=sectionCard.openRulesPreparingSection();
+        Rule rule = rulePreparingWindow.getRule();
+        EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
+        editRuleWindow.editRuleWindow();
+        editRuleWindow.fillFieldTitle(NEW_RULE_TITLE);
+        editRuleWindow.fillFieldDescription(NEW_RULE_DESCRIPTION);
+        editRuleWindow.changeRules();
+        Selenide.sleep(3000);
+        assertFalse(editRuleWindow.isWindowAppear());
+        assertTrue(rulePreparingWindow.isWindowAppear());
+        rule.openEditRuleWindow();
+        ServiceCategories preparingDescription = DataBaseQuery.selectServicesInfo(NAME_SECTION);
+        assertEquals(NEW_RULE_TITLE, editRuleWindow.getTitleRule());
+        assertEquals(NEW_RULE_DESCRIPTION, editRuleWindow.getDescriptionRule());
+        assertEquals(NEW_RULE_TITLE, preparingDescription.getTitle());
+        assertEquals(NEW_RULE_DESCRIPTION, preparingDescription.getDescription());
+    }
+
+    @Feature("Управление правилами подготовки")
+    @Story("Успешное удаление правила подготовки к разделу")
+    @DisplayName("Успешное удаление правила подготовки к разделу")
+    @ExtendWith(AddDeleteSectionRuleDecorator.class)
+    @Test
+    void deleteRulePreparingSection() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        RulesPreparingWindow rulePreparingWindow=sectionCard.openRulesPreparingSection();
+        Rule rule = rulePreparingWindow.getRule();
+        EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
+        editRuleWindow.deleteRules();
+        Selenide.sleep(2000);
+        assertFalse(editRuleWindow.isWindowAppear());
+        assertTrue(rulePreparingWindow.isWindowAppear());
+        assertFalse(rulePreparingWindow.isExistRule());
+        assertTrue(rulePreparingWindow.isExistsEmptyListRules());
+        assertEquals("[]", DataBaseQuery.selectServicesInfo(NAME_SECTION).getPreparing_description());
+    }
+
+    @Feature("Управление правилами подготовки")
+    @Story("Успешное добавление правила подготовки к подразделу")
+    @DisplayName("Успешное добавление правила подготовки к подразделу")
+    @ExtendWith(AddDeleteSubsectionDecorator.class)
+    @Test
+    void addRulePreparingSubsection() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
+        RulesPreparingWindow rulePreparingWindow=subsectionCard.openRulesPreparingSubsection();
+        AddRuleWindow addRuleWindow = rulePreparingWindow.openAddRulesWindow();
+        addRuleWindow.fillFieldTitle(RULE_TITLE);
+        addRuleWindow.fillFieldDescription(RULE_DESCRIPTION);
+        addRuleWindow.clickSaveButton();
+        Selenide.sleep(3000);
+        assertTrue(rulePreparingWindow.isExistRule());
+        Rule rule = rulePreparingWindow.getRule();
+        EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
+        ServiceCategories preparingDescription = DataBaseQuery.selectServicesInfo(NAME_SUBSECTION);
+        assertEquals(RULE_TITLE, editRuleWindow.getTitleRule());
+        assertEquals(RULE_DESCRIPTION, editRuleWindow.getDescriptionRule());
+        assertEquals(RULE_TITLE, preparingDescription.getTitle());
+        assertEquals(RULE_DESCRIPTION, preparingDescription.getDescription());
+        assertFalse(addRuleWindow.isWindowAppear());
+    }
+
+    @Feature("Управление правилами подготовки")
+    @Story("Успешное редактирование правила подготовки к подразделу")
+    @DisplayName("Успешное редактирование правила подготовки к подразделу")
+    @ExtendWith(AddDeleteSubsectionRuleDecorator.class)
+    @Test
+    void editRulePreparingSubsection() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
+        RulesPreparingWindow rulePreparingWindow=subsectionCard.openRulesPreparingSubsection();
+        Rule rule = rulePreparingWindow.getRule();
+        EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
+        editRuleWindow.editRuleWindow();
+        editRuleWindow.fillFieldTitle(NEW_RULE_TITLE);
+        editRuleWindow.fillFieldDescription(NEW_RULE_DESCRIPTION);
+        editRuleWindow.changeRules();
+        Selenide.sleep(3000);
+        assertFalse(editRuleWindow.isWindowAppear());
+        assertTrue(rulePreparingWindow.isWindowAppear());
+        rule.openEditRuleWindow();
+        ServiceCategories preparingDescription = DataBaseQuery.selectServicesInfo(NAME_SUBSECTION);
+        assertEquals(NEW_RULE_TITLE, editRuleWindow.getTitleRule());
+        assertEquals(NEW_RULE_DESCRIPTION, editRuleWindow.getDescriptionRule());
+        assertEquals(NEW_RULE_TITLE, preparingDescription.getTitle());
+        assertEquals(NEW_RULE_DESCRIPTION, preparingDescription.getDescription());
+    }
+
+    @Feature("Управление правилами подготовки")
+    @Story("Успешное удаление правила подготовки к подразделу")
+    @DisplayName("Успешное удаление правила подготовки к подразделу")
+    @ExtendWith(AddDeleteSubsectionRuleDecorator.class)
+    @Test
+    void deleteRulePreparingSubsection() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
+        RulesPreparingWindow rulePreparingWindow=subsectionCard.openRulesPreparingSubsection();
+        Rule rule = rulePreparingWindow.getRule();
+        EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
+        editRuleWindow.deleteRules();
+        Selenide.sleep(2000);
+        assertFalse(editRuleWindow.isWindowAppear());
+        assertTrue(rulePreparingWindow.isWindowAppear());
+        assertFalse(rulePreparingWindow.isExistRule());
+        assertTrue(rulePreparingWindow.isExistsEmptyListRules());
+        assertEquals("[]", DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getPreparing_description());
+    }
+
+
+    @Feature("Управление правилами подготовки")
     @Story("Закрытие окна правил подготовки к категории")
+    @DisplayName("Закрытие окна правил подготовки к категории")
     @Test
     void closeWindowRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
@@ -294,6 +459,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Открытие правил подготовки к категории Иные услуги")
+    @DisplayName("Открытие правил подготовки к категории Иные услуги")
     @Test
     void openRulePreparingCategoryOtherServices() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory("Иные услуги");
@@ -303,6 +469,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Успешное добавление раздела в категорию")
+    @DisplayName("Успешное добавление раздела в категорию")
     @ExtendWith(AddDeleteCategorySectionDecorator.class)
     @Test
     void addSectionInCategory() {
@@ -324,7 +491,8 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление категориями")
-    @Story("Зануление полей в окне добавления раздела в категорию и закрытие окна")
+    @Story("Сброс значений полей в окне добавления раздела в категорию при закрытии окна")
+    @DisplayName("Сброс значений полей в окне добавления раздела в категорию при закрытии окна")
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void closeWindowAddSection() {
@@ -339,6 +507,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Отображение уведомления об обязательности поля")
+    @DisplayName("Отображение уведомления об обязательности поля")
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void addedNewSectionObligatoryFields() {
@@ -351,6 +520,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Очистка поля имени раздела через кнопку в окне добавления раздела")
+    @DisplayName("Очистка поля имени раздела через кнопку в окне добавления раздела")
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void clearFieldNameThroughButtonClear() {
@@ -364,6 +534,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Отмена добавления раздела в категорию")
+    @DisplayName("Отмена добавления раздела в категорию")
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void cancelAddSectionInCategory() {
@@ -376,6 +547,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Успешное редактирование раздела в категории")
+    @DisplayName("Успешное редактирование раздела в категории")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSectionInCategory() {
@@ -396,6 +568,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Сохранение значений поля в окне редактирования раздела после закрытия окна")
+    @DisplayName("Сохранение значений поля в окне редактирования раздела после закрытия окна")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void closeWindowEditSectionInCategory() {
@@ -411,6 +584,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Сохранение значений поля без изменений данных")
+    @DisplayName("Сохранение значений поля без изменений данных")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSectionInCategoryNotChangeSave() {
@@ -427,6 +601,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Редактирование названия раздела с пустым полем")
+    @DisplayName("Редактирование названия раздела с пустым полем")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSectionInCategoryEmptyFieldName() {
@@ -441,6 +616,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Успешное удаление раздела из категории")
+    @DisplayName("Успешное удаление раздела из категории")
     @ExtendWith(AddSectionDecorator.class)
     @Test
     void deleteSectionInCategory() {
@@ -460,6 +636,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Отмена удаления раздела из категории")
+    @DisplayName("Отмена удаления раздела из категории")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void cancelDeleteSectionInCategory() {
@@ -474,6 +651,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Закрытие окна удаления раздела из категории")
+    @DisplayName("Закрытие окна удаления раздела из категории")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void closeWindowDeleteSectionInCategory() {
@@ -488,6 +666,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Успешное добавление подраздела в раздел")
+    @DisplayName("Успешное добавление подраздела в раздел")
     @ExtendWith(AddDeleteSectionSubsectionDecorator.class)
     @Test
     void addSubsectionInCategory() {
@@ -511,6 +690,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Успешное редактирование подраздела в разделе")
+    @DisplayName("Успешное редактирование подраздела в разделе")
     @ExtendWith(AddDeleteSubsectionDecorator.class)
     @Test
     void editSubsectionInCategory() {
@@ -533,6 +713,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Успешное удаление подраздела из раздела")
+    @DisplayName("Успешное удаление подраздела из раздела")
     @ExtendWith(AddSubsectionDecorator.class)
     @Test
     void deleteSubsectionInCategory() {
@@ -554,6 +735,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление категориями")
     @Story("Смена последовательности отображения категорий")
+    @DisplayName("Смена последовательности отображения категорий")
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void changeDisplaySequenceCategories() {

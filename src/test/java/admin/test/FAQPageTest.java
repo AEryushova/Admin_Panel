@@ -12,10 +12,7 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.UserData.*;
@@ -24,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @Epic("FAQ")
+@DisplayName("Страница FAQ")
 public class FAQPageTest extends BaseTest{
 
     private FaqPage faqPage;
@@ -52,6 +50,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Успешное добавление нового faq-вопроса")
+    @DisplayName("Успешное добавление нового faq-вопроса")
     @ExtendWith(DeleteFaqDecorator.class)
     @Test
     void addFaqQuestion() {
@@ -71,6 +70,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим заголовком и ответом")
+    @DisplayName("Добавление нового faq-вопроса с уже существующим заголовком и ответом")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void addFaqQuestionAlreadyExistQuestionAnswer() {
@@ -84,6 +84,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим заголовком")
+    @DisplayName("Добавление нового faq-вопроса с уже существующим заголовком")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void addFaqQuestionAlreadyExistQuestion() {
@@ -97,6 +98,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с уже существующим ответом")
+    @DisplayName("Добавление нового faq-вопроса с уже существующим ответом")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void addFaqQuestionAlreadyExistAnswer() {
@@ -115,6 +117,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с пустым полем вопроса")
+    @DisplayName("Добавление нового faq-вопроса с пустым полем вопроса")
     @Test
     void addFaqQuestionEmptyFieldQuestion() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -125,6 +128,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с пустым полем ответа")
+    @DisplayName("Добавление нового faq-вопроса с пустым полем ответа")
     @Test
     void addFaqQuestionEmptyFieldAnswer() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -133,7 +137,8 @@ public class FAQPageTest extends BaseTest{
     }
 
     @Feature("Добавление нового faq-вопроса")
-    @Story("Зануление полей в окне добавления faq-вопроса после закрытия окна")
+    @Story("Сброс значений полей в окне добавления faq-вопроса при закрытии окна")
+    @DisplayName("Сброс значений полей в окне добавления faq-вопроса при закрытии окна")
     @Test
     void closeWindowAddNewQuestion() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
@@ -148,6 +153,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Редактирование faq-вопроса")
     @Story("Успешное редактирование faq-вопроса")
+    @DisplayName("Успешное редактирование faq-вопроса")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void editQuestion() {
@@ -167,6 +173,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Редактирование faq-вопроса")
     @Story("Редактирование faq-вопроса с пустым полем вопроса")
+    @DisplayName("Редактирование faq-вопроса с пустым полем вопроса")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void editQuestionEmptyFieldQuestion() {
@@ -179,6 +186,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Редактирование faq-вопроса")
     @Story("Редактирование faq-вопроса с пустым полем ответа")
+    @DisplayName("Редактирование faq-вопроса с пустым полем ответа")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void editQuestionEmptyFieldAnswer() {
@@ -190,6 +198,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Редактирование faq-вопроса")
     @Story("Сохранение faq-вопроса без изменений данных")
+    @DisplayName("Сохранение faq-вопроса без изменений данных")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void editQuestionNotChangeSave() {
@@ -205,6 +214,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Редактирование faq-вопроса")
     @Story("Сохранение значений полей в окне редактирования faq-вопроса после закрытия окна")
+    @DisplayName("Сохранение значений полей в окне редактирования faq-вопроса после закрытия окна")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
     void closeWindowEditQuestion() {
@@ -223,6 +233,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Редактирование faq-вопроса")
     @Story("Смена последовательности faq-вопросов")
+    @DisplayName("Смена последовательности faq-вопросов")
     @ExtendWith(AddTwoQuestionFaqDecorator.class)
     @Test
     void sequenceChangeQuestion() {
@@ -243,6 +254,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Удаление faq-вопроса")
     @Story("Успешное удаление faq-вопроса")
+    @DisplayName("Успешное удаление faq-вопроса")
     @ExtendWith(AddFaqDecorator.class)
     @Test
     void deleteQuestion() {
@@ -256,6 +268,7 @@ public class FAQPageTest extends BaseTest{
     }
 
     @Story("Закрытие уведомления на странице faq по таймауту")
+    @DisplayName("Закрытие уведомления на странице faq по таймауту")
     @ExtendWith(AddFaqDecorator.class)
     @Test
     void closeNotificationTimeout() {
@@ -266,6 +279,7 @@ public class FAQPageTest extends BaseTest{
     }
 
     @Story("Закрытие уведомления на странице faq")
+    @DisplayName("Закрытие уведомления на странице faq")
     @ExtendWith(AddFaqDecorator.class)
     @Test
     void closeNotification() {
@@ -277,6 +291,7 @@ public class FAQPageTest extends BaseTest{
 
     @Feature("Поиск по faq")
     @Story("Поиск вопроса по заголовку и ответу")
+    @DisplayName("Поиск вопроса по заголовку и ответу")
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchNameFaq() {
@@ -298,7 +313,8 @@ public class FAQPageTest extends BaseTest{
     }
 
     @Feature("Поиск по faq")
-    @Story("Поиск по включению")
+    @Story("Поиск вопроса по включению")
+    @DisplayName("Поиск вопроса по включению")
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchByInclusion() {
@@ -321,7 +337,8 @@ public class FAQPageTest extends BaseTest{
 
 
     @Feature("Поиск по faq")
-    @Story("Сброс поискового результата после очистки поля")
+    @Story("Сброс поискового результата вопроса после очистки поля")
+    @DisplayName("Сброс поискового результата вопроса после очистки поля")
     @ExtendWith(AddSomeFaq.class)
     @Test
     void resetSearchResultFaq() {
@@ -341,7 +358,8 @@ public class FAQPageTest extends BaseTest{
     }
 
     @Feature("Поиск по faq")
-    @Story("Поиск по значению в верхнем регистре")
+    @Story("Поиск вопроса по значению в верхнем регистре")
+    @DisplayName("Поиск вопроса по значению в верхнем регистре")
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchHighRegister() {
@@ -363,7 +381,8 @@ public class FAQPageTest extends BaseTest{
     }
 
     @Feature("Поиск по faq")
-    @Story("Поиск по значению в верхнем регистре")
+    @Story("Поиск вопроса по значению в верхнем регистре")
+    @DisplayName("Поиск вопроса по значению в верхнем регистре")
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchDifferentRegister() {
