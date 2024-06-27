@@ -47,8 +47,9 @@ public class TestData {
         public static final String NAME_CATEGORY = "Категория";
         public static final String NAME_SECTION = "Раздел для категории";
         public static final String NEW_NAME_SECTION = "Измененный раздел";
-        public static final String NAME_SUBSECTION = "Подаздел для категории";
+        public static final String NAME_SUBSECTION = "Подраздел для категории";
         public static final String NEW_NAME_SUBSECTION = "Измененный подраздел";
+        public static final String NAME_SERVICE = "Повязка Дезо";
     }
 
     @Data

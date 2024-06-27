@@ -48,6 +48,7 @@ public class BrowserManager {
                 .extract()
                 .response();
         token = response.getBody().jsonPath().getString("accessToken");
+        Configuration.browser=System.getProperty("selenide.browser", "chrome");
         Configuration.holdBrowserOpen = true;
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);

@@ -116,5 +116,24 @@ public class PreparationDataServicesTest {
         return gson.toJson(jsonObject);
     }
 
+    public static void transferServices(String codeService,UUID sourceId,UUID targetId) {
+        given()
+                .baseUri(URI_ADMIN_PANEL)
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", ENVIRONMENT)
+                .contentType(ContentType.JSON)
+                .body(transferServicesJson(codeService,sourceId,targetId))
+                .when()
+                .put("/api/services/admin/transfer")
+                .then()
+                .statusCode(204);
+    }
+
+    private static String transferServicesJson(String codeService,UUID sourceId,UUID targetId) {
+        jsonObject.addProperty("code", codeService);
+        jsonObject.addProperty("sourceId", sourceId.toString());
+        jsonObject.addProperty("destinationId", targetId.toString());
+        return gson.toJson(jsonObject);
+    }
 
 }

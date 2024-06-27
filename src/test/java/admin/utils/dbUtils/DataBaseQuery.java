@@ -230,10 +230,18 @@ public class DataBaseQuery {
 
 
     @SneakyThrows
-    public static ServiceCategories selectServicesInfo(String nameCategory) {
+    public static ServiceCategories selectServicesInfo(String nameCategorySection) {
         var selectInfo = "SELECT * FROM service_categories WHERE name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, nameCategory, new BeanHandler<>(ServiceCategories.class));
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, nameCategorySection, new BeanHandler<>(ServiceCategories.class));
+        }
+    }
+
+    @SneakyThrows
+    public static AllServices selectService(String nameService) {
+        var selectInfo = "SELECT * FROM all_services WHERE name = ? ";
+        try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, nameService, new BeanHandler<>(AllServices.class));
         }
     }
 

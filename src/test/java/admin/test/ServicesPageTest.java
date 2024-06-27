@@ -369,6 +369,22 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление правилами подготовки")
+    @Story("Успешное удаление всех правил подготовки к разделу")
+    @DisplayName("Успешное удаление всех правил подготовки к разделу")
+    @ExtendWith(AddDeleteSectionRuleDecorator.class)
+    @Test
+    void deleteAllRulePreparingSection() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        RulesPreparingWindow rulePreparingWindow=sectionCard.openRulesPreparingSection();
+        rulePreparingWindow.deleteAllRules();
+        Selenide.sleep(2000);
+        assertFalse(rulePreparingWindow.isExistRule());
+        assertTrue(rulePreparingWindow.isExistsEmptyListRules());
+        assertEquals("[]", DataBaseQuery.selectServicesInfo(NAME_SECTION).getPreparing_description());
+    }
+
+    @Feature("Управление правилами подготовки")
     @Story("Успешное добавление правила подготовки к подразделу")
     @DisplayName("Успешное добавление правила подготовки к подразделу")
     @ExtendWith(AddDeleteSubsectionDecorator.class)
@@ -445,6 +461,23 @@ public class ServicesPageTest extends BaseTest {
         assertEquals("[]", DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getPreparing_description());
     }
 
+    @Feature("Управление правилами подготовки")
+    @Story("Успешное удаление всех правил подготовки к подразделу")
+    @DisplayName("Успешное удаление всех правил подготовки к подразделу")
+    @ExtendWith(AddDeleteSubsectionRuleDecorator.class)
+    @Test
+    void deleteAllRulePreparingSubsection() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
+        RulesPreparingWindow rulePreparingWindow=subsectionCard.openRulesPreparingSubsection();
+        rulePreparingWindow.deleteAllRules();
+        Selenide.sleep(2000);
+        assertFalse(rulePreparingWindow.isExistRule());
+        assertTrue(rulePreparingWindow.isExistsEmptyListRules());
+        assertEquals("[]", DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getPreparing_description());
+    }
 
     @Feature("Управление правилами подготовки")
     @Story("Закрытие окна правил подготовки к категории")
@@ -764,7 +797,7 @@ public class ServicesPageTest extends BaseTest {
         int sequenceFirstSectionDB = DataBaseQuery.selectServicesInfo(NAME_SECTION).getSequence();
         int sequenceSecondSectionDB = DataBaseQuery.selectServicesInfo(NEW_NAME_SECTION).getSequence();
         categoryCard.changeDisplaySequence(NAME_SECTION, NEW_NAME_SECTION);
-        Selenide.sleep(9000);
+        Selenide.sleep(3000);
         servicesPage.openCategory(NAME_CATEGORY);
         assertEquals(sequenceFirstSection, categoryCard.getSectionByName(NEW_NAME_SECTION));
         assertEquals(sequenceSecondSection, categoryCard.getSectionByName(NAME_SECTION));
@@ -806,8 +839,6 @@ public class ServicesPageTest extends BaseTest {
         deleteSectionWindow.deleteSection();
         assertEquals("Нельзя удалить категорию, т.к. имеются дочерние объекты", servicesPage.getNotification());
         assertFalse(deleteSectionWindow.isWindowAppear());
-        sectionCard.openSection();
-        Selenide.sleep(5000);
         assertTrue(sectionCard.isExistSubsectionCard());
         assertFalse(sectionCard.isExistEmptyList());
         assertNotNull(DataBaseQuery.selectServicesInfo(NAME_SUBSECTION));
@@ -815,7 +846,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление услугами")
     @Story("Открытие карточки услуги")
-    @ExtendWith(AddDeleteSubsectionDecorator.class)
+    @ExtendWith(TransferServiceToCategoryDecorator.class)
     @Test
     void openCardService() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
@@ -830,7 +861,7 @@ public class ServicesPageTest extends BaseTest {
         ServiceWindow serviceWindow=serviceCard.openServiceInfo();
         serviceWindow.serviceWindowGeneralInfo();
         assertEquals(nameService,serviceWindow.getNameService());
-        assertEquals( NAME_CATEGORY + NAME_SECTION + NAME_SUBSECTION + nameService,serviceWindow.getPathService());
+        assertEquals( NAME_CATEGORY + " / " + NAME_SECTION + " / " + NAME_SUBSECTION + " / " + nameService,serviceWindow.getPathService());
         assertEquals(codeService,serviceWindow.getCodeService());
     }
 
