@@ -2,7 +2,6 @@ package admin.utils.APIUtils;
 
 
 import admin.utils.testUtils.BrowserManager;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -15,8 +14,6 @@ import static io.restassured.RestAssured.given;
 
 public class PreparationDataSettingTest {
 
-    private static final Gson gson = new Gson();
-    private static final JsonObject jsonObject = new JsonObject();
     private static String tokenPatient;
 
     @Getter
@@ -52,23 +49,20 @@ public class PreparationDataSettingTest {
     }
 
     public static void addBugReportPatient(String message, String email, String author) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("message", message);
+        jsonObject.addProperty("email", email);
+        jsonObject.addProperty("author", author);
         given()
                 .baseUri(URI_PERSONAL_AREA)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + tokenPatient)
                 .header("Environment", ENVIRONMENT)
-                .body(getBugReportJson(message,email,author))
+                .body(jsonObject.toString())
                 .when()
                 .post("/api/bug-reports")
                 .then()
                 .statusCode(201);
-    }
-
-    private static String getBugReportJson(String message, String email, String author) {
-        jsonObject.addProperty("message", message);
-        jsonObject.addProperty("email", email);
-        jsonObject.addProperty("author", author);
-        return gson.toJson(jsonObject);
     }
 
 

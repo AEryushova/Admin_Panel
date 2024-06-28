@@ -25,7 +25,7 @@ public class TransferServiceToCategoryDecorator implements BeforeEachCallback, A
     public static UUID subsectionId;
     @Getter
     @Setter
-    public static UUID serviceId;
+    public static String serviceCode;
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
@@ -38,13 +38,14 @@ public class TransferServiceToCategoryDecorator implements BeforeEachCallback, A
         PreparationDataServicesTest.addSection(NAME_SUBSECTION,sectionId);
         UUID subsectionId= DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getId();
         setSubsectionId(subsectionId);
-        UUID serviceId=DataBaseQuery.selectService(NAME_SERVICE).getId();
-        setServiceId(serviceId);
-
+        String serviceCode=PreparationDataServicesTest.getRandomOtherService(OTHER_CATEGORY_ID);
+        setServiceCode(serviceCode);
+        PreparationDataServicesTest.transferServices(serviceCode,OTHER_CATEGORY_ID,subsectionId.toString());
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
+        PreparationDataServicesTest.transferServices(serviceCode,subsectionId.toString(),OTHER_CATEGORY_ID);
         PreparationDataServicesTest.deleteCategory(subsectionId);
         PreparationDataServicesTest.deleteCategory(sectionId);
         PreparationDataServicesTest.deleteCategory(categoryId);

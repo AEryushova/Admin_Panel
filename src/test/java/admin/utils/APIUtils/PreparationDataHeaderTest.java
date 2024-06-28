@@ -1,7 +1,6 @@
 package admin.utils.APIUtils;
 
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -11,8 +10,6 @@ import static appData.AppData.*;
 import static io.restassured.RestAssured.given;
 
 public class PreparationDataHeaderTest {
-    private static final Gson gson = new Gson();
-    private static final JsonObject jsonObject = new JsonObject();
 
     @Getter
     private static String tokenAdmin;
@@ -31,11 +28,14 @@ public class PreparationDataHeaderTest {
     }
 
     private static void tokenGetAuthAdmin(String login, String password) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("login", login);
+        jsonObject.addProperty("password", password);
         Response response = given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
-                .body(getDataInfoJson(login, password))
+                .body(jsonObject.toString())
                 .when()
                 .post("/api/admins/sign-in")
                 .then()
@@ -45,30 +45,22 @@ public class PreparationDataHeaderTest {
         tokenAdmin = response.getBody().jsonPath().getString("accessToken");
     }
 
-    private static String getDataInfoJson(String login, String password) {
-        jsonObject.addProperty("login", login);
-        jsonObject.addProperty("password", password);
-        return gson.toJson(jsonObject);
-    }
-
 
     public static void changePasswordAdmin(String login, String newPassword) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("login", login);
+        jsonObject.addProperty("newPassword", newPassword);
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + tokenAdmin)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
-                .body(getChangePasswordJson(login, newPassword))
+                .body(jsonObject.toString())
                 .when()
                 .post("/api/admins/reset-password")
                 .then()
                 .statusCode(204);
     }
 
-    private static String getChangePasswordJson(String login, String newPassword) {
-        jsonObject.addProperty("login", login);
-        jsonObject.addProperty("newPassword", newPassword);
-        return gson.toJson(jsonObject);
-    }
 }
 

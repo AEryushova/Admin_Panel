@@ -24,8 +24,8 @@ public class TestData {
         public static final String DOCTOR = "Fer3 Не ТРОГАТЬ";
         public static final String DOCTOR_SPECIALIZATION = "врач-оториноларинголог";
         public static final String DEFAULT_PHOTO = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
-        public static File PHOTO = new File("src/test/resources/Photo 3,7mbJpeg.jpg");
-        public static File LOGO = new File("src/test/resources/logo.png");
+        public static final File PHOTO = new File("src/test/resources/Photo 3,7mbJpeg.jpg");
+        public static final File LOGO = new File("src/test/resources/logo.png");
         public static final String MESSAGE_BUG_REPORT = "Не могу записаться к врачу";
         public static final String EMAIL_PATIENT = "Test@mail.ru";
         public static final String NAME_PATIENT = "Федоров Федор Федорович";
@@ -49,7 +49,7 @@ public class TestData {
         public static final String NEW_NAME_SECTION = "Измененный раздел";
         public static final String NAME_SUBSECTION = "Подраздел для категории";
         public static final String NEW_NAME_SUBSECTION = "Измененный подраздел";
-        public static final String NAME_SERVICE = "Повязка Дезо";
+        public static final String OTHER_CATEGORY_ID = "00000000-0000-0000-0000-000000000000";
     }
 
     @Data

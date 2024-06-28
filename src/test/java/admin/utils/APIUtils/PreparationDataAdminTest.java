@@ -2,7 +2,6 @@ package admin.utils.APIUtils;
 
 
 import admin.utils.testUtils.BrowserManager;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 
@@ -12,17 +11,17 @@ import static io.restassured.RestAssured.given;
 
 public class PreparationDataAdminTest {
 
-    private static final Gson gson = new Gson();
-    private static final JsonObject jsonObject = new JsonObject();
-
 
     public static void createAdmin(String login, String password) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("login", login);
+        jsonObject.addProperty("password", password);
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + BrowserManager.token)
                 .header("Environment", ENVIRONMENT)
-                .body(getDataInfoJson(login, password))
+                .body(jsonObject.toString())
                 .when()
                 .post("/api/admins/sign-up")
                 .then()
@@ -41,11 +40,4 @@ public class PreparationDataAdminTest {
                 .then()
                 .statusCode(204);
     }
-
-    private static String getDataInfoJson(String login, String password) {
-        jsonObject.addProperty("login", login);
-        jsonObject.addProperty("password", password);
-        return gson.toJson(jsonObject);
-    }
-
 }

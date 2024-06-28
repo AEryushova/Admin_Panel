@@ -305,6 +305,8 @@ public class FAQPageTest extends BaseTest{
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
+            assertNotNull(questionText);
+            assertNotNull(answerText);
             boolean isQuestionFound = questionText.toLowerCase().contains(FAQ_SEARCH.toLowerCase());
             boolean isAnswerFound = answerText.toLowerCase().contains(FAQ_SEARCH.toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
@@ -328,6 +330,8 @@ public class FAQPageTest extends BaseTest{
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
+            assertNotNull(questionText);
+            assertNotNull(answerText);
             boolean isQuestionFound = questionText.toLowerCase().contains(SEARCH_BY_INCLUSION_FAQ.toLowerCase());
             boolean isAnswerFound = answerText.toLowerCase().contains(SEARCH_BY_INCLUSION_FAQ.toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
@@ -373,6 +377,8 @@ public class FAQPageTest extends BaseTest{
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
+            assertNotNull(questionText);
+            assertNotNull(answerText);
             boolean isQuestionFound = questionText.toLowerCase().contains(FAQ_HIGH_REGISTER.toLowerCase());
             boolean isAnswerFound = answerText.toLowerCase().contains(FAQ_HIGH_REGISTER.toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
@@ -396,6 +402,8 @@ public class FAQPageTest extends BaseTest{
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
+            assertNotNull(questionText);
+            assertNotNull(answerText);
             boolean isQuestionFound = questionText.toLowerCase().contains(FAQ_HIGH_REGISTER.toLowerCase());
             boolean isAnswerFound = answerText.toLowerCase().contains(FAQ_HIGH_REGISTER.toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);

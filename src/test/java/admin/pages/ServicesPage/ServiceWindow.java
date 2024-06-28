@@ -13,7 +13,7 @@ public class ServiceWindow {
     private final SelenideElement GENERAL_INFO =$x("//div[text()='Общая информация']");
     private final SelenideElement SERVICE_TRANSFER = $x("//div[text()='Перенос услуги']");
     private final SelenideElement RULES_PREPARING = $x("//div[text()='Правила подготовки']");
-    private final SelenideElement HEADER_SERVICE =$x("//div[@class='fbzq']");
+    private final SelenideElement HEADER_SERVICE =$x("//div[@class='fbzq']/span");
     private final SelenideElement DELETE_BUTTON =$x("//div[@class='wxIJ']");
     private final SelenideElement PATH_TO_SERVICE = $x("//span[text()='Путь к услуге']/following-sibling::span");
     private final SelenideElement NAME_SERVICE = $x("//span[text()='Наименование']/following-sibling::span");
@@ -79,6 +79,13 @@ public class ServiceWindow {
         GENERAL_INFO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+    }
+
+    @Step("Получить заголовок окна")
+    public String getHeaderServiceWindow(){
+        HEADER_SERVICE.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
+        return HEADER_SERVICE.getText();
     }
 
     @Step("Получить путь расположения услуги")

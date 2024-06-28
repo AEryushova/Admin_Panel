@@ -11,9 +11,6 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 public class BasePage {
-    static {
-        Configuration.timeout = 5000;
-    }
 
     private final SelenideElement NOTIFICATION = $x("//div[@role='alert']/div//following-sibling::div");
     private final SelenideElement CLOSE_NOTIFICATION = $x("//button[@aria-label='close']");

@@ -3,6 +3,7 @@ package admin.test;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.*;
+import admin.utils.APIUtils.PreparationDataServicesTest;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.dbUtils.dbaseData.ServiceCategories;
 import admin.utils.preparationDataTests.services.*;
@@ -11,9 +12,13 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import admin.utils.preparationDataTests.general.AllureDecorator;
+
+import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.UserData.*;
@@ -23,6 +28,22 @@ import static org.junit.jupiter.api.Assertions.*;
 @Epic("Услуги")
 @DisplayName("Страница Услуги")
 public class ServicesPageTest extends BaseTest {
+
+    @Setter
+    @Getter
+    public static UUID categoryId;
+    @Getter
+    @Setter
+    public static UUID sectionId;
+    @Getter
+    @Setter
+    public static UUID subsectionId;
+    @Getter
+    @Setter
+    public static String serviceCode;
+    @Getter
+    @Setter
+    public static String parentId;
 
     private ServicesPage servicesPage;
     private BasePage basePage;
@@ -860,6 +881,7 @@ public class ServicesPageTest extends BaseTest {
         String codeService=serviceCard.getCodeService();
         ServiceWindow serviceWindow=serviceCard.openServiceInfo();
         serviceWindow.serviceWindowGeneralInfo();
+        assertEquals(nameService,serviceWindow.getHeaderServiceWindow());
         assertEquals(nameService,serviceWindow.getNameService());
         assertEquals( NAME_CATEGORY + " / " + NAME_SECTION + " / " + NAME_SUBSECTION + " / " + nameService,serviceWindow.getPathService());
         assertEquals(codeService,serviceWindow.getCodeService());

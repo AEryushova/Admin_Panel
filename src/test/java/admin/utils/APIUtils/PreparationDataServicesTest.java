@@ -1,89 +1,80 @@
 package admin.utils.APIUtils;
 
 
-
 import admin.utils.testUtils.BrowserManager;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.qameta.allure.internal.shadowed.jackson.databind.JsonNode;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+
 import static appData.AppData.*;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static io.restassured.RestAssured.given;
 
 public class PreparationDataServicesTest {
 
-    private static final Gson gson = new Gson();
-    private static final JsonObject section = new JsonObject();
-    private static final JsonObject jsonObject = new JsonObject();
     private static final JsonArray sections = new JsonArray();
 
 
     public static void addRuleCategory(UUID id, String title, String description) {
-        String rule = getAddRuleJson(id, title, description);
+        JsonObject section = new JsonObject();
+        section.addProperty("title", title);
+        section.addProperty("description", description);
+        JsonArray sections = new JsonArray();
+        sections.add(section);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("id", id.toString());
+        jsonObject.add("sections", sections);
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
-                .body(rule)
+                .body(jsonObject.toString())
                 .when()
                 .put("/api/services/category-preparing-description")
                 .then()
                 .statusCode(204);
-    }
-
-
-    private static String getAddRuleJson(UUID id, String title, String description) {
-        section.addProperty("title", title);
-        section.addProperty("description", description);
-        sections.add(section);
-        jsonObject.addProperty("id", id.toString());
-        jsonObject.add("sections", sections);
-        return gson.toJson(jsonObject);
     }
 
 
     public static void deleteRuleCategory(UUID id) {
-        String rule = getDeleteRuleJson(id);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("id", id.toString());
+        jsonObject.add("sections", sections);
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
-                .body(rule)
+                .body(jsonObject.toString())
                 .when()
                 .put("/api/services/category-preparing-description")
                 .then()
                 .statusCode(204);
     }
 
-    private static String getDeleteRuleJson(UUID id) {
-        jsonObject.addProperty("id", id.toString());
-        jsonObject.add("sections", sections);
-        return gson.toJson(jsonObject);
-    }
 
     public static void addCategory(String nameCategory) {
-        String categoryName = addCategoryJson(nameCategory);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("name", nameCategory);
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
-                .body(categoryName)
+                .body(jsonObject.toString())
                 .when()
                 .post("/api/services/admin/category")
                 .then()
                 .statusCode(201);
     }
 
-    private static String addCategoryJson(String nameCategory) {
-        jsonObject.addProperty("name", nameCategory);
-        return gson.toJson(jsonObject);
-    }
 
     public static void deleteCategory(UUID id) {
         given()
@@ -97,43 +88,68 @@ public class PreparationDataServicesTest {
                 .statusCode(204);
     }
 
-    public static void addSection(String nameSection,UUID parentId) {
+    public static void addSection(String nameSection, UUID parentId) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("parentId", parentId.toString());
+        jsonObject.addProperty("name", nameSection);
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
-                .body(addSectionJson(nameSection,parentId))
+                .body(jsonObject.toString())
                 .when()
                 .post("/api/services/admin/category")
                 .then()
                 .statusCode(201);
     }
 
-    private static String addSectionJson(String nameSection,UUID parentId) {
-        jsonObject.addProperty("parentId", parentId.toString());
-        jsonObject.addProperty("name", nameSection);
-        return gson.toJson(jsonObject);
+
+    public static String getRandomOtherService(String categoryId) {
+        Response response = given()
+                .baseUri(URI_ADMIN_PANEL)
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", ENVIRONMENT)
+                .when()
+                .get("/api/services/admin/all-services")
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        return getRandomServiceCodeFromOtherCategory(response, categoryId);
     }
 
-    public static void transferServices(String codeService,UUID sourceId,UUID targetId) {
+    private static String getRandomServiceCodeFromOtherCategory(Response response, String categoryId) {
+        List<String> childServices = response.jsonPath()
+                .getList("categories.find { it.id == '" + categoryId + "' }.childServices.code");
+        if (!childServices.isEmpty()) {
+            int randomIndex = ThreadLocalRandom.current().nextInt(0, childServices.size());
+            return childServices.get(randomIndex);
+        }
+
+        return null;
+    }
+
+
+
+    public static void transferServices(String codeService, String sourceId, String targetId) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("code", codeService);
+        jsonObject.addProperty("sourceId", sourceId);
+        jsonObject.addProperty("destinationId", targetId);
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
-                .body(transferServicesJson(codeService,sourceId,targetId))
+                .body(jsonObject.toString())
                 .when()
                 .put("/api/services/admin/transfer")
                 .then()
                 .statusCode(204);
     }
 
-    private static String transferServicesJson(String codeService,UUID sourceId,UUID targetId) {
-        jsonObject.addProperty("code", codeService);
-        jsonObject.addProperty("sourceId", sourceId.toString());
-        jsonObject.addProperty("destinationId", targetId.toString());
-        return gson.toJson(jsonObject);
-    }
+
 
 }
