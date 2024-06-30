@@ -76,5 +76,11 @@ public class CategoryCard {
         return EMPTY_LIST_SECTION.isDisplayed();
     }
 
+    @Step("Проверить отображение услуги")
+    public boolean isExistService(String nameService) {
+        SelenideElement SERVICE = $x("//span[text()='" + nameService + "']/parent::div/parent::div[@class='hzR2']");
+       return SERVICE.isDisplayed();
+    }
+
 }
 

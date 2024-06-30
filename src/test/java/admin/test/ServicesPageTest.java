@@ -3,7 +3,6 @@ package admin.test;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.*;
-import admin.utils.APIUtils.PreparationDataServicesTest;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.dbUtils.dbaseData.ServiceCategories;
 import admin.utils.preparationDataTests.services.*;
@@ -516,7 +515,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Открытие правил подготовки к категории Иные услуги")
     @Test
     void openRulePreparingCategoryOtherServices() {
-        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory("Иные услуги");
+        RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(NAME_OTHER_SERVICE_CATEGORY);
         assertFalse(rulePreparingWindow.isWindowAppear());
         assertEquals("Категория не найдена", servicesPage.getNotification());
     }
@@ -867,7 +866,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление услугами")
     @Story("Открытие карточки услуги")
-    @ExtendWith(TransferServiceToCategoryDecorator.class)
+    @ExtendWith(AddServiceInNewCategoryDecorator.class)
     @Test
     void openCardService() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
@@ -887,6 +886,49 @@ public class ServicesPageTest extends BaseTest {
         assertEquals(codeService,serviceWindow.getCodeService());
     }
 
+    @Feature("Управление услугами")
+    @Story("Перенос услуги в категорию Иные услуги")
+    @ExtendWith(AddServiceInNewCategoryForTransferDecorator.class)
+    @Test
+    void transferServiceToOtherServices() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
+        subsectionCard.openSubsection();
+        ServiceCard serviceCard = subsectionCard.getService();
+        String codeService = serviceCard.getCodeService();
+        ServiceWindow serviceWindow = serviceCard.openServiceInfo();
+        serviceWindow.switchToServiceTransfer();
+        serviceWindow.serviceWindowServiceTransfer();
+        serviceWindow.openCategoryForTransfer(NAME_OTHER_SERVICE_CATEGORY);
+        serviceWindow.transferServiceToOtherServices();
+        Selenide.sleep(3000);
+        assertFalse(serviceWindow.isWindowAppear());
+        servicesPage.openCategory(NAME_OTHER_SERVICE_CATEGORY);
+        assertTrue(categoryCard.isExistService(codeService));
+    }
 
+    @Feature("Управление услугами")
+    @Story("Удаление услуги из категории")
+    @ExtendWith(AddServiceInNewCategoryForTransferDecorator.class)
+    @Test
+    void deleteServiceFromCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
+        subsectionCard.openSubsection();
+        ServiceCard serviceCard = subsectionCard.getService();
+        String codeService = serviceCard.getCodeService();
+        ServiceWindow serviceWindow = serviceCard.openServiceInfo();
+        serviceWindow.switchToServiceTransfer();
+        serviceWindow.switchToGeneralInfo();
+        serviceWindow.deleteService();
+        Selenide.sleep(3000);
+        assertFalse(serviceWindow.isWindowAppear());
+        servicesPage.openCategory(NAME_OTHER_SERVICE_CATEGORY);
+        assertTrue(categoryCard.isExistService(codeService));
+    }
 }
 

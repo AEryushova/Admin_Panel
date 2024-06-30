@@ -14,7 +14,7 @@ public class SubsectionCard {
     private final SelenideElement DELETE_SUBSECTION_BUTTON = $x("//div[@class='mJna']");
     private final SelenideElement RULES_PREPARING_SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='tSFL']");
     private final SelenideElement EXPAND_SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='xrjl']");
-    private final SelenideElement SERVICE = $x("//div[@class='hzR2']");
+    private final SelenideElement SERVICE = $x("//div[@class='hzR2' and @draggable='true']");
     private final SelenideElement EMPTY_LIST_SERVICE = $x("//div[@class='b8mg']/span");
 
     @Step("Верифицировать карточку подраздела")

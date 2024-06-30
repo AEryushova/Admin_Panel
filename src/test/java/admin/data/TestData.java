@@ -49,7 +49,8 @@ public class TestData {
         public static final String NEW_NAME_SECTION = "Измененный раздел";
         public static final String NAME_SUBSECTION = "Подраздел для категории";
         public static final String NEW_NAME_SUBSECTION = "Измененный подраздел";
-        public static final String OTHER_CATEGORY_ID = "00000000-0000-0000-0000-000000000000";
+        public static final String NAME_OTHER_SERVICE_CATEGORY = "Иные услуги";
+
     }
 
     @Data

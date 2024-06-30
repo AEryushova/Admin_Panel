@@ -34,7 +34,7 @@ public class ServiceCard {
         return CODE_SERVICE.getText();
     }
 
-    @Step("нажать на кнопку открытия информации об услуге")
+    @Step("Нажать на кнопку открытия информации об услуге")
     public ServiceWindow openServiceInfo(){
         SERVICE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)

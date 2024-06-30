@@ -11,9 +11,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
-import static admin.data.TestData.DataTest.NAME_SUBSECTION;
 
-public class TransferServiceToCategoryDecorator implements BeforeEachCallback, AfterEachCallback {
+public class AddServiceInNewCategoryForTransferDecorator implements BeforeEachCallback, AfterEachCallback {
     @Setter
     @Getter
     public static UUID categoryId;
@@ -26,6 +25,9 @@ public class TransferServiceToCategoryDecorator implements BeforeEachCallback, A
     @Getter
     @Setter
     public static String serviceCode;
+    @Setter
+    @Getter
+    public static String parentServiceId;
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
@@ -38,14 +40,15 @@ public class TransferServiceToCategoryDecorator implements BeforeEachCallback, A
         PreparationDataServicesTest.addSection(NAME_SUBSECTION,sectionId);
         UUID subsectionId= DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getId();
         setSubsectionId(subsectionId);
-        String serviceCode=PreparationDataServicesTest.getRandomOtherService(OTHER_CATEGORY_ID);
+        String serviceCode=PreparationDataServicesTest.getRandomService(NAME_OTHER_SERVICE_CATEGORY);
         setServiceCode(serviceCode);
-        PreparationDataServicesTest.transferServices(serviceCode,OTHER_CATEGORY_ID,subsectionId.toString());
+        String parentServiceId=PreparationDataServicesTest.getCategoryIdByName(NAME_OTHER_SERVICE_CATEGORY);
+        setParentServiceId(parentServiceId);
+        PreparationDataServicesTest.transferServices(serviceCode,parentServiceId,subsectionId.toString());
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.transferServices(serviceCode,subsectionId.toString(),OTHER_CATEGORY_ID);
         PreparationDataServicesTest.deleteCategory(subsectionId);
         PreparationDataServicesTest.deleteCategory(sectionId);
         PreparationDataServicesTest.deleteCategory(categoryId);

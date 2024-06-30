@@ -4,13 +4,14 @@ package admin.utils.APIUtils;
 import admin.utils.testUtils.BrowserManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.qameta.allure.internal.shadowed.jackson.databind.JsonNode;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 import static appData.AppData.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -105,8 +106,8 @@ public class PreparationDataServicesTest {
     }
 
 
-    public static String getRandomOtherService(String categoryId) {
-        Response response = given()
+    private static Response getAllServices(String categoryName) {
+        return given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
                 .header("Environment", ENVIRONMENT)
@@ -116,13 +117,13 @@ public class PreparationDataServicesTest {
                 .statusCode(200)
                 .extract()
                 .response();
-
-        return getRandomServiceCodeFromOtherCategory(response, categoryId);
     }
 
-    private static String getRandomServiceCodeFromOtherCategory(Response response, String categoryId) {
+
+    public static String getRandomService(String categoryName){
+        Response response=getAllServices(categoryName);
         List<String> childServices = response.jsonPath()
-                .getList("categories.find { it.id == '" + categoryId + "' }.childServices.code");
+                .getList("categories.find { it.name == '" + categoryName + "' }.childServices.code");
         if (!childServices.isEmpty()) {
             int randomIndex = ThreadLocalRandom.current().nextInt(0, childServices.size());
             return childServices.get(randomIndex);
@@ -132,6 +133,16 @@ public class PreparationDataServicesTest {
     }
 
 
+    public static String getCategoryIdByName(String categoryName) {
+        Response response=getAllServices(categoryName);
+        List<Map<String, Object>> categories = response.jsonPath().getList("categories");
+        for (Map<String, Object> category : categories) {
+            if (categoryName.equals(category.get("name"))) {
+                return category.get("id").toString();
+            }
+        }
+        return null;
+    }
 
     public static void transferServices(String codeService, String sourceId, String targetId) {
         JsonObject jsonObject = new JsonObject();
