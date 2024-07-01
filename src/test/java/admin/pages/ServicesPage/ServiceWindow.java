@@ -140,6 +140,46 @@ public class ServiceWindow {
                 .click();
     }
 
+    @Step("Ввести в поле заголовка '{0}'")
+    public void fillFieldTitle(String header) {
+        TITLE_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(header);
+    }
+
+    @Step("Ввести в поле описания '{0}'")
+    public void fillFieldDescription(String description) {
+        DESCRIPTION_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .setValue(description);
+    }
+
+    @Step("Нажать кнопку добавления")
+    public void clickAddButton() {
+        ADD__RULE_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
+    @Step("Проверить доступность для нажатия кнопки добавления правила подготовки")
+    public boolean isEnabledAddButton(){
+        return ADD__RULE_BUTTON.isEnabled();
+    }
+
+    @Step("Получить значение поля заголовка")
+    public String getValueTitleField() {
+        TITLE_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
+        return TITLE_FIELD.getValue();
+    }
+
+    @Step("Получить значение поля описания")
+    public String getValueDescriptionField() {
+        DESCRIPTION_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
+        return DESCRIPTION_FIELD.getValue();
+    }
+
     @Step("Проверить отображение информации о пустом списке правил подготовки")
     public boolean isExistEmptyList() {
         return EMPTY_LIST_RULES_PREPARING.isDisplayed();
@@ -157,6 +197,21 @@ public class ServiceWindow {
             return false;
         }
     }
+
+    @Step("Нажать кнопку изменения")
+    public void clickChangeButton() {
+        EDIT_RULE_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
+    @Step("Нажать кнопку удаления")
+    public void clickDeleteButton() {
+        DELETE_RULE_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
 
     @Step("Закрыть окно информации об услуге")
     public void closeWindowInfoService() {

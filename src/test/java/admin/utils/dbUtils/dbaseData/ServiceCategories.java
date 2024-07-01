@@ -18,8 +18,7 @@ public class ServiceCategories {
     private Boolean is_protected;
     private int sequence;
 
-    public String getTitle() {
-        return DataHelper.getValueFromJson(preparing_description, "Title");
+    public String getTitle() {return DataHelper.getValueFromJson(preparing_description, "Title");
     }
 
     public String getDescription() {

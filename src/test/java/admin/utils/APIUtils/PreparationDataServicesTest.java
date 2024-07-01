@@ -60,6 +60,43 @@ public class PreparationDataServicesTest {
                 .statusCode(204);
     }
 
+    public static void addRuleService(String code, String title, String description) {
+        JsonObject section = new JsonObject();
+        section.addProperty("title", title);
+        section.addProperty("description", description);
+        JsonArray sections = new JsonArray();
+        sections.add(section);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("code", code);
+        jsonObject.add("sections", sections);
+        given()
+                .baseUri(URI_ADMIN_PANEL)
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", ENVIRONMENT)
+                .contentType(ContentType.JSON)
+                .body(jsonObject.toString())
+                .when()
+                .put("/api/services/service-preparing-description")
+                .then()
+                .statusCode(204);
+    }
+
+    public static void deleteRuleService(String code) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("code", code);
+        jsonObject.add("sections", sections);
+        given()
+                .baseUri(URI_ADMIN_PANEL)
+                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Environment", ENVIRONMENT)
+                .contentType(ContentType.JSON)
+                .body(jsonObject.toString())
+                .when()
+                .put("/api/services/service-preparing-description")
+                .then()
+                .statusCode(204);
+    }
+
 
     public static void addCategory(String nameCategory) {
         JsonObject jsonObject = new JsonObject();

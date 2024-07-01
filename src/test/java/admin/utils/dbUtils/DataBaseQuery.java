@@ -66,7 +66,7 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addSection(UUID doctorId,String title,int sequence) {
+    public static void addSection(UUID doctorId, String title, int sequence) {
         var addSection = "INSERT INTO employee_details (employee_details_id,title,employee_card_employee_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             var employee_details_id = DataHelper.generateUuid();
@@ -93,7 +93,7 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addDescription(UUID sectionId, String title,int sequence) {
+    public static void addDescription(UUID sectionId, String title, int sequence) {
         var addDescription = "INSERT INTO employee_expertises (employee_expertises_id,title,employee_details_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             var employee_expertises_id = DataHelper.generateUuid();
@@ -120,7 +120,7 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addBugReport(String message,String email,String author) {
+    public static void addBugReport(String message, String email, String author) {
         var addBugReport = "INSERT INTO bug_reports (id,message,email,author,created_at ) VALUES (?, ?, ?, ?, ?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             var created_at = DataHelper.generateDateTime();
@@ -192,7 +192,7 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addFeedback(UUID doctorId,String author,String content,Boolean is_published) {
+    public static void addFeedback(UUID doctorId, String author, String content, Boolean is_published) {
         var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
         var id = DataHelper.generateUuid();
         var created_at = DataHelper.generateDateTime();
@@ -203,7 +203,7 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addYesterdayFeedback(UUID doctorId,String author,String content, Boolean is_published) {
+    public static void addYesterdayFeedback(UUID doctorId, String author, String content, Boolean is_published) {
         var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
         var id = DataHelper.generateUuid();
         var created_at = DataHelper.generatePreviousDateTime();
@@ -245,5 +245,11 @@ public class DataBaseQuery {
         }
     }
 
-
+    @SneakyThrows
+    public static PreparingDescriptions selectDescriptionService(String codeService) {
+        var selectInfo = "SELECT * FROM preparing_descriptions WHERE service_code = ? ";
+        try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, codeService, new BeanHandler<>(PreparingDescriptions.class));
+        }
+    }
 }
