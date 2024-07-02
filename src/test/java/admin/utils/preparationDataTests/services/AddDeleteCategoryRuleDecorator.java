@@ -21,7 +21,7 @@ public class AddDeleteCategoryRuleDecorator implements BeforeEachCallback, After
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        UUID categoryId= DataBaseQuery.selectServicesInfo(CATEGORY_RULES).getId();
+        UUID categoryId= DataBaseQuery.selectServicesCategories(CATEGORY_RULES).getId();
         setCategoryId(categoryId);
         PreparationDataServicesTest.deleteRuleCategory(categoryId);
         PreparationDataServicesTest.addRuleCategory(categoryId, RULE_TITLE, RULE_DESCRIPTION);

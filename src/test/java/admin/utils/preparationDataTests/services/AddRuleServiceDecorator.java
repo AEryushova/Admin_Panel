@@ -35,13 +35,13 @@ public class AddRuleServiceDecorator implements BeforeEachCallback, AfterEachCal
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getId();
+        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
         setCategoryId(categoryId);
         PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
-        UUID sectionId= DataBaseQuery.selectServicesInfo(NAME_SECTION).getId();
+        UUID sectionId= DataBaseQuery.selectServicesCategories(NAME_SECTION).getId();
         setSectionId(sectionId);
         PreparationDataServicesTest.addSection(NAME_SUBSECTION,sectionId);
-        UUID subsectionId= DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getId();
+        UUID subsectionId= DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getId();
         setSubsectionId(subsectionId);
         String serviceCode=PreparationDataServicesTest.getRandomService(NAME_OTHER_SERVICE_CATEGORY);
         setServiceCode(serviceCode);

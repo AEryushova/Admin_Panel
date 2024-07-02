@@ -1,12 +1,15 @@
 package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
+import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class ServiceCard {
 
@@ -41,8 +44,5 @@ public class ServiceCard {
                 .click();
         return new ServiceWindow();
     }
-
-
-
 
 }

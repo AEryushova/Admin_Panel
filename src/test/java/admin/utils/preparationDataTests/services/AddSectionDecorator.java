@@ -23,7 +23,7 @@ public class AddSectionDecorator implements BeforeEachCallback, AfterEachCallbac
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getId();
+        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
         setCategoryId(categoryId);
         PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
     }

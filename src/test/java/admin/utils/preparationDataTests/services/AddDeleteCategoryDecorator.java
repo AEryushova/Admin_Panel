@@ -21,7 +21,7 @@ public class AddDeleteCategoryDecorator implements BeforeEachCallback, AfterEach
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getId();
+        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
         setCategoryId(categoryId);
     }
 

@@ -16,6 +16,7 @@ public class CategoryCard {
     private final ElementsCollection CONTAINER_SECTIONS = $$x("//div[@class='OurO']/span");
     private final SelenideElement SECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
     private final SelenideElement EMPTY_LIST_SECTION = $x("//div[@class='kblo']/span");
+    private final SelenideElement SERVICE = $x("//div[@class='hzR2' and @draggable='true']");
 
     @Step("Верифицировать карточку категории")
     public void categoryCard() {
@@ -64,6 +65,13 @@ public class CategoryCard {
         SelenideElement SECTION =$x("//span[text()='" + sectionName + "']//parent::div//parent::div[@class='K9Fo']");
         SECTION.shouldBe(Condition.visible);
         return SECTION;
+    }
+
+    @Step("Получить услугу")
+    public ServiceCard getService() {
+        SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        return new ServiceCard();
     }
 
     @Step("Проверить отображение раздела")

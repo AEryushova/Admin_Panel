@@ -31,16 +31,16 @@ public class AddTwoSubsections implements BeforeEachCallback, AfterEachCallback 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesInfo(NAME_CATEGORY).getId();
+        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
         setCategoryId(categoryId);
         PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
-        UUID sectionId= DataBaseQuery.selectServicesInfo(NAME_SECTION).getId();
+        UUID sectionId= DataBaseQuery.selectServicesCategories(NAME_SECTION).getId();
         setSectionId(sectionId);
         PreparationDataServicesTest.addSection(NAME_SUBSECTION,sectionId);
-        UUID subsectionIdFirst= DataBaseQuery.selectServicesInfo(NAME_SUBSECTION).getId();
+        UUID subsectionIdFirst= DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getId();
         setSubsectionIdFirst(subsectionIdFirst);
         PreparationDataServicesTest.addSection(NEW_NAME_SUBSECTION,sectionId);
-        UUID subsectionIdSecond= DataBaseQuery.selectServicesInfo(NEW_NAME_SUBSECTION).getId();
+        UUID subsectionIdSecond= DataBaseQuery.selectServicesCategories(NEW_NAME_SUBSECTION).getId();
         setSubsectionIdSecond(subsectionIdSecond);
 
     }
