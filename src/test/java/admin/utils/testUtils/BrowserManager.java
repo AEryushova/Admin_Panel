@@ -22,25 +22,25 @@ public class BrowserManager {
     @Getter
     public static String token;
 
-    private static final Gson gson = new Gson();
-    private static final JsonObject jsonObject = new JsonObject();
-
     private BrowserManager() {
     }
 
     public static void openBrowser(){
-        Configuration.holdBrowserOpen = true;
+        Configuration.browserSize = "1920x1080";
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();
     }
 
     public static void openAdminPanel(String login, String password) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("login", login);
+        jsonObject.addProperty("password", password);
         Response response = given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
-                .body(getDataInfoJson(login, password))
+                .body(jsonObject.toString())
                 .when()
                 .post("/api/admins/sign-in")
                 .then()
@@ -49,7 +49,7 @@ public class BrowserManager {
                 .response();
         token = response.getBody().jsonPath().getString("accessToken");
         Configuration.browser=System.getProperty("selenide.browser", "chrome");
-        Configuration.holdBrowserOpen = true;
+        Configuration.browserSize = "1920x1080";
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();
@@ -57,13 +57,6 @@ public class BrowserManager {
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
         localStorage().setItem("accessToken", token);
         Selenide.refresh();
-    }
-
-
-    private static String getDataInfoJson(String login, String password) {
-        jsonObject.addProperty("login", login);
-        jsonObject.addProperty("password", password);
-        return gson.toJson(jsonObject);
     }
 
 }

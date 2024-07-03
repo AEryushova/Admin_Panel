@@ -238,18 +238,18 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static AllServices selectAllService(String codeService) {
-        var selectInfo = "SELECT * FROM all_services WHERE code = ? ";
-        try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, codeService, new BeanHandler<>(AllServices.class));
-        }
-    }
-
-    @SneakyThrows
     public static PreparingDescriptions selectDescriptionService(String codeService) {
         var selectInfo = "SELECT * FROM preparing_descriptions WHERE service_code = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, codeService, new BeanHandler<>(PreparingDescriptions.class));
+        }
+    }
+
+    @SneakyThrows
+    public static AllServices selectAllService(String codeService) {
+        var selectInfo = "SELECT * FROM all_services WHERE code = ? ";
+        try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, codeService, new BeanHandler<>(AllServices.class));
         }
     }
 }
