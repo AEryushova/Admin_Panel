@@ -1,5 +1,6 @@
 package admin.test;
 
+import admin.pages.AdministrationPage.UpdateLegalDocWindow;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.*;
@@ -548,7 +549,7 @@ public class ServicesPageTest extends BaseTest {
         serviceWindow.switchToRulesPreparing();
         serviceWindow.fillFieldDescription(RULE_DESCRIPTION);
         serviceWindow.clickAddButton();
-        assertEquals("Неверный запрос (400)",servicesPage.getNotification());
+        assertEquals("Неверный запрос (400)", servicesPage.getNotification());
         assertTrue(serviceWindow.isEnabledAddButton());
     }
 
@@ -1191,6 +1192,22 @@ public class ServicesPageTest extends BaseTest {
         assertEquals(sequenceSecondService, subsectionCard.getServiceByCode(codeFirst));
         assertEquals(sequenceFirstServiceDB, DataBaseQuery.selectAllService2(codeSecond).getSequence());
         assertEquals(sequenceSecondServiceDB, DataBaseQuery.selectAllService2(codeSecond).getSequence());
+    }
+
+    @Story("Закрытие уведомления на странице услуг по таймауту")
+    @DisplayName("Закрытие уведомления на странице услуг по таймауту")
+    @Test
+    void closeNotificationTimeout() {
+        servicesPage.openRulesPreparingCategory(NAME_OTHER_SERVICE_CATEGORY);
+        checkCloseNotificationTimeout(basePage);
+    }
+
+    @Story("Закрытие уведомления на странице услуг")
+    @DisplayName("Закрытие уведомления на странице услуг")
+    @Test
+    void closeNotification() {
+        servicesPage.openRulesPreparingCategory(NAME_OTHER_SERVICE_CATEGORY);
+        checkCloseNotification(basePage);
     }
 }
 
