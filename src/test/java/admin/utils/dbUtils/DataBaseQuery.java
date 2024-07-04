@@ -14,6 +14,7 @@ public class DataBaseQuery {
     public static Admins selectAdmin(String login) {
         var selectAdmin = "SELECT * FROM platform.users INNER JOIN platform.users_roles ON users.id=users_roles.user_id WHERE username = ?";
         try (var connection = DataBaseManager.getConnection("platform_db")) {
+            //noinspection deprecation
             return DataBaseManager.queryRunner("platform_db").query(connection, selectAdmin, login, new BeanHandler<>(Admins.class));
         }
     }
@@ -27,6 +28,7 @@ public class DataBaseQuery {
             String firstName = nameParts[1];
             String secondName = nameParts[0];
             String middleName = nameParts[2];
+            //noinspection deprecation
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, new Object[]{doctorSpecialization, firstName, secondName, middleName}, new BeanHandler<>(DoctorCard.class));
         }
     }
@@ -61,6 +63,7 @@ public class DataBaseQuery {
     public static Section selectSection(UUID doctorId) {
         var selectSection = "SELECT * FROM employee_details WHERE employee_card_employee_id = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            //noinspection deprecation
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectSection, doctorId, new BeanHandler<>(Section.class));
         }
     }
@@ -88,6 +91,7 @@ public class DataBaseQuery {
     public static Description selectDescription(UUID sectionId) {
         var selectDescription = "SELECT * FROM employee_expertises WHERE employee_details_id = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            //noinspection deprecation
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectDescription, sectionId, new BeanHandler<>(Description.class));
         }
     }
@@ -148,6 +152,7 @@ public class DataBaseQuery {
     public static Faq selectFaqBySequence(int sequence) {
         var selectFaq = "SELECT * FROM faq WHERE sequence = ?";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            //noinspection deprecation
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectFaq, sequence, new BeanHandler<>(Faq.class));
         }
     }
@@ -233,6 +238,7 @@ public class DataBaseQuery {
     public static ServiceCategories selectServicesCategories(String nameCategorySection) {
         var selectInfo = "SELECT * FROM service_categories WHERE name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            //noinspection deprecation
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, nameCategorySection, new BeanHandler<>(ServiceCategories.class));
         }
     }
@@ -241,6 +247,7 @@ public class DataBaseQuery {
     public static PreparingDescriptions selectDescriptionService(String codeService) {
         var selectInfo = "SELECT * FROM preparing_descriptions WHERE service_code = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            //noinspection deprecation
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, codeService, new BeanHandler<>(PreparingDescriptions.class));
         }
     }
@@ -249,6 +256,7 @@ public class DataBaseQuery {
     public static AllServices selectAllService(String codeService) {
         var selectInfo = "SELECT * FROM all_services WHERE code = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            //noinspection deprecation
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, codeService, new BeanHandler<>(AllServices.class));
         }
     }
@@ -257,6 +265,7 @@ public class DataBaseQuery {
     public static AllServices selectAllService2(String codeService) {
         var selectInfo = "SELECT * FROM all_services WHERE code = CAST(? AS ltree)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            //noinspection deprecation
             return DataBaseManager.queryRunner("cab_lab_db")
                     .query(connection, selectInfo, new Object[] { codeService }, new BeanHandler<>(AllServices.class));
         }
