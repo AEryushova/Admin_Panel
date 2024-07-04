@@ -1,6 +1,5 @@
 package admin.test;
 
-import admin.pages.AdministrationPage.UpdateLegalDocWindow;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.*;
