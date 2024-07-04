@@ -1,5 +1,4 @@
 package admin.utils.dbUtils.dbaseData;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

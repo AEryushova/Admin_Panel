@@ -60,6 +60,14 @@ public class SubsectionCard {
                 .click();
     }
 
+    @Step("Нажать кнопку сворачивания подраздела")
+    public void closeSubsection(String nameSubsection) {
+        SelenideElement SUBSECTION=$x("//span[text()='" + nameSubsection + "']/parent::div/following-sibling::div[@class='xrjl']");
+        SUBSECTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
     @Step("Нажать кнопку открытия правил подготовки к подразделу")
     public RulesPreparingWindow openRulesPreparingSubsection(){
         RULES_PREPARING_SUBSECTION.shouldBe(Condition.visible)

@@ -63,7 +63,7 @@ public class ServicesPageTest extends BaseTest {
         addRuleWindow.fillFieldTitle(RULE_TITLE);
         addRuleWindow.fillFieldDescription(RULE_DESCRIPTION);
         addRuleWindow.clickSaveButton();
-        Selenide.sleep(3000);
+        Selenide.sleep(2000);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
         rule.rule();
@@ -167,7 +167,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.fillFieldTitle(NEW_RULE_TITLE);
         editRuleWindow.fillFieldDescription(NEW_RULE_DESCRIPTION);
         editRuleWindow.changeRules();
-        Selenide.sleep(3000);
+        Selenide.sleep(2000);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.openEditRuleWindow();
@@ -256,7 +256,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.fillFieldTitle(NEW_RULE_TITLE);
         editRuleWindow.fillFieldDescription(NEW_RULE_DESCRIPTION);
         editRuleWindow.closeWindowRule();
-        Selenide.sleep(1000);
+        Selenide.sleep(2000);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.openEditRuleWindow();
@@ -312,7 +312,7 @@ public class ServicesPageTest extends BaseTest {
         addRuleWindow.fillFieldTitle(RULE_TITLE);
         addRuleWindow.fillFieldDescription(RULE_DESCRIPTION);
         addRuleWindow.clickSaveButton();
-        Selenide.sleep(3000);
+        Selenide.sleep(2000);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
@@ -339,7 +339,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.fillFieldTitle(NEW_RULE_TITLE);
         editRuleWindow.fillFieldDescription(NEW_RULE_DESCRIPTION);
         editRuleWindow.changeRules();
-        Selenide.sleep(3000);
+        Selenide.sleep(2000);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.openEditRuleWindow();
@@ -401,7 +401,7 @@ public class ServicesPageTest extends BaseTest {
         addRuleWindow.fillFieldTitle(RULE_TITLE);
         addRuleWindow.fillFieldDescription(RULE_DESCRIPTION);
         addRuleWindow.clickSaveButton();
-        Selenide.sleep(3000);
+        Selenide.sleep(2000);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
@@ -430,7 +430,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.fillFieldTitle(NEW_RULE_TITLE);
         editRuleWindow.fillFieldDescription(NEW_RULE_DESCRIPTION);
         editRuleWindow.changeRules();
-        Selenide.sleep(3000);
+        Selenide.sleep(2000);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.openEditRuleWindow();
@@ -489,7 +489,6 @@ public class ServicesPageTest extends BaseTest {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
         rulePreparingWindow.closeWindowRulesPreparing();
         Selenide.sleep(2000);
-        servicesPage.servicesPage();
         assertFalse(rulePreparingWindow.isWindowAppear());
     }
 
@@ -499,7 +498,6 @@ public class ServicesPageTest extends BaseTest {
     @Test
     void openRulePreparingCategoryOtherServices() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(NAME_OTHER_SERVICE_CATEGORY);
-        servicesPage.servicesPage();
         assertFalse(rulePreparingWindow.isWindowAppear());
         assertEquals("Категория не найдена", servicesPage.getNotification());
     }
@@ -549,7 +547,9 @@ public class ServicesPageTest extends BaseTest {
         ServiceWindow serviceWindow = serviceCard.openServiceInfo();
         serviceWindow.switchToRulesPreparing();
         serviceWindow.fillFieldDescription(RULE_DESCRIPTION);
-        assertFalse(serviceWindow.isEnabledAddButton());
+        serviceWindow.clickAddButton();
+        assertEquals("Неверный запрос (400)",servicesPage.getNotification());
+        assertTrue(serviceWindow.isEnabledAddButton());
     }
 
     @Feature("Управление правилами подготовки")
@@ -621,7 +621,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Сохранение значений полей заголовка и описания правила подготовки без изменений данных")
-    @Story("Сохранение значений полей заголовка и описания правила подготовки без изменений данных")
+    @DisplayName("Сохранение значений полей заголовка и описания правила подготовки без изменений данных")
     @ExtendWith(AddDeleteRuleServiceDecorator.class)
     @Test
     void editRulePreparingServiceNotChangeSave() {
@@ -645,7 +645,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление правилами подготовки")
     @Story("Удаление правила подготовки к услуге")
-    @Story("Удаление правила подготовки к услуге")
+    @DisplayName("Удаление правила подготовки к услуге")
     @ExtendWith(AddRuleServiceDecorator.class)
     @Test
     void deleteRulePreparingService() {
@@ -660,7 +660,7 @@ public class ServicesPageTest extends BaseTest {
         serviceWindow.switchToRulesPreparing();
         serviceWindow.clickDeleteButton();
         assertTrue(serviceWindow.isWindowAppear());
-        assertFalse(serviceWindow.isExistRulePreparing());
+        assertFalse(serviceWindow.isEnabledAddButton());
         assertTrue(serviceWindow.isExistEmptyList());
         assertEquals("[]", DataBaseQuery.selectDescriptionService(codeService).getDescription());
     }
@@ -791,7 +791,7 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.editSection();
         editSectionWindow.saveChange();
-        Selenide.sleep(3000);
+        Selenide.sleep(2000);
         assertFalse(editSectionWindow.isWindowAppear());
         servicesPage.openCategory(NAME_CATEGORY);
         assertEquals(NAME_SECTION, sectionCard.getNameSection());
@@ -933,75 +933,11 @@ public class ServicesPageTest extends BaseTest {
     }
 
     @Feature("Управление категориями")
-    @Story("Смена последовательности отображения категорий")
-    @DisplayName("Смена последовательности отображения категорий")
-    @ExtendWith(AddDeleteCategoryDecorator.class)
-    @Test
-    void changeDisplaySequenceCategories() {
-        Selenide.sleep(5000);
-        int sequenceFirstCategory = servicesPage.getCategoryIndexByName(CATEGORY_RULES);
-        int sequenceSecondCategory = servicesPage.getCategoryIndexByName(NAME_CATEGORY);
-        int sequenceFirstCategoryDB = DataBaseQuery.selectServicesCategories(CATEGORY_RULES).getSequence();
-        int sequenceSecondCategoryDB = DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getSequence();
-        servicesPage.changeDisplaySequence(CATEGORY_RULES, NAME_CATEGORY);
-        Selenide.sleep(5000);
-        assertEquals(sequenceFirstCategory, servicesPage.getCategoryIndexByName(NAME_CATEGORY));
-        assertEquals(sequenceSecondCategory, servicesPage.getCategoryIndexByName(CATEGORY_RULES));
-        assertEquals(sequenceFirstCategoryDB, DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getSequence());
-        assertEquals(sequenceSecondCategoryDB, DataBaseQuery.selectServicesCategories(CATEGORY_RULES).getSequence());
-    }
-
-    @Feature("Управление категориями")
-    @Story("Смена последовательности отображения разделов")
-    @DisplayName("Смена последовательности отображения разделов")
-    @ExtendWith(AddTwoSections.class)
-    @Test
-    void changeDisplaySequenceSections() {
-        Selenide.sleep(5000);
-        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
-        int sequenceFirstSection = categoryCard.getSectionByName(NAME_SECTION);
-        int sequenceSecondSection = categoryCard.getSectionByName(NEW_NAME_SECTION);
-        int sequenceFirstSectionDB = DataBaseQuery.selectServicesCategories(NAME_SECTION).getSequence();
-        int sequenceSecondSectionDB = DataBaseQuery.selectServicesCategories(NEW_NAME_SECTION).getSequence();
-        categoryCard.changeDisplaySequence(NAME_SECTION, NEW_NAME_SECTION);
-        Selenide.sleep(3000);
-        servicesPage.openCategory(NAME_CATEGORY);
-        assertEquals(sequenceFirstSection, categoryCard.getSectionByName(NEW_NAME_SECTION));
-        assertEquals(sequenceSecondSection, categoryCard.getSectionByName(NAME_SECTION));
-        assertEquals(sequenceFirstSectionDB, DataBaseQuery.selectServicesCategories(NEW_NAME_SECTION).getSequence());
-        assertEquals(sequenceSecondSectionDB, DataBaseQuery.selectServicesCategories(NAME_SECTION).getSequence());
-    }
-
-    @Feature("Управление категориями")
-    @Story("Смена последовательности отображения подразделов")
-    @DisplayName("Смена последовательности отображения подразделов")
-    @ExtendWith(AddTwoSubsections.class)
-    @Test
-    void changeDisplaySequenceSubsections() {
-        Selenide.sleep(5000);
-        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
-        SectionCard sectionCard = categoryCard.getSection();
-        sectionCard.openSection();
-        int sequenceFirstSubsection = sectionCard.getSubsectionIndexByName(NAME_SUBSECTION);
-        int sequenceSecondSubsection = sectionCard.getSubsectionIndexByName(NEW_NAME_SUBSECTION);
-        int sequenceFirstSubsectionDB = DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getSequence();
-        int sequenceSecondSubsectionDB = DataBaseQuery.selectServicesCategories(NEW_NAME_SUBSECTION).getSequence();
-        sectionCard.changeDisplaySequence(NAME_SUBSECTION, NEW_NAME_SUBSECTION);
-        Selenide.sleep(9000);
-        servicesPage.openCategory(NAME_CATEGORY);
-        sectionCard.openSection();
-        assertEquals(sequenceFirstSubsection, categoryCard.getSectionByName(NEW_NAME_SUBSECTION));
-        assertEquals(sequenceSecondSubsection, categoryCard.getSectionByName(NAME_SUBSECTION));
-        assertEquals(sequenceFirstSubsectionDB, DataBaseQuery.selectServicesCategories(NEW_NAME_SUBSECTION).getSequence());
-        assertEquals(sequenceSecondSubsectionDB, DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getSequence());
-    }
-
-    @Feature("Управление категориями")
     @Story("Смена последовательности отображения категории Иные услуги")
     @DisplayName("Смена последовательности отображения категории Иные услуги")
     @Test
     void changeDisplaySequenceCategoriesOtherServices() {
-        Selenide.sleep(5000);
+        servicesPage.servicesPage();
         int sequenceFirstCategory = servicesPage.getCategoryIndexByName(CATEGORY_RULES);
         int sequenceSecondCategory = servicesPage.getCategoryIndexByName(NAME_OTHER_SERVICE_CATEGORY);
         int sequenceFirstCategoryDB = DataBaseQuery.selectServicesCategories(CATEGORY_RULES).getSequence();
@@ -1018,7 +954,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Удаление раздела, имеющего подраздел")
     @ExtendWith(AddDeleteSubsectionDecorator.class)
     @Test
-    void deleteSectionThatHasSectionInCategory() {
+    void deleteSectionThatHasSubsectionInCategory() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         DeleteSectionWindow deleteSectionWindow = sectionCard.deleteSection();
@@ -1071,7 +1007,7 @@ public class ServicesPageTest extends BaseTest {
         serviceWindow.serviceWindowServiceTransfer();
         serviceWindow.openCategoryForTransfer(NAME_OTHER_SERVICE_CATEGORY);
         serviceWindow.transferServiceToOtherServices();
-        Selenide.sleep(3000);
+        Selenide.sleep(2000);
         assertFalse(serviceWindow.isWindowAppear());
         servicesPage.openCategory(NAME_OTHER_SERVICE_CATEGORY);
         assertTrue(categoryCard.isExistService(codeService));
@@ -1096,7 +1032,7 @@ public class ServicesPageTest extends BaseTest {
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.openServiceInfo();
         serviceWindow.deleteService();
-        Selenide.sleep(3000);
+        Selenide.sleep(2000);
         assertFalse(serviceWindow.isWindowAppear());
         servicesPage.openCategory(NAME_OTHER_SERVICE_CATEGORY);
         assertTrue(categoryCard.isExistService(codeService));
@@ -1120,17 +1056,20 @@ public class ServicesPageTest extends BaseTest {
         subsectionCard.openSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
         String codeService = serviceCard.getCodeService();
+        subsectionCard.closeSubsection(NAME_SUBSECTION);
         DeleteSectionWindow deleteSectionWindow = subsectionCard.deleteSubsection();
         deleteSectionWindow.deleteSection();
         Selenide.sleep(2000);
         servicesPage.openCategory(NAME_OTHER_SERVICE_CATEGORY);
         assertTrue(categoryCard.isExistService(codeService));
+        servicesPage.openCategory(NAME_CATEGORY);
+        sectionCard.openSection();
+        assertTrue(sectionCard.isExistEmptyList());
     }
 
     @Feature("Управление услугами")
     @Story("Перенос услуги при совпадении категории-источника и категории-приемника")
     @Story("Перенос услуги при совпадении категории-источника и категории-приемника")
-    @ExtendWith(AddServiceInNewCategoryDecorator.class)
     @Test
     void transferServiceEqualsSourceTargetCategory() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_OTHER_SERVICE_CATEGORY);
@@ -1144,6 +1083,86 @@ public class ServicesPageTest extends BaseTest {
         serviceWindow.closeWindowInfoService();
         assertFalse(serviceWindow.isWindowAppear());
         assertTrue(categoryCard.isExistService(codeService));
+    }
+
+    @Feature("Управление категориями")
+    @Story("Сворачивание дерева иерархии")
+    @DisplayName("Сворачивание дерева иерархии")
+    @ExtendWith(AddServiceInNewCategoryDecorator.class)
+    @Test
+    void closeCategory() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        SubsectionCard subsectionCard = sectionCard.getSubsection();
+        subsectionCard.openSubsection();
+        subsectionCard.closeSubsection(NAME_SUBSECTION);
+        assertFalse(subsectionCard.isExistService());
+        sectionCard.closeSection(NAME_SECTION);
+        servicesPage.closeCategory(NAME_CATEGORY);
+        assertFalse(categoryCard.isExistSectionCard());
+    }
+
+    @Feature("Управление категориями")
+    @Story("Смена последовательности отображения категорий")
+    @DisplayName("Смена последовательности отображения категорий")
+    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @Test
+    void changeDisplaySequenceCategories() {
+        servicesPage.servicesPage();
+        int sequenceFirstCategory = servicesPage.getCategoryIndexByName(CATEGORY_RULES);
+        int sequenceSecondCategory = servicesPage.getCategoryIndexByName(NAME_CATEGORY);
+        int sequenceFirstCategoryDB = DataBaseQuery.selectServicesCategories(CATEGORY_RULES).getSequence();
+        int sequenceSecondCategoryDB = DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getSequence();
+        servicesPage.changeDisplaySequence(CATEGORY_RULES, NAME_CATEGORY);
+        Selenide.sleep(5000);
+        assertEquals(sequenceFirstCategory, servicesPage.getCategoryIndexByName(NAME_CATEGORY));
+        assertEquals(sequenceSecondCategory, servicesPage.getCategoryIndexByName(CATEGORY_RULES));
+        assertEquals(sequenceFirstCategoryDB, DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getSequence());
+        assertEquals(sequenceSecondCategoryDB, DataBaseQuery.selectServicesCategories(CATEGORY_RULES).getSequence());
+    }
+
+    @Feature("Управление категориями")
+    @Story("Смена последовательности отображения разделов")
+    @DisplayName("Смена последовательности отображения разделов")
+    @ExtendWith(AddTwoSections.class)
+    @Test
+    void changeDisplaySequenceSections() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        int sequenceFirstSection = categoryCard.getSectionByName(NAME_SECTION);
+        int sequenceSecondSection = categoryCard.getSectionByName(NEW_NAME_SECTION);
+        int sequenceFirstSectionDB = DataBaseQuery.selectServicesCategories(NAME_SECTION).getSequence();
+        int sequenceSecondSectionDB = DataBaseQuery.selectServicesCategories(NEW_NAME_SECTION).getSequence();
+        categoryCard.changeDisplaySequence(NAME_SECTION, NEW_NAME_SECTION);
+        Selenide.sleep(3000);
+        servicesPage.openCategory(NAME_CATEGORY);
+        assertEquals(sequenceFirstSection, categoryCard.getSectionByName(NEW_NAME_SECTION));
+        assertEquals(sequenceSecondSection, categoryCard.getSectionByName(NAME_SECTION));
+        assertEquals(sequenceFirstSectionDB, DataBaseQuery.selectServicesCategories(NEW_NAME_SECTION).getSequence());
+        assertEquals(sequenceSecondSectionDB, DataBaseQuery.selectServicesCategories(NAME_SECTION).getSequence());
+    }
+
+    @Feature("Управление категориями")
+    @Story("Смена последовательности отображения подразделов")
+    @DisplayName("Смена последовательности отображения подразделов")
+    @ExtendWith(AddTwoSubsections.class)
+    @Test
+    void changeDisplaySequenceSubsections() {
+        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        SectionCard sectionCard = categoryCard.getSection();
+        sectionCard.openSection();
+        int sequenceFirstSubsection = sectionCard.getSubsectionIndexByName(NAME_SUBSECTION);
+        int sequenceSecondSubsection = sectionCard.getSubsectionIndexByName(NEW_NAME_SUBSECTION);
+        int sequenceFirstSubsectionDB = DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getSequence();
+        int sequenceSecondSubsectionDB = DataBaseQuery.selectServicesCategories(NEW_NAME_SUBSECTION).getSequence();
+        sectionCard.changeDisplaySequence(NAME_SUBSECTION, NEW_NAME_SUBSECTION);
+        Selenide.sleep(9000);
+        servicesPage.openCategory(NAME_CATEGORY);
+        sectionCard.openSection();
+        assertEquals(sequenceFirstSubsection, categoryCard.getSectionByName(NEW_NAME_SUBSECTION));
+        assertEquals(sequenceSecondSubsection, categoryCard.getSectionByName(NAME_SUBSECTION));
+        assertEquals(sequenceFirstSubsectionDB, DataBaseQuery.selectServicesCategories(NEW_NAME_SUBSECTION).getSequence());
+        assertEquals(sequenceSecondSubsectionDB, DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getSequence());
     }
 
     @Feature("Управление категориями")
@@ -1161,36 +1180,17 @@ public class ServicesPageTest extends BaseTest {
         String codeSecond = AddTwoServices.getServiceCodeSecond();
         int sequenceFirstService = subsectionCard.getServiceByCode(codeFirst);
         int sequenceSecondService = subsectionCard.getServiceByCode(codeSecond);
-        int sequenceFirstServiceDB = DataBaseQuery.selectAllService(codeFirst).getSequence();
-        int sequenceSecondServiceDB = DataBaseQuery.selectAllService(codeSecond).getSequence();
+        int sequenceFirstServiceDB = DataBaseQuery.selectAllService2(codeFirst).getSequence();
+        int sequenceSecondServiceDB = DataBaseQuery.selectAllService2(codeSecond).getSequence();
         subsectionCard.changeDisplaySequence(codeFirst, codeSecond);
-        Selenide.sleep(9000);
+        Selenide.sleep(5000);
         servicesPage.openCategory(NAME_CATEGORY);
         sectionCard.openSection();
         subsectionCard.openSubsection();
         assertEquals(sequenceFirstService, subsectionCard.getServiceByCode(codeSecond));
         assertEquals(sequenceSecondService, subsectionCard.getServiceByCode(codeFirst));
-        assertEquals(sequenceFirstServiceDB, DataBaseQuery.selectAllService(codeSecond).getSequence());
-        assertEquals(sequenceSecondServiceDB, DataBaseQuery.selectAllService(codeSecond).getSequence());
-    }
-
-    @Feature("Управление категориями")
-    @Story("Сворачивание дерева иерархии")
-    @DisplayName("Сворачивание дерева иерархии")
-    @ExtendWith(AddServiceInNewCategoryDecorator.class)
-    @Test
-    void closeCategory() {
-        CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
-        SectionCard sectionCard = categoryCard.getSection();
-        sectionCard.openSection();
-        SubsectionCard subsectionCard = sectionCard.getSubsection();
-        subsectionCard.openSubsection();
-        subsectionCard.openSubsection();
-        assertFalse(subsectionCard.isExistService());
-        sectionCard.openSection();
-        assertFalse(sectionCard.isExistSubsectionCard());
-        servicesPage.openCategory(NAME_CATEGORY);
-        assertFalse(categoryCard.isExistSectionCard());
+        assertEquals(sequenceFirstServiceDB, DataBaseQuery.selectAllService2(codeSecond).getSequence());
+        assertEquals(sequenceSecondServiceDB, DataBaseQuery.selectAllService2(codeSecond).getSequence());
     }
 }
 

@@ -62,6 +62,14 @@ public class SectionCard {
                 .click();
     }
 
+    @Step("Нажать кнопку сворачивания раздела")
+    public void closeSection(String nameSection) {
+        SelenideElement SECTION=$x("//span[text()='" + nameSection + "']/parent::div/following-sibling::div[@class='xrjl']");
+        SECTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
     @Step("Нажать кнопку добавления подраздела")
     public AddSectionWindow addSubsection() {
         ADD_SUBSECTION_BUTTON.shouldBe(Condition.visible)

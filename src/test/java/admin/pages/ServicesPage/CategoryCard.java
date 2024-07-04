@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.time.Duration;
 import java.util.List;
 
+
 import static com.codeborne.selenide.Selenide.*;
 
 public class CategoryCard {
@@ -16,7 +17,7 @@ public class CategoryCard {
     private final ElementsCollection CONTAINER_SECTIONS = $$x("//div[@class='OurO']/span");
     private final SelenideElement SECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
     private final SelenideElement EMPTY_LIST_SECTION = $x("//div[@class='kblo']/span");
-    private final SelenideElement SERVICE = $x("//div[@class='hzR2' and @draggable='true']");
+    private final SelenideElement SERVICE = $x("//div[@class='hzR2' and @draggable='false']");
 
     @Step("Верифицировать карточку категории")
     public void categoryCard() {
@@ -67,10 +68,11 @@ public class CategoryCard {
         return SECTION;
     }
 
+
     @Step("Получить услугу")
     public ServiceCard getService() {
-        SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        SERVICE.shouldBe(Condition.visible)
+                .shouldBe(Condition.exist);
         return new ServiceCard();
     }
 

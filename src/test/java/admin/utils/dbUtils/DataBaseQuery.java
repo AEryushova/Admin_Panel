@@ -252,4 +252,13 @@ public class DataBaseQuery {
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, codeService, new BeanHandler<>(AllServices.class));
         }
     }
+
+    @SneakyThrows
+    public static AllServices selectAllService2(String codeService) {
+        var selectInfo = "SELECT * FROM all_services WHERE code = CAST(? AS ltree)";
+        try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
+            return DataBaseManager.queryRunner("cab_lab_db")
+                    .query(connection, selectInfo, new Object[] { codeService }, new BeanHandler<>(AllServices.class));
+        }
+    }
 }

@@ -56,7 +56,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Успешное добавление нового админа")
     @ExtendWith(AdminDeleteDecorator.class)
     @Test
-    void addedNewAdmin() {
+    void addNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.newAdminWindow();
         newAdminWindow.fillFieldNewAdminLogin(LOGIN_ADMIN_TEST);
@@ -77,7 +77,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Добавление нового админа с уже существующим логином")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void addedNewAdminAlreadyExisting() {
+    void addNewAdminIfAdminAlreadyExisting() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(LOGIN_ADMIN_TEST);
         newAdminWindow.fillFieldNewAdminPassword(PASSWORD_ADMIN_TEST);
@@ -91,7 +91,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Добавление нового администратора с пустым полем логина")
     @DisplayName("Добавление нового администратора с пустым полем логина")
     @Test
-    void addedNewAdminEmptyFieldLogin() {
+    void addNewAdminEmptyFieldLogin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminPassword(PASSWORD_ADMIN_TEST);
         newAdminWindow.fillFieldNewAdminConfirmPassword(PASSWORD_ADMIN_TEST);
@@ -102,7 +102,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Добавление нового администратора с пустым полем пароля")
     @DisplayName("Добавление нового администратора с пустым полем пароля")
     @Test
-    void addedNewAdminEmptyFieldPassword() {
+    void addNewAdminEmptyFieldPassword() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(LOGIN_ADMIN_TEST);
         newAdminWindow.fillFieldNewAdminConfirmPassword(PASSWORD_ADMIN_TEST);
@@ -114,7 +114,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Добавление нового администратора с пустым полем подтверждения пароля")
     @DisplayName("Добавление нового администратора с пустым полем подтверждения пароля")
     @Test
-    void addedNewAdminEmptyFieldConfirmPassword() {
+    void addNewAdminEmptyFieldConfirmPassword() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(LOGIN_ADMIN_TEST);
         newAdminWindow.fillFieldNewAdminPassword(PASSWORD_ADMIN_TEST);
@@ -126,7 +126,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Добавление нового администратора с пустым полем логина и пароля")
     @DisplayName("Добавление нового администратора с пустым полем логина и пароля")
     @Test
-    void addedNewAdminEmptyFieldsLoginPassword() {
+    void addNewAdminEmptyFieldsLoginPassword() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminConfirmPassword(PASSWORD_ADMIN_TEST);
         assertFalse(newAdminWindow.isEnabledAddButton());
@@ -137,7 +137,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Добавление нового администратора с пустым полем логина и подтверждения пароля")
     @DisplayName("Добавление нового администратора с пустым полем логина и подтверждения пароля")
     @Test
-    void addedNewAdminEmptyFieldsLoginConfirmPassword() {
+    void addNewAdminEmptyFieldsLoginConfirmPassword() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminPassword(PASSWORD_ADMIN_TEST);
         assertFalse(newAdminWindow.isEnabledAddButton());
@@ -147,7 +147,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Добавление нового администратора с пустым полем пароля и подтверждения пароля")
     @DisplayName("Добавление нового администратора с пустым полем пароля и подтверждения пароля")
     @Test
-    void addedNewAdminEmptyFieldsPasswordConfirmPassword() {
+    void addNewAdminEmptyFieldsPasswordConfirmPassword() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(LOGIN_ADMIN_TEST);
         assertFalse(newAdminWindow.isEnabledAddButton());
@@ -157,7 +157,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Отображение уведомления об обязательности полей")
     @DisplayName("Отображение уведомления об обязательности полей")
     @Test
-    void addedNewAdminObligatoryFields() {
+    void displayNotificationAboutRequiredFieldsWindowAddingNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.clickFieldNewAdminLogin();
         newAdminWindow.clickFieldNewAdminPassword();
@@ -173,7 +173,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Ввод граничных значений логина из 31 и 32 символов")
     @ParameterizedTest
     @ValueSource(strings = {"ANNA_TEST_ADMIN123456789_ANNA_1", "ANNA_TEST_ADMIN123456789_ANNA_12"})
-    void addedNewAdminLogin_31_32_Symbol(String login) {
+    void fillLimitValidValuesLoginAddingNewAdmin_31_32_Symbol(String login) {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(login);
         assertFalse(newAdminWindow.isErrorLoginAppear());
@@ -184,7 +184,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Ввод граничных значений логина из 33 символов")
     @DisplayName("Ввод граничных значений логина из 33 символов")
     @Test
-    void addedNewAdminLogin_33_Symbol() {
+    void fillLimitInvalidValuesLoginAddingNewAdmin_33_Symbol() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin("ANNA_TEST_ADMIN123456789_ANNA_123");
         assertEquals("Максимальная длина 32 символа", newAdminWindow.getErrorFieldLogin());
@@ -195,7 +195,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Ввод не валидного логина на кириллице и логина, начинающегося с цифры")
     @ParameterizedTest
     @ValueSource(strings = {"АННА_ТЕСТ", "1ANNA_TEST"})
-    void addedNewAdminLoginCyrillicValueBeginNumber(String login) {
+    void fillInvalidValuesFirstSymbolLoginAddingNewAdmin(String login) {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(login);
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", newAdminWindow.getErrorFieldLogin());
@@ -207,7 +207,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Ввод не валидного логина, начинающегося с латиницы, далее на кириллице и логина с пробелом")
     @ParameterizedTest
     @ValueSource(strings = {"AННА_ТЕСТ", "ANNA TEST"})
-    void addedNewAdminLoginLatinBeginCyrillicValueWithSpace(String login) {
+    void fillInvalidValuesLoginAddingNewAdmin(String login) {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(login);
         assertEquals("Доступны только числа, латиница и \"_\"", newAdminWindow.getErrorFieldLogin());
@@ -219,7 +219,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Ввод граничных значений пароля из 7 и 26 символов")
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq12#", "Wwqq123456789#QQgg12345678"})
-    void addedNewAdminPassword_7_26_Symbol(String password) {
+    void fillLimitInvalidValuesPasswordAddingNewAdmin_7_26_Symbol(String password) {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminPassword(password);
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
@@ -230,7 +230,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Ввод граничных значений пароля из 8,9,24 и 25 символов")
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
-    void addedNewAdminPassword_8_9_24_25_Symbol(String password) {
+    void fillLimitValidValuesPasswordAddingNewAdmin_8_9_24_25_Symbol(String password) {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminPassword(password);
         assertFalse(newAdminWindow.isErrorPasswordAppear());
@@ -241,7 +241,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Ввод не валидного пароля без латинской буквы, без спецсимвола, без латинской буквы в верхнем регистре,без латинской буквы в нижнем регистре, без цифр, с пробелом ")
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
-    void addedNewAdminPasswordInvalidValue(String password) {
+    void fillInvalidValuesPasswordAddingNewAdmin(String password) {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminPassword(password);
         assertEquals("Пароль не валиден", newAdminWindow.getErrorFieldPassword());
@@ -251,7 +251,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Ввод не соответствующего пароля при подтверждении")
     @DisplayName("Ввод не соответствующего пароля при подтверждении")
     @Test
-    void addedNewAdminMismatchedPasswords() {
+    void fillInvalidValuesConfirmPasswordAddingNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(LOGIN_ADMIN_TEST);
         newAdminWindow.fillFieldNewAdminPassword(PASSWORD_ADMIN_TEST);
@@ -263,7 +263,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Очистка полей через кнопку в окне добавления админа")
     @DisplayName("Очистка полей через кнопку в окне добавления админа")
     @Test
-    void clearFieldsAddAdminThroughButtonClear() {
+    void clearFieldsWindowAddingAdminThroughButtonClear() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(LOGIN_ADMIN_TEST);
         newAdminWindow.clickClearButtonLoginField();
@@ -284,7 +284,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Сброс значений полей в окне добавления админа после закрытия окна")
     @DisplayName("Сброс значений полей в окне добавления админа после закрытия окна")
     @Test
-    void closeWindowAddedNewAdmin() {
+    void closeWindowAddingNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(LOGIN_ADMIN_TEST);
         newAdminWindow.fillFieldNewAdminPassword(PASSWORD_ADMIN_TEST);
@@ -320,7 +320,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Замена пароля админу с пустым полем пароля")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void changePasswordAdminEmptyFieldsPassword() {
+    void changePasswordAdminEmptyFieldPassword() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.fillFieldConfirmPassword(NEW_PASSWORD_ADMIN_TEST);
         assertFalse(changePasswordAdminWindow.isEnabledSaveButton());
@@ -332,7 +332,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Замена пароля админу с пустым полем подтверждения пароля")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void changePasswordAdminEmptyFieldsConfirmPassword() {
+    void changePasswordAdminEmptyFieldConfirmPassword() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.fillFieldNewPassword(NEW_PASSWORD_ADMIN_TEST);
         assertFalse(changePasswordAdminWindow.isEnabledSaveButton());
@@ -343,7 +343,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Отображение уведомления об обязательности полей")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void changePasswordAdminObligatoryFields() {
+    void displayNotificationAboutRequiredFieldsWindowChangingPasswordAdmin() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.clickFieldNewPassword();
         changePasswordAdminWindow.clickFieldConfirmPassword();
@@ -356,7 +356,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Ввод не соответствующего пароля при подтверждении")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void changePasswordAdminNotEqualsPasswords() {
+    void fillInvalidValuesConfirmPasswordChangingPasswordAdmin() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.clickFieldNewPassword();
         changePasswordAdminWindow.fillFieldNewPassword(NEW_PASSWORD_ADMIN_TEST);
@@ -371,7 +371,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Ввод граничных значений пароля из 7 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void changePasswordAdmin_7_Symbol() {
+    void fillLimitInvalidValuesPasswordChainingPasswordAdmin_7_Symbol() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.fillFieldNewPassword("Wwqq12#");
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
@@ -383,7 +383,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
-    void changePasswordAdmin_8_Symbol(String login) {
+    void fillLimitValidValuesPasswordChainingPasswordAdmin_8_9_24_25_Symbol(String login) {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.fillFieldNewPassword(login);
         assertFalse(changePasswordAdminWindow.isErrorPasswordAppear());
@@ -395,7 +395,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Ввод граничных значений пароля из 26 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void changePasswordAdmin_26_Symbol() {
+    void fillLimitInvalidValuesPasswordChainingPasswordAdmin_26_Symbol() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.fillFieldNewPassword("Wwqq123456789#QQgg12345678");
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
@@ -407,7 +407,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
-    void changePasswordAdminNotToUpperCase() {
+    void fillInvalidValuesPasswordChainingPasswordAdmin() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.fillFieldNewPassword("wwqq123456#");
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
@@ -418,7 +418,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Очистка полей через кнопку в окне изменения пароля админу")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void clearFieldsThroughButtonClear() {
+    void clearFieldsWindowChainingPasswordThroughButtonClear() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.fillFieldNewPassword(NEW_PASSWORD_ADMIN_TEST);
         changePasswordAdminWindow.clickClearButtonNewPasswordField();
@@ -435,7 +435,7 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Сброс значений полей в окне смены пароля админу при закрытии окна")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
-    void closeWindowChangePasswordAdmin() {
+    void closeWindowChainingPasswordAdmin() {
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangedPasswordAdmin(LOGIN_ADMIN_TEST);
         changePasswordAdminWindow.fillFieldNewPassword(NEW_PASSWORD_ADMIN_TEST);
         changePasswordAdminWindow.fillFieldConfirmPassword(NEW_PASSWORD_ADMIN_TEST);
@@ -690,7 +690,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Обновление приказа с ошибкой в строке")
     @DisplayName("Обновление приказа с ошибкой в строке")
     @Test
-    void updateOrderStringError() {
+    void updateOrderWithStringError() {
         UpdateOrderWindow updateOrderWindow = adminPage.updateOrder();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ с ошибкой в строке 10858.xlsx");
         assertEquals("Ошибка в 10858 строке", adminPage.getNotification());
@@ -714,7 +714,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Обновление прайса с ошибкой в строке")
     @DisplayName("Обновление прайса с ошибкой в строке")
     @Test
-    void updatePriceCurrentMonthStringError() {
+    void updatePriceWithStringError() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс с ошибкой в строке 1398.xlsx");
         assertEquals("Ошибка в 1398 строке", adminPage.getNotification());
@@ -725,7 +725,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Обновление прайса с ошибкой формата стоимости услуги")
     @DisplayName("Обновление прайса с ошибкой формата стоимости услуги")
     @Test
-    void updatePriceCurrentMonthFormatError() {
+    void updatePriceFormatPriceServiceError() {
         UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
         PriceErrorsWindow priceErrorsWindow = updatePriceWindow.priceErrorsWindow();

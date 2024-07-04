@@ -54,6 +54,14 @@ public class ServicesPage extends BasePage {
         return new CategoryCard();
     }
 
+    @Step("Нажать кнопку закрытия категории")
+    public void closeCategory(String categoryName) {
+        SelenideElement CLOSE_CATEGORY = searchCategory(categoryName).$x("div[@class='gm_s']");
+        CLOSE_CATEGORY.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
     @Step("Найти категорию с названием '{0}'")
     public SelenideElement searchCategory(String categoryName){
         SelenideElement CATEGORY=$x("//span[text()='" + categoryName + "']//parent::div//parent::div[@class='ZAC4']");

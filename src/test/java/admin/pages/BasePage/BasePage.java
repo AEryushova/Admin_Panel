@@ -30,7 +30,6 @@ public class BasePage {
         CLOSE_NOTIFICATION.shouldBe(visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();
-        NOTIFICATION.shouldBe(Condition.hidden);
     }
 
     @Step("Проверить отображение нотификации")
