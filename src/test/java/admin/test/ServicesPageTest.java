@@ -109,7 +109,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Добавление правила подготовки к категории с пустыми полями заголовка и описания")
     @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
-    void addRulePreparingCategoryEmptyFieldTitleDescription() {
+    void addRulePreparingCategoryEmptyFields() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
         AddRuleWindow addRuleWindow = rulePreparingWindow.openAddRulesWindow();
         addRuleWindow.clickSaveButton();
@@ -231,7 +231,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Сохранение правила подготовки к категории без изменений")
     @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
-    void editRulePreparingCategoryNotChangeSave() {
+    void saveRulePreparingCategoryNotChange() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.openRulesPreparingCategory(CATEGORY_RULES);
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.openEditRuleWindow();
@@ -575,7 +575,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Сброс значений полей в окне добавления правила подготовки к услуге при переключении окна")
     @ExtendWith(AddServiceInNewCategoryDecorator.class)
     @Test
-    void closeSectionPreparingDescriptionsService() {
+    void closePreparingDescriptionsService() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.openSection();
@@ -624,7 +624,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Сохранение значений полей заголовка и описания правила подготовки без изменений данных")
     @ExtendWith(AddDeleteRuleServiceDecorator.class)
     @Test
-    void editRulePreparingServiceNotChangeSave() {
+    void saveRulePreparingServiceNotChange() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.openSection();
@@ -709,7 +709,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Отображение уведомления об обязательности поля")
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
-    void addedNewSectionObligatoryFields() {
+    void displayNotificationAboutRequiredFieldsWindowAddSection() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         AddSectionWindow addSectionWindow = categoryCard.addSection();
         addSectionWindow.clickFieldName();
@@ -722,7 +722,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Очистка поля имени раздела через кнопку в окне добавления раздела")
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
-    void clearFieldNameThroughButtonClear() {
+    void clearFieldWindowAddSectionThroughButtonClear() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         AddSectionWindow addSectionWindow = categoryCard.addSection();
         addSectionWindow.fillNameSectionField(NAME_SECTION);
@@ -770,7 +770,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Сохранение значений поля в окне редактирования раздела после закрытия окна")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
-    void closeWindowEditSectionInCategory() {
+    void closeWindowEditSectionInCategory () {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.editSection();
@@ -786,7 +786,7 @@ public class ServicesPageTest extends BaseTest {
     @DisplayName("Сохранение значений поля названия раздела без изменений данных")
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
-    void editSectionInCategoryNotChangeSave() {
+    void saveSectionInCategoryNotChange() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.editSection();
@@ -936,7 +936,7 @@ public class ServicesPageTest extends BaseTest {
     @Story("Смена последовательности отображения категории Иные услуги")
     @DisplayName("Смена последовательности отображения категории Иные услуги")
     @Test
-    void changeDisplaySequenceCategoriesOtherServices() {
+    void changeDisplaySequenceCategoryOtherServices() {
         servicesPage.servicesPage();
         int sequenceFirstCategory = servicesPage.getCategoryIndexByName(CATEGORY_RULES);
         int sequenceSecondCategory = servicesPage.getCategoryIndexByName(NAME_OTHER_SERVICE_CATEGORY);
@@ -1071,7 +1071,7 @@ public class ServicesPageTest extends BaseTest {
     @Story("Перенос услуги при совпадении категории-источника и категории-приемника")
     @Story("Перенос услуги при совпадении категории-источника и категории-приемника")
     @Test
-    void transferServiceEqualsSourceTargetCategory() {
+    void transferServiceEqualsSourceCategoryTargetCategory() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_OTHER_SERVICE_CATEGORY);
         ServiceCard serviceCard = categoryCard.getService();
         String codeService = serviceCard.getCodeService();
