@@ -154,8 +154,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Добавление нового админа")
-    @Story("Отображение уведомления об обязательности полей")
-    @DisplayName("Отображение уведомления об обязательности полей")
+    @Story("Отображение уведомления об обязательных полях")
+    @DisplayName("Отображение уведомления об обязательных полях")
     @Test
     void displayNotificationAboutRequiredFieldsWindowAddingNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
@@ -169,8 +169,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Добавление нового админа")
-    @Story("Ввод граничных значений логина из 31 и 32 символов")
-    @DisplayName("Ввод граничных значений логина из 31 и 32 символов")
+    @Story("Ввод валидных граничных значений логина из 31 и 32 символов")
+    @DisplayName("Ввод валидных граничных значений логина из 31 и 32 символов")
     @ParameterizedTest
     @ValueSource(strings = {"ANNA_TEST_ADMIN123456789_ANNA_1", "ANNA_TEST_ADMIN123456789_ANNA_12"})
     void fillLimitValidValuesLoginAddingNewAdmin_31_32_Symbol(String login) {
@@ -181,8 +181,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Добавление нового админа")
-    @Story("Ввод граничных значений логина из 33 символов")
-    @DisplayName("Ввод граничных значений логина из 33 символов")
+    @Story("Ввод не валидных граничных значений логина из 33 символов")
+    @DisplayName("Ввод не валидных граничных значений логина из 33 символов")
     @Test
     void fillLimitInvalidValuesLoginAddingNewAdmin_33_Symbol() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
@@ -191,10 +191,10 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Добавление нового админа")
-    @Story("Ввод не валидного логина на кириллице и логина, начинающегося с цифры")
-    @DisplayName("Ввод не валидного логина на кириллице и логина, начинающегося с цифры")
+    @Story("Ввод не валидного логина с не валидным первым символом")
+    @DisplayName("Ввод не валидного логина с не валидным первым символом")
     @ParameterizedTest
-    @ValueSource(strings = {"АННА_ТЕСТ", "1ANNA_TEST"})
+    @ValueSource(strings = {"БRUCE_LI", "1ANNA_TEST","Админ_25"})
     void fillInvalidValuesFirstSymbolLoginAddingNewAdmin(String login) {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddedNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(login);
@@ -203,8 +203,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Добавление нового админа")
-    @Story("Ввод не валидного логина, начинающегося с латиницы, далее на кириллице и логина с пробелом")
-    @DisplayName("Ввод не валидного логина, начинающегося с латиницы, далее на кириллице и логина с пробелом")
+    @Story("Ввод не валидного логина")
+    @DisplayName("Ввод не валидного логина")
     @ParameterizedTest
     @ValueSource(strings = {"AННА_ТЕСТ", "ANNA TEST"})
     void fillInvalidValuesLoginAddingNewAdmin(String login) {
@@ -215,8 +215,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Добавление нового админа")
-    @Story("Ввод граничных значений пароля из 7 и 26 символов")
-    @DisplayName("Ввод граничных значений пароля из 7 и 26 символов")
+    @Story("Ввод не валидных граничных значений пароля из 7 и 26 символов")
+    @DisplayName("Ввод не валидных граничных значений пароля из 7 и 26 символов")
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq12#", "Wwqq123456789#QQgg12345678"})
     void fillLimitInvalidValuesPasswordAddingNewAdmin_7_26_Symbol(String password) {
@@ -226,8 +226,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Добавление нового админа")
-    @Story("Ввод граничных значений пароля из 8,9,24 и 25 символов")
-    @DisplayName("Ввод граничных значений пароля из 8,9,24 и 25 символов")
+    @Story("Ввод валидных граничных значений пароля из 8,9,24 и 25 символов")
+    @DisplayName("Ввод валидных граничных значений пароля из 8,9,24 и 25 символов")
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
     void fillLimitValidValuesPasswordAddingNewAdmin_8_9_24_25_Symbol(String password) {
@@ -237,8 +237,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Добавление нового админа")
-    @Story("Ввод не валидного пароля без латинской буквы, без спецсимвола, без латинской буквы в верхнем регистре,без латинской буквы в нижнем регистре, без цифр, с пробелом ")
-    @DisplayName("Ввод не валидного пароля без латинской буквы, без спецсимвола, без латинской буквы в верхнем регистре,без латинской буквы в нижнем регистре, без цифр, с пробелом ")
+    @Story("Ввод не валидного пароля")
+    @DisplayName("Ввод не валидного пароля")
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
     void fillInvalidValuesPasswordAddingNewAdmin(String password) {
@@ -367,8 +367,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Замена пароля админу")
-    @Story("Ввод граничных значений пароля из 7 символов")
-    @DisplayName("Ввод граничных значений пароля из 7 символов")
+    @Story("Ввод не валидных граничных значений пароля из 7 символов")
+    @DisplayName("Ввод не валидных граничных значений пароля из 7 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void fillLimitInvalidValuesPasswordChainingPasswordAdmin_7_Symbol() {
@@ -378,8 +378,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Замена пароля админу")
-    @Story("Ввод граничных значений пароля из 8,9,24 и 25 символов")
-    @DisplayName("Ввод граничных значений пароля из 8,9,24 и 25 символов")
+    @Story("Ввод валидных граничных значений пароля из 8,9,24 и 25 символов")
+    @DisplayName("Ввод валидных граничных значений пароля из 8,9,24 и 25 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
@@ -391,8 +391,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Замена пароля админу")
-    @Story("Ввод граничных значений пароля из 26 символов")
-    @DisplayName("Ввод граничных значений пароля из 26 символов")
+    @Story("Ввод не валидных граничных значений пароля из 26 символов")
+    @DisplayName("Ввод не валидных граничных значений пароля из 26 символов")
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void fillLimitInvalidValuesPasswordChainingPasswordAdmin_26_Symbol() {
@@ -402,9 +402,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Замена пароля админу")
-    @Story("Ввод не валидного пароля без латинской буквы, без спецсимвола, без латинской буквы в верхнем регистре,без латинской буквы в нижнем регистре, без цифр, с пробелом ")
-    @DisplayName("Ввод не валидного пароля без латинской буквы, без спецсимвола, без латинской буквы в верхнем регистре,без латинской буквы в нижнем регистре, без цифр, с пробелом ")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @Story("Ввод не валидного пароля")
+    @DisplayName("Ввод не валидного пароля")
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
     void fillInvalidValuesPasswordChainingPasswordAdmin() {
@@ -661,8 +660,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Документация")
-    @Story("Обновление оферты с файлом в невалидном формате")
-    @DisplayName("Обновление оферты с файлом в невалидном формате")
+    @Story("Обновление оферты с не валидным файлом")
+    @DisplayName("Обновление оферты с не валидным файлом")
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта, Политика обработки jpeg.jpg",})
     void updateOfferInvalidFormat(String path) {
@@ -674,8 +673,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Документация")
-    @Story("Обновление политики обработки с файлом в невалидном формате")
-    @DisplayName("Обновление политики обработки с файлом в невалидном формате")
+    @Story("Обновление политики обработки с не валидным файлом")
+    @DisplayName("Обновление политики обработки с не валидным файлом")
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта, Политика обработки jpeg.jpg"})
     void updateProcessingPolicyInvalidFormat(String path) {
@@ -698,8 +697,8 @@ public class AdministrationPageTest extends BaseTest {
     }
 
     @Feature("Документация")
-    @Story("Обновление приказа с файлом в невалидном формате")
-    @DisplayName("Обновление приказа с файлом в невалидном формате")
+    @Story("Обновление приказа с не валидным файлом")
+    @DisplayName("Обновление приказа с не валидным файлом")
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки jpeg.jpg", "src/test/resources/Оферта.pdf"})
     void updateOrderInvalidFormat(String path) {
@@ -772,8 +771,8 @@ public class AdministrationPageTest extends BaseTest {
 
 
     @Feature("Документация")
-    @Story("Обновление прайса с файлом в невалидном формате")
-    @DisplayName("Обновление прайса с файлом в невалидном формате")
+    @Story("Обновление прайса с не валидным файлом")
+    @DisplayName("Обновление прайса с не валидным файлом")
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки jpeg.jpg", "src/test/resources/Оферта.pdf"})
     void updatePriceInvalidFormat(String path) {

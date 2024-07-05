@@ -89,7 +89,7 @@ public class SettingPageTest extends BaseTest {
     @DisplayName("Успешная замена логотипа в формате PNG")
     @ExtendWith(SetSAMSMU_Logo.class)
     @Test
-    void changeLogoPNG() {
+    void changeLogo() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
         editLogoWindow.editLogoWindow();
@@ -105,7 +105,7 @@ public class SettingPageTest extends BaseTest {
     @Story("Замена логотипа в формате JPEG")
     @DisplayName("Замена логотипа в формате JPEG")
     @Test
-    void changeLogoJPEG() {
+    void changeLogoInvalidLogoFormat() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
         editLogoWindow.editLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo 3,7mbJpeg.jpg");
@@ -117,7 +117,7 @@ public class SettingPageTest extends BaseTest {
     @Story("Замена логотипа весом более 4mb")
     @DisplayName("Замена логотипа весом более 4mb")
     @Test
-    void changeLogoLess4mb() {
+    void changeLogoWeightMoreThan4mb() {
         EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
         editLogoWindow.editLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");

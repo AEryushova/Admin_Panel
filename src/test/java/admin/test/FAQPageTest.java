@@ -140,7 +140,7 @@ public class FAQPageTest extends BaseTest{
     @Story("Сброс значений полей в окне добавления faq-вопроса при закрытии окна")
     @DisplayName("Сброс значений полей в окне добавления faq-вопроса при закрытии окна")
     @Test
-    void closeWindowAddNewQuestion() {
+    void closeWindowAddNewQuestionFaq() {
         AddQuestionWindow addQuestionWindow = faqPage.openWindowAddQuestion();
         addQuestionWindow.fillQuestionField(QUESTION);
         addQuestionWindow.fillAnswerField(ANSWER);
@@ -156,7 +156,7 @@ public class FAQPageTest extends BaseTest{
     @DisplayName("Успешное редактирование faq-вопроса")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
-    void editQuestion() {
+    void editFaqQuestion() {
         Question question = faqPage.getQuestion();
         question.question();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
@@ -176,7 +176,7 @@ public class FAQPageTest extends BaseTest{
     @DisplayName("Редактирование faq-вопроса с пустым полем вопроса")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
-    void editQuestionEmptyFieldQuestion() {
+    void editFaqQuestionEmptyFieldQuestion() {
         Question question = faqPage.getQuestion();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.clearQuestionField();
@@ -189,7 +189,7 @@ public class FAQPageTest extends BaseTest{
     @DisplayName("Редактирование faq-вопроса с пустым полем ответа")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
-    void editQuestionEmptyFieldAnswer() {
+    void editFaqQuestionEmptyFieldAnswer() {
         Question question = faqPage.getQuestion();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.clearAnswerField();
@@ -201,7 +201,7 @@ public class FAQPageTest extends BaseTest{
     @DisplayName("Сохранение faq-вопроса без изменений данных")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
-    void editQuestionNotChangeSave() {
+    void savaFaqQuestionNotChange() {
         Question question = faqPage.getQuestion();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.saveChangesQuestion();
@@ -217,7 +217,7 @@ public class FAQPageTest extends BaseTest{
     @DisplayName("Сохранение значений полей в окне редактирования faq-вопроса после закрытия окна")
     @ExtendWith(AddDeleteFaqDecorator.class)
     @Test
-    void closeWindowEditQuestion() {
+    void closeWindowEditQuestionFaq() {
         Question question = faqPage.getQuestion();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.fillQuestionField(CHANGE_QUESTION);
@@ -232,11 +232,11 @@ public class FAQPageTest extends BaseTest{
     }
 
     @Feature("Редактирование faq-вопроса")
-    @Story("Смена последовательности faq-вопросов")
-    @DisplayName("Смена последовательности faq-вопросов")
+    @Story("Смена последовательности отображения faq-вопросов")
+    @DisplayName("Смена последовательности отображения faq-вопросов")
     @ExtendWith(AddTwoQuestionFaqDecorator.class)
     @Test
-    void sequenceChangeQuestion() {
+    void changeDisplaySequenceFaqQuestion() {
         Question question = faqPage.getQuestion();
         String firstQuestionText = question.getQuestionByIndex(0);
         String secondQuestionText = question.getQuestionByIndex(1);
@@ -257,7 +257,7 @@ public class FAQPageTest extends BaseTest{
     @DisplayName("Успешное удаление faq-вопроса")
     @ExtendWith(AddFaqDecorator.class)
     @Test
-    void deleteQuestion() {
+    void deleteFaqQuestion() {
         Question question = faqPage.getQuestion();
         ChangeQuestionWindow changeQuestionWindow = question.openWindowChangeQuestion();
         changeQuestionWindow.deleteQuestion();
@@ -294,7 +294,7 @@ public class FAQPageTest extends BaseTest{
     @DisplayName("Поиск вопроса по заголовку и ответу")
     @ExtendWith(AddSomeFaq.class)
     @Test
-    void searchNameFaq() {
+    void searchNameFaqQuestion() {
         faqPage.faqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_SEARCH);
@@ -345,7 +345,7 @@ public class FAQPageTest extends BaseTest{
     @DisplayName("Сброс поискового результата вопроса после очистки поля")
     @ExtendWith(AddSomeFaq.class)
     @Test
-    void resetSearchResultFaq() {
+    void resetSearchResultFaqQuestion() {
         faqPage.searchFaq(FAQ_SEARCH);
         Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();

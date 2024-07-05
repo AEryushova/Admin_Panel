@@ -55,7 +55,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(DeletePhotoDoctorDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg", "src/test/resources/Photo 3,2mbPng.png"})
-    void changePhotoDoctorValidFormat(String path) {
+    void changePhotoDoctor(String path) {
         cardDoctor.cardDoctorPage();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openPhoto();
@@ -75,7 +75,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Story("Замена фотографии врачу с файлом весом более 4mb")
     @DisplayName("Замена фотографии врачу с файлом весом более 4mb")
     @Test
-    void changePhotoDoctorLess4mb() {
+    void changePhotoDoctorWeightMoreThan4mb() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openPhoto();
         navigateMenu.closeNavigateMenu();
@@ -88,8 +88,8 @@ public class CardDoctorPageTest extends BaseTest {
     }
 
     @Feature("Замена фотографии врачу")
-    @Story("Замена фотографии врачу с файлом в невалидном формате")
-    @DisplayName("Замена фотографии врачу с файлом в невалидном формате")
+    @Story("Замена фотографии врачу с не валидным файлом")
+    @DisplayName("Замена фотографии врачу с не валидным файлом")
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
@@ -155,7 +155,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Успешное добавление раздела в инфо о враче")
     @ExtendWith(DeleteSectionDecorator.class)
     @Test
-    void addingSection() {
+    void addSection() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -191,7 +191,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Story("Отмена добавления раздела в инфо о враче и зануление полей")
     @DisplayName("Отмена добавления раздела в инфо о враче и зануление полей")
     @Test
-    void cancelWindowAddSection() {
+    void cancelAddSection() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -263,7 +263,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Успешное добавление описания к разделу в инфо о враче")
     @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
-    void addingDescription() {
+    void addDescription() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
@@ -302,7 +302,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Отмена добавления описания к разделу в инфо о враче и зануление полей")
     @ExtendWith(DeleteDescriptionDecorator.class)
     @Test
-    void cancellationWindowAddDescription() {
+    void cancelAddDescription() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.openDescription();
         navigateMenu.closeNavigateMenu();
