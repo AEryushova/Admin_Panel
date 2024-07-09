@@ -1129,15 +1129,15 @@ public class ServicesPageTest extends BaseTest {
     @Test
     void changeDisplaySequenceSections() {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
-        int sequenceFirstSection = categoryCard.getSectionByName(NAME_SECTION);
-        int sequenceSecondSection = categoryCard.getSectionByName(NEW_NAME_SECTION);
+        int sequenceFirstSection = categoryCard.getSectionIndexByName(NAME_SECTION);
+        int sequenceSecondSection = categoryCard.getSectionIndexByName(NEW_NAME_SECTION);
         int sequenceFirstSectionDB = DataBaseQuery.selectServicesCategories(NAME_SECTION).getSequence();
         int sequenceSecondSectionDB = DataBaseQuery.selectServicesCategories(NEW_NAME_SECTION).getSequence();
         categoryCard.changeDisplaySequence(NAME_SECTION, NEW_NAME_SECTION);
-        Selenide.sleep(3000);
-        servicesPage.openCategory(NAME_CATEGORY);
-        assertEquals(sequenceFirstSection, categoryCard.getSectionByName(NEW_NAME_SECTION));
-        assertEquals(sequenceSecondSection, categoryCard.getSectionByName(NAME_SECTION));
+        Selenide.sleep(5000);
+        servicesPage.openCategory("Диагностика");
+        assertEquals(sequenceFirstSection, categoryCard.getSectionIndexByName(NEW_NAME_SECTION));
+        assertEquals(sequenceSecondSection, categoryCard.getSectionIndexByName(NAME_SECTION));
         assertEquals(sequenceFirstSectionDB, DataBaseQuery.selectServicesCategories(NEW_NAME_SECTION).getSequence());
         assertEquals(sequenceSecondSectionDB, DataBaseQuery.selectServicesCategories(NAME_SECTION).getSequence());
     }
@@ -1159,8 +1159,8 @@ public class ServicesPageTest extends BaseTest {
         Selenide.sleep(9000);
         servicesPage.openCategory(NAME_CATEGORY);
         sectionCard.openSection();
-        assertEquals(sequenceFirstSubsection, categoryCard.getSectionByName(NEW_NAME_SUBSECTION));
-        assertEquals(sequenceSecondSubsection, categoryCard.getSectionByName(NAME_SUBSECTION));
+        assertEquals(sequenceFirstSubsection, categoryCard.getSectionIndexByName(NEW_NAME_SUBSECTION));
+        assertEquals(sequenceSecondSubsection, categoryCard.getSectionIndexByName(NAME_SUBSECTION));
         assertEquals(sequenceFirstSubsectionDB, DataBaseQuery.selectServicesCategories(NEW_NAME_SUBSECTION).getSequence());
         assertEquals(sequenceSecondSubsectionDB, DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getSequence());
     }

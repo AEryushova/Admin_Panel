@@ -40,7 +40,7 @@ public class CategoryCard {
     }
 
     @Step("Получить индекс раздела по названию '{0}'")
-    public int getSectionByName(String sectionName) {
+    public int getSectionIndexByName(String sectionName) {
         List<SelenideElement> sectionElements = CONTAINER_SECTIONS;
         for (int i = 0; i < sectionElements.size(); i++) {
             if (sectionElements.get(i).getText().equals(sectionName)) {
