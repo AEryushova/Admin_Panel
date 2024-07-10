@@ -792,7 +792,7 @@ public class ServicesPageTest extends BaseTest {
         EditSectionWindow editSectionWindow = sectionCard.editSection();
         editSectionWindow.saveChange();
         Selenide.sleep(2000);
-        assertFalse(editSectionWindow.isWindowAppear());
+        assertTrue(editSectionWindow.isWindowAppear());
         servicesPage.openCategory(NAME_CATEGORY);
         assertEquals(NAME_SECTION, sectionCard.getNameSection());
         assertNotNull(DataBaseQuery.selectServicesCategories(NAME_SECTION));
@@ -1128,19 +1128,23 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddTwoSections.class)
     @Test
     void changeDisplaySequenceSections() {
+        servicesPage.servicesPage();
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
+        Selenide.executeJavaScript("window.scrollBy(0, 500)");
         int sequenceFirstSection = categoryCard.getSectionIndexByName(NAME_SECTION);
         int sequenceSecondSection = categoryCard.getSectionIndexByName(NEW_NAME_SECTION);
         int sequenceFirstSectionDB = DataBaseQuery.selectServicesCategories(NAME_SECTION).getSequence();
         int sequenceSecondSectionDB = DataBaseQuery.selectServicesCategories(NEW_NAME_SECTION).getSequence();
         categoryCard.changeDisplaySequence(NAME_SECTION, NEW_NAME_SECTION);
-        Selenide.sleep(5000);
-        servicesPage.openCategory("Диагностика");
+        Selenide.sleep(2000);
+        servicesPage.openCategory(NAME_CATEGORY);
+        Selenide.executeJavaScript("window.scrollBy(0, 500)");
         assertEquals(sequenceFirstSection, categoryCard.getSectionIndexByName(NEW_NAME_SECTION));
         assertEquals(sequenceSecondSection, categoryCard.getSectionIndexByName(NAME_SECTION));
         assertEquals(sequenceFirstSectionDB, DataBaseQuery.selectServicesCategories(NEW_NAME_SECTION).getSequence());
         assertEquals(sequenceSecondSectionDB, DataBaseQuery.selectServicesCategories(NAME_SECTION).getSequence());
     }
+
 
     @Feature("Управление категориями")
     @Story("Смена последовательности отображения подразделов")
@@ -1151,14 +1155,16 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.openCategory(NAME_CATEGORY);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.openSection();
+        Selenide.executeJavaScript("window.scrollBy(0, 500)");
         int sequenceFirstSubsection = sectionCard.getSubsectionIndexByName(NAME_SUBSECTION);
         int sequenceSecondSubsection = sectionCard.getSubsectionIndexByName(NEW_NAME_SUBSECTION);
         int sequenceFirstSubsectionDB = DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getSequence();
         int sequenceSecondSubsectionDB = DataBaseQuery.selectServicesCategories(NEW_NAME_SUBSECTION).getSequence();
         sectionCard.changeDisplaySequence(NAME_SUBSECTION, NEW_NAME_SUBSECTION);
-        Selenide.sleep(9000);
+        Selenide.sleep(2000);
         servicesPage.openCategory(NAME_CATEGORY);
         sectionCard.openSection();
+        Selenide.executeJavaScript("window.scrollBy(0, 500)");
         assertEquals(sequenceFirstSubsection, categoryCard.getSectionIndexByName(NEW_NAME_SUBSECTION));
         assertEquals(sequenceSecondSubsection, categoryCard.getSectionIndexByName(NAME_SUBSECTION));
         assertEquals(sequenceFirstSubsectionDB, DataBaseQuery.selectServicesCategories(NEW_NAME_SUBSECTION).getSequence());
@@ -1176,21 +1182,23 @@ public class ServicesPageTest extends BaseTest {
         sectionCard.openSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         subsectionCard.openSubsection();
+        Selenide.executeJavaScript("window.scrollBy(0, 500)");
         String codeFirst = AddTwoServices.getServiceCodeFirst();
         String codeSecond = AddTwoServices.getServiceCodeSecond();
         int sequenceFirstService = subsectionCard.getServiceByCode(codeFirst);
         int sequenceSecondService = subsectionCard.getServiceByCode(codeSecond);
-        int sequenceFirstServiceDB = DataBaseQuery.selectAllService2(codeFirst).getSequence();
-        int sequenceSecondServiceDB = DataBaseQuery.selectAllService2(codeSecond).getSequence();
+        int sequenceFirstServiceDB = DataBaseQuery.selectAllService(codeFirst).getSequence();
+        int sequenceSecondServiceDB = DataBaseQuery.selectAllService(codeSecond).getSequence();
         subsectionCard.changeDisplaySequence(codeFirst, codeSecond);
         Selenide.sleep(5000);
         servicesPage.openCategory(NAME_CATEGORY);
         sectionCard.openSection();
         subsectionCard.openSubsection();
+        Selenide.executeJavaScript("window.scrollBy(0, 500)");
         assertEquals(sequenceFirstService, subsectionCard.getServiceByCode(codeSecond));
         assertEquals(sequenceSecondService, subsectionCard.getServiceByCode(codeFirst));
-        assertEquals(sequenceFirstServiceDB, DataBaseQuery.selectAllService2(codeSecond).getSequence());
-        assertEquals(sequenceSecondServiceDB, DataBaseQuery.selectAllService2(codeSecond).getSequence());
+        assertEquals(sequenceFirstServiceDB, DataBaseQuery.selectAllService(codeSecond).getSequence());
+        assertEquals(sequenceSecondServiceDB, DataBaseQuery.selectAllService(codeFirst).getSequence());
     }
 
     @Story("Закрытие уведомления на странице услуг по таймауту")

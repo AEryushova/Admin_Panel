@@ -44,10 +44,10 @@ public class TestData {
         public static final String RULE_DESCRIPTION = "Это само правило";
         public static final String NEW_RULE_TITLE = "Измененный заголовок";
         public static final String NEW_RULE_DESCRIPTION = "Измененное правило";
-        public static final String NAME_CATEGORY = "Категория";
-        public static final String NAME_SECTION = "Раздел для категории";
+        public static final String NAME_CATEGORY = "Тестовые тесты";
+        public static final String NAME_SECTION = "Раздел для тестовой категории";
         public static final String NEW_NAME_SECTION = "Измененный раздел";
-        public static final String NAME_SUBSECTION = "Подраздел для категории";
+        public static final String NAME_SUBSECTION = "Подраздел для тестовой категории";
         public static final String NEW_NAME_SUBSECTION = "Измененный подраздел";
         public static final String NAME_OTHER_SERVICE_CATEGORY = "Иные услуги";
 

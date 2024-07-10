@@ -50,6 +50,7 @@ public class BrowserManager {
         token = response.getBody().jsonPath().getString("accessToken");
         Configuration.browser=System.getProperty("selenide.browser", "chrome");
         Configuration.browserSize = "1920x1080";
+        Configuration.headless = Boolean.getBoolean("selenide.headless");
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();

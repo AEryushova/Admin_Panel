@@ -252,17 +252,9 @@ public class DataBaseQuery {
         }
     }
 
-    @SneakyThrows
-    public static AllServices selectAllService(String codeService) {
-        var selectInfo = "SELECT * FROM all_services WHERE code = ? ";
-        try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, codeService, new BeanHandler<>(AllServices.class));
-        }
-    }
 
     @SneakyThrows
-    public static AllServices selectAllService2(String codeService) {
+    public static AllServices selectAllService(String codeService) {
         var selectInfo = "SELECT * FROM all_services WHERE code = CAST(? AS ltree)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             //noinspection deprecation
