@@ -411,5 +411,13 @@ public class FAQPageTest extends BaseTest{
         assertTrue(countResult<countAllFaq);
     }
 
+    @Story("Возврат к хэдеру на странице faq")
+    @DisplayName("Возврат к хэдеру на странице faq")
+    @ExtendWith(AddSomeFaq.class)
+    @Test
+    void returnToHeaderPageAdministration() {
+        checkReturnHeaderPage(basePage);
+    }
+
 }
 

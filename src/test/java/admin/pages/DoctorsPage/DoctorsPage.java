@@ -79,6 +79,7 @@ public class DoctorsPage extends BasePage {
                 .click();
     }
 
+    @SuppressWarnings("unused")
     @Step("Нажать на кнопку сортировки врачей без описания")
     public void showDoctorCardNoDescription() {
         SHOW_DOCTOR_WITHOUT_DESCRIPTION.shouldBe(Condition.visible)

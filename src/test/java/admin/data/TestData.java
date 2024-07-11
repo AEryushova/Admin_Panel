@@ -21,8 +21,8 @@ public class TestData {
         public static final String LOGIN_ADMIN_TEST = "ADMIN_TESTUI_2";
         public static final String PASSWORD_ADMIN_TEST = "QQss123456*";
         public static final String NEW_PASSWORD_ADMIN_TEST = "RRjj123456#";
-        public static final String DOCTOR = "Тестов Стоматолог Самгму";
-        public static final String DOCTOR_SPECIALIZATION = "врач-стоматолог";
+        public static final String DOCTOR = "Fer3 Не ТРОГАТЬ";
+        public static final String DOCTOR_SPECIALIZATION = "врач-оториноларинголог";
         public static final String DEFAULT_PHOTO = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
         public static final File PHOTO = new File("src/test/resources/Photo 3,7mbJpeg.jpg");
         public static final File LOGO = new File("src/test/resources/logo.png");

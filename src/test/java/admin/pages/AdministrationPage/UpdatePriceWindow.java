@@ -66,6 +66,7 @@ public class UpdatePriceWindow {
         return TODAY_BUTTON.getText();
     }
 
+    @SuppressWarnings("unused")
     public File downloadPriceDateActivation() {
         ACTIVATIONS_DATES_LIST.click();
         ACTIVATION_DATES_DOWNLOAD.shouldBe(Condition.visible, Duration.ofSeconds(5));

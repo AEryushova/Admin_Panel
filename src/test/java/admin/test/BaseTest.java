@@ -19,10 +19,21 @@ public class BaseTest {
     }
 
     @Step("Закрыть нотификатию и проверить ее отображение")
-    public void checkCloseNotification(BasePage basePage){
+    protected void checkCloseNotification(BasePage basePage){
         Selenide.sleep(2000);
         assertTrue(basePage.isNotificationAppear());
         basePage.closeNotification();
         assertFalse(basePage.isNotificationAppear());
+    }
+
+    @Step("Проверить возвращение к хэдеру страницы")
+    protected void checkReturnHeaderPage(BasePage basePage){
+        Selenide.sleep(2000);
+        assertFalse(basePage.isVisibleButtonReturnToHeader());
+        basePage.scrollPage("700");
+        assertTrue(basePage.isVisibleButtonReturnToHeader());
+        basePage.clickButtonReturnToHeader();
+        Selenide.sleep(2000);
+        assertFalse(basePage.isVisibleButtonReturnToHeader());
     }
 }

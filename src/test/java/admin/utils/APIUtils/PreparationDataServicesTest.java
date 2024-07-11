@@ -143,7 +143,7 @@ public class PreparationDataServicesTest {
     }
 
 
-    private static Response getAllServices(String categoryName) {
+    private static Response getAllServices() {
         return given()
                 .baseUri(URI_ADMIN_PANEL)
                 .header("Authorization", "Bearer " + BrowserManager.token)
@@ -158,7 +158,7 @@ public class PreparationDataServicesTest {
 
 
     public static String getRandomService(String categoryName){
-        Response response=getAllServices(categoryName);
+        Response response=getAllServices();
         List<String> childServices = response.jsonPath()
                 .getList("categories.find { it.name == '" + categoryName + "' }.childServices.code");
         if (!childServices.isEmpty()) {
@@ -171,7 +171,7 @@ public class PreparationDataServicesTest {
 
 
     public static String getCategoryIdByName(String categoryName) {
-        Response response=getAllServices(categoryName);
+        Response response=getAllServices();
         List<Map<String, Object>> categories = response.jsonPath().getList("categories");
         for (Map<String, Object> category : categories) {
             if (categoryName.equals(category.get("name"))) {

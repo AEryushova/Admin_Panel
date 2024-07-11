@@ -800,6 +800,13 @@ public class AdministrationPageTest extends BaseTest {
         updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта,Политика обработки docx.docx");
         checkCloseNotification(basePage);
     }
+
+    @Story("Возврат к хэдеру на странице администрирования")
+    @DisplayName("Возврат к хэдеру на странице администрирования")
+    @Test
+    void returnToHeaderPageAdministration() {
+        checkReturnHeaderPage(basePage);
+    }
 }
 /*
     @Feature("Документация")

@@ -167,7 +167,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(SECTION, section.getSection());
         assertEquals(SECTION, DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
         assertTrue(cardDoctor.isExistSection());
-        assertFalse(addInfoDoctorWindow.isWindowAppear());
+        assertFalse(addInfoDoctorWindow.isWindowAppearSection());
     }
 
     @Feature("Информация о враче")
@@ -198,7 +198,7 @@ public class CardDoctorPageTest extends BaseTest {
         AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
         addInfoDoctorWindow.fillFieldText(SECTION);
         addInfoDoctorWindow.clickCancelButtonAddInfoDoctor();
-        assertFalse(addInfoDoctorWindow.isWindowAppear());
+        assertFalse(addInfoDoctorWindow.isWindowAppearSection());
         cardDoctor.clickButtonAddSection();
         assertEquals("", addInfoDoctorWindow.getValueField());
     }
@@ -276,7 +276,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(DESCRIPTION, description.getDescription());
         assertEquals(DESCRIPTION, DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
         assertTrue(cardDoctor.isExistDescription());
-        assertFalse(addInfoDoctorWindow.isWindowAppear());
+        assertFalse(addInfoDoctorWindow.isWindowAppearDescription());
     }
 
     @Feature("Информация о враче")
@@ -310,7 +310,7 @@ public class CardDoctorPageTest extends BaseTest {
         AddInfoDoctorWindow addInfoDoctorWindow = section.clickButtonAddDescription();
         addInfoDoctorWindow.fillFieldText(DESCRIPTION);
         addInfoDoctorWindow.clickCancelButtonAddInfoDoctor();
-        assertFalse(addInfoDoctorWindow.isWindowAppear());
+        assertFalse(addInfoDoctorWindow.isWindowAppearDescription());
         section.clickButtonAddDescription();
         assertEquals("", addInfoDoctorWindow.getValueField());
     }
@@ -737,8 +737,8 @@ public class CardDoctorPageTest extends BaseTest {
     }
 
 
-    @Story("Закрытие уведомления на странице карточки врача по таймауту")
-    @DisplayName("Закрытие уведомления на странице карточки врача по таймауту")
+    @Story("Закрытие уведомления на карточке врача по таймауту")
+    @DisplayName("Закрытие уведомления на карточке врача по таймауту")
     @Test
     void closeNotificationTimeout() {
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
@@ -746,8 +746,8 @@ public class CardDoctorPageTest extends BaseTest {
         checkCloseNotificationTimeout(basePage);
     }
 
-    @Story("Закрытие уведомления на странице карточки врача")
-    @DisplayName("Закрытие уведомления на странице карточки врача")
+    @Story("Закрытие уведомления на карточке врача")
+    @DisplayName("Закрытие уведомления на карточке врача")
     @Test
     void closeNotification() {
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
@@ -763,6 +763,13 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.verifyNavigateMenu();
         navigateMenu.closeNavigateMenu();
         assertFalse(navigateMenu.isNavigateMenuDisplayed());
+    }
+
+    @Story("Возврат к хэдеру на карточке врача")
+    @DisplayName("Возврат к хэдеру на карточке врача")
+    @Test
+    void returnToHeaderPageAdministration() {
+        checkReturnHeaderPage(basePage);
     }
 
 }

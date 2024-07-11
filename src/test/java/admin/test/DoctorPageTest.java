@@ -1,5 +1,6 @@
 package admin.test;
 
+import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.utils.preparationDataTests.general.AllureDecorator;
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DoctorPageTest extends BaseTest {
 
     private DoctorsPage doctorsPage;
+    private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
 
@@ -40,6 +42,7 @@ public class DoctorPageTest extends BaseTest {
     void setUp() {
         Selenide.refresh();
         doctorsPage = new DoctorsPage();
+        basePage = new BasePage();
     }
 
     @AfterAll
@@ -229,6 +232,13 @@ public class DoctorPageTest extends BaseTest {
         assertTrue(withoutPhoto);
         assertTrue(withPhoto);
         assertTrue(countResult < countAllDoctors);
+    }
+
+    @Story("Возврат к хэдеру на странице врачей")
+    @DisplayName("Возврат к хэдеру на странице врачей")
+    @Test
+    void returnToHeaderPageAdministration() {
+        checkReturnHeaderPage(basePage);
     }
 }
 

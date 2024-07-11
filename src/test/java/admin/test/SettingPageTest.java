@@ -9,6 +9,7 @@ import admin.pages.SettingPage.EditLogoWindow;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.setting.AddBugReportDecorator;
 import admin.utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
+import admin.utils.preparationDataTests.setting.AddSomeBugsReport;
 import admin.utils.preparationDataTests.setting.SetSAMSMU_Logo;
 import admin.utils.testUtils.DataHelper;
 import admin.utils.dbUtils.DataBaseQuery;
@@ -168,6 +169,14 @@ public class SettingPageTest extends BaseTest {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
         checkCloseNotification(basePage);
+    }
+
+    @Story("Возврат к хэдеру на странице настроек")
+    @DisplayName("Возврат к хэдеру на странице настроек")
+    @ExtendWith(AddSomeBugsReport.class)
+    @Test
+    void returnToHeaderPageAdministration() {
+        checkReturnHeaderPage(basePage);
     }
 }
 

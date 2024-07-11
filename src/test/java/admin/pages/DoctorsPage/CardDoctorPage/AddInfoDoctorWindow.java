@@ -53,9 +53,12 @@ public class AddInfoDoctorWindow {
                 .click();
     }
 
-    @Step("Проверить отображение окна добавления информации о враче")
-    public boolean isWindowAppear() {
-        return WINDOW_SECTION.isDisplayed();
+    @Step("Проверить отображение окна добавления раздела в инфо о враче")
+    public boolean isWindowAppearSection() {return WINDOW_SECTION.isDisplayed();
+    }
+
+    @Step("Проверить отображение окна добавления описания в инфо о враче")
+    public boolean isWindowAppearDescription() {return WINDOW_DESCRIPTION.isDisplayed();
     }
 
 

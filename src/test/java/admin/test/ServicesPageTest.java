@@ -1216,5 +1216,13 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.clickButtonOpenRulesPreparingCategory(NAME_OTHER_SERVICE_CATEGORY);
         checkCloseNotification(basePage);
     }
+
+    @Story("Возврат к хэдеру на странице услуг")
+    @DisplayName("Возврат к хэдеру на странице услуг")
+    @Test
+    void returnToHeaderPageAdministration() {
+        servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
+        checkReturnHeaderPage(basePage);
+    }
 }
 
