@@ -18,8 +18,16 @@ public class AddInfoDoctorWindow {
 
 
     @Step("Верифицировать окно добавления информации о враче")
-    public void verifyAddInfoDoctorWindow() {
+    public void verifyAddSectionDoctorWindow() {
         WINDOW_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+    }
+
+    @Step("Верифицировать окно добавления информации о враче")
+    public void verifyAddDescriptionDoctorWindow() {
+        WINDOW_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));

@@ -404,6 +404,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Ввод не валидного пароля")
     @DisplayName("Ввод не валидного пароля")
+    @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
     void fillInvalidValuesPasswordChainingPasswordAdmin() {

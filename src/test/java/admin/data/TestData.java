@@ -18,7 +18,7 @@ public class TestData {
     @Data
     public static class DataTest {
         public static final String NEW_PASSWORD_ADMIN = "IIff123456$";
-        public static final String LOGIN_ADMIN_TEST = "ADMIN_TESTUI_2";
+        public static final String LOGIN_ADMIN_TEST = "RAYAN_GOSLING";
         public static final String PASSWORD_ADMIN_TEST = "QQss123456*";
         public static final String NEW_PASSWORD_ADMIN_TEST = "RRjj123456#";
         public static final String DOCTOR = "Fer3 Не ТРОГАТЬ";
@@ -58,7 +58,7 @@ public class TestData {
         public static final String DOCTOR_NAME_SEARCH = "надежда";
         public static final String DOCTOR_SPECIALIZATION_SEARCH = "терапевт";
         public static final String FAQ_SEARCH = "врач";
-        public static final String SEARCH_BY_INCLUSION_DOCTORS = "етск";
+        public static final String SEARCH_BY_INCLUSION_DOCTORS = "етс";
         public static final String SEARCH_BY_INCLUSION_FAQ = "пис";
         public static final String DOCTOR_NAME_HIGH_REGISTER = "НAДЕЖДА";
         public static final String DOCTOR_NAME_DIFFERENT_REGISTER = "НаДеЖдА";

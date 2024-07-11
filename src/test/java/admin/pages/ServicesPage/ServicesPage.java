@@ -3,6 +3,7 @@ package admin.pages.ServicesPage;
 import admin.pages.BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.interactions.Actions;
@@ -10,6 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.time.Duration;
 import java.util.List;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ServicesPage extends BasePage {
@@ -89,5 +91,10 @@ public class ServicesPage extends BasePage {
                 .moveToElement(categoryTarget)
                 .release()
                 .perform();
+    }
+
+    @Step("Проскроллить страницу вниз на '{0}' пикселей")
+    public void scrollPage(String countPixel) {
+        Selenide.executeJavaScript("window.scrollBy(0, " + countPixel + ")");
     }
 }

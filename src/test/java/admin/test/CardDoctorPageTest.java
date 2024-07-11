@@ -160,7 +160,7 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
-        addInfoDoctorWindow.verifyAddInfoDoctorWindow();
+        addInfoDoctorWindow.verifyAddSectionDoctorWindow();
         addInfoDoctorWindow.fillFieldText(SECTION);
         addInfoDoctorWindow.clickButtonSaveValue();
         Section section = cardDoctor.getSection();
@@ -269,7 +269,7 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
         AddInfoDoctorWindow addInfoDoctorWindow = section.clickButtonAddDescription();
-        addInfoDoctorWindow.verifyAddInfoDoctorWindow();
+        addInfoDoctorWindow.verifyAddDescriptionDoctorWindow();
         addInfoDoctorWindow.fillFieldText(DESCRIPTION);
         addInfoDoctorWindow.clickButtonSaveValue();
         Description description = cardDoctor.getDescription();

@@ -87,6 +87,7 @@ public class AuthorizationPage extends BasePage {
         CLEAR_LOGIN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        LOGIN_FIELD.shouldHave(Condition.value(""), Duration.ofSeconds(5));
     }
 
     @Step("Получить значение поля логина")
