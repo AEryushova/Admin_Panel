@@ -24,7 +24,7 @@ public class SectionCard {
     private final SelenideElement EMPTY_LIST_SUBSECTION = $x("//div[@class='b8mg']/span");
 
     @Step("Верифицировать карточку раздела")
-    public void sectionCard() {
+    public void verifySectionCard() {
         NAME_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_SECTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_SECTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -33,7 +33,7 @@ public class SectionCard {
     }
 
     @Step("Нажать кнопку редактирования раздела")
-    public EditSectionWindow editSection() {
+    public EditSectionWindow clickButtonEditSection() {
         EDIT_SECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -41,7 +41,7 @@ public class SectionCard {
     }
 
     @Step("Нажать кнопку удаления раздела")
-    public DeleteSectionWindow deleteSection() {
+    public DeleteSectionWindow clickButtonDeleteSection() {
         DELETE_SECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -56,14 +56,14 @@ public class SectionCard {
     }
 
     @Step("Нажать кнопку раскрытия раздела")
-    public void openSection() {
+    public void clickButtonOpenSection() {
         EXPAND_SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать кнопку сворачивания раздела")
-    public void closeSection(String nameSection) {
+    public void clickButtonCloseSection(String nameSection) {
         SelenideElement SECTION=$x("//span[text()='" + nameSection + "']/parent::div/following-sibling::div[@class='xrjl']");
         SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -71,7 +71,7 @@ public class SectionCard {
     }
 
     @Step("Нажать кнопку добавления подраздела")
-    public AddSectionWindow addSubsection() {
+    public AddSectionWindow clickButtonAddSubsection() {
         ADD_SUBSECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -79,7 +79,7 @@ public class SectionCard {
     }
 
     @Step("Нажать кнопку открытия правил подготовки к разделу")
-    public RulesPreparingWindow openRulesPreparingSection(){
+    public RulesPreparingWindow clickButtonOpenRulesPreparingSection(){
         RULES_PREPARING_SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -105,7 +105,7 @@ public class SectionCard {
     }
 
     @Step("Поменять местами раздел с названием '{0}' и раздел с названием '{1}'")
-    public void changeDisplaySequence(String sourceName, String targetName) {
+    public void changeSequenceDisplaySubsections(String sourceName, String targetName) {
         SelenideElement subsectionSource = searchSubsection(sourceName);
         SelenideElement subsectionTarget = searchSubsection(targetName);
         Actions actions = actions();

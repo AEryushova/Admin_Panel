@@ -19,7 +19,7 @@ public class EditRuleWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно изменения правила")
-    public void editRuleWindow() {
+    public void verifyEditRuleWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TITLE_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DESCRIPTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -43,14 +43,14 @@ public class EditRuleWindow {
     }
 
     @Step("Нажать кнопку изменения")
-    public void changeRules() {
+    public void clickButtonChangeRules() {
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать кнопку удаления")
-    public void deleteRules() {
+    public void clickButtonDeleteRules() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -87,7 +87,7 @@ public class EditRuleWindow {
     }
 
     @Step("Закрыть окно изменения правила")
-    public void closeWindowRule() {
+    public void closeWindowEditRule() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

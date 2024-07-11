@@ -27,7 +27,7 @@ public class NewAdminWindow {
     private final SelenideElement ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");
 
     @Step("Верифицировать окно добавления нового админа")
-    public void newAdminWindow() {
+    public void verifyNewAdminWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         LOGIN_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));

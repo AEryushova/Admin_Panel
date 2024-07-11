@@ -52,10 +52,10 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Открытие карточки врача и возврат к списку врачей")
     @Test
     void returnToDoctorsPageFromCardDoctorPage() {
-        doctorsPage.doctorsPage();
-        CardDoctorPage cardDoctor = doctorsPage.openCardDoctor(DOCTOR_SPECIALIZATION,DOCTOR);
-        cardDoctor.comebackDoctorsPage();
-        doctorsPage.doctorsPage();
+        doctorsPage.verifyDoctorsPage();
+        CardDoctorPage cardDoctor = doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION,DOCTOR);
+        cardDoctor.clickButtonComebackDoctorsPage();
+        doctorsPage.verifyDoctorsPage();
     }
 
     @Feature("Поиск по врачам")
@@ -63,7 +63,7 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по имени")
     @Test
     void searchNameDoctor() {
-        doctorsPage.doctorsPage();
+        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_SEARCH);
         Selenide.sleep(5000);
@@ -81,7 +81,7 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по специальности")
     @Test
     void searchSpecializationDoctor() {
-        doctorsPage.doctorsPage();
+        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_SPECIALIZATION_SEARCH);
         Selenide.sleep(5000);
@@ -98,7 +98,7 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по включению")
     @Test
     void searchByInclusion() {
-        doctorsPage.doctorsPage();
+        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(SEARCH_BY_INCLUSION_DOCTORS);
         Selenide.sleep(5000);
@@ -120,7 +120,7 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Сброс поискового результата врачей после очистки поля")
     @Test
     void resetSearchResultDoctors() {
-        doctorsPage.doctorsPage();
+        doctorsPage.verifyDoctorsPage();
         doctorsPage.searchDoctor(DOCTOR_NAME_SEARCH);
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
@@ -141,7 +141,7 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по значению в верхнем регистре")
     @Test
     void searchHighRegister() {
-        doctorsPage.doctorsPage();
+        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_HIGH_REGISTER);
         Selenide.sleep(5000);
@@ -158,7 +158,7 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по значению в различном регистре")
     @Test
     void searchDifferentRegister() {
-        doctorsPage.doctorsPage();
+        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_DIFFERENT_REGISTER);
         Selenide.sleep(5000);
@@ -175,9 +175,9 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Сортировка врачей по отсутствию фото")
     @Test
     void sortingWithoutPhoto() {
-        doctorsPage.doctorsPage();
+        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.sortingPhotoNo();
+        doctorsPage.clickSortingPhotoNo();
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
@@ -192,9 +192,9 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Сортировка врачей по наличию фото")
     @Test
     void sortingWithPhoto() {
-        doctorsPage.doctorsPage();
+        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
-        doctorsPage.sortingPhotoYes();
+        doctorsPage.clickSortingPhotoYes();
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
@@ -209,11 +209,11 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Сортировка по всем врачам")
     @Test
     void sortingWithAndWithoutPhoto() {
-        doctorsPage.doctorsPage();
-        doctorsPage.sortingPhotoNo();
+        doctorsPage.verifyDoctorsPage();
+        doctorsPage.clickSortingPhotoNo();
         Selenide.sleep(5000);
         int countResult = doctorsPage.getCountDoctors();
-        doctorsPage.sortingPhotoAll();
+        doctorsPage.clickSortingPhotoAll();
         Selenide.sleep(5000);
         int countAllDoctors = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();

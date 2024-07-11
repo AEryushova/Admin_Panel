@@ -34,7 +34,7 @@ public class CardDoctorPageTest extends BaseTest {
     static void setUpAuth() {
         BrowserManager.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
         DoctorsPage doctorsPage = new DoctorsPage();
-        doctorsPage.openCardDoctor(DOCTOR_SPECIALIZATION,DOCTOR);
+        doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION,DOCTOR);
     }
 
     @BeforeEach
@@ -56,12 +56,12 @@ public class CardDoctorPageTest extends BaseTest {
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg", "src/test/resources/Photo 3,2mbPng.png"})
     void changePhotoDoctor(String path) {
-        cardDoctor.cardDoctorPage();
+        cardDoctor.verifyCardDoctorPage();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openPhoto();
+        navigateMenu.clickTabOpenPhoto();
         navigateMenu.closeNavigateMenu();
-        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
-        editPhoto.editPhotoDoctorWindow();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
+        editPhoto.verifyEditPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto(path);
         Selenide.sleep(3000);
@@ -77,9 +77,9 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void changePhotoDoctorWeightMoreThan4mb() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openPhoto();
+        navigateMenu.clickTabOpenPhoto();
         navigateMenu.closeNavigateMenu();
-        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
         assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getNotification());
@@ -94,9 +94,9 @@ public class CardDoctorPageTest extends BaseTest {
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openPhoto();
+        navigateMenu.clickTabOpenPhoto();
         navigateMenu.closeNavigateMenu();
-        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto(path);
         assertEquals("Допускаются файлы с расширением jpg jpeg png", cardDoctor.getNotification());
@@ -111,9 +111,9 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void closeWindowEditPhoto() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openPhoto();
+        navigateMenu.clickTabOpenPhoto();
         navigateMenu.closeNavigateMenu();
-        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         editPhoto.closeWindowEditPhoto();
         assertFalse(editPhoto.isWindowAppear());
     }
@@ -125,10 +125,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void deletePhoto() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openPhoto();
+        navigateMenu.clickTabOpenPhoto();
         navigateMenu.closeNavigateMenu();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
-        cardDoctor.deletePhoto();
+        cardDoctor.clickButtonDeletePhoto();
         Selenide.sleep(3000);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertEquals(DEFAULT_PHOTO, cardDoctor.getSrcPhoto());
@@ -142,10 +142,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void deleteDefaultPhoto() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openPhoto();
+        navigateMenu.clickTabOpenPhoto();
         navigateMenu.closeNavigateMenu();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
-        cardDoctor.deletePhoto();
+        cardDoctor.clickButtonDeletePhoto();
         assertEquals("Конфликт (409)", cardDoctor.getNotification());
         assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
     }
@@ -157,12 +157,12 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addSection() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
-        AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.openWindowAddSection();
-        addInfoDoctorWindow.addInfoDoctorWindow();
+        AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
+        addInfoDoctorWindow.verifyAddInfoDoctorWindow();
         addInfoDoctorWindow.fillFieldText(SECTION);
-        addInfoDoctorWindow.saveValue();
+        addInfoDoctorWindow.clickButtonSaveValue();
         Section section = cardDoctor.getSection();
         assertEquals(SECTION, section.getSection());
         assertEquals(SECTION, DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
@@ -177,10 +177,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addSectionEmptyField() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
-        AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.openWindowAddSection();
-        addInfoDoctorWindow.saveValue();
+        AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
+        addInfoDoctorWindow.clickButtonSaveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
         assertFalse(cardDoctor.isExistSection());
         assertNull(DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()));
@@ -193,13 +193,13 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void cancelAddSection() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
-        AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.openWindowAddSection();
+        AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
         addInfoDoctorWindow.fillFieldText(SECTION);
-        addInfoDoctorWindow.cancelAddInfoDoctor();
+        addInfoDoctorWindow.clickCancelButtonAddInfoDoctor();
         assertFalse(addInfoDoctorWindow.isWindowAppear());
-        cardDoctor.openWindowAddSection();
+        cardDoctor.clickButtonAddSection();
         assertEquals("", addInfoDoctorWindow.getValueField());
     }
 
@@ -211,13 +211,13 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editSection() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
-        section.section();
-        section.editSaveTitle();
+        section.verifySection();
+        section.clickButtonEditSaveTitle();
         section.fillTitleField(NEW_SECTION);
-        section.editSaveTitle();
+        section.clickButtonEditSaveTitle();
         Selenide.sleep(2000);
         assertEquals(NEW_SECTION, section.getSection());
         assertEquals(NEW_SECTION, DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
@@ -230,12 +230,12 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editSectionEmptyField() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
-        section.editSaveTitle();
+        section.clickButtonEditSaveTitle();
         section.clearTitleField();
-        section.editSaveTitle();
+        section.clickButtonEditSaveTitle();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
 
@@ -247,10 +247,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void deleteSection() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
-        section.deleteTitle();
+        section.clickButtonDeleteTitle();
         Selenide.sleep(3000);
         assertFalse(cardDoctor.isExistSection());
         assertTrue(cardDoctor.isExistsEmptyListSection());
@@ -265,13 +265,13 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addDescription() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
-        AddInfoDoctorWindow addInfoDoctorWindow = section.openWindowAddDescription();
-        addInfoDoctorWindow.addInfoDoctorWindow();
+        AddInfoDoctorWindow addInfoDoctorWindow = section.clickButtonAddDescription();
+        addInfoDoctorWindow.verifyAddInfoDoctorWindow();
         addInfoDoctorWindow.fillFieldText(DESCRIPTION);
-        addInfoDoctorWindow.saveValue();
+        addInfoDoctorWindow.clickButtonSaveValue();
         Description description = cardDoctor.getDescription();
         assertEquals(DESCRIPTION, description.getDescription());
         assertEquals(DESCRIPTION, DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
@@ -286,11 +286,11 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addDescriptionEmptyField() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
-        AddInfoDoctorWindow addInfoDoctorWindow = section.openWindowAddDescription();
-        addInfoDoctorWindow.saveValue();
+        AddInfoDoctorWindow addInfoDoctorWindow = section.clickButtonAddDescription();
+        addInfoDoctorWindow.clickButtonSaveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
         assertFalse(cardDoctor.isExistDescription());
         assertNull(DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()));
@@ -304,14 +304,14 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void cancelAddDescription() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         Section section = cardDoctor.getSection();
-        AddInfoDoctorWindow addInfoDoctorWindow = section.openWindowAddDescription();
+        AddInfoDoctorWindow addInfoDoctorWindow = section.clickButtonAddDescription();
         addInfoDoctorWindow.fillFieldText(DESCRIPTION);
-        addInfoDoctorWindow.cancelAddInfoDoctor();
+        addInfoDoctorWindow.clickCancelButtonAddInfoDoctor();
         assertFalse(addInfoDoctorWindow.isWindowAppear());
-        section.openWindowAddDescription();
+        section.clickButtonAddDescription();
         assertEquals("", addInfoDoctorWindow.getValueField());
     }
 
@@ -323,13 +323,13 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editDescription() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         Description description = cardDoctor.getDescription();
-        description.description();
-        description.editSaveDescription();
+        description.verifyDescription();
+        description.clickButtonEditSaveDescription();
         description.fillDescriptionField(NEW_DESCRIPTION);
-        description.editSaveDescription();
+        description.clickButtonEditSaveDescription();
         Selenide.sleep(2000);
         assertEquals(NEW_DESCRIPTION, description.getDescription());
         assertEquals(NEW_DESCRIPTION, DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
@@ -342,12 +342,12 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editDescriptionEmptyField() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         Description description = cardDoctor.getDescription();
-        description.editSaveDescription();
+        description.clickButtonEditSaveDescription();
         description.clearDescriptionField();
-        description.editSaveDescription();
+        description.clickButtonEditSaveDescription();
         assertEquals("Неверный запрос (400)", cardDoctor.getNotification());
     }
 
@@ -358,10 +358,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void deleteDescription() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openDescription();
+        navigateMenu.clickTabOpenDescription();
         navigateMenu.closeNavigateMenu();
         Description description = cardDoctor.getDescription();
-        description.deleteDescription();
+        description.clickButtonDeleteDescription();
         Selenide.sleep(3000);
         assertFalse(cardDoctor.isExistDescription());
         assertTrue(cardDoctor.isExistsEmptyListDescription());
@@ -376,17 +376,17 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addFeedbackCurrentMonth() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
-        assertEquals(DataHelper.getCurrentDate(), addFeedbackWindow.getValuesButtonToday());
+        assertEquals(DataHelper.getCurrentDate(), addFeedbackWindow.getCurrentDateButton());
         Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
-        calendar.selectDateActivation();
-        addFeedbackWindow.publishFeedbackButton();
-        cardDoctor.selectedUnpublishedFeedback();
+        calendar.clickDateActivation();
+        addFeedbackWindow.clickButtonPublishFeedbackButton();
+        cardDoctor.checkSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         assertEquals(DataHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
@@ -409,17 +409,17 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addFeedbackFutureMonth() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
         Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.switchFutureMonth();
-        calendar.selectDateActivation();
-        addFeedbackWindow.publishFeedbackButton();
-        cardDoctor.selectedUnpublishedFeedback();
+        calendar.clickDateActivation();
+        addFeedbackWindow.clickButtonPublishFeedbackButton();
+        cardDoctor.checkSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         assertEquals(DataHelper.getNextMonthDate(), feedback.getDateFeedback());
@@ -442,17 +442,17 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addFeedbackPreviousMonth() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
         Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.switchPreviousMonth();
-        calendar.selectDateActivation();
-        addFeedbackWindow.publishFeedbackButton();
-        cardDoctor.selectedUnpublishedFeedback();
+        calendar.clickDateActivation();
+        addFeedbackWindow.clickButtonPublishFeedbackButton();
+        cardDoctor.checkSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         assertEquals(DataHelper.getPreviousMonthDate(), feedback.getDateFeedback());
@@ -474,16 +474,16 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addFeedbackTodayNotUseCalendar() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
-        addFeedbackWindow.addFeedbackWindow();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
+        addFeedbackWindow.verifyAddFeedbackWindow();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
-        addFeedbackWindow.publishFeedbackButton();
-        cardDoctor.selectedUnpublishedFeedback();
-        cardDoctor.noSelectedPublishedFeedback();
+        addFeedbackWindow.clickButtonPublishFeedbackButton();
+        cardDoctor.checkSelectUnpublishedFeedback();
+        cardDoctor.checkNoSelectPublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
@@ -504,15 +504,15 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void closeWindowAddNewFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
         addFeedbackWindow.closeWindowAddFeedback();
         assertFalse(addFeedbackWindow.isWindowAppear());
-        cardDoctor.openWindowAddFeedback();
+        cardDoctor.clickButtonAddFeedback();
         assertEquals("", addFeedbackWindow.getValueFioField());
         assertEquals("", addFeedbackWindow.getValueTextFeedbackField());
     }
@@ -523,10 +523,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addFeedbackEmptyFieldFio() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
         assertFalse(addFeedbackWindow.isEnabledPublishButton());
     }
@@ -538,10 +538,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addFeedbackEmptyFieldText() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        AddFeedbackWindow addFeedbackWindow = cardDoctor.openWindowAddFeedback();
+        AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         assertFalse(addFeedbackWindow.isEnabledPublishButton());
     }
@@ -553,21 +553,21 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editUnpublishedFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        cardDoctor.selectedPublishedFeedback();
-        cardDoctor.noSelectedUnpublishedFeedback();
-        cardDoctor.switchUnpublishedFeedback();
-        cardDoctor.noSelectedPublishedFeedback();
-        cardDoctor.selectedUnpublishedFeedback();
+        cardDoctor.checkSelectPublishedFeedback();
+        cardDoctor.checkNoSelectUnpublishedFeedback();
+        cardDoctor.clickButtonUnpublishedFeedback();
+        cardDoctor.checkNoSelectPublishedFeedback();
+        cardDoctor.checkSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
-        feedback.feedbackUnpublished();
-        ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
-        changeFeedback.changeFeedbackWindow();
+        feedback.verifyFeedbackUnpublished();
+        ChangeFeedbackWindow changeFeedback = feedback.clickButtonEditFeedback();
+        changeFeedback.verifyChangeFeedbackWindow();
         changeFeedback.fillFieldText(NEW_FEEDBACK);
-        changeFeedback.saveChanges();
-        feedback.feedbackUnpublished();
+        changeFeedback.clickButtonSaveChanges();
+        feedback.verifyFeedbackUnpublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         assertEquals(NEW_FEEDBACK, feedback.getTextFeedback());
         assertEquals(NEW_FEEDBACK, DataBaseQuery.selectFeedback().getContent());
@@ -585,14 +585,14 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void publicationUnpublishedFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        cardDoctor.switchUnpublishedFeedback();
+        cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
-        feedback.feedbackUnpublished();
-        feedback.publicationFeedback();
-        feedback.feedbackPublished();
+        feedback.verifyFeedbackUnpublished();
+        feedback.clickButtonPublicationFeedback();
+        feedback.verifyFeedbackPublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         assertEquals(FEEDBACK, feedback.getTextFeedback());
         assertEquals(FEEDBACK, DataBaseQuery.selectFeedback().getContent());
@@ -609,18 +609,18 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editPublishedFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        cardDoctor.selectedPublishedFeedback();
-        cardDoctor.noSelectedUnpublishedFeedback();
+        cardDoctor.checkSelectPublishedFeedback();
+        cardDoctor.checkNoSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
-        feedback.feedbackPublished();
-        ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
-        changeFeedback.changeFeedbackWindow();
+        feedback.verifyFeedbackPublished();
+        ChangeFeedbackWindow changeFeedback = feedback.clickButtonEditFeedback();
+        changeFeedback.verifyChangeFeedbackWindow();
         changeFeedback.fillFieldText(NEW_FEEDBACK);
-        changeFeedback.saveChanges();
-        feedback.feedbackPublished();
+        changeFeedback.clickButtonSaveChanges();
+        feedback.verifyFeedbackPublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         assertEquals(NEW_FEEDBACK, feedback.getTextFeedback());
         assertEquals(NEW_FEEDBACK, DataBaseQuery.selectFeedback().getContent());
@@ -638,13 +638,13 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void withdrawalPublicationFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
         Feedback feedback = cardDoctor.getFeedback();
-        feedback.feedbackPublished();
-        feedback.withdrawalPublication();
-        feedback.feedbackUnpublished();
+        feedback.verifyFeedbackPublished();
+        feedback.clickButtonWithdrawalPublication();
+        feedback.verifyFeedbackUnpublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         assertEquals(FEEDBACK, feedback.getTextFeedback());
         assertEquals(FEEDBACK, DataBaseQuery.selectFeedback().getContent());
@@ -660,15 +660,15 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void closeWindowEditFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
         Feedback feedback = cardDoctor.getFeedback();
-        ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
+        ChangeFeedbackWindow changeFeedback = feedback.clickButtonEditFeedback();
         changeFeedback.fillFieldText(NEW_FEEDBACK);
         changeFeedback.closeWindowChangeFeedback();
         assertFalse(changeFeedback.isWindowAppear());
-        feedback.editFeedback();
+        feedback.clickButtonEditFeedback();
         assertEquals(FEEDBACK, changeFeedback.getValueTextFeedbackField());
         assertEquals(FEEDBACK, DataBaseQuery.selectFeedback().getContent());
     }
@@ -680,11 +680,11 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editFeedbackEmptyFieldText() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
         Feedback feedback = cardDoctor.getFeedback();
-        ChangeFeedbackWindow changeFeedback = feedback.editFeedback();
+        ChangeFeedbackWindow changeFeedback = feedback.clickButtonEditFeedback();
         changeFeedback.clearTextField();
         assertFalse(changeFeedback.isEnabledSaveButton());
     }
@@ -697,13 +697,13 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void deleteUnpublishedFeedback() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        cardDoctor.switchUnpublishedFeedback();
+        cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
-        feedback.feedbackUnpublished();
-        feedback.deleteFeedback();
+        feedback.verifyFeedbackUnpublished();
+        feedback.clickButtonDeleteFeedback();
         assertEquals("Отзыв успешно удален", cardDoctor.getNotification());
         assertFalse(cardDoctor.isExistFeedback());
         assertNull(DataBaseQuery.selectFeedback());
@@ -716,20 +716,20 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void sortingUnpublishedFeedbacks() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.openFeedback();
+        navigateMenu.clickTabOpenFeedback();
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
-        cardDoctor.switchUnpublishedFeedback();
+        cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertTrue(cardDoctor.isSortingNewAppear());
         String dateFeedbackToday = feedback.getDateFeedbackByIndex(0);
         String dateFeedbackYesterday = feedback.getDateFeedbackByIndex(1);
-        cardDoctor.sortingFeedbackNew();
+        cardDoctor.clickSortingFeedbackNew();
         assertFalse(cardDoctor.isSortingNewAppear());
         assertTrue(cardDoctor.isSortingOldAppear());
         assertEquals(dateFeedbackYesterday, feedback.getDateFeedbackByIndex(0));
         assertEquals(dateFeedbackToday, feedback.getDateFeedbackByIndex(1));
-        cardDoctor.sortingFeedbackOld();
+        cardDoctor.clickSortingFeedbackOld();
         assertTrue(cardDoctor.isSortingNewAppear());
         assertFalse(cardDoctor.isSortingOldAppear());
         assertEquals(dateFeedbackToday, feedback.getDateFeedbackByIndex(0));
@@ -741,7 +741,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Закрытие уведомления на странице карточки врача по таймауту")
     @Test
     void closeNotificationTimeout() {
-        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
         checkCloseNotificationTimeout(basePage);
     }
@@ -750,7 +750,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Закрытие уведомления на странице карточки врача")
     @Test
     void closeNotification() {
-        EditPhotoDoctorWindow editPhoto = cardDoctor.openWindowEditPhoto();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
         checkCloseNotification(basePage);
     }
@@ -760,7 +760,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void closeNavigateMenu() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.navigateMenu();
+        navigateMenu.verifyNavigateMenu();
         navigateMenu.closeNavigateMenu();
         assertFalse(navigateMenu.isNavigateMenuDisplayed());
     }

@@ -17,7 +17,7 @@ public class ChangeFeedbackWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf gvNC']");
 
     @Step("Верифицировать окно изменения отзыва")
-    public void changeFeedbackWindow() {
+    public void verifyChangeFeedbackWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -32,7 +32,7 @@ public class ChangeFeedbackWindow {
     }
 
     @Step("Нажать на кнопку сохранения")
-    public void saveChanges() {
+    public void clickButtonSaveChanges() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

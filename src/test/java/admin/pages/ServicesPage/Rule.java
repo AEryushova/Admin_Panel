@@ -14,13 +14,13 @@ public class Rule {
     private final SelenideElement TITLE_RULE=$x("//div[@class='A7Gv']/span");
 
     @Step("Верифицировать правила")
-    public void rule() {
+    public void verifyRule() {
         OPEN_RULE.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TITLE_RULE.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     @Step("Нажать кнопку изменения правила")
-    public EditRuleWindow openEditRuleWindow() {
+    public EditRuleWindow clickButtonEditRule() {
         OPEN_RULE.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

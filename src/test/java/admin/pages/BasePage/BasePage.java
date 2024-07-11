@@ -32,7 +32,7 @@ public class BasePage {
     }
 
     @Step("Проверить отображение нотификации")
-    public boolean notificationAppear() {
+    public boolean isNotificationAppear() {
         return NOTIFICATION.isDisplayed();
     }
 }

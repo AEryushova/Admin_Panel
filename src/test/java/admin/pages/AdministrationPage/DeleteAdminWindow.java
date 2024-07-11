@@ -17,21 +17,21 @@ public class DeleteAdminWindow {
     private final SelenideElement NO_BUTTON = $x("//button[text()='Нет']");
 
     @Step("Верифицировать окно удаления админа")
-    public void deleteAdminWindow() {
+    public void verifyDeleteAdminWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         YES_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     @Step("Нажать кнопку удаления админа")
-    public void deleteAdmin() {
+    public void clickButtonDeleteAdmin() {
         YES_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать кнопку отмены удаления админа")
-    public void cancelDeleteAdmin() {
+    public void clickCancelButtonDeleteAdmin() {
         NO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

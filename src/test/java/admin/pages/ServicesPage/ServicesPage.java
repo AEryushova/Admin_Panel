@@ -25,7 +25,7 @@ public class ServicesPage extends BasePage {
     private final SelenideElement DENTISTRY = $x("//span[text()='Стоматология']//parent::div//parent::div[@class='ZAC4']");
 
     @Step("Верифицировать страницу Услуги")
-    public void servicesPage() {
+    public void verifyServicesPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SEARCH_SERVICES.shouldBe(Condition.visible, Duration.ofSeconds(5));
         OTHER_SERVICES.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -37,7 +37,7 @@ public class ServicesPage extends BasePage {
     }
 
     @Step("Нажать кнопку открытия правил подготовки к категории '{0}'")
-    public RulesPreparingWindow openRulesPreparingCategory(String categoryName){
+    public RulesPreparingWindow clickButtonOpenRulesPreparingCategory(String categoryName){
         SelenideElement RULES_PREPARING = searchCategory(categoryName).$x("div[@class='Ie41']");
         RULES_PREPARING.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -46,7 +46,7 @@ public class ServicesPage extends BasePage {
     }
 
     @Step("Нажать кнопку раскрытия категории")
-    public CategoryCard openCategory(String categoryName) {
+    public CategoryCard clickButtonOpenCategory(String categoryName) {
         SelenideElement EXPAND_CATEGORY = searchCategory(categoryName).$x("div[@class='gm_s']");
         EXPAND_CATEGORY.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -55,7 +55,7 @@ public class ServicesPage extends BasePage {
     }
 
     @Step("Нажать кнопку закрытия категории")
-    public void closeCategory(String categoryName) {
+    public void clickButtonCloseCategory(String categoryName) {
         SelenideElement CLOSE_CATEGORY = searchCategory(categoryName).$x("div[@class='gm_s']");
         CLOSE_CATEGORY.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -81,7 +81,7 @@ public class ServicesPage extends BasePage {
     }
 
     @Step("Поменять местами категорию с названием '{0}' и категорию с названием '{1}'")
-    public void changeDisplaySequence(String sourceName, String targetName) {
+    public void changeSequenceDisplayCategories(String sourceName, String targetName) {
         SelenideElement categorySource = searchCategory(sourceName);
         SelenideElement categoryTarget = searchCategory(targetName);
         Actions actions = actions();

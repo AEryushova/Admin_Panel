@@ -19,7 +19,7 @@ public class PriceErrorsWindow {
 
 
     @Step("Верифицировать окно ошибок прайса")
-    public void priceErrorsWindow() {
+    public void verifyPriceErrorsWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADJUSTMENT_RULES_TAB.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ERROR_PRICE_TAB.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -34,7 +34,7 @@ public class PriceErrorsWindow {
     }
 
     @Step("Нажать вкладку ошибок в прайсе")
-    public void clickErrorPrice() {
+    public void clickErrorPriceTab() {
         ERROR_PRICE_TAB.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

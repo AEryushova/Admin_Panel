@@ -32,7 +32,7 @@ public class ServiceWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[text()='Общая информация']/parent::div/parent::div/preceding-sibling::div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать вкладку общей информации окна услуги")
-    public void serviceWindowGeneralInfo() {
+    public void verifyServiceWindowGeneralInfo() {
         GENERAL_INFO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SERVICE_TRANSFER.shouldBe(Condition.visible, Duration.ofSeconds(5));
         RULES_PREPARING.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -44,7 +44,7 @@ public class ServiceWindow {
     }
 
     @Step("Верифицировать вкладку переноса услуг окна услуги")
-    public void serviceWindowServiceTransfer() {
+    public void verifyServiceWindowServiceTransfer() {
         GENERAL_INFO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SERVICE_TRANSFER.shouldBe(Condition.visible, Duration.ofSeconds(5));
         RULES_PREPARING.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -54,7 +54,7 @@ public class ServiceWindow {
     }
 
     @Step("Верифицировать вкладку правил подготовки окна услуги")
-    public void serviceWindowRulesPreparing() {
+    public void verifyServiceWindowRulesPreparing() {
         GENERAL_INFO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SERVICE_TRANSFER.shouldBe(Condition.visible, Duration.ofSeconds(5));
         RULES_PREPARING.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -66,21 +66,21 @@ public class ServiceWindow {
     }
 
     @Step("Нажать вкладку переноса услуг")
-    public void switchToServiceTransfer() {
+    public void clickServiceTransferTab() {
         SERVICE_TRANSFER.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать вкладку правил подготовки")
-    public void switchToRulesPreparing() {
+    public void clickRulesPreparingTab() {
         RULES_PREPARING.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать вкладку общей информации")
-    public void switchToGeneralInfo() {
+    public void clickGeneralInfoTab() {
         GENERAL_INFO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -115,14 +115,14 @@ public class ServiceWindow {
     }
 
     @Step("Нажать кнопку удаления услуги")
-    public void deleteService(){
+    public void clickButtonDeleteService(){
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
             .click();
     }
 
     @Step("Выбрать категорию для переноса")
-    public void openCategoryForTransfer(String nameCategory) {
+    public void clickCategoryForTransfer(String nameCategory) {
         SelenideElement CATEGORY = $x("//span[text()='" + nameCategory + "']//parent::div[@class='ZbgC']");
         CATEGORY.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -130,7 +130,7 @@ public class ServiceWindow {
     }
 
     @Step("Нажать кнопку переноса услуги в категорию Иные услуги")
-    public void transferServiceToOtherServices() {
+    public void clickButtonTransferServiceToOtherServices() {
         NO_SECTIONS.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         NAME_SECTION.shouldNotBe(Condition.visible)

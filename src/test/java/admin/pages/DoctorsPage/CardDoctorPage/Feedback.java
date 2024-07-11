@@ -23,7 +23,7 @@ public class Feedback {
     private final SelenideElement DELETE_BUTTON = $x("//button[text()='Удалить']");
 
     @Step("Верифицировать неопубликованный отзыв")
-    public void feedbackUnpublished() {
+    public void verifyFeedbackUnpublished() {
         FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DATE_FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -34,7 +34,7 @@ public class Feedback {
     }
 
     @Step("Верифицировать опубликованный отзыв")
-    public void feedbackPublished() {
+    public void verifyFeedbackPublished() {
         FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DATE_FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -72,7 +72,7 @@ public class Feedback {
     }
 
     @Step("Нажать на кнопку изменения отзыва")
-    public ChangeFeedbackWindow editFeedback() {
+    public ChangeFeedbackWindow clickButtonEditFeedback() {
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -80,21 +80,21 @@ public class Feedback {
     }
 
     @Step("Нажать на кнопку публикации")
-    public void publicationFeedback() {
+    public void clickButtonPublicationFeedback() {
         PUBLICATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать на кнопку снятия с публикации")
-    public void withdrawalPublication() {
+    public void clickButtonWithdrawalPublication() {
         WITHDRAWAL_PUBLICATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать на кнопку удаления")
-    public void deleteFeedback() {
+    public void clickButtonDeleteFeedback() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

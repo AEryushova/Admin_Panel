@@ -17,7 +17,7 @@ public class AddRuleWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='вернуться назад']/parent::div/parent::div/parent::div/parent::div/preceding-sibling::div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно добавления нового правила")
-    public void addRuleWindow() {
+    public void verifyAddRuleWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         RETURN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TITLE_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -69,7 +69,7 @@ public class AddRuleWindow {
     }
 
     @Step("Нажать кнопку возвращения назад")
-    public void returnRulesList() {
+    public void clickButtonReturnRulesList() {
         RETURN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

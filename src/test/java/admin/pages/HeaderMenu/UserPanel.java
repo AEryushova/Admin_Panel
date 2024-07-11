@@ -17,7 +17,7 @@ public class UserPanel {
     private final SelenideElement CHANGE_PASSWORD_BUTTON=$x("//span[@data-locator='change-password-btn']");
 
     @Step("Верифицировать юзер-панели для Суперадмина")
-    public void userPanelSuperAdmin() {
+    public void verifyUserPanelSuperAdmin() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
         LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -25,7 +25,7 @@ public class UserPanel {
     }
 
     @Step("Верифицировать юзер-панели для Админа")
-    public void userPanelAdmin() {
+    public void verifyUserPanelAdmin() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
         LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -34,19 +34,19 @@ public class UserPanel {
     }
 
     @Step("Получить роль юзера")
-    public String checkProfileInfoUser() {
+    public String getProfileInfoUser() {
         ROLE_STATUS.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return ROLE_STATUS.getText();
     }
 
     @Step("Получить логин юзера")
-    public String checkLogin() {
+    public String getLogin() {
         LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return LOGIN.getText();
     }
 
     @Step("Нажать на кнопку изменения своего пароля")
-    public ChangeMinePasswordWindow changePassword(){
+    public ChangeMinePasswordWindow clickButtonChangePassword(){
         CHANGE_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();
@@ -54,7 +54,7 @@ public class UserPanel {
     }
 
     @Step("Нажать на кнопку выхода из админ-панели")
-    public AuthorizationPage exitAdminPanel() {
+    public AuthorizationPage clickButtonExitAdminPanel() {
         EXIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();

@@ -17,7 +17,7 @@ public class EditSectionWindow {
     public final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='edit-category-name']/parent::div//following-sibling::div[@class='V5So']");
 
     @Step("Верифицировать окно изменения раздела")
-    public void editSectionWindow() {
+    public void verifyEditSectionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -32,7 +32,7 @@ public class EditSectionWindow {
     }
 
     @Step("Нажать кнопку сохранения")
-    public void saveChange() {
+    public void clickButtonSaveChange() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -47,7 +47,7 @@ public class EditSectionWindow {
     }
 
     @Step("Закрыть окно изменения раздела")
-    public void closeWindow() {
+    public void closeWindowEditSection() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

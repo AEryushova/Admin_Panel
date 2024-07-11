@@ -22,7 +22,7 @@ public class UpdateOrderWindow {
     private final SelenideElement TODAY_BUTTON = $x("//div[@class='zMyf']");
 
     @Step("Верифицировать окно добавления приказа")
-    public void updateOrderWindow() {
+    public void verifyUpdateOrderWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));

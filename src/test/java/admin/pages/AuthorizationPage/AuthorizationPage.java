@@ -23,7 +23,7 @@ public class AuthorizationPage extends BasePage {
     private final SelenideElement LOGO=$x("//div[@class='RDMc']/img");
 
     @Step("Верифицировать страницу Авторизации")
-    public void authPage() {
+    public void verifyAuthPage() {
         LOGIN_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TO_COME_IN_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
@@ -83,7 +83,7 @@ public class AuthorizationPage extends BasePage {
     }
 
     @Step("Нажать на кнопку очищения поля логина")
-    public void clearLoginClickButton() {
+    public void clickClearButtonLoginField() {
         CLEAR_LOGIN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

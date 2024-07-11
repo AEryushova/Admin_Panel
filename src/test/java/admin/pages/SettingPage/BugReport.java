@@ -17,7 +17,7 @@ public class BugReport {
     private final SelenideElement DELETE_BUTTON = $x("//div[@class='wXIR']");
 
     @Step("Верифицировать сообщение об ошибке")
-    public void bugReport() {
+    public void verifyBugReport() {
         AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EMAIL_AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DATE_REPORT.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -54,7 +54,7 @@ public class BugReport {
     }
 
     @Step("Нажать на кнопку удаления")
-    public void deleteBugReport() {
+    public void clickButtonDeleteBugReport() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

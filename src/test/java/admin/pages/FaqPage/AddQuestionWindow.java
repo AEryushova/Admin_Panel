@@ -17,7 +17,7 @@ public class AddQuestionWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Новый Вопрос']/parent::div/parent::div/preceding-sibling::div");
 
     @Step("Верифицировать окно добавления нового вопроса")
-    public void addQuestionWindow() {
+    public void verifyAddQuestionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         QUESTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -41,7 +41,7 @@ public class AddQuestionWindow {
     }
 
     @Step("Нажать кнопку добавления")
-    public void addQuestion() {
+    public void clickButtonAddQuestion() {
         ADD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

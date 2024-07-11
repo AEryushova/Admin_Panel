@@ -20,7 +20,7 @@ public class AddSectionWindow {
     private final SelenideElement ERROR_FIELD_NAME = $x("//input[@name='name']/following-sibling::div");
 
     @Step("Верифицировать окно добавления нового раздела")
-    public void addSectionWindow() {
+    public void verifyAddSectionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -37,14 +37,14 @@ public class AddSectionWindow {
     }
 
     @Step("Нажать кнопку добавления")
-    public void clickAddSection() {
+    public void clickButtonAddSection() {
         ADD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать кнопку отмены")
-    public void cancelAddSection() {
+    public void clickCancelButtonAddSection() {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

@@ -32,7 +32,7 @@ public class DoctorsPage extends BasePage {
     private final ElementsCollection PHOTO_DOCTORS=$$x("//div[@class='eF30']/div[@class='Uw0W']/img");
 
     @Step("Верифицировать страницу Врачи")
-    public void doctorsPage() {
+    public void verifyDoctorsPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SEARCH_DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DROP_DOWN_PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -41,7 +41,7 @@ public class DoctorsPage extends BasePage {
     }
 
     @Step("Нажать на кнопку редактирования информации о враче с именем '{1}' и специализацией '{0}'")
-    public CardDoctorPage openCardDoctor(String specialization,String doctorName) {
+    public CardDoctorPage clickButtonEditInfoDoctor(String specialization, String doctorName) {
         SelenideElement EDIT_BUTTON=$x("//span[text()='" + specialization + "']/preceding-sibling::span[text()='" + doctorName + "'] /parent::div/following-sibling::button[text()='Редактировать']");
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -50,7 +50,7 @@ public class DoctorsPage extends BasePage {
     }
 
     @Step("Нажать на кнопку сортировки врачей без фотографии")
-    public void sortingPhotoNo() {
+    public void clickSortingPhotoNo() {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -60,7 +60,7 @@ public class DoctorsPage extends BasePage {
     }
 
     @Step("Нажать на кнопку сортировки врачей с фотографией")
-    public void sortingPhotoYes() {
+    public void clickSortingPhotoYes() {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -70,7 +70,7 @@ public class DoctorsPage extends BasePage {
     }
 
     @Step("Нажать на кнопку сортировки всех врачей")
-    public void sortingPhotoAll() {
+    public void clickSortingPhotoAll() {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

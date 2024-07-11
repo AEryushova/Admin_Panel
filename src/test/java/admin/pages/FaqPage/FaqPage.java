@@ -25,14 +25,14 @@ public class FaqPage extends BasePage {
     private final SelenideElement COUNT_FAQ = $x("//div[@class='wYqZ']/span[2]");
 
     @Step("Верифицировать страницу FAQ")
-    public void faqPage() {
+    public void verifyFaqPage() {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SEARCH_FAQ.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_QUESTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     @Step("Нажать кнопку добавления нового вопроса")
-    public AddQuestionWindow openWindowAddQuestion() {
+    public AddQuestionWindow clickButtonAddQuestion() {
         ADD_QUESTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -58,7 +58,7 @@ public class FaqPage extends BasePage {
     }
 
     @Step("Поменять местами вопрос с индексом '{0}' и вопрос с индексом '{1}'")
-    public void sequenceChangeQuestions(int sourceIndex, int targetIndex) {
+    public void changeSequenceDisplayQuestions(int sourceIndex, int targetIndex) {
         SelenideElement sourceQuestion = QUESTION_CARDS.get(sourceIndex);
         SelenideElement targetQuestion = QUESTION_CARDS.get(targetIndex);
         Actions actions = actions();

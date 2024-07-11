@@ -21,7 +21,7 @@ public class AddFeedbackWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='fio']/parent::div/parent::div/parent::div/preceding-sibling::div");
 
     @Step("Верифицировать окно добавления отзыва")
-    public void addFeedbackWindow() {
+    public void verifyAddFeedbackWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         FIO_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -52,14 +52,14 @@ public class AddFeedbackWindow {
     }
 
     @Step("Нажать на кнопку публикации")
-    public void publishFeedbackButton() {
+    public void clickButtonPublishFeedbackButton() {
         PUBLISH_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Получить текущую дату с календаря")
-    public String getValuesButtonToday() {
+    public String getCurrentDateButton() {
         TODAY_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
         return TODAY_BUTTON.getText();

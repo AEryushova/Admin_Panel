@@ -22,7 +22,7 @@ public class UpdateLegalDocWindow {
 
 
     @Step("Верифицировать окно добавления оферты и политики обработки")
-    public void uploadDocWindow() {
+    public void verifyUploadDocWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DOC_IMAGE.shouldHave(attribute("src")).shouldNotBe(attribute("src", ""));

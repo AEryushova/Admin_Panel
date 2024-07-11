@@ -32,7 +32,7 @@ public class CardDoctorPage extends BasePage {
     private final SelenideElement NAVIGATE_MENU = $x("//div[@class='_odc']");
 
     @Step("Верифицировать карточку врача")
-    public void cardDoctorPage() {
+    public void verifyCardDoctorPage() {
         RETURN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DOCTOR_PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_PHOTO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -42,7 +42,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     @Step("Нажать кнопку изменения фотографии")
-    public EditPhotoDoctorWindow openWindowEditPhoto() {
+    public EditPhotoDoctorWindow clickButtonEditPhoto() {
         EDIT_PHOTO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -50,7 +50,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     @Step("Нажать кнопку удаления фотографии")
-    public void deletePhoto() {
+    public void clickButtonDeletePhoto() {
         DELETE_PHOTO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -62,7 +62,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     @Step("Нажать кнопку добавления информации о враче")
-    public AddInfoDoctorWindow openWindowAddSection() {
+    public AddInfoDoctorWindow clickButtonAddSection() {
         ADD_SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -104,32 +104,32 @@ public class CardDoctorPage extends BasePage {
     }
 
     @Step("Нажать радиобаттон неопубликованных отзывов")
-    public void switchUnpublishedFeedback() {
+    public void clickButtonUnpublishedFeedback() {
         NO_SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Проверить выбранный радиобаттон опубликованных отзывов")
-    public void selectedPublishedFeedback() {
+    public void checkSelectPublishedFeedback() {
         SELECTED_PUBLISHED_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
     }
 
     @Step("Проверить выбранный радиобаттон неопубликованных отзывов")
-    public void selectedUnpublishedFeedback() {
+    public void checkSelectUnpublishedFeedback() {
         SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
     }
 
     @Step("Проверить невыбранный радиобаттон опубликованных отзывов")
-    public void noSelectedPublishedFeedback() {
+    public void checkNoSelectPublishedFeedback() {
         NO_SELECTED_PUBLISHED_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
     }
 
     @Step("Проверить невыбранный радиобаттон неопубликованных отзывов")
-    public void noSelectedUnpublishedFeedback() {
+    public void checkNoSelectUnpublishedFeedback() {
         NO_SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
     }
@@ -145,7 +145,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     @Step("Нажать кнопку добавления отзыва")
-    public AddFeedbackWindow openWindowAddFeedback() {
+    public AddFeedbackWindow clickButtonAddFeedback() {
         ADD_FEEDBACK.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -165,7 +165,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     @Step("Нажать кнопку возврата к списку докторов")
-    public void comebackDoctorsPage() {
+    public void clickButtonComebackDoctorsPage() {
         RETURN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -177,7 +177,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     @Step("Нажать кнопку сортировки отзывов от старых к новым")
-    public void sortingFeedbackNew() {
+    public void clickSortingFeedbackNew() {
         SORTING_FEEDBACK_NEW.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -189,7 +189,7 @@ public class CardDoctorPage extends BasePage {
     }
 
     @Step("Нажать кнопку сортировки отзывов от новых к старым")
-    public void sortingFeedbackOld() {
+    public void clickSortingFeedbackOld() {
         SORTING_FEEDBACK_OLD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

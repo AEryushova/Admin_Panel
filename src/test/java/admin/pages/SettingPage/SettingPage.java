@@ -19,13 +19,13 @@ public class SettingPage extends BasePage {
     private final SelenideElement EMPTY_LIST_BUG_REPORT=$x("//span[text()='Нет сообщений от пользователей']");
 
     @Step("Верифицировать страницу Настройки")
-    public void settingPage() {
+    public void verifySettingPage() {
         BUG_REPORTS_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         LOGO_APP_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     @Step("Получить сообщение об ошибке")
-    public BugReport bugReportCard(){
+    public BugReport getBugReportCard(){
         BUG_REPORT.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new BugReport();
     }
@@ -36,7 +36,7 @@ public class SettingPage extends BasePage {
     }
 
     @Step("Нажать кнопку изменения логотипа")
-    public EditLogoWindow openWindowEditLogo() {
+    public EditLogoWindow clickButtonEditLogo() {
         EDIT_LOGO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

@@ -13,16 +13,16 @@ public class BaseTest {
     @Step("Проверить отображение нотификации через 7 сек.")
     protected void checkCloseNotificationTimeout(BasePage basePage){
         Selenide.sleep(2000);
-        assertTrue(basePage.notificationAppear());
+        assertTrue(basePage.isNotificationAppear());
         Selenide.sleep(7000);
-        assertFalse(basePage.notificationAppear());
+        assertFalse(basePage.isNotificationAppear());
     }
 
     @Step("Закрыть нотификатию и проверить ее отображение")
     public void checkCloseNotification(BasePage basePage){
         Selenide.sleep(2000);
-        assertTrue(basePage.notificationAppear());
+        assertTrue(basePage.isNotificationAppear());
         basePage.closeNotification();
-        assertFalse(basePage.notificationAppear());
+        assertFalse(basePage.isNotificationAppear());
     }
 }

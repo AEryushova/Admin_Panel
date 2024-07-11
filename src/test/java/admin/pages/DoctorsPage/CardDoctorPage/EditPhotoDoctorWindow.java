@@ -20,7 +20,7 @@ public class EditPhotoDoctorWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Редактирование фотографии']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно изменения фотографии")
-    public void editPhotoDoctorWindow() {
+    public void verifyEditPhotoDoctorWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DOCTOR_PHOTO.shouldHave(attribute("src")).shouldNotBe(attribute("src", ""));

@@ -21,7 +21,7 @@ public class Calendar {
     }
 
     @Step("Верифицировать окно календаря")
-    public void calendar() {
+    public void verifyCalendar() {
         HEADER_CURRENT_MONTH.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SWITCH_PREVIOUS_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SWITCH_NEXT_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -29,7 +29,7 @@ public class Calendar {
     }
 
     @Step("Нажать на выбранную в календаре дату")
-    public void selectDateActivation() {
+    public void clickDateActivation() {
         DATE_ACTIVATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -50,7 +50,7 @@ public class Calendar {
     }
 
     @Step("Получить название текущего месяца в календаре")
-    public String getCurrentMonthCalendar() {
+    public String getNameCurrentMonth() {
         HEADER_CURRENT_MONTH.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return HEADER_CURRENT_MONTH.getText();

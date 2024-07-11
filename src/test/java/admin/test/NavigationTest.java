@@ -45,9 +45,9 @@ public class NavigationTest {
     @DisplayName("Переход на вкладку докторов")
     @Test
     void openDoctorsPage() {
-        headerMenu.headerBarSuperAdmin();
-        DoctorsPage doctorsPage = headerMenu.doctorsTabOpen();
-        doctorsPage.doctorsPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        DoctorsPage doctorsPage = headerMenu.clickDoctorsTab();
+        doctorsPage.verifyDoctorsPage();
     }
 
     @Feature("Навигация")
@@ -55,11 +55,11 @@ public class NavigationTest {
     @DisplayName("Сохранение вкладки докторов")
     @Test
     void saveDoctorsPage() {
-        headerMenu.headerBarSuperAdmin();
-        DoctorsPage doctorsPage = headerMenu.doctorsTabOpen();
-        doctorsPage.doctorsPage();
-        headerMenu.doctorsTabOpen();
-        doctorsPage.doctorsPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        DoctorsPage doctorsPage = headerMenu.clickDoctorsTab();
+        doctorsPage.verifyDoctorsPage();
+        headerMenu.clickDoctorsTab();
+        doctorsPage.verifyDoctorsPage();
     }
 
     @Feature("Навигация")
@@ -67,9 +67,9 @@ public class NavigationTest {
     @DisplayName("Переход на вкладку услуг")
     @Test
     void openServicesPage() {
-        headerMenu.headerBarSuperAdmin();
-        ServicesPage servicesPage = headerMenu.servicesTabOpen();
-        servicesPage.servicesPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        ServicesPage servicesPage = headerMenu.clickServicesTab();
+        servicesPage.verifyServicesPage();
     }
 
     @Feature("Навигация")
@@ -77,11 +77,11 @@ public class NavigationTest {
     @DisplayName("Сохранение вкладки услуг")
     @Test
     void saveServicesPage() {
-        headerMenu.headerBarSuperAdmin();
-        ServicesPage servicesPage = headerMenu.servicesTabOpen();
-        servicesPage.servicesPage();
-        headerMenu.servicesTabOpen();
-        servicesPage.servicesPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        ServicesPage servicesPage = headerMenu.clickServicesTab();
+        servicesPage.verifyServicesPage();
+        headerMenu.clickServicesTab();
+        servicesPage.verifyServicesPage();
     }
 
     @Feature("Навигация")
@@ -89,9 +89,9 @@ public class NavigationTest {
     @DisplayName("Переход на вкладку faq")
     @Test
     void openFaqPage() {
-        headerMenu.headerBarSuperAdmin();
-        FaqPage faqPage = headerMenu.faqTabOpen();
-        faqPage.faqPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        FaqPage faqPage = headerMenu.clickFaqTab();
+        faqPage.verifyFaqPage();
     }
 
     @Feature("Навигация")
@@ -99,11 +99,11 @@ public class NavigationTest {
     @DisplayName("Сохранение вкладки faq")
     @Test
     void saveFaqPage() {
-        headerMenu.headerBarSuperAdmin();
-        FaqPage faqPage = headerMenu.faqTabOpen();
-        faqPage.faqPage();
-        headerMenu.faqTabOpen();
-        faqPage.faqPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        FaqPage faqPage = headerMenu.clickFaqTab();
+        faqPage.verifyFaqPage();
+        headerMenu.clickFaqTab();
+        faqPage.verifyFaqPage();
     }
 
     @Feature("Навигация")
@@ -111,9 +111,9 @@ public class NavigationTest {
     @DisplayName("Переход на вкладку настроек")
     @Test
     void openSettingPage() {
-        headerMenu.headerBarSuperAdmin();
-        SettingPage settingPage = headerMenu.settingTabOpen();
-        settingPage.settingPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        SettingPage settingPage = headerMenu.clickSettingTab();
+        settingPage.verifySettingPage();
     }
 
     @Feature("Навигация")
@@ -121,11 +121,11 @@ public class NavigationTest {
     @DisplayName("Сохранение вклакди настроек")
     @Test
     void saveSettingPage() {
-        headerMenu.headerBarSuperAdmin();
-        SettingPage settingPage = headerMenu.settingTabOpen();
-        settingPage.settingPage();
-        headerMenu.settingTabOpen();
-        settingPage.settingPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        SettingPage settingPage = headerMenu.clickSettingTab();
+        settingPage.verifySettingPage();
+        headerMenu.clickSettingTab();
+        settingPage.verifySettingPage();
     }
 
     @Feature("Навигация")
@@ -133,9 +133,9 @@ public class NavigationTest {
     @DisplayName("Переход на вкладку администрирования")
     @Test
     void openAdministrationPage() {
-        headerMenu.headerBarSuperAdmin();
-        AdministrationPage adminPage = headerMenu.administrationTabOpen();
-        adminPage.adminPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        AdministrationPage adminPage = headerMenu.clickAdministrationTab();
+        adminPage.verifyAdminPage();
     }
 
     @Feature("Навигация")
@@ -143,10 +143,10 @@ public class NavigationTest {
     @DisplayName("Сохранение вкладки администрирования")
     @Test
     void saveAdministrationPage() {
-        headerMenu.headerBarSuperAdmin();
-        AdministrationPage adminPage = headerMenu.administrationTabOpen();
-        adminPage.adminPage();
-        headerMenu.administrationTabOpen();
-        adminPage.adminPage();
+        headerMenu.verifyHeaderBarSuperAdmin();
+        AdministrationPage adminPage = headerMenu.clickAdministrationTab();
+        adminPage.verifyAdminPage();
+        headerMenu.clickAdministrationTab();
+        adminPage.verifyAdminPage();
     }
 }

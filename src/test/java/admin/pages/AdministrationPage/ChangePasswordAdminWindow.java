@@ -21,7 +21,7 @@ public class ChangePasswordAdminWindow {
     private final SelenideElement ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");
 
     @Step("Верифицировать окно замены пароля админу")
-    public void changePasswordAdminWindow() {
+    public void verifyChangePasswordAdminWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NEW_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -44,7 +44,7 @@ public class ChangePasswordAdminWindow {
     }
 
     @Step("Нажать кнопку сохранения пароля")
-    public void clickSaveNewPasswordButton() {
+    public void clickButtonSaveNewPassword() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

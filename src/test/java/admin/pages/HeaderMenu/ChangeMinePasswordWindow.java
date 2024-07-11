@@ -21,7 +21,7 @@ public class ChangeMinePasswordWindow {
     private final SelenideElement ERROR_FIELD_NEW_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
 
     @Step("Верифицировать окно замены своего пароля")
-    public void changeMinePasswordWindow() {
+    public void verifyChangeMinePasswordWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         OLD_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NEW_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -44,14 +44,14 @@ public class ChangeMinePasswordWindow {
     }
 
     @Step("Нажать кнопку изменения")
-    public void clickChangeButton() {
+    public void clickButtonChangePassword() {
         CHANGE_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать кнопку отмены")
-    public void clickCancelButton() {
+    public void clickCancelButtonChangePassword() {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

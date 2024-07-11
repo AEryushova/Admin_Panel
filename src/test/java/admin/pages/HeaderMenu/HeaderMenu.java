@@ -25,7 +25,7 @@ public class HeaderMenu extends BasePage {
     private final SelenideElement LOGO=$x("//div[@class='AacY']/img");
 
     @Step("Верифицировать навигационное меню для Суперадмина")
-    public void headerBarSuperAdmin() {
+    public void verifyHeaderBarSuperAdmin() {
         DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SERVICES.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SETTING.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -36,7 +36,7 @@ public class HeaderMenu extends BasePage {
     }
 
     @Step("Верифицировать навигационное меню для Админа")
-    public void headerBarAdmin() {
+    public void verifyHeaderBarAdmin() {
         DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SERVICES.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SETTING.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -47,7 +47,7 @@ public class HeaderMenu extends BasePage {
     }
 
     @Step("Нажать на вкладку Администрирование")
-    public AdministrationPage administrationTabOpen() {
+    public AdministrationPage clickAdministrationTab() {
         ADMINISTRATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -55,7 +55,7 @@ public class HeaderMenu extends BasePage {
     }
 
     @Step("Нажать на вкладку Врачи")
-    public DoctorsPage doctorsTabOpen() {
+    public DoctorsPage clickDoctorsTab() {
         DOCTOR.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -63,7 +63,7 @@ public class HeaderMenu extends BasePage {
     }
 
     @Step("Нажать на вкладку FAQ")
-    public FaqPage faqTabOpen() {
+    public FaqPage clickFaqTab() {
         FAQ.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -71,7 +71,7 @@ public class HeaderMenu extends BasePage {
     }
 
     @Step("Нажать на вкладку Услуги")
-    public ServicesPage servicesTabOpen() {
+    public ServicesPage clickServicesTab() {
         SERVICES.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -79,7 +79,7 @@ public class HeaderMenu extends BasePage {
     }
 
     @Step("Нажать на вкладку Настройки")
-    public SettingPage settingTabOpen() {
+    public SettingPage clickSettingTab() {
         SETTING.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -87,7 +87,7 @@ public class HeaderMenu extends BasePage {
     }
 
     @Step("Нажать на кнопку открытия и закрытия юзер-панели")
-    public UserPanel openAndCloseUserPanel() {
+    public UserPanel clickButtonUserPanel() {
         PROFILE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

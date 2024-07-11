@@ -40,7 +40,7 @@ public class SettingPageTest extends BaseTest {
     static void setUpAuth() {
         BrowserManager.openAdminPanel(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
-        headerMenu.settingTabOpen();
+        headerMenu.clickSettingTab();
     }
 
     @BeforeEach
@@ -62,8 +62,8 @@ public class SettingPageTest extends BaseTest {
     @ExtendWith(AddDeleteBugReportDecorator.class)
     @Test
     void checkBugReport() {
-        BugReport bugReport =settingPage.bugReportCard();
-        bugReport.bugReport();
+        BugReport bugReport =settingPage.getBugReportCard();
+        bugReport.verifyBugReport();
         assertEquals(TestData.DataTest.NAME_PATIENT, bugReport.getAuthorText());
         assertEquals(TestData.DataTest.EMAIL_PATIENT, bugReport.getEmailAuthorText());
         assertEquals(DataHelper.getCurrentDateRuYear(), bugReport.getDateText());
@@ -76,8 +76,8 @@ public class SettingPageTest extends BaseTest {
     @ExtendWith(AddBugReportDecorator.class)
     @Test
     void deleteBugReport() {
-        BugReport bugReport =settingPage.bugReportCard();
-        bugReport.deleteBugReport();
+        BugReport bugReport =settingPage.getBugReportCard();
+        bugReport.clickButtonDeleteBugReport();
         assertEquals("Сообщение удалено", settingPage.getNotification());
         assertFalse(settingPage.isExistsBugReport());
         assertTrue(settingPage.isExistsEmptyList());
@@ -90,9 +90,9 @@ public class SettingPageTest extends BaseTest {
     @ExtendWith(SetSAMSMU_Logo.class)
     @Test
     void changeLogo() {
-        EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
+        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
-        editLogoWindow.editLogoWindow();
+        editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/visa.png");
         Selenide.sleep(5000);
         assertFalse(editLogoWindow.isWindowAppear());
@@ -106,8 +106,8 @@ public class SettingPageTest extends BaseTest {
     @DisplayName("Замена логотипа в формате JPEG")
     @Test
     void changeLogoInvalidLogoFormat() {
-        EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
-        editLogoWindow.editLogoWindow();
+        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
+        editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo 3,7mbJpeg.jpg");
         assertEquals("Неверный запрос (400)", settingPage.getNotification());
         assertTrue(editLogoWindow.isWindowAppear());
@@ -118,8 +118,8 @@ public class SettingPageTest extends BaseTest {
     @DisplayName("Замена логотипа весом более 4mb")
     @Test
     void changeLogoWeightMoreThan4mb() {
-        EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
-        editLogoWindow.editLogoWindow();
+        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
+        editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
         assertEquals("Допускаются файлы размером не выше 4Мб",settingPage.getNotification());
         assertTrue(editLogoWindow.isWindowAppear());
@@ -132,8 +132,8 @@ public class SettingPageTest extends BaseTest {
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Политика обработки персональных данных.pdf"})
     void changeLogoInvalidFormat(String path) {
-        EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
-        editLogoWindow.editLogoWindow();
+        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
+        editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo(path);
         assertEquals("Допускаются файлы с расширением jpg jpeg png",settingPage.getNotification());
         assertTrue(editLogoWindow.isWindowAppear());
@@ -145,7 +145,7 @@ public class SettingPageTest extends BaseTest {
     @DisplayName("Закрытие окна замены логотипа")
     @Test
     void closeWindowEditLogo() {
-        EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
+        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         editLogoWindow.closeWindowEditLogo();
         assertFalse(editLogoWindow.isWindowAppear());
     }
@@ -155,7 +155,7 @@ public class SettingPageTest extends BaseTest {
     @DisplayName("Закрытие уведомления на странице настроек по таймауту")
     @Test
     void closeNotificationTimeout() {
-        EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
+        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
         checkCloseNotificationTimeout(basePage);
 
@@ -165,7 +165,7 @@ public class SettingPageTest extends BaseTest {
     @DisplayName("Закрытие уведомления на странице настроек")
     @Test
     void closeNotification() {
-        EditLogoWindow editLogoWindow = settingPage.openWindowEditLogo();
+        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
         checkCloseNotification(basePage);
     }

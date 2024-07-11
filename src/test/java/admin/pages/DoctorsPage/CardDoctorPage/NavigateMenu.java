@@ -18,7 +18,7 @@ public class NavigateMenu {
 
 
     @Step("Верифицировать навигационное меню")
-    public void navigateMenu() {
+    public void verifyNavigateMenu() {
         NAVIGATE_MENU.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -26,21 +26,21 @@ public class NavigateMenu {
     }
 
     @Step("Нажать на раздел фотографии врача")
-    public void openPhoto(){
+    public void clickTabOpenPhoto(){
         PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать на раздел инфорамации о враче")
-    public void openDescription(){
+    public void clickTabOpenDescription(){
         DESCRIPTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать на раздел отзывов о враче")
-    public void openFeedback(){
+    public void clickTabOpenFeedback(){
         FEEDBACK.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

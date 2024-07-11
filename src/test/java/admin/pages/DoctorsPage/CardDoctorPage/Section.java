@@ -18,7 +18,7 @@ public class Section {
     private final SelenideElement ADD_DESCRIPTION_BUTTON = $x("//div[@class='EUkX']");
 
     @Step("Верифицировать раздел")
-    public void section() {
+    public void verifySection() {
         SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -34,7 +34,7 @@ public class Section {
     }
 
     @Step("Нажать на кнопку сохранения")
-    public void editSaveTitle() {
+    public void clickButtonEditSaveTitle() {
         EDIT_SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -56,14 +56,14 @@ public class Section {
     }
 
     @Step("Нажать на кнопку удаления")
-    public void deleteTitle() {
+    public void clickButtonDeleteTitle() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать на кнопку добавления описания")
-    public AddInfoDoctorWindow openWindowAddDescription() {
+    public AddInfoDoctorWindow clickButtonAddDescription() {
         ADD_DESCRIPTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

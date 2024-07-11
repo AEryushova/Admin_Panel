@@ -18,7 +18,7 @@ public class RulesPreparingWindow {
     private final SelenideElement EMPTY_LIST_RULE =$x("//span[text()='Список пуст']");
 
     @Step("Верифицировать окно правил подготовки")
-    public void rulesPreparingWindow() {
+    public void verifyRulesPreparingWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_ALL_RULES_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -26,7 +26,7 @@ public class RulesPreparingWindow {
     }
 
     @Step("Нажать кнопку добавления нового правила")
-    public AddRuleWindow openAddRulesWindow() {
+    public AddRuleWindow clickButtonAddRules() {
         ADD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -41,7 +41,7 @@ public class RulesPreparingWindow {
     }
 
     @Step("Нажать кнопку удаления всех правил")
-    public void deleteAllRules() {
+    public void clickButtonDeleteAllRules() {
         DELETE_ALL_RULES_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

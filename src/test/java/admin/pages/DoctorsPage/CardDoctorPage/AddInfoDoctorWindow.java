@@ -18,7 +18,7 @@ public class AddInfoDoctorWindow {
 
 
     @Step("Верифицировать окно добавления информации о враче")
-    public void addInfoDoctorWindow() {
+    public void verifyAddInfoDoctorWindow() {
         WINDOW_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -40,14 +40,14 @@ public class AddInfoDoctorWindow {
     }
 
     @Step("Нажать на кнопку сохранения")
-    public void saveValue() {
+    public void clickButtonSaveValue() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать на кнопку отмены")
-    public void cancelAddInfoDoctor() {
+    public void clickCancelButtonAddInfoDoctor() {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

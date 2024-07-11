@@ -19,7 +19,7 @@ public class DeleteSectionWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Удалить Раздел']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно удаления раздела")
-    public void deleteSectionWindow() {
+    public void verifyDeleteSectionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -29,14 +29,14 @@ public class DeleteSectionWindow {
     }
 
     @Step("Нажать кнопку удаления")
-    public void deleteSection(){
+    public void clickButtonDeleteSection(){
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать кнопку отмены")
-    public void cancelDeleteSection(){
+    public void clickCancelButtonDeleteSection(){
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

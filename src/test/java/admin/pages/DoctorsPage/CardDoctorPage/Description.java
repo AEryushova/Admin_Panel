@@ -17,7 +17,7 @@ public class Description {
     private final SelenideElement DELETE_BUTTON = $x("//div[@class='TRfT']");
 
     @Step("Верифицировать описание")
-    public void description() {
+    public void verifyDescription() {
         DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -32,7 +32,7 @@ public class Description {
     }
 
     @Step("Нажать на кнопку сохранения")
-    public void editSaveDescription() {
+    public void clickButtonEditSaveDescription() {
         EDIT_SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -54,7 +54,7 @@ public class Description {
     }
 
     @Step("Нажать на кнопку удаления")
-    public void deleteDescription() {
+    public void clickButtonDeleteDescription() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

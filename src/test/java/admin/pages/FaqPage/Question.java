@@ -18,14 +18,14 @@ public class Question {
     private final ElementsCollection ANSWERS_TEXTS=$$x("//div[@class='zxOH yCzg']/textarea");
 
     @Step("Верифицировать вопрос")
-    public void question() {
+    public void verifyQuestion() {
         EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         QUESTION_TEXT.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ANSWER_TEXT.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     @Step("Нажать кнопку изменения вопроса")
-    public ChangeQuestionWindow openWindowChangeQuestion() {
+    public ChangeQuestionWindow clickButtonChangeQuestion() {
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

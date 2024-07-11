@@ -20,12 +20,12 @@ public class CategoryCard {
     private final SelenideElement SERVICE = $x("//div[@class='hzR2' and @draggable='false']");
 
     @Step("Верифицировать карточку категории")
-    public void categoryCard() {
+    public void verifyCategoryCard() {
         ADD_SECTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     @Step("Нажать кнопку добавление раздела")
-    public AddSectionWindow addSection() {
+    public AddSectionWindow clickButtonAddSection() {
         ADD_SECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -51,7 +51,7 @@ public class CategoryCard {
     }
 
     @Step("Поменять местами раздел с названием '{0}' и раздел с названием '{1}'")
-    public void changeDisplaySequence(String sourceName, String targetName) {
+    public void changeSequenceDisplaySections(String sourceName, String targetName) {
         SelenideElement sectionSource = searchSection(sourceName);
         SelenideElement sectionTarget = searchSection(targetName);
         Actions actions = actions();

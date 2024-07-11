@@ -18,7 +18,7 @@ public class ChangeQuestionWindow {
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf hwSa Er9P']");
 
     @Step("Верифицировать окно изменения вопроса")
-    public void changeQuestionWindow() {
+    public void verifyChangeQuestionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         QUESTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ANSWER_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -58,7 +58,7 @@ public class ChangeQuestionWindow {
     }
 
     @Step("Нажать кнопку сохранения")
-    public void saveChangesQuestion() {
+    public void clickButtonSaveChangesQuestion() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -70,7 +70,7 @@ public class ChangeQuestionWindow {
     }
 
     @Step("Нажать кнопку удаления")
-    public void deleteQuestion() {
+    public void clickButtonDeleteQuestion() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

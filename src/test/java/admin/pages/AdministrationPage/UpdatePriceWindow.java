@@ -32,7 +32,7 @@ public class UpdatePriceWindow {
     }
 
     @Step("Верифицировать окно добавления прайса")
-    public void updatePriceWindow() {
+    public void verifyUpdatePriceWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ACTIVATIONS_DATES_LIST.shouldBe(Condition.visible, Duration.ofSeconds(5));

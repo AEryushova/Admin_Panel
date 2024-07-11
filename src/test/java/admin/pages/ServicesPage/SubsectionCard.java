@@ -22,7 +22,7 @@ public class SubsectionCard {
     private final ElementsCollection CONTAINER_SERVICES = $$x("//div[@class='D_7z']/span");
 
     @Step("Верифицировать карточку подраздела")
-    public void subsectionCard() {
+    public void verifySubsectionCard() {
         NAME_SUBSECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_SUBSECTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_SUBSECTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -31,7 +31,7 @@ public class SubsectionCard {
     }
 
     @Step("Нажать кнопку редактирования подраздела")
-    public EditSectionWindow editSubsection() {
+    public EditSectionWindow clickButtonEditSubsection() {
         EDIT_SUBSECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -39,7 +39,7 @@ public class SubsectionCard {
     }
 
     @Step("Нажать кнопку удаления подраздела")
-    public DeleteSectionWindow deleteSubsection() {
+    public DeleteSectionWindow clickButtonDeleteSubsection() {
         DELETE_SUBSECTION_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -54,14 +54,14 @@ public class SubsectionCard {
     }
 
     @Step("Нажать кнопку раскрытия подраздела")
-    public void openSubsection() {
+    public void clickButtonOpenSubsection() {
         EXPAND_SUBSECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать кнопку сворачивания подраздела")
-    public void closeSubsection(String nameSubsection) {
+    public void clickButtonCloseSubsection(String nameSubsection) {
         SelenideElement SUBSECTION=$x("//span[text()='" + nameSubsection + "']/parent::div/following-sibling::div[@class='xrjl']");
         SUBSECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -69,7 +69,7 @@ public class SubsectionCard {
     }
 
     @Step("Нажать кнопку открытия правил подготовки к подразделу")
-    public RulesPreparingWindow openRulesPreparingSubsection(){
+    public RulesPreparingWindow clickButtonOpenRulesPreparingSubsection(){
         RULES_PREPARING_SUBSECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -96,7 +96,7 @@ public class SubsectionCard {
     }
 
     @Step("Поменять местами услугу с кодом '{0}' и услугу с кодом '{1}'")
-    public void changeDisplaySequence(String sourceService, String targetService) {
+    public void changeSequenceDisplayServices(String sourceService, String targetService) {
         SelenideElement serviceSource = searchService(sourceService);
         SelenideElement serviceTarget = searchService(targetService);
         Actions actions = actions();

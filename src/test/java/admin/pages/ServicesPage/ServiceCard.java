@@ -18,7 +18,7 @@ public class ServiceCard {
     private final SelenideElement SERVICE_BUTTON = $x("//div[@class='j95E']");
 
     @Step("Верифицировать карточку услуг")
-    public void serviceCard() {
+    public void verifyServiceCard() {
         NAME_SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SERVICE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
@@ -38,7 +38,7 @@ public class ServiceCard {
     }
 
     @Step("Нажать на кнопку открытия информации об услуге")
-    public ServiceWindow openServiceInfo(){
+    public ServiceWindow clickButtonOpenServiceInfo(){
         SERVICE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
