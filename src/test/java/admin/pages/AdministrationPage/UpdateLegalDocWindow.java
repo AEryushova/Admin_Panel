@@ -7,7 +7,6 @@ import io.qameta.allure.Step;
 import java.io.File;
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 

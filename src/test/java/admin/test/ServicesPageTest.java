@@ -1189,7 +1189,7 @@ public class ServicesPageTest extends BaseTest {
         int sequenceSecondServiceDB = DataBaseQuery.selectAllService(codeSecond).getSequence();
         Selenide.sleep(3000);
         subsectionCard.changeSequenceDisplayServices(codeFirst, codeSecond);
-        Selenide.sleep(3000);;
+        Selenide.sleep(3000);
         servicesPage.clickButtonOpenCategory(NAME_CATEGORY);
         sectionCard.clickButtonOpenSection();
         subsectionCard.clickButtonOpenSubsection();
