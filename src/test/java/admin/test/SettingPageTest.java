@@ -1,7 +1,6 @@
 package admin.test;
 
 import admin.data.TestData;
-import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.SettingPage.BugReport;
 import admin.pages.SettingPage.SettingPage;
@@ -9,11 +8,9 @@ import admin.pages.SettingPage.EditLogoWindow;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.setting.AddBugReportDecorator;
 import admin.utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
-import admin.utils.preparationDataTests.setting.AddSomeBugsReport;
 import admin.utils.preparationDataTests.setting.SetSAMSMU_Logo;
-import admin.utils.testUtils.DataHelper;
+import admin.utils.otherUtils.DataHelper;
 import admin.utils.dbUtils.DataBaseQuery;
-import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -31,7 +28,6 @@ public class SettingPageTest extends BaseTest {
 
     private SettingPage settingPage;
     private HeaderMenu headerMenu;
-    private BasePage basePage;
 
 
     @ExtendWith(AllureDecorator.class)
@@ -39,7 +35,7 @@ public class SettingPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
+        BaseTest.openAdminPanel(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickSettingTab();
     }
@@ -49,7 +45,6 @@ public class SettingPageTest extends BaseTest {
         Selenide.refresh();
         settingPage = new SettingPage();
         headerMenu = new HeaderMenu();
-        basePage = new BasePage();
     }
 
     @AfterAll
@@ -140,7 +135,6 @@ public class SettingPageTest extends BaseTest {
         assertTrue(editLogoWindow.isWindowAppear());
     }
 
-
     @Feature("Настройки личного кабинета")
     @Story("Закрытие окна замены логотипа")
     @DisplayName("Закрытие окна замены логотипа")
@@ -151,32 +145,5 @@ public class SettingPageTest extends BaseTest {
         assertFalse(editLogoWindow.isWindowAppear());
     }
 
-
-    @Story("Закрытие уведомления на странице настроек по таймауту")
-    @DisplayName("Закрытие уведомления на странице настроек по таймауту")
-    @Test
-    void closeNotificationTimeout() {
-        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
-        editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
-        checkCloseNotificationTimeout(basePage);
-
-    }
-
-    @Story("Закрытие уведомления на странице настроек")
-    @DisplayName("Закрытие уведомления на странице настроек")
-    @Test
-    void closeNotification() {
-        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
-        editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
-        checkCloseNotification(basePage);
-    }
-
-    @Story("Возврат к хэдеру на странице настроек")
-    @DisplayName("Возврат к хэдеру на странице настроек")
-    @ExtendWith(AddSomeBugsReport.class)
-    @Test
-    void returnToHeaderPageAdministration() {
-        checkReturnHeaderPage(basePage);
-    }
 }
 

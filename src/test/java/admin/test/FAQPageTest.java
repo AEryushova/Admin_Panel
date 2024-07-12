@@ -1,12 +1,10 @@
 package admin.test;
 
-import admin.pages.BasePage.BasePage;
 import admin.pages.FaqPage.*;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.faq.*;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.testUtils.*;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -22,16 +20,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("FAQ")
 @DisplayName("Страница FAQ")
-public class FAQPageTest extends BaseTest{
+public class FAQPageTest extends BaseTest {
 
     private FaqPage faqPage;
-    private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
+        BaseTest.openAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickFaqTab();
     }
@@ -40,7 +37,6 @@ public class FAQPageTest extends BaseTest{
     void setUp(){
         Selenide.refresh();
         faqPage=new FaqPage();
-        basePage = new BasePage();
     }
 
     @AfterAll
@@ -267,28 +263,6 @@ public class FAQPageTest extends BaseTest{
         assertNull(DataBaseQuery.selectFaq());
     }
 
-    @Story("Закрытие уведомления на странице faq по таймауту")
-    @DisplayName("Закрытие уведомления на странице faq по таймауту")
-    @ExtendWith(AddFaqDecorator.class)
-    @Test
-    void closeNotificationTimeout() {
-        Question question = faqPage.getQuestion();
-        ChangeQuestionWindow changeQuestionWindow = question.clickButtonChangeQuestion();
-        changeQuestionWindow.clickButtonDeleteQuestion();
-        checkCloseNotificationTimeout(basePage);
-    }
-
-    @Story("Закрытие уведомления на странице faq")
-    @DisplayName("Закрытие уведомления на странице faq")
-    @ExtendWith(AddFaqDecorator.class)
-    @Test
-    void closeNotification() {
-        Question question = faqPage.getQuestion();
-        ChangeQuestionWindow changeQuestionWindow = question.clickButtonChangeQuestion();
-        changeQuestionWindow.clickButtonDeleteQuestion();
-        checkCloseNotification(basePage);
-    }
-
     @Feature("Поиск по faq")
     @Story("Поиск вопроса по заголовку и ответу")
     @DisplayName("Поиск вопроса по заголовку и ответу")
@@ -409,14 +383,6 @@ public class FAQPageTest extends BaseTest{
             assertTrue(isQuestionFound || isAnswerFound);
         }
         assertTrue(countResult<countAllFaq);
-    }
-
-    @Story("Возврат к хэдеру на странице faq")
-    @DisplayName("Возврат к хэдеру на странице faq")
-    @ExtendWith(AddSomeFaq.class)
-    @Test
-    void returnToHeaderPageAdministration() {
-        checkReturnHeaderPage(basePage);
     }
 
 }

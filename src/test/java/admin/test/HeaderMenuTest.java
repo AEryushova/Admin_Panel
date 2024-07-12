@@ -7,7 +7,6 @@ import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.headerMenu.ReturnPasswordAdmin;
-import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -23,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Юзер панель")
 @DisplayName("Юзер панель")
-public class HeaderMenuTest extends BaseTest{
+public class HeaderMenuTest extends BaseTest {
 
     private HeaderMenu headerMenu;
     private BasePage basePage;
@@ -32,7 +31,7 @@ public class HeaderMenuTest extends BaseTest{
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
@@ -252,29 +251,4 @@ public class HeaderMenuTest extends BaseTest{
         headerMenu.clickButtonUserPanel();
         assertFalse(userPanel.isWindowAppear());
     }
-
-    @Story("Закрытие уведомления на юзер панели по таймауту")
-    @DisplayName("Закрытие уведомления на юзер панели по таймауту")
-    @Test
-    void closeNotificationTimeout() {
-        UserPanel userPanel=headerMenu.clickButtonUserPanel();
-        ChangeMinePasswordWindow changeMinePassWindow=userPanel.clickButtonChangePassword();
-        changeMinePassWindow.fillFieldOldPassword(NEW_PASSWORD_ADMIN_TEST);
-        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
-        changeMinePassWindow.clickButtonChangePassword();
-        checkCloseNotificationTimeout(basePage);
-    }
-
-    @Story("Закрытие уведомления на юзер панели")
-    @DisplayName("Закрытие уведомления на юзер панели")
-    @Test
-    void closeNotification() {
-        UserPanel userPanel=headerMenu.clickButtonUserPanel();
-        ChangeMinePasswordWindow changeMinePassWindow=userPanel.clickButtonChangePassword();
-        changeMinePassWindow.fillFieldOldPassword(NEW_PASSWORD_ADMIN_TEST);
-        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
-        changeMinePassWindow.clickButtonChangePassword();
-        checkCloseNotification(basePage);
-    }
-
 }

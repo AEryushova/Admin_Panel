@@ -1,4 +1,4 @@
-package admin.utils.testUtils;
+package admin.utils.otherUtils;
 
 import admin.utils.APIUtils.PreparationDataSettingTest;
 import com.google.gson.Gson;

@@ -3,7 +3,7 @@ package admin.utils.preparationDataTests.doctors;
 
 import admin.utils.APIUtils.PreparationDataSettingTest;
 import admin.utils.dbUtils.DataBaseQuery;
-import admin.utils.testUtils.DataHelper;
+import admin.utils.otherUtils.DataHelper;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 

@@ -25,7 +25,7 @@ public class UpdateLegalDocWindow {
     public void verifyUploadDocWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        DOC_IMAGE.shouldHave(attribute("src")).shouldNotBe(attribute("src", ""));
+        DOC_IMAGE.shouldHave(Condition.attribute("src")).shouldNotBe(Condition.attribute("src", ""));
         UPLOAD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }

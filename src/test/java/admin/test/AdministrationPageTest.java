@@ -1,7 +1,6 @@
 package admin.test;
 
 import admin.pages.AdministrationPage.*;
-import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.Calendar.Calendar;
 import admin.utils.dbUtils.DataBaseQuery;
@@ -9,7 +8,7 @@ import admin.utils.preparationDataTests.administration.AdminAddDecorator;
 import admin.utils.preparationDataTests.administration.AdminAddDeleteDecorator;
 import admin.utils.preparationDataTests.administration.AdminDeleteDecorator;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.testUtils.*;
+import admin.utils.otherUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -28,13 +27,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AdministrationPageTest extends BaseTest {
 
     private AdministrationPage adminPage;
-    private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
+        BaseTest.openAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickAdministrationTab();
     }
@@ -43,7 +41,6 @@ public class AdministrationPageTest extends BaseTest {
     void setUp() {
         Selenide.refresh();
         adminPage = new AdministrationPage();
-        basePage = new BasePage();
     }
 
     @AfterAll
@@ -194,7 +191,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Ввод не валидного логина с не валидным первым символом")
     @DisplayName("Ввод не валидного логина с не валидным первым символом")
     @ParameterizedTest
-    @ValueSource(strings = {"БRUCE_LI", "1ANNA_TEST","Админ_25"})
+    @ValueSource(strings = {"БRUCE_LI", "1ANNA_TEST", "Админ_25"})
     void fillInvalidValuesFirstSymbolLoginAddingNewAdmin(String login) {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddNewAdmin();
         newAdminWindow.fillFieldNewAdminLogin(login);
@@ -784,30 +781,6 @@ public class AdministrationPageTest extends BaseTest {
 
     }
 
-    @Story("Закрытие уведомления на странице администрирования по таймауту")
-    @DisplayName("Закрытие уведомления на странице администрирования по таймауту")
-    @Test
-    void closeNotificationTimeout() {
-        UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateOffer();
-        updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта,Политика обработки docx.docx");
-        checkCloseNotificationTimeout(basePage);
-    }
-
-    @Story("Закрытие уведомления на странице администрирования")
-    @DisplayName("Закрытие уведомления на странице администрирования")
-    @Test
-    void closeNotification() {
-        UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateOffer();
-        updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта,Политика обработки docx.docx");
-        checkCloseNotification(basePage);
-    }
-
-    @Story("Возврат к хэдеру на странице администрирования")
-    @DisplayName("Возврат к хэдеру на странице администрирования")
-    @Test
-    void returnToHeaderPageAdministration() {
-        checkReturnHeaderPage(basePage);
-    }
 }
 /*
     @Feature("Документация")

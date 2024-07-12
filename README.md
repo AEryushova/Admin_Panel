@@ -14,8 +14,6 @@
 
 
 ## Системные свойства :
-- Для запуска тестов в определенном браузере : _-Dselenide.browser=firefox_ ("chrome", "firefox", "edge").
-По умолчанию "chrome"
 - Для запуска тестов в определенном окружении : _-Denvironment=stg_ ("freeze", "stg").
 По умолчанию "freeze"
 - Для запуска тестов с определенной БД cab_lab : _-Dcab.lab.db.name=cab_lab_collection_ ("freeze_cab_lab_collection", "cab_lab_collection", "test_cab_lab_collection").

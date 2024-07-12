@@ -4,7 +4,6 @@ import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.testUtils.*;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -35,7 +34,7 @@ public class DoctorPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
@@ -238,7 +237,13 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Возврат к хэдеру на странице врачей")
     @Test
     void returnToHeaderPageAdministration() {
-        checkReturnHeaderPage(basePage);
+        Selenide.sleep(2000);
+        assertFalse(basePage.isVisibleButtonReturnToHeader());
+        basePage.scrollPage("700");
+        assertTrue(basePage.isVisibleButtonReturnToHeader());
+        basePage.clickButtonReturnToHeader();
+        Selenide.sleep(2000);
+        assertFalse(basePage.isVisibleButtonReturnToHeader());
     }
 }
 

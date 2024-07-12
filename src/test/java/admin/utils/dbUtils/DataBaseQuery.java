@@ -1,7 +1,7 @@
 package admin.utils.dbUtils;
 
 import admin.utils.dbUtils.dbaseData.*;
-import admin.utils.testUtils.DataHelper;
+import admin.utils.otherUtils.DataHelper;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 

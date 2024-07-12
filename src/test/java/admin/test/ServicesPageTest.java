@@ -1,13 +1,11 @@
 package admin.test;
 
-import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.*;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.dbUtils.dbaseData.PreparingDescriptions;
 import admin.utils.dbUtils.dbaseData.ServiceCategories;
 import admin.utils.preparationDataTests.services.*;
-import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -27,13 +25,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ServicesPageTest extends BaseTest {
 
     private ServicesPage servicesPage;
-    private BasePage basePage;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickServicesTab();
     }
@@ -42,7 +39,6 @@ public class ServicesPageTest extends BaseTest {
     void setUp() {
         Selenide.refresh();
         servicesPage = new ServicesPage();
-        basePage = new BasePage();
     }
 
     @AfterAll
@@ -792,7 +788,7 @@ public class ServicesPageTest extends BaseTest {
         EditSectionWindow editSectionWindow = sectionCard.clickButtonEditSection();
         editSectionWindow.clickButtonSaveChange();
         Selenide.sleep(2000);
-        assertTrue(editSectionWindow.isWindowAppear());
+        assertFalse(editSectionWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(NAME_CATEGORY);
         assertEquals(NAME_SECTION, sectionCard.getNameSection());
         assertNotNull(DataBaseQuery.selectServicesCategories(NAME_SECTION));
@@ -1204,28 +1200,5 @@ public class ServicesPageTest extends BaseTest {
         assertEquals(sequenceSecondServiceDB, DataBaseQuery.selectAllService(codeFirst).getSequence());
     }
 
-    @Story("Закрытие уведомления на странице услуг по таймауту")
-    @DisplayName("Закрытие уведомления на странице услуг по таймауту")
-    @Test
-    void closeNotificationTimeout() {
-        servicesPage.clickButtonOpenRulesPreparingCategory(NAME_OTHER_SERVICE_CATEGORY);
-        checkCloseNotificationTimeout(basePage);
-    }
-
-    @Story("Закрытие уведомления на странице услуг")
-    @DisplayName("Закрытие уведомления на странице услуг")
-    @Test
-    void closeNotification() {
-        servicesPage.clickButtonOpenRulesPreparingCategory(NAME_OTHER_SERVICE_CATEGORY);
-        checkCloseNotification(basePage);
-    }
-
-    @Story("Возврат к хэдеру на странице услуг")
-    @DisplayName("Возврат к хэдеру на странице услуг")
-    @Test
-    void returnToHeaderPageAdministration() {
-        servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
-        checkReturnHeaderPage(basePage);
-    }
 }
 

@@ -2,7 +2,7 @@ package admin.pages.Calendar;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import admin.utils.testUtils.DataHelper;
+import admin.utils.otherUtils.DataHelper;
 import io.qameta.allure.Step;
 
 import java.time.Duration;

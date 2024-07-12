@@ -1,7 +1,7 @@
 package admin.utils.APIUtils;
 
 
-import admin.utils.testUtils.BrowserManager;
+import admin.test.BaseTest;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -33,7 +33,7 @@ public class PreparationDataServicesTest {
         jsonObject.add("sections", sections);
         given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())
@@ -50,7 +50,7 @@ public class PreparationDataServicesTest {
         jsonObject.add("sections", sections);
         given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())
@@ -71,7 +71,7 @@ public class PreparationDataServicesTest {
         jsonObject.add("sections", sections);
         given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())
@@ -87,7 +87,7 @@ public class PreparationDataServicesTest {
         jsonObject.add("sections", sections);
         given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())
@@ -103,7 +103,7 @@ public class PreparationDataServicesTest {
         jsonObject.addProperty("name", nameCategory);
         given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())
@@ -118,7 +118,7 @@ public class PreparationDataServicesTest {
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .queryParam("categoryId", id.toString())
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .when()
                 .delete("/api/services/admin/category")
@@ -132,7 +132,7 @@ public class PreparationDataServicesTest {
         jsonObject.addProperty("name", nameSection);
         given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())
@@ -146,7 +146,7 @@ public class PreparationDataServicesTest {
     private static Response getAllServices() {
         return given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .when()
                 .get("/api/services/admin/all-services")
@@ -188,7 +188,7 @@ public class PreparationDataServicesTest {
         jsonObject.addProperty("destinationId", targetId);
         given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())

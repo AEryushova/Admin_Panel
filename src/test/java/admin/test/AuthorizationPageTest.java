@@ -5,7 +5,6 @@ import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.authorization.CloseWebDriverDecorator;
-import admin.utils.testUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -35,7 +34,7 @@ public class AuthorizationPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openBrowser();
+        BaseTest.openBrowser();
     }
 
     @BeforeEach
@@ -254,7 +253,10 @@ public class AuthorizationPageTest extends BaseTest {
         authPage.fillPasswordField("WWqq123456!78");
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
-        checkCloseNotificationTimeout(basePage);
+        Selenide.sleep(2000);
+        assertTrue(basePage.isNotificationAppear());
+        Selenide.sleep(7000);
+        assertFalse(basePage.isNotificationAppear());
     }
 
     @Story("Закрытие уведомления на странице авторизации")
@@ -265,7 +267,10 @@ public class AuthorizationPageTest extends BaseTest {
         authPage.fillPasswordField("WWqq123456!78");
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
-        checkCloseNotification(basePage);
+        Selenide.sleep(2000);
+        assertTrue(basePage.isNotificationAppear());
+        basePage.closeNotification();
+        assertFalse(basePage.isNotificationAppear());
     }
 
 

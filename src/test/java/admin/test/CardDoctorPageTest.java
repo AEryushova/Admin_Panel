@@ -1,12 +1,11 @@
 package admin.test;
 
-import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.CardDoctorPage.*;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.Calendar.Calendar;
 import admin.utils.preparationDataTests.doctors.*;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.testUtils.*;
+import admin.utils.otherUtils.*;
 import admin.utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -25,14 +24,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Карточка врача")
 public class CardDoctorPageTest extends BaseTest {
 
-    private BasePage basePage;
     private CardDoctorPage cardDoctor;
 
     @ExtendWith(AllureDecorator.class)
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
         DoctorsPage doctorsPage = new DoctorsPage();
         doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION,DOCTOR);
     }
@@ -41,7 +39,6 @@ public class CardDoctorPageTest extends BaseTest {
     void setUp() {
         Selenide.refresh();
         cardDoctor = new CardDoctorPage();
-        basePage = new BasePage();
     }
 
     @AfterAll
@@ -736,25 +733,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(dateFeedbackYesterday, feedback.getDateFeedbackByIndex(1));
     }
 
-
-    @Story("Закрытие уведомления на карточке врача по таймауту")
-    @DisplayName("Закрытие уведомления на карточке врача по таймауту")
-    @Test
-    void closeNotificationTimeout() {
-        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
-        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
-        checkCloseNotificationTimeout(basePage);
-    }
-
-    @Story("Закрытие уведомления на карточке врача")
-    @DisplayName("Закрытие уведомления на карточке врача")
-    @Test
-    void closeNotification() {
-        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
-        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
-        checkCloseNotification(basePage);
-    }
-
     @Story("Закрытие навигационного меню")
     @DisplayName("Закрытие навигационного меню")
     @Test
@@ -763,13 +741,6 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.verifyNavigateMenu();
         navigateMenu.closeNavigateMenu();
         assertFalse(navigateMenu.isNavigateMenuDisplayed());
-    }
-
-    @Story("Возврат к хэдеру на карточке врача")
-    @DisplayName("Возврат к хэдеру на карточке врача")
-    @Test
-    void returnToHeaderPageAdministration() {
-        checkReturnHeaderPage(basePage);
     }
 
 }

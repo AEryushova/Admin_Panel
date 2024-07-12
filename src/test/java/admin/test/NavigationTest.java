@@ -7,7 +7,6 @@ import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.ServicesPage;
 import admin.pages.SettingPage.SettingPage;
 import admin.utils.preparationDataTests.general.AllureDecorator;
-import admin.utils.testUtils.BrowserManager;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -18,7 +17,7 @@ import static admin.data.TestData.UserData.*;
 
 @Epic("Навигационное меню")
 @DisplayName("Навигационное меню")
-public class NavigationTest {
+public class NavigationTest extends BaseTest{
 
     private HeaderMenu headerMenu;
 
@@ -26,7 +25,7 @@ public class NavigationTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BrowserManager.openAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
+        BaseTest.openAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
     }
 
     @BeforeEach

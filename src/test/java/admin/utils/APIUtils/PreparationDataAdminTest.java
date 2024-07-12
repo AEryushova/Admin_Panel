@@ -1,7 +1,7 @@
 package admin.utils.APIUtils;
 
 
-import admin.utils.testUtils.BrowserManager;
+import admin.test.BaseTest;
 import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 
@@ -19,7 +19,7 @@ public class PreparationDataAdminTest {
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .body(jsonObject.toString())
                 .when()
@@ -33,7 +33,7 @@ public class PreparationDataAdminTest {
         given()
                 .baseUri(URI_ADMIN_PANEL)
                 .queryParam("login", login)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment",ENVIRONMENT)
                 .when()
                 .delete("/api/admins")

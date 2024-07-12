@@ -1,7 +1,7 @@
 package admin.utils.APIUtils;
 
 
-import admin.utils.testUtils.BrowserManager;
+import admin.test.BaseTest;
 import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -69,7 +69,7 @@ public class PreparationDataSettingTest {
     public static void uploadPhoto(File file) {
         Response response = given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)
                 .multiPart("file", file)
@@ -85,7 +85,7 @@ public class PreparationDataSettingTest {
     public static void uploadLogo(File file) {
         given()
                 .baseUri(URI_ADMIN_PANEL)
-                .header("Authorization", "Bearer " + BrowserManager.token)
+                .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)
                 .multiPart("file", file)
