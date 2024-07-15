@@ -155,16 +155,16 @@ public class FAQPageTest extends BaseTest {
     void editFaqQuestion() {
         Question question = faqPage.getQuestion();
         question.verifyQuestion();
-        ChangeQuestionWindow changeQuestionWindow = question.clickButtonChangeQuestion();
-        changeQuestionWindow.verifyChangeQuestionWindow();
-        changeQuestionWindow.fillQuestionField(CHANGE_QUESTION);
-        changeQuestionWindow.fillAnswerField(CHANGE_ANSWER);
-        changeQuestionWindow.clickButtonSaveChangesQuestion();
+        EditQuestionWindow editQuestionWindow = question.clickButtonChangeQuestion();
+        editQuestionWindow.verifyChangeQuestionWindow();
+        editQuestionWindow.fillQuestionField(CHANGE_QUESTION);
+        editQuestionWindow.fillAnswerField(CHANGE_ANSWER);
+        editQuestionWindow.clickButtonSaveChangesQuestion();
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
         assertEquals(CHANGE_QUESTION,question.getQuestion());
         assertEquals(CHANGE_ANSWER,question.getAnswer());
         assertEquals(CHANGE_QUESTION, DataBaseQuery.selectFaq().getQuestion());
-        assertFalse(changeQuestionWindow.isWindowAppear());
+        assertFalse(editQuestionWindow.isWindowAppear());
     }
 
     @Feature("Редактирование faq-вопроса")
@@ -174,10 +174,10 @@ public class FAQPageTest extends BaseTest {
     @Test
     void editFaqQuestionEmptyFieldQuestion() {
         Question question = faqPage.getQuestion();
-        ChangeQuestionWindow changeQuestionWindow = question.clickButtonChangeQuestion();
-        changeQuestionWindow.clearQuestionField();
-        changeQuestionWindow.fillAnswerField(CHANGE_ANSWER);
-        assertFalse(changeQuestionWindow.isEnabledSaveButton());
+        EditQuestionWindow editQuestionWindow = question.clickButtonChangeQuestion();
+        editQuestionWindow.clearQuestionField();
+        editQuestionWindow.fillAnswerField(CHANGE_ANSWER);
+        assertFalse(editQuestionWindow.isEnabledSaveButton());
     }
 
     @Feature("Редактирование faq-вопроса")
@@ -187,9 +187,9 @@ public class FAQPageTest extends BaseTest {
     @Test
     void editFaqQuestionEmptyFieldAnswer() {
         Question question = faqPage.getQuestion();
-        ChangeQuestionWindow changeQuestionWindow = question.clickButtonChangeQuestion();
-        changeQuestionWindow.clearAnswerField();
-        assertFalse(changeQuestionWindow.isEnabledSaveButton());
+        EditQuestionWindow editQuestionWindow = question.clickButtonChangeQuestion();
+        editQuestionWindow.clearAnswerField();
+        assertFalse(editQuestionWindow.isEnabledSaveButton());
     }
 
     @Feature("Редактирование faq-вопроса")
@@ -199,13 +199,13 @@ public class FAQPageTest extends BaseTest {
     @Test
     void savaFaqQuestionNotChange() {
         Question question = faqPage.getQuestion();
-        ChangeQuestionWindow changeQuestionWindow = question.clickButtonChangeQuestion();
-        changeQuestionWindow.clickButtonSaveChangesQuestion();
+        EditQuestionWindow editQuestionWindow = question.clickButtonChangeQuestion();
+        editQuestionWindow.clickButtonSaveChangesQuestion();
         assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
         assertEquals(QUESTION,question.getQuestion());
         assertEquals(ANSWER,question.getAnswer());
         assertEquals(QUESTION, DataBaseQuery.selectFaq().getQuestion());
-        assertFalse(changeQuestionWindow.isWindowAppear());
+        assertFalse(editQuestionWindow.isWindowAppear());
     }
 
     @Feature("Редактирование faq-вопроса")
@@ -215,12 +215,12 @@ public class FAQPageTest extends BaseTest {
     @Test
     void closeWindowEditQuestionFaq() {
         Question question = faqPage.getQuestion();
-        ChangeQuestionWindow changeQuestionWindow = question.clickButtonChangeQuestion();
-        changeQuestionWindow.fillQuestionField(CHANGE_QUESTION);
-        changeQuestionWindow.fillAnswerField(CHANGE_ANSWER);
-        changeQuestionWindow.closeWindowEditQuestion();
+        EditQuestionWindow editQuestionWindow = question.clickButtonChangeQuestion();
+        editQuestionWindow.fillQuestionField(CHANGE_QUESTION);
+        editQuestionWindow.fillAnswerField(CHANGE_ANSWER);
+        editQuestionWindow.closeWindowEditQuestion();
         Selenide.sleep(1000);
-        assertFalse(changeQuestionWindow.isWindowAppear());
+        assertFalse(editQuestionWindow.isWindowAppear());
         question.clickButtonChangeQuestion();
         assertEquals(QUESTION,question.getQuestion());
         assertEquals(ANSWER,question.getAnswer());
@@ -255,8 +255,8 @@ public class FAQPageTest extends BaseTest {
     @Test
     void deleteFaqQuestion() {
         Question question = faqPage.getQuestion();
-        ChangeQuestionWindow changeQuestionWindow = question.clickButtonChangeQuestion();
-        changeQuestionWindow.clickButtonDeleteQuestion();
+        EditQuestionWindow editQuestionWindow = question.clickButtonChangeQuestion();
+        editQuestionWindow.clickButtonDeleteQuestion();
         assertEquals("Вопрос успешно удален", faqPage.getNotification());
         assertFalse(faqPage.isExistQuestions());
         assertTrue(faqPage.isExistsEmptyList());

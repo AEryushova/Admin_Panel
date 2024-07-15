@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import static admin.data.TestData.DataTest.*;
 
-public class SetPhotoDoctorDecorator implements BeforeEachCallback {
+public class AddPhotoDoctorDecorator implements BeforeEachCallback {
 
         @Override
         public void beforeEach(ExtensionContext context) throws Exception {

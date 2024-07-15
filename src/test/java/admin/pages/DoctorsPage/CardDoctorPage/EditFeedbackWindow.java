@@ -9,7 +9,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ChangeFeedbackWindow {
+public class EditFeedbackWindow {
 
     private final SelenideElement WINDOW = $x("//div[@class='qJe_ OR_i']");
     private final SelenideElement TEXT_FIELD = $x("//div[@class='zxOH']/textarea");

@@ -20,6 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static admin.data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Настройки")
@@ -35,7 +36,7 @@ public class SettingPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(TestData.UserData.LOGIN_ADMIN, TestData.UserData.PASSWORD_ADMIN);
+        BaseTest.openAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickSettingTab();
     }
@@ -64,6 +65,7 @@ public class SettingPageTest extends BaseTest {
         assertEquals(TestData.DataTest.EMAIL_PATIENT, bugReport.getEmailAuthorText());
         assertEquals(DataHelper.getCurrentDateRuYear(), bugReport.getDateText());
         assertEquals(TestData.DataTest.MESSAGE_BUG_REPORT, bugReport.getReportText());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(USER_NAME_LK,"BUG_REPORT_CREATED_CLIENT_SUCCESS").getTimeDate());
     }
 
     @Feature("Сообщения об ошибках")
@@ -78,6 +80,7 @@ public class SettingPageTest extends BaseTest {
         assertFalse(settingPage.isExistsBugReport());
         assertTrue(settingPage.isExistsEmptyList());
         assertNull(DataBaseQuery.selectBugReports());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"BUG_REPORT_DELETED_SUCCESS").getTimeDate());
     }
 
     @Feature("Настройки личного кабинета")

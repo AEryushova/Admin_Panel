@@ -5,6 +5,8 @@ import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.ChangeMinePasswordWindow;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.HeaderMenu.UserPanel;
+import admin.utils.dbUtils.DataBaseQuery;
+import admin.utils.otherUtils.DataHelper;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.headerMenu.ReturnPasswordAdmin;
 import com.codeborne.selenide.Selenide;
@@ -60,6 +62,7 @@ public class HeaderMenuTest extends BaseTest {
         changeMinePassWindow.fillFieldNewPassword(NEW_PASSWORD_ADMIN);
         changeMinePassWindow.clickButtonChangePassword();
         assertEquals("Пароль успешно обновлен",basePage.getNotification());
+        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"CHANGE_PASSWORD_ADMIN_SUCCESS").getTimeDate());
         assertFalse(changeMinePassWindow.isWindowAppear());
         assertFalse(userPanel.isWindowAppear());
     }

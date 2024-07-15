@@ -72,11 +72,11 @@ public class Feedback {
     }
 
     @Step("Нажать на кнопку изменения отзыва")
-    public ChangeFeedbackWindow clickButtonEditFeedback() {
+    public EditFeedbackWindow clickButtonEditFeedback() {
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        return new ChangeFeedbackWindow();
+        return new EditFeedbackWindow();
     }
 
     @Step("Нажать на кнопку публикации")

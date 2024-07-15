@@ -46,13 +46,13 @@ public class CardDoctorPageTest extends BaseTest {
         Selenide.closeWebDriver();
     }
 
-    @Feature("Замена фотографии врачу")
-    @Story("Успешная замена фотографии врачу в формате Jpeg и Png")
-    @DisplayName("Успешная замена фотографии врачу в формате Jpeg и Png")
+    @Feature("Добавление фотографии врачу")
+    @Story("Успешное добавление фотографии врачу в формате Jpeg и Png")
+    @DisplayName("Успешное добавление фотографии врачу в формате Jpeg и Png")
     @ExtendWith(DeletePhotoDoctorDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg", "src/test/resources/Photo 3,2mbPng.png"})
-    void changePhotoDoctor(String path) {
+    void addPhotoDoctor(String path) {
         cardDoctor.verifyCardDoctorPage();
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
         navigateMenu.clickTabOpenPhoto();
@@ -61,9 +61,30 @@ public class CardDoctorPageTest extends BaseTest {
         editPhoto.verifyEditPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto(path);
+        Selenide.sleep(4000);
+        assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
+        assertNotEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
+        assertFalse(editPhoto.isWindowAppear());
+    }
+
+    @Feature("Замена фотографии врачу")
+    @Story("Успешная замена фотографии врачу")
+    @DisplayName("Успешная замена фотографии врачу")
+    @ExtendWith(AddDeletePhotoDoctorDecorator.class)
+    @Test
+    void changePhotoDoctor() {
+        cardDoctor.verifyCardDoctorPage();
+        NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
+        navigateMenu.clickTabOpenPhoto();
+        navigateMenu.closeNavigateMenu();
+        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
+        editPhoto.verifyEditPhotoDoctorWindow();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
+        editPhoto.uploadPhoto("src/test/resources/Photo 3,2mbPng.png");
         Selenide.sleep(3000);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertNotEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
+        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"DOCTOR_CHANGED_SUCCESS").getTimeDate());
         assertFalse(editPhoto.isWindowAppear());
     }
 
@@ -118,7 +139,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Замена фотографии врачу")
     @Story("Успешное удаление фотографии врача")
     @DisplayName("Успешное удаление фотографии врача")
-    @ExtendWith(SetPhotoDoctorDecorator.class)
+    @ExtendWith(AddPhotoDoctorDecorator.class)
     @Test
     void deletePhoto() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
@@ -130,7 +151,9 @@ public class CardDoctorPageTest extends BaseTest {
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertEquals(DEFAULT_PHOTO, cardDoctor.getSrcPhoto());
         assertEquals(DEFAULT_PHOTO, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
+        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"DOCTOR_DELETED_SUCCESS").getTimeDate());
     }
+
 
     @Feature("Замена фотографии врачу")
     @Story("Удаление дефолтной фотографии врача")
@@ -163,6 +186,7 @@ public class CardDoctorPageTest extends BaseTest {
         Section section = cardDoctor.getSection();
         assertEquals(SECTION, section.getSection());
         assertEquals(SECTION, DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
+        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"DOCTOR_GROUP_EXPERTISE_CREATED_SUCCESS").getTimeDate());
         assertTrue(cardDoctor.isExistSection());
         assertFalse(addInfoDoctorWindow.isWindowAppearSection());
     }
@@ -218,6 +242,7 @@ public class CardDoctorPageTest extends BaseTest {
         Selenide.sleep(2000);
         assertEquals(NEW_SECTION, section.getSection());
         assertEquals(NEW_SECTION, DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
+        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"DOCTOR_GROUP_EXPERTISE_CHANGED_SUCCESS").getTimeDate());
     }
 
     @Feature("Информация о враче")
@@ -252,6 +277,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertFalse(cardDoctor.isExistSection());
         assertTrue(cardDoctor.isExistsEmptyListSection());
         assertNull(DataBaseQuery.selectSection(AddSectionDecorator.getDoctorId()));
+        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"DOCTOR_GROUP_EXPERTISE_DELETED_SUCCESS").getTimeDate());
     }
 
 
@@ -272,6 +298,7 @@ public class CardDoctorPageTest extends BaseTest {
         Description description = cardDoctor.getDescription();
         assertEquals(DESCRIPTION, description.getDescription());
         assertEquals(DESCRIPTION, DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
+        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"DOCTOR_EXPERTISE_CREATED_SUCCESS").getTimeDate());
         assertTrue(cardDoctor.isExistDescription());
         assertFalse(addInfoDoctorWindow.isWindowAppearDescription());
     }
@@ -330,6 +357,7 @@ public class CardDoctorPageTest extends BaseTest {
         Selenide.sleep(2000);
         assertEquals(NEW_DESCRIPTION, description.getDescription());
         assertEquals(NEW_DESCRIPTION, DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
+        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"DOCTOR_EXPERTISE_CHANGED_SUCCESS").getTimeDate());
     }
 
     @Feature("Информация о враче")
@@ -363,6 +391,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertFalse(cardDoctor.isExistDescription());
         assertTrue(cardDoctor.isExistsEmptyListDescription());
         assertNull(DataBaseQuery.selectDescription(AddDescriptionDecorator.getSectionId()));
+        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"DOCTOR_EXPERTISE_DELETED_SUCCESS").getTimeDate());
     }
 
 
@@ -392,6 +421,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(NAME_PATIENT, DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(FEEDBACK, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"FEEDBACK_CREATED_ADMIN_SUCCESS").getTimeDate());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -425,6 +455,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(NAME_PATIENT, DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(FEEDBACK, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"FEEDBACK_CREATED_ADMIN_SUCCESS").getTimeDate());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -458,6 +489,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(NAME_PATIENT, DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(FEEDBACK, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"FEEDBACK_CREATED_ADMIN_SUCCESS").getTimeDate());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -489,6 +521,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(NAME_PATIENT, DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(FEEDBACK, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"FEEDBACK_CREATED_ADMIN_SUCCESS").getTimeDate());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -560,18 +593,19 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.checkSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackUnpublished();
-        ChangeFeedbackWindow changeFeedback = feedback.clickButtonEditFeedback();
-        changeFeedback.verifyChangeFeedbackWindow();
-        changeFeedback.fillFieldText(NEW_FEEDBACK);
-        changeFeedback.clickButtonSaveChanges();
+        EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
+        editFeedback.verifyChangeFeedbackWindow();
+        editFeedback.fillFieldText(NEW_FEEDBACK);
+        editFeedback.clickButtonSaveChanges();
         feedback.verifyFeedbackUnpublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         assertEquals(NEW_FEEDBACK, feedback.getTextFeedback());
         assertEquals(NEW_FEEDBACK, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"FEEDBACK_CHANGED_SUCCESS").getTimeDate());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
-        assertFalse(changeFeedback.isWindowAppear());
+        assertFalse(editFeedback.isWindowAppear());
     }
 
 
@@ -613,18 +647,19 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.checkNoSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackPublished();
-        ChangeFeedbackWindow changeFeedback = feedback.clickButtonEditFeedback();
-        changeFeedback.verifyChangeFeedbackWindow();
-        changeFeedback.fillFieldText(NEW_FEEDBACK);
-        changeFeedback.clickButtonSaveChanges();
+        EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
+        editFeedback.verifyChangeFeedbackWindow();
+        editFeedback.fillFieldText(NEW_FEEDBACK);
+        editFeedback.clickButtonSaveChanges();
         feedback.verifyFeedbackPublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getNotification());
         assertEquals(NEW_FEEDBACK, feedback.getTextFeedback());
         assertEquals(NEW_FEEDBACK, DataBaseQuery.selectFeedback().getContent());
         assertEquals(true, DataBaseQuery.selectFeedback().getIs_published());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"FEEDBACK_CHANGED_SUCCESS").getTimeDate());
         assertFalse(cardDoctor.isSelectUnPublishedFeedback());
         assertTrue(cardDoctor.isSelectPublishedFeedback());
-        assertFalse(changeFeedback.isWindowAppear());
+        assertFalse(editFeedback.isWindowAppear());
     }
 
 
@@ -661,12 +696,12 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
         Feedback feedback = cardDoctor.getFeedback();
-        ChangeFeedbackWindow changeFeedback = feedback.clickButtonEditFeedback();
-        changeFeedback.fillFieldText(NEW_FEEDBACK);
-        changeFeedback.closeWindowChangeFeedback();
-        assertFalse(changeFeedback.isWindowAppear());
+        EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
+        editFeedback.fillFieldText(NEW_FEEDBACK);
+        editFeedback.closeWindowChangeFeedback();
+        assertFalse(editFeedback.isWindowAppear());
         feedback.clickButtonEditFeedback();
-        assertEquals(FEEDBACK, changeFeedback.getValueTextFeedbackField());
+        assertEquals(FEEDBACK, editFeedback.getValueTextFeedbackField());
         assertEquals(FEEDBACK, DataBaseQuery.selectFeedback().getContent());
     }
 
@@ -681,9 +716,9 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.closeNavigateMenu();
         Selenide.sleep(2000);
         Feedback feedback = cardDoctor.getFeedback();
-        ChangeFeedbackWindow changeFeedback = feedback.clickButtonEditFeedback();
-        changeFeedback.clearTextField();
-        assertFalse(changeFeedback.isEnabledSaveButton());
+        EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
+        editFeedback.clearTextField();
+        assertFalse(editFeedback.isEnabledSaveButton());
     }
 
 
@@ -704,6 +739,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals("Отзыв успешно удален", cardDoctor.getNotification());
         assertFalse(cardDoctor.isExistFeedback());
         assertNull(DataBaseQuery.selectFeedback());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"FEEDBACK_DELETED_SUCCESS").getTimeDate());
     }
 
     @Feature("Отзывы о враче")

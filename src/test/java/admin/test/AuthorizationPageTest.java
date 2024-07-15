@@ -3,6 +3,7 @@ package admin.test;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.dbUtils.DataBaseQuery;
+import admin.utils.otherUtils.DataHelper;
 import admin.utils.preparationDataTests.general.AllureDecorator;
 import admin.utils.preparationDataTests.authorization.CloseWebDriverDecorator;
 import com.codeborne.selenide.Selenide;
@@ -64,6 +65,7 @@ public class AuthorizationPageTest extends BaseTest {
         assertEquals("Супер-Администратор", userPanel.getProfileInfoUser());
         assertEquals(LOGIN_SUPER_ADMIN,userPanel.getLogin());
         assertEquals(0, DataBaseQuery.selectAdmin(LOGIN_SUPER_ADMIN).getRole_id());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"SIGN_IN_ADMIN_SUCCESS").getTimeDate());
     }
 
 
@@ -81,6 +83,7 @@ public class AuthorizationPageTest extends BaseTest {
         assertEquals("Администратор", userPanel.getProfileInfoUser());
         assertEquals(LOGIN_ADMIN,userPanel.getLogin());
         assertEquals(1, DataBaseQuery.selectAdmin(LOGIN_ADMIN).getRole_id());
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"SIGN_IN_ADMIN_SUCCESS").getTimeDate());
     }
 
     @Story("Авторизация админа с неверным паролем")
@@ -283,6 +286,7 @@ public class AuthorizationPageTest extends BaseTest {
         userPanel.verifyUserPanelSuperAdmin();
         AuthorizationPage authPage=userPanel.clickButtonExitAdminPanel();
         authPage.verifyAuthPage();
+        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"SIGN_OUT_ADMIN_SUCCESS").getTimeDate());
     }
 
 }

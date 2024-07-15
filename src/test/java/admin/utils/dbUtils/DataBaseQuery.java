@@ -3,6 +3,7 @@ package admin.utils.dbUtils;
 import admin.utils.dbUtils.dbaseData.*;
 import admin.utils.otherUtils.DataHelper;
 import lombok.SneakyThrows;
+
 import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import java.util.UUID;
@@ -259,7 +260,18 @@ public class DataBaseQuery {
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             //noinspection deprecation
             return DataBaseManager.queryRunner("cab_lab_db")
-                    .query(connection, selectInfo, new Object[] { codeService }, new BeanHandler<>(AllServices.class));
+                    .query(connection, selectInfo, new Object[]{codeService}, new BeanHandler<>(AllServices.class));
         }
     }
+
+    @SneakyThrows
+    public static Logs selectLog(String userName, String codeLog) {
+        var selectInfo = "SELECT * FROM logs WHERE user_name=? and code=? ORDER BY log_time DESC LIMIT 1";
+        try (var connection = DataBaseManager.getConnection("lod_db")) {
+            //noinspection deprecation
+            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo, new Object[]{userName, codeLog}, new BeanHandler<>(Logs.class));
+        }
+    }
+
 }
+

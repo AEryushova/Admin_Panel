@@ -37,6 +37,12 @@ public class DataBaseManager {
                             DataBaseConfig.MEDICAL_RECORD_DB_USERNAME,
                             DataBaseConfig.MEDICAL_RECORD_DB_PASSWORD
                     );
+                case "lod_db":
+                    return createDataSource(
+                            DataBaseConfig.LOG_DB_URL,
+                            DataBaseConfig.LOG_DB_USERNAME,
+                            DataBaseConfig.LOG_DB_PASSWORD
+                    );
                 default:
                     throw new IllegalArgumentException("Unsupported datasource key: " + key);
             }

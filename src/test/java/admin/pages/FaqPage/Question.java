@@ -25,11 +25,11 @@ public class Question {
     }
 
     @Step("Нажать кнопку изменения вопроса")
-    public ChangeQuestionWindow clickButtonChangeQuestion() {
+    public EditQuestionWindow clickButtonChangeQuestion() {
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        return new ChangeQuestionWindow();
+        return new EditQuestionWindow();
     }
 
     @Step("Получить текст заголовка вопроса")

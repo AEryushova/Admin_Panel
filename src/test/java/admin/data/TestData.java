@@ -13,6 +13,7 @@ public class TestData {
         public static final String PASSWORD_SUPER_ADMIN = "Qqqq123#";
         public static final String LOGIN_ADMIN = "ADMIN_TESTUI";
         public static final String PASSWORD_ADMIN = "WWqq123456!";
+        public static final String USER_NAME_LK= "UPNBWPGQF7I";
     }
 
     @Data

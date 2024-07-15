@@ -9,7 +9,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ChangeQuestionWindow {
+public class EditQuestionWindow {
     public final SelenideElement WINDOW = $x("//div[@class='dc4P zw3J']");
     private final SelenideElement QUESTION_FIELD = $x("//div[@class='zxOH vkQg']/textarea");
     private final SelenideElement ANSWER_FIELD = $x("//div[@class='zxOH yCzg']/textarea");

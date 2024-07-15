@@ -7,6 +7,7 @@ import io.qameta.allure.Step;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Condition.hidden;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -35,6 +36,7 @@ public class BasePage {
     @Step("Проверить отображение нотификации")
     public boolean isNotificationAppear() {
         return NOTIFICATION.isDisplayed();
+
     }
 
     @Step("Проскроллить страницу вниз на '{0}' пикселей")
