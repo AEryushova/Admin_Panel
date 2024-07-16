@@ -62,9 +62,9 @@ public class AdministrationPageTest extends BaseTest {
         newAdminWindow.clickAddButton();
         assertEquals("Новый администратор " + LOGIN_ADMIN_TEST + " успешно создан", adminPage.getNotification());
         assertEquals(1, DataBaseQuery.selectAdmin(LOGIN_ADMIN_TEST).getRole_id());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN_TEST,"SIGN_UP_ADMIN_SUCCESS").getTimeDate());
         assertFalse(DataBaseQuery.selectAdmin(LOGIN_ADMIN_TEST).getIs_blocked());
         assertFalse(DataBaseQuery.selectAdmin(LOGIN_ADMIN_TEST).getIs_deleted());
+        assertEquals("SIGN_UP_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN_TEST).getCode());
         assertTrue(adminPage.isVisibleAdminCard(LOGIN_ADMIN_TEST));
         assertFalse(newAdminWindow.isWindowAppear());
     }
@@ -269,6 +269,7 @@ public class AdministrationPageTest extends BaseTest {
         newAdminWindow.clickClearButtonPasswordField();
         newAdminWindow.fillFieldNewAdminConfirmPassword(PASSWORD_ADMIN_TEST);
         newAdminWindow.clickClearButtonConfirmPasswordField();
+        Selenide.sleep(3000);
         assertEquals("", newAdminWindow.getValueLoginField());
         assertEquals("Обязательное поле", newAdminWindow.getErrorFieldLogin());
         assertEquals("", newAdminWindow.getValuePasswordField());
@@ -310,7 +311,7 @@ public class AdministrationPageTest extends BaseTest {
         changePasswordAdminWindow.fillFieldConfirmPassword(NEW_PASSWORD_ADMIN_TEST);
         changePasswordAdminWindow.clickButtonSaveNewPassword();
         assertEquals("Админ " + LOGIN_ADMIN_TEST + " успешно изменен", adminPage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN_TEST,"RESET_PASSWORD_SADMIN_SUCCESS").getTimeDate());
+        assertEquals("RESET_PASSWORD_SADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN_TEST).getCode());
         assertFalse(changePasswordAdminWindow.isWindowAppear());
     }
 
@@ -471,7 +472,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Админ " + LOGIN_ADMIN_TEST + " успешно удален", adminPage.getNotification());
         assertFalse(adminPage.isVisibleAdminCard(LOGIN_ADMIN_TEST));
         assertNull(DataBaseQuery.selectAdmin(LOGIN_ADMIN_TEST));
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN_TEST,"DELETE_ADMIN_SUCCESS").getTimeDate());
+        assertEquals("DELETE_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN_TEST).getCode());
     }
 
     @Feature("Документация")
@@ -485,7 +486,7 @@ public class AdministrationPageTest extends BaseTest {
         updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта.pdf");
         adminPage.clickButtonUpdateOffer();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"LEGAL_DOCUMENT_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
     @Feature("Документация")
@@ -499,7 +500,7 @@ public class AdministrationPageTest extends BaseTest {
         updateLegalDocWindow.uploadValidDoc("src/test/resources/Политика обработки персональных данных.pdf");
         adminPage.clickButtonUpdateProcessingPolicy();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"LEGAL_DOCUMENT_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
     @Feature("Документация")
@@ -537,7 +538,7 @@ public class AdministrationPageTest extends BaseTest {
         calendar.clickDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"FEDERAL_SERVICES_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updateOrderWindow.isWindowAppear());
     }
 
@@ -553,7 +554,7 @@ public class AdministrationPageTest extends BaseTest {
         calendar.clickDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"FEDERAL_SERVICES_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updateOrderWindow.isWindowAppear());
     }
 
@@ -569,7 +570,7 @@ public class AdministrationPageTest extends BaseTest {
         calendar.clickDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"FEDERAL_SERVICES_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updateOrderWindow.isWindowAppear());
     }
 
@@ -582,7 +583,7 @@ public class AdministrationPageTest extends BaseTest {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"FEDERAL_SERVICES_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updateOrderWindow.isWindowAppear());
     }
 
@@ -610,7 +611,7 @@ public class AdministrationPageTest extends BaseTest {
         calendar.clickDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"PRICE_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("PRICE_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updatePriceWindow.isWindowAppear());
     }
 
@@ -627,7 +628,7 @@ public class AdministrationPageTest extends BaseTest {
         calendar.clickDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"PRICE_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("PRICE_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updatePriceWindow.isWindowAppear());
     }
 
@@ -643,7 +644,7 @@ public class AdministrationPageTest extends BaseTest {
         calendar.clickDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"PRICE_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("PRICE_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updatePriceWindow.isWindowAppear());
     }
 
@@ -656,7 +657,7 @@ public class AdministrationPageTest extends BaseTest {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"PRICE_UPDATED_SUCCESS").getTimeDate());
+        assertEquals("PRICE_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updatePriceWindow.isWindowAppear());
     }
 

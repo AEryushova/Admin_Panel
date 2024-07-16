@@ -17,6 +17,7 @@ public class AddFeedbackWindow {
     private final SelenideElement FIO_FIELD = $x("//input[@name='fio']");
     private final SelenideElement TODAY_BUTTON = $x("//div[@class='zMyf']");
     private final SelenideElement TEXT_FEEDBACK_FIELD = $x("//textarea[@placeholder='Введите текст отзыва']");
+    private final SelenideElement CLEAR_FIELD_FIO_BUTTON = $x("//input[@name='fio']//preceding-sibling::div[@class='m4oD']");
     private final SelenideElement PUBLISH_BUTTON = $x("//button[text()='Опубликовать']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='fio']/parent::div/parent::div/parent::div/preceding-sibling::div");
 
@@ -27,6 +28,7 @@ public class AddFeedbackWindow {
         TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PUBLISH_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        CLEAR_FIELD_FIO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     @Step("Ввести в поле ФИО '{0}'")
@@ -77,6 +79,13 @@ public class AddFeedbackWindow {
         TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.exist);
         return TEXT_FEEDBACK_FIELD.getValue();
+    }
+
+    @Step("Нажать на кнопку очищения поля ФИО")
+    public void clearButtonFioField() {
+        CLEAR_FIELD_FIO_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
     }
 
     @Step("Проверить доступность для нажатия кнопки публикации")

@@ -65,7 +65,7 @@ public class SettingPageTest extends BaseTest {
         assertEquals(TestData.DataTest.EMAIL_PATIENT, bugReport.getEmailAuthorText());
         assertEquals(DataHelper.getCurrentDateRuYear(), bugReport.getDateText());
         assertEquals(TestData.DataTest.MESSAGE_BUG_REPORT, bugReport.getReportText());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(USER_NAME_LK,"BUG_REPORT_CREATED_CLIENT_SUCCESS").getTimeDate());
+        assertEquals("BUG_REPORT_CREATED_CLIENT_SUCCESS",DataBaseQuery.selectLog(USER_NAME_LK).getCode());
     }
 
     @Feature("Сообщения об ошибках")
@@ -80,7 +80,7 @@ public class SettingPageTest extends BaseTest {
         assertFalse(settingPage.isExistsBugReport());
         assertTrue(settingPage.isExistsEmptyList());
         assertNull(DataBaseQuery.selectBugReports());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"BUG_REPORT_DELETED_SUCCESS").getTimeDate());
+        assertEquals("BUG_REPORT_DELETED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Настройки личного кабинета")

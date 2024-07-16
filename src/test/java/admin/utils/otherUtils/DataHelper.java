@@ -57,24 +57,6 @@ public class DataHelper {
         return null;
     }
 
-    //Извлекает дату и время из объекта в формате Timestamp и возвращает в формате String//
-    public static String extractDateTimeFromTimestamp(Timestamp dateTime) {
-        try {
-            LocalDateTime localDateTime = dateTime.toLocalDateTime();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-            return localDateTime.format(formatter);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    //Возвращает текущую дату и время в формате "17.06.2024 12:05"//
-    public static String getCurrentDateTime() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        return currentDateTime.format(formatter);
-    }
-
     //Возвращает текущую дату в формате "17.06.2024"//
     public static String getCurrentDate() {
         LocalDate currentDate = LocalDate.now();

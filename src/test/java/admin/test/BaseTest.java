@@ -51,7 +51,7 @@ public class BaseTest {
         token = response.getBody().jsonPath().getString("accessToken");
         Configuration.browser="chrome";
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless","true"));
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless","false"));
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();

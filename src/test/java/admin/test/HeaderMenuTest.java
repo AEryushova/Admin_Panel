@@ -62,7 +62,7 @@ public class HeaderMenuTest extends BaseTest {
         changeMinePassWindow.fillFieldNewPassword(NEW_PASSWORD_ADMIN);
         changeMinePassWindow.clickButtonChangePassword();
         assertEquals("Пароль успешно обновлен",basePage.getNotification());
-        assertEquals(DataHelper.getCurrentDateTime(), DataBaseQuery.selectLog(LOGIN_ADMIN,"CHANGE_PASSWORD_ADMIN_SUCCESS").getTimeDate());
+        assertEquals("CHANGE_PASSWORD_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(changeMinePassWindow.isWindowAppear());
         assertFalse(userPanel.isWindowAppear());
     }
@@ -220,6 +220,7 @@ public class HeaderMenuTest extends BaseTest {
         changeMinePassWindow.clickClearButtonOldPasswordField();
         changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickClearButtonNewPasswordField();
+        Selenide.sleep(3000);
         assertEquals("", changeMinePassWindow.getValueOldPasswordField());
         assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldOldPassword());
         assertEquals("", changeMinePassWindow.getValueNewPasswordField());

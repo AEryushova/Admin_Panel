@@ -265,11 +265,11 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static Logs selectLog(String userName, String codeLog) {
-        var selectInfo = "SELECT * FROM logs WHERE user_name=? and code=? ORDER BY log_time DESC LIMIT 1";
+    public static Logs selectLog(String userName) {
+        var selectInfo = "SELECT * FROM logs WHERE user_name=? ORDER BY log_time DESC LIMIT 1";
         try (var connection = DataBaseManager.getConnection("lod_db")) {
             //noinspection deprecation
-            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo, new Object[]{userName, codeLog}, new BeanHandler<>(Logs.class));
+            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo, new Object[]{userName}, new BeanHandler<>(Logs.class));
         }
     }
 

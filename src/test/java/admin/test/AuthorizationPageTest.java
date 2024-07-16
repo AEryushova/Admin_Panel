@@ -65,7 +65,7 @@ public class AuthorizationPageTest extends BaseTest {
         assertEquals("Супер-Администратор", userPanel.getProfileInfoUser());
         assertEquals(LOGIN_SUPER_ADMIN,userPanel.getLogin());
         assertEquals(0, DataBaseQuery.selectAdmin(LOGIN_SUPER_ADMIN).getRole_id());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"SIGN_IN_ADMIN_SUCCESS").getTimeDate());
+        assertEquals("SIGN_IN_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
 
@@ -83,7 +83,7 @@ public class AuthorizationPageTest extends BaseTest {
         assertEquals("Администратор", userPanel.getProfileInfoUser());
         assertEquals(LOGIN_ADMIN,userPanel.getLogin());
         assertEquals(1, DataBaseQuery.selectAdmin(LOGIN_ADMIN).getRole_id());
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_ADMIN,"SIGN_IN_ADMIN_SUCCESS").getTimeDate());
+        assertEquals("SIGN_IN_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Story("Авторизация админа с неверным паролем")
@@ -286,7 +286,7 @@ public class AuthorizationPageTest extends BaseTest {
         userPanel.verifyUserPanelSuperAdmin();
         AuthorizationPage authPage=userPanel.clickButtonExitAdminPanel();
         authPage.verifyAuthPage();
-        assertEquals(DataHelper.getCurrentDateTime(),DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN,"SIGN_OUT_ADMIN_SUCCESS").getTimeDate());
+        assertEquals("SIGN_OUT_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
 }

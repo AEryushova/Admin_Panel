@@ -15,9 +15,4 @@ public class Logs {
     private String user_name;
     private String payload;
     private String hash;
-
-    public String getTimeDate() {
-        return DataHelper.extractDateTimeFromTimestamp(log_time);
-    }
-
 }

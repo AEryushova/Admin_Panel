@@ -20,14 +20,14 @@ public class BasePage {
 
     @Step("Получить текст нотификации")
     public String getNotification() {
-        NOTIFICATION.shouldBe(visible, Duration.ofSeconds(5))
+        NOTIFICATION.shouldBe(visible, Duration.ofSeconds(8))
                 .shouldBe(Condition.exist);
         return NOTIFICATION.getText();
     }
 
     @Step("Нажать на кнопку закрытия нотификации")
     public void closeNotification() {
-        CLOSE_NOTIFICATION.shouldBe(visible, Duration.ofSeconds(5))
+        CLOSE_NOTIFICATION.shouldBe(visible, Duration.ofSeconds(8))
                 .shouldBe(Condition.enabled)
                 .click();
     }

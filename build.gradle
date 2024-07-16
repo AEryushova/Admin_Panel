@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.11.2'
-    id "org.gradle.test-retry" version "1.5.9"
 }
 
 group = 'lk.mdapp.online'
@@ -50,13 +49,8 @@ dependencies {
 }
 
 test {
-    retry {
-        maxRetries = 2
-        failOnPassedAfterRetry = false
-    }
-
     useJUnitPlatform()
-    systemProperty 'selenide.headless', System.getProperty('selenide.headless','true')
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless','false')
     systemProperty 'environment', System.getProperty('environment', 'freeze')
     systemProperty 'cab.lab.db.name', System.getProperty('cab.lab.db.name', 'freeze_cab_lab_collection')
 }

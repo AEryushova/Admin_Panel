@@ -82,7 +82,6 @@ public class ChangeMinePasswordWindow {
         CLEAR_FIELD_OLD_PASSWORD .shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        OLD_PASSWORD_FIELD.shouldHave(Condition.attribute("value", ""),Duration.ofSeconds(7));
     }
 
     @Step("Нажать на кнопку очищения поля нового пароля")
@@ -90,7 +89,6 @@ public class ChangeMinePasswordWindow {
         CLEAR_FIELD_NEW_PASSWORD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        NEW_PASSWORD_FIELD.shouldHave(Condition.attribute("value", ""),Duration.ofSeconds(7));
     }
 
     @Step("Получить значение поля старого пароля")
