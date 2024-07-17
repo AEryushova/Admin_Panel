@@ -91,6 +91,7 @@ public class EditRuleWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW.shouldNot(Condition.appear, Duration.ofSeconds(10));
     }
 
     @Step("Проверить отображение окна изменения правила")

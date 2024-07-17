@@ -18,7 +18,7 @@ public class PreparationDataHeaderTest {
     public static void authAdmin(String login, String password) {
         tokenGetAuthAdmin(login, password);
         given()
-                .baseUri(URI_ADMIN_PANEL)
+                .baseUri(URI_BACK)
                 .header("Authorization", "Bearer " + tokenAdmin)
                 .header("Environment",ENVIRONMENT)
                 .when()
@@ -32,7 +32,7 @@ public class PreparationDataHeaderTest {
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("password", password);
         Response response = given()
-                .baseUri(URI_ADMIN_PANEL)
+                .baseUri(URI_BACK)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())
@@ -51,7 +51,7 @@ public class PreparationDataHeaderTest {
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("newPassword", newPassword);
         given()
-                .baseUri(URI_ADMIN_PANEL)
+                .baseUri(URI_BACK)
                 .header("Authorization", "Bearer " + tokenAdmin)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)

@@ -218,7 +218,7 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.closeNavigateMenu();
         AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
         addInfoDoctorWindow.fillFieldText(SECTION);
-        addInfoDoctorWindow.clickCancelButtonAddInfoDoctor();
+        addInfoDoctorWindow.clickCancelButtonAddSectionDoctor();
         assertFalse(addInfoDoctorWindow.isWindowAppearSection());
         cardDoctor.clickButtonAddSection();
         assertEquals("", addInfoDoctorWindow.getValueField());
@@ -333,7 +333,7 @@ public class CardDoctorPageTest extends BaseTest {
         Section section = cardDoctor.getSection();
         AddInfoDoctorWindow addInfoDoctorWindow = section.clickButtonAddDescription();
         addInfoDoctorWindow.fillFieldText(DESCRIPTION);
-        addInfoDoctorWindow.clickCancelButtonAddInfoDoctor();
+        addInfoDoctorWindow.clickCancelButtonAddDescriptionDoctor();
         assertFalse(addInfoDoctorWindow.isWindowAppearDescription());
         section.clickButtonAddDescription();
         assertEquals("", addInfoDoctorWindow.getValueField());

@@ -289,6 +289,7 @@ public class AdministrationPageTest extends BaseTest {
         newAdminWindow.fillFieldNewAdminPassword(PASSWORD_ADMIN_TEST);
         newAdminWindow.fillFieldNewAdminConfirmPassword(PASSWORD_ADMIN_TEST);
         newAdminWindow.closeWindowAddedAdmin();
+        Selenide.sleep(3000);
         assertFalse(newAdminWindow.isWindowAppear());
         adminPage.clickButtonAddNewAdmin();
         assertEquals("", newAdminWindow.getValueLoginField());
@@ -456,6 +457,7 @@ public class AdministrationPageTest extends BaseTest {
         DeleteAdminWindow deleteAdminWindow = adminPage.clickButtonDeleteAdmin(LOGIN_ADMIN_TEST);
         deleteAdminWindow.clickCancelButtonDeleteAdmin();
         assertTrue(adminPage.isVisibleAdminCard(LOGIN_ADMIN_TEST));
+        assertFalse(deleteAdminWindow.isWindowAppear());
     }
 
     @Feature("Удаление админа")

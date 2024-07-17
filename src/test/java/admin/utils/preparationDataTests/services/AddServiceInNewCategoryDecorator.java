@@ -51,6 +51,7 @@ public class AddServiceInNewCategoryDecorator implements BeforeEachCallback, Aft
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
+        PreparationDataServicesTest.deleteRuleService(serviceCode);
         PreparationDataServicesTest.transferServices(serviceCode,subsectionId.toString(),parentServiceId);
         PreparationDataServicesTest.deleteCategory(subsectionId);
         PreparationDataServicesTest.deleteCategory(sectionId);

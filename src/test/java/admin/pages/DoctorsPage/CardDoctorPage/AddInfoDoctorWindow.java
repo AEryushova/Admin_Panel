@@ -54,11 +54,20 @@ public class AddInfoDoctorWindow {
                 .click();
     }
 
-    @Step("Нажать на кнопку отмены")
-    public void clickCancelButtonAddInfoDoctor() {
+    @Step("Нажать на кнопку отмены добавления раздела")
+    public void clickCancelButtonAddSectionDoctor() {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW_SECTION.shouldNot(Condition.appear, Duration.ofSeconds(10));
+    }
+
+    @Step("Нажать на кнопку отмены добавления описания в раздел")
+    public void clickCancelButtonAddDescriptionDoctor() {
+        CANCEL_BUTTON.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        WINDOW_DESCRIPTION.shouldNot(Condition.appear, Duration.ofSeconds(10));
     }
 
     @Step("Проверить отображение окна добавления раздела в инфо о враче")

@@ -17,7 +17,7 @@ public class PreparationDataAdminTest {
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("password", password);
         given()
-                .baseUri(URI_ADMIN_PANEL)
+                .baseUri(URI_BACK)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
@@ -31,7 +31,7 @@ public class PreparationDataAdminTest {
 
     public static void deleteAdmin(String login) {
         given()
-                .baseUri(URI_ADMIN_PANEL)
+                .baseUri(URI_BACK)
                 .queryParam("login", login)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment",ENVIRONMENT)

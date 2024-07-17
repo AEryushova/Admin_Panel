@@ -51,7 +51,7 @@ public class BaseTest {
         token = response.getBody().jsonPath().getString("accessToken");
         Configuration.browser="chrome";
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless","false"));
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();
@@ -61,12 +61,5 @@ public class BaseTest {
         WebDriverRunner.getWebDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
         Selenide.refresh();
     }
-
-
-
-
-
-
-
 
 }

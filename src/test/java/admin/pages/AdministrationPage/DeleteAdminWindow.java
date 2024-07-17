@@ -35,12 +35,17 @@ public class DeleteAdminWindow {
         NO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+        WINDOW.shouldNot(Condition.appear, Duration.ofSeconds(10));
     }
 
     @Step("Проверить отображение админа '{0}' в заголовке окна")
     public boolean verifyLoginAdmin(String login){
         return HEADER_WINDOW.has(text("Вы действительно хотите удалить администратора " + login + " ?"));
+    }
+
+    @Step("Проверить отображение окна удаления админа")
+    public boolean isWindowAppear() {
+        return WINDOW.isDisplayed();
     }
 }
 

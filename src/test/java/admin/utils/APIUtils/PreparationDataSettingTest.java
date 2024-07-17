@@ -23,7 +23,7 @@ public class PreparationDataSettingTest {
     public static void authPatient() {
         tokenGetAuthPatient();
         given()
-                .baseUri(URI_PERSONAL_AREA)
+                .baseUri(URI_BACK)
                 .header("Authorization", "Bearer " + tokenPatient)
                 .header("Environment", ENVIRONMENT)
                 .when()
@@ -35,7 +35,7 @@ public class PreparationDataSettingTest {
 
     private static void tokenGetAuthPatient() {
         Response response = given()
-                .baseUri(URI_PERSONAL_AREA)
+                .baseUri(URI_BACK)
                 .header("Environment", ENVIRONMENT)
                 .queryParam("code", "123code")
                 .when()
@@ -54,7 +54,7 @@ public class PreparationDataSettingTest {
         jsonObject.addProperty("email", email);
         jsonObject.addProperty("author", author);
         given()
-                .baseUri(URI_PERSONAL_AREA)
+                .baseUri(URI_BACK)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + tokenPatient)
                 .header("Environment", ENVIRONMENT)
@@ -68,7 +68,7 @@ public class PreparationDataSettingTest {
 
     public static void uploadPhoto(File file) {
         Response response = given()
-                .baseUri(URI_ADMIN_PANEL)
+                .baseUri(URI_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)
@@ -84,7 +84,7 @@ public class PreparationDataSettingTest {
 
     public static void uploadLogo(File file) {
         given()
-                .baseUri(URI_ADMIN_PANEL)
+                .baseUri(URI_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)
