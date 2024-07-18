@@ -34,15 +34,13 @@ public class Question {
 
     @Step("Получить текст заголовка вопроса")
     public String getQuestion() {
-        QUESTION_TEXT.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        QUESTION_TEXT.shouldBe(Condition.visible);
         return QUESTION_TEXT.getText();
     }
 
     @Step("Получить текст ответа вопроса")
     public String getAnswer() {
-        ANSWER_TEXT.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        ANSWER_TEXT.shouldBe(Condition.visible);
         return ANSWER_TEXT.getText();
     }
 

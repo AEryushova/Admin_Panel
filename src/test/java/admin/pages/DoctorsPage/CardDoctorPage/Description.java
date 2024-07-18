@@ -48,8 +48,7 @@ public class Description {
 
     @Step("Получить текст поля названия пункта описания")
     public String getDescription() {
-        NAME_DESCRIPTION.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        NAME_DESCRIPTION.shouldBe(Condition.visible);
         return NAME_DESCRIPTION.getText();
     }
 

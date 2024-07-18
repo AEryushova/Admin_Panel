@@ -43,7 +43,7 @@ public class AddInfoDoctorWindow {
     @Step("Получить значение поля названия пункта")
     public String getValueField() {
         TEXT_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return TEXT_FIELD.getValue();
     }
 

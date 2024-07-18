@@ -48,8 +48,7 @@ public class SubsectionCard {
 
     @Step("Получить название подраздела")
     public String getNameSubsection(){
-        NAME_SUBSECTION.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        NAME_SUBSECTION.shouldBe(Condition.visible);
         return NAME_SUBSECTION.getText();
     }
 
@@ -78,8 +77,7 @@ public class SubsectionCard {
 
     @Step("Получить услугу")
     public ServiceCard getService() {
-        SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new ServiceCard();
     }
 

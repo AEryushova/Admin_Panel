@@ -88,29 +88,25 @@ public class ServiceWindow {
 
     @Step("Получить заголовок окна")
     public String getHeaderServiceWindow() {
-        HEADER_SERVICE.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        HEADER_SERVICE.shouldBe(Condition.visible);
         return HEADER_SERVICE.getText();
     }
 
     @Step("Получить путь расположения услуги")
     public String getPathService() {
-        PATH_TO_SERVICE.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        PATH_TO_SERVICE.shouldBe(Condition.visible);
         return PATH_TO_SERVICE.getText();
     }
 
     @Step("Получить название услуги")
     public String getNameService() {
-        NAME_SERVICE.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        NAME_SERVICE.shouldBe(Condition.visible);
         return NAME_SERVICE.getText();
     }
 
     @Step("Получить код услуги")
     public String getCodeService() {
-        CODE_SERVICE.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        CODE_SERVICE.shouldBe(Condition.visible);
         return CODE_SERVICE.getText();
     }
 
@@ -169,14 +165,14 @@ public class ServiceWindow {
     @Step("Получить значение поля заголовка")
     public String getValueTitleField() {
         TITLE_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return TITLE_FIELD.getValue();
     }
 
     @Step("Получить значение поля описания")
     public String getValueDescriptionField() {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return DESCRIPTION_FIELD.getValue();
     }
 

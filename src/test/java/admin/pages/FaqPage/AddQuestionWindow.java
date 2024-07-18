@@ -22,7 +22,7 @@ public class AddQuestionWindow {
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         QUESTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ANSWER_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        ADD_BUTTON.shouldBe(Condition.disabled);
+        ADD_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
@@ -55,14 +55,14 @@ public class AddQuestionWindow {
     @Step("Получить значение поля вопроса")
     public String getValueQuestionField() {
         QUESTION_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return QUESTION_FIELD.getValue();
     }
 
     @Step("Получить значение поля ответа")
     public String getValueAnswerField() {
         ANSWER_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return ANSWER_FIELD.getValue();
     }
 

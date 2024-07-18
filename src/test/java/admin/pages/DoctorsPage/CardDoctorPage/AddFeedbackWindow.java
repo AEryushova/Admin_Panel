@@ -62,30 +62,30 @@ public class AddFeedbackWindow {
 
     @Step("Получить текущую дату с календаря")
     public String getCurrentDateButton() {
-        TODAY_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
+        TODAY_BUTTON.shouldBe(Condition.visible);
         return TODAY_BUTTON.getText();
     }
 
     @Step("Получить значение поля ФИО")
     public String getValueFioField() {
         FIO_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return FIO_FIELD.getValue();
     }
 
     @Step("Получить значение поля текста отзыва")
     public String getValueTextFeedbackField() {
         TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return TEXT_FEEDBACK_FIELD.getValue();
     }
 
     @Step("Нажать на кнопку очищения поля ФИО")
-    public void clearButtonFioField() {
+    public void clickClearButtonFioField() {
         CLEAR_FIELD_FIO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        FIO_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
     }
 
     @Step("Проверить доступность для нажатия кнопки публикации")

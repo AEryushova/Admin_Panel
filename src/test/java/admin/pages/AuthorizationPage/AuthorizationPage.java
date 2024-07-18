@@ -87,13 +87,13 @@ public class AuthorizationPage extends BasePage {
         CLEAR_LOGIN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        LOGIN_FIELD.shouldHave(Condition.value(""), Duration.ofSeconds(5));
+        LOGIN_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
     }
 
     @Step("Получить значение поля логина")
     public String getValueLoginField() {
         LOGIN_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return LOGIN_FIELD.getValue();
     }
 
@@ -128,15 +128,13 @@ public class AuthorizationPage extends BasePage {
 
     @Step("Получить текст ошибки поля логина")
     public String getErrorFieldLogin() {
-        ERROR_FIELD_LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist);
+        ERROR_FIELD_LOGIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return ERROR_FIELD_LOGIN.getText();
     }
 
     @Step("Получить текст ошибки поля пароля")
     public String getErrorFieldPassword() {
-        ERROR_FIELD_PASSWORD.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist);
+        ERROR_FIELD_PASSWORD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return ERROR_FIELD_PASSWORD.getText();
     }
 

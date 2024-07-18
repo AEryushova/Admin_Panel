@@ -35,8 +35,7 @@ public class RulesPreparingWindow {
 
     @Step("Получить правило")
     public Rule getRule(){
-        RULE.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        RULE.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new Rule();
     }
 

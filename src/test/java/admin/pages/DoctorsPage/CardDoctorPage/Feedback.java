@@ -45,8 +45,7 @@ public class Feedback {
 
     @Step("Получить дату отзыва")
     public String getDateFeedback() {
-        DATE_FEEDBACK.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        DATE_FEEDBACK.shouldBe(Condition.visible);
         return DATE_FEEDBACK.getText();
     }
 
@@ -59,15 +58,13 @@ public class Feedback {
 
     @Step("Получить автора отзыва")
     public String getAuthorFeedback() {
-        AUTHOR.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        AUTHOR.shouldBe(Condition.visible);
         return AUTHOR.getText();
     }
 
     @Step("Получить текст отзыва")
     public String getTextFeedback() {
-        TEXT.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        TEXT.shouldBe(Condition.visible);
         return TEXT.getText();
     }
 

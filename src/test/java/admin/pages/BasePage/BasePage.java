@@ -20,8 +20,7 @@ public class BasePage {
 
     @Step("Получить текст нотификации")
     public String getNotification() {
-        NOTIFICATION.shouldBe(visible, Duration.ofSeconds(8))
-                .shouldBe(Condition.exist);
+        NOTIFICATION.shouldBe(visible, Duration.ofSeconds(8));
         return NOTIFICATION.getText();
     }
 

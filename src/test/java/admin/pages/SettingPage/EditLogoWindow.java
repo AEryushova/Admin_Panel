@@ -29,7 +29,8 @@ public class EditLogoWindow {
 
     @Step("Загрузить файл '{0}'")
     public void uploadLogo(String pathFilesOffer) {
-        FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
+        FILE_INPUT_ELEMENT.shouldBe(Condition.exist)
+                .uploadFile(new File(pathFilesOffer));
     }
 
     @Step("Закрыть окно изменения логотипа")

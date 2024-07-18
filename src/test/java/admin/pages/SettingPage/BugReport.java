@@ -27,29 +27,25 @@ public class BugReport {
 
     @Step("Получить автора сообщения об ошибке")
     public String getAuthorText() {
-        AUTHOR.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        AUTHOR.shouldBe(Condition.visible);
         return AUTHOR.getText();
     }
 
     @Step("Получить email автора сообщения об ошибке")
     public String getEmailAuthorText() {
-        EMAIL_AUTHOR.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        EMAIL_AUTHOR.shouldBe(Condition.visible);
         return EMAIL_AUTHOR.getText();
     }
 
     @Step("Получить дату сообщения об ошибке")
     public String getDateText() {
-        DATE_REPORT.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        DATE_REPORT.shouldBe(Condition.visible);
         return DATE_REPORT.getText();
     }
 
     @Step("Получить текст сообщения об ошибке")
     public String getReportText() {
-        TEXT_REPORT.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        TEXT_REPORT.shouldBe(Condition.visible);
         return TEXT_REPORT.getText();
     }
 

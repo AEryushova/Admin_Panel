@@ -34,8 +34,7 @@ public class CategoryCard {
 
     @Step("Получить раздел")
     public SectionCard getSection() {
-        SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new SectionCard();
     }
 
@@ -71,8 +70,7 @@ public class CategoryCard {
 
     @Step("Получить услугу")
     public ServiceCard getService() {
-        SERVICE.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        SERVICE.shouldBe(Condition.visible);
         return new ServiceCard();
     }
 

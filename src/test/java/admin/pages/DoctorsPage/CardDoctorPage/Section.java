@@ -50,8 +50,7 @@ public class Section {
 
     @Step("Получить текст поля названия пункта раздела")
     public String getSection() {
-        NAME_SECTION.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        NAME_SECTION.shouldBe(Condition.visible);
         return NAME_SECTION.getText();
     }
 

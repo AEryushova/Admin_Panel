@@ -51,8 +51,7 @@ public class Calendar {
 
     @Step("Получить название текущего месяца в календаре")
     public String getNameCurrentMonth() {
-        HEADER_CURRENT_MONTH.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        HEADER_CURRENT_MONTH.shouldBe(Condition.visible);
         return HEADER_CURRENT_MONTH.getText();
     }
 

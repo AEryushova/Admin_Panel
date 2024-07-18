@@ -41,7 +41,7 @@ public class EditFeedbackWindow {
     @Step("Получить значение поля текста отзыва")
     public String getValueTextFeedbackField() {
         TEXT_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return TEXT_FIELD.getValue();
     }
 

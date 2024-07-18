@@ -42,8 +42,7 @@ public class PriceErrorsWindow {
 
     @Step("Получить текст ошибки во вкладке ошибок прайса")
     public String getErrorInfo() {
-        ERROR_INFO.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
+        ERROR_INFO.shouldBe(Condition.visible);
         return ERROR_INFO.getText();
     }
 

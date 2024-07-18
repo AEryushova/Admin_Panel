@@ -52,8 +52,7 @@ public class FaqPage extends BasePage {
 
     @Step("Получить вопрос")
     public Question getQuestion() {
-        QUESTION_CARD.shouldBe(Condition.visible,Duration.ofSeconds(5))
-                .shouldBe(Condition.exist,Duration.ofSeconds(5));
+        QUESTION_CARD.shouldBe(Condition.visible,Duration.ofSeconds(5));
         return new Question();
     }
 

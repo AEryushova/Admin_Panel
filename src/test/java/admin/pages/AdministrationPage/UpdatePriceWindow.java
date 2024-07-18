@@ -51,7 +51,8 @@ public class UpdatePriceWindow {
 
     @Step("Загрузить файл '{0}'")
     public void uploadPrice(String pathFilesPrice) {
-        FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesPrice));
+        FILE_INPUT_ELEMENT.shouldBe(Condition.exist)
+        .uploadFile(new File(pathFilesPrice));
     }
 
     @Step("Открыть окно ошибок прайса")
@@ -61,8 +62,7 @@ public class UpdatePriceWindow {
 
     @Step("Получить текущую дату с календаря")
     public String getValuesButtonToday() {
-        TODAY_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
+        TODAY_BUTTON.shouldBe(Condition.visible);
         return TODAY_BUTTON.getText();
     }
 

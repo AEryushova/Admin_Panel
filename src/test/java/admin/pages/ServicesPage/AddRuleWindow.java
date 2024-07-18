@@ -50,14 +50,14 @@ public class AddRuleWindow {
     @Step("Получить значение поля заголовка")
     public String getValueTitleField() {
         TITLE_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return TITLE_FIELD.getValue();
     }
 
     @Step("Получить значение поля описания")
     public String getValueDescriptionField() {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return DESCRIPTION_FIELD.getValue();
     }
 

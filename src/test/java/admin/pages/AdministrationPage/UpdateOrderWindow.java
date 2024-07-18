@@ -40,13 +40,13 @@ public class UpdateOrderWindow {
 
     @Step("Загрузить файл '{0}'")
     public void uploadOrder(String pathFilesOffer) {
-        FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
+        FILE_INPUT_ELEMENT.shouldBe(Condition.exist)
+        .uploadFile(new File(pathFilesOffer));
     }
 
     @Step("Получить текущую дату с календаря")
     public String getValuesButtonToday() {
-        TODAY_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
+        TODAY_BUTTON.shouldBe(Condition.visible);
         return TODAY_BUTTON.getText();
     }
 

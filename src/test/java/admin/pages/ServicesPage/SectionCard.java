@@ -50,8 +50,7 @@ public class SectionCard {
 
     @Step("Получить название раздела")
     public String getNameSection(){
-        NAME_SECTION.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        NAME_SECTION.shouldBe(Condition.visible);
         return NAME_SECTION.getText();
     }
 
@@ -88,8 +87,7 @@ public class SectionCard {
 
     @Step("Получить подраздел")
     public SubsectionCard getSubsection() {
-        SUBSECTION.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        SUBSECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new SubsectionCard();
     }
 

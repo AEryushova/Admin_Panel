@@ -30,7 +30,8 @@ public class EditPhotoDoctorWindow {
 
     @Step("Загрузить файл '{0}'")
     public void uploadPhoto(String pathFilesOffer) {
-        FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
+        FILE_INPUT_ELEMENT.shouldBe(Condition.exist)
+      .uploadFile(new File(pathFilesOffer));
 
     }
 

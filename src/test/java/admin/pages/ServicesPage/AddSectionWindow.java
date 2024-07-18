@@ -48,6 +48,7 @@ public class AddSectionWindow {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        WINDOW.shouldNot(Condition.appear, Duration.ofSeconds(10));
     }
 
 
@@ -70,12 +71,12 @@ public class AddSectionWindow {
         CLEAR_FIELD_NAME_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        NAME_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
     }
 
     @Step("Получить текст ошибки поля названия")
     public String getErrorFieldName() {
-        ERROR_FIELD_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist);
+        ERROR_FIELD_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return ERROR_FIELD_NAME.getText();
     }
 

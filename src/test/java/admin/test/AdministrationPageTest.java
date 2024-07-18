@@ -485,7 +485,7 @@ public class AdministrationPageTest extends BaseTest {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateOffer();
         updateLegalDocWindow.verifyUploadDocWindow();
         String srcDoc = updateLegalDocWindow.getSrcDoc();
-        updateLegalDocWindow.uploadValidDoc("src/test/resources/Оферта.pdf");
+        updateLegalDocWindow.uploadDoc("src/test/resources/Оферта.pdf");
         adminPage.clickButtonUpdateOffer();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
         assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -499,7 +499,7 @@ public class AdministrationPageTest extends BaseTest {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateProcessingPolicy();
         updateLegalDocWindow.verifyUploadDocWindow();
         String srcDoc = updateLegalDocWindow.getSrcDoc();
-        updateLegalDocWindow.uploadValidDoc("src/test/resources/Политика обработки персональных данных.pdf");
+        updateLegalDocWindow.uploadDoc("src/test/resources/Политика обработки персональных данных.pdf");
         adminPage.clickButtonUpdateProcessingPolicy();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
         assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -680,7 +680,7 @@ public class AdministrationPageTest extends BaseTest {
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта, Политика обработки jpeg.jpg",})
     void updateOfferInvalidFormat(String path) {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateOffer();
-        updateLegalDocWindow.uploadInvalidDoc(path);
+        updateLegalDocWindow.uploadDoc(path);
         assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
         assertTrue(updateLegalDocWindow.isWindowAppear());
     }
@@ -693,7 +693,7 @@ public class AdministrationPageTest extends BaseTest {
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта, Политика обработки jpeg.jpg"})
     void updateProcessingPolicyInvalidFormat(String path) {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateProcessingPolicy();
-        updateLegalDocWindow.uploadInvalidDoc(path);
+        updateLegalDocWindow.uploadDoc(path);
         assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
         assertTrue(updateLegalDocWindow.isWindowAppear());
     }

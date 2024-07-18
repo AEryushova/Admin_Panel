@@ -539,7 +539,7 @@ public class CardDoctorPageTest extends BaseTest {
         Selenide.sleep(2000);
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
-        addFeedbackWindow.clearButtonFioField();
+        addFeedbackWindow.clickClearButtonFioField();
         Selenide.sleep(3000);
         assertEquals("", addFeedbackWindow.getValueFioField());
     }

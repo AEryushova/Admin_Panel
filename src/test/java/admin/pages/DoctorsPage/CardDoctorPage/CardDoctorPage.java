@@ -58,6 +58,7 @@ public class CardDoctorPage extends BasePage {
 
     @Step("Получить ссылку на файл")
     public String getSrcPhoto() {
+        DOCTOR_PHOTO.shouldBe(Condition.exist);
         return DOCTOR_PHOTO.getAttribute("src");
     }
 
@@ -81,15 +82,13 @@ public class CardDoctorPage extends BasePage {
 
     @Step("Получить блок раздела")
     public Section getSection() {
-        SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new Section();
     }
 
     @Step("Получить блок описания к разделу")
     public Description getDescription() {
-        DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new Description();
     }
 
@@ -112,26 +111,22 @@ public class CardDoctorPage extends BasePage {
 
     @Step("Проверить выбранный радиобаттон опубликованных отзывов")
     public void checkSelectPublishedFeedback() {
-        SELECTED_PUBLISHED_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        SELECTED_PUBLISHED_BUTTON.shouldBe(Condition.visible);
     }
 
     @Step("Проверить выбранный радиобаттон неопубликованных отзывов")
     public void checkSelectUnpublishedFeedback() {
-        SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible);
     }
 
     @Step("Проверить невыбранный радиобаттон опубликованных отзывов")
     public void checkNoSelectPublishedFeedback() {
-        NO_SELECTED_PUBLISHED_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        NO_SELECTED_PUBLISHED_BUTTON.shouldBe(Condition.visible);
     }
 
     @Step("Проверить невыбранный радиобаттон неопубликованных отзывов")
     public void checkNoSelectUnpublishedFeedback() {
-        NO_SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        NO_SELECTED_UNPUBLISHED_BUTTON.shouldBe(Condition.visible);
     }
 
     @Step("Проверить отображение выбранного радиобаттона опубликованных отзывов")
@@ -154,8 +149,7 @@ public class CardDoctorPage extends BasePage {
 
     @Step("Получить отзыв")
     public Feedback getFeedback() {
-        FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.exist, Duration.ofSeconds(5));
+        FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new Feedback();
     }
 

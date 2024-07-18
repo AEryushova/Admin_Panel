@@ -30,17 +30,14 @@ public class UpdateLegalDocWindow {
     }
 
     @Step("Загрузить файл '{0}'")
-    public void uploadValidDoc(String pathFilesOffer) {
-        FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
-    }
-
-    @Step("Загрузить файл '{0}'")
-    public void uploadInvalidDoc(String pathFilesOffer) {
-        FILE_INPUT_ELEMENT.uploadFile(new File(pathFilesOffer));
+    public void uploadDoc(String pathFilesOffer) {
+        FILE_INPUT_ELEMENT.shouldBe(Condition.exist)
+        .uploadFile(new File(pathFilesOffer));
     }
 
     @Step("Получить ссылку на файл")
     public String getSrcDoc() {
+        DOC_IMAGE.shouldBe(Condition.exist);
         return DOC_IMAGE.getAttribute("src");
     }
 

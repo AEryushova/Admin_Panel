@@ -75,14 +75,14 @@ public class EditRuleWindow {
     @Step("Получить значение поля заголовка")
     public String getTitleRule() {
         TITLE_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return TITLE_FIELD.getValue();
     }
 
     @Step("Получить значение поля описания")
     public String getDescriptionRule() {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+                .shouldBe(Condition.enabled);
         return DESCRIPTION_FIELD.getValue();
     }
 

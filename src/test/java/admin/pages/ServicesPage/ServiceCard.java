@@ -25,15 +25,13 @@ public class ServiceCard {
 
     @Step("Получить имя услуги")
     public String getNameService(){
-        NAME_SERVICE.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        NAME_SERVICE.shouldBe(Condition.visible);
         return NAME_SERVICE.getText();
     }
 
     @Step("Получить код услуги")
     public String getCodeService(){
-        CODE_SERVICE.shouldBe(Condition.visible)
-                .shouldBe(Condition.exist);
+        CODE_SERVICE.shouldBe(Condition.visible);
         return CODE_SERVICE.getText();
     }
 

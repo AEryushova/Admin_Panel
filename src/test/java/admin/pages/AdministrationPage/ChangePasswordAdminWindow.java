@@ -80,6 +80,7 @@ public class ChangePasswordAdminWindow {
         CLEAR_FIELD_NEW_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        NEW_PASSWORD_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
     }
 
     @Step("Нажать на кнопку очищения поля подтверждения пароля")
@@ -87,6 +88,7 @@ public class ChangePasswordAdminWindow {
         CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        CONFIRM_PASSWORD_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
     }
 
     @Step("Получить значение поля нового пароля")
