@@ -10,6 +10,7 @@ import io.restassured.response.Response;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
 

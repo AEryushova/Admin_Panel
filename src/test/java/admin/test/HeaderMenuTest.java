@@ -6,7 +6,7 @@ import admin.pages.HeaderMenu.ChangeMinePasswordWindow;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.dbUtils.DataBaseQuery;
-import admin.utils.preparationDataTests.general.AllureDecorator;
+import admin.utils.preparationDataTests.general.AllureTestListeners;
 import admin.utils.preparationDataTests.headerMenu.ReturnPasswordAdmin;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -28,7 +28,7 @@ public class HeaderMenuTest extends BaseTest {
     private HeaderMenu headerMenu;
     private BasePage basePage;
 
-    @ExtendWith(AllureDecorator.class)
+    @ExtendWith(AllureTestListeners.class)
 
     @BeforeAll
     static void setUpAuth() {

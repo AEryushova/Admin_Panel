@@ -6,7 +6,7 @@ import admin.pages.FaqPage.FaqPage;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.ServicesPage.ServicesPage;
 import admin.pages.SettingPage.SettingPage;
-import admin.utils.preparationDataTests.general.AllureDecorator;
+import admin.utils.preparationDataTests.general.AllureTestListeners;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -21,7 +21,7 @@ public class NavigationTest extends BaseTest{
 
     private HeaderMenu headerMenu;
 
-    @ExtendWith(AllureDecorator.class)
+    @ExtendWith(AllureTestListeners.class)
 
     @BeforeAll
     static void setUpAuth() {

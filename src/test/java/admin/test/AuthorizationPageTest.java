@@ -3,7 +3,7 @@ package admin.test;
 import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.dbUtils.DataBaseQuery;
-import admin.utils.preparationDataTests.general.AllureDecorator;
+import admin.utils.preparationDataTests.general.AllureTestListeners;
 import admin.utils.preparationDataTests.authorization.CloseWebDriverDecorator;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -30,7 +30,7 @@ public class AuthorizationPageTest extends BaseTest {
     private HeaderMenu headerMenu;
     private BasePage basePage;
 
-    @ExtendWith(AllureDecorator.class)
+    @ExtendWith(AllureTestListeners.class)
 
     @BeforeAll
     static void setUpAuth() {

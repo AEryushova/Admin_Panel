@@ -4,7 +4,7 @@ import admin.pages.FaqPage.*;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.faq.*;
-import admin.utils.preparationDataTests.general.AllureDecorator;
+import admin.utils.preparationDataTests.general.AllureTestListeners;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -24,7 +24,7 @@ public class FAQPageTest extends BaseTest {
 
     private FaqPage faqPage;
 
-    @ExtendWith(AllureDecorator.class)
+    @ExtendWith(AllureTestListeners.class)
 
     @BeforeAll
     static void setUpAuth() {

@@ -12,7 +12,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import admin.utils.preparationDataTests.general.AllureDecorator;
+import admin.utils.preparationDataTests.general.AllureTestListeners;
 
 
 import static admin.data.TestData.DataTest.*;
@@ -26,7 +26,7 @@ public class ServicesPageTest extends BaseTest {
 
     private ServicesPage servicesPage;
 
-    @ExtendWith(AllureDecorator.class)
+    @ExtendWith(AllureTestListeners.class)
 
     @BeforeAll
     static void setUpAuth() {
