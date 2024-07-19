@@ -35,6 +35,7 @@ public class AllureTestListeners implements BeforeAllCallback, AfterAllCallback,
         attachScreenshot();
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     @Attachment(value = "Screenshot", type = "image/png")
     public static byte[] attachScreenshot() {
         return ((TakesScreenshot)WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
