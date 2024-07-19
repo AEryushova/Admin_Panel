@@ -3,7 +3,6 @@ package admin.test;
 import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import admin.pages.DoctorsPage.DoctorsPage;
-import admin.utils.preparationDataTests.general.AllureTestListeners;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -11,7 +10,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
 import static admin.data.TestData.DataTest.*;
@@ -30,7 +28,6 @@ public class DoctorPageTest extends BaseTest {
     private DoctorsPage doctorsPage;
     private BasePage basePage;
 
-    @ExtendWith(AllureTestListeners.class)
 
     @BeforeAll
     static void setUpAuth() {

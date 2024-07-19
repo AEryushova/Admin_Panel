@@ -11,7 +11,6 @@ import org.openqa.selenium.interactions.Actions;
 import java.time.Duration;
 import java.util.List;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ServicesPage extends BasePage {

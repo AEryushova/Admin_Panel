@@ -7,7 +7,6 @@ import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.administration.AdminAddDecorator;
 import admin.utils.preparationDataTests.administration.AdminAddDeleteDecorator;
 import admin.utils.preparationDataTests.administration.AdminDeleteDecorator;
-import admin.utils.preparationDataTests.general.AllureTestListeners;
 import admin.utils.otherUtils.*;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -27,8 +26,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AdministrationPageTest extends BaseTest {
 
     private AdministrationPage adminPage;
-
-    @ExtendWith(AllureTestListeners.class)
 
     @BeforeAll
     static void setUpAuth() {

@@ -5,7 +5,6 @@ import admin.pages.HeaderMenu.HeaderMenu;
 import admin.pages.SettingPage.BugReport;
 import admin.pages.SettingPage.SettingPage;
 import admin.pages.SettingPage.EditLogoWindow;
-import admin.utils.preparationDataTests.general.AllureTestListeners;
 import admin.utils.preparationDataTests.setting.AddBugReportDecorator;
 import admin.utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
 import admin.utils.preparationDataTests.setting.SetSAMSMU_Logo;
@@ -29,9 +28,6 @@ public class SettingPageTest extends BaseTest {
 
     private SettingPage settingPage;
     private HeaderMenu headerMenu;
-
-
-    @ExtendWith(AllureTestListeners.class)
 
 
     @BeforeAll

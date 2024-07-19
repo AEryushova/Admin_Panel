@@ -4,7 +4,6 @@ import admin.pages.DoctorsPage.CardDoctorPage.*;
 import admin.pages.DoctorsPage.DoctorsPage;
 import admin.pages.Calendar.Calendar;
 import admin.utils.preparationDataTests.doctors.*;
-import admin.utils.preparationDataTests.general.AllureTestListeners;
 import admin.utils.otherUtils.*;
 import admin.utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Selenide;
@@ -25,8 +24,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CardDoctorPageTest extends BaseTest {
 
     private CardDoctorPage cardDoctor;
-
-    @ExtendWith(AllureTestListeners.class)
 
     @BeforeAll
     static void setUpAuth() {

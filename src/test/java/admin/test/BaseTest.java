@@ -1,6 +1,7 @@
 package admin.test;
 
 
+import admin.utils.preparationDataTests.general.AllureTestListeners;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
@@ -9,6 +10,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.Getter;
 import lombok.Setter;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.Cookie;
 
 import java.time.Duration;
@@ -19,6 +21,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.localStorage;
 import static io.restassured.RestAssured.given;
 
+@ExtendWith(AllureTestListeners.class)
 public class BaseTest {
 
     @Setter
