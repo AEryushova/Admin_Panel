@@ -8,7 +8,7 @@ import admin.pages.SettingPage.EditLogoWindow;
 import admin.utils.preparationDataTests.setting.AddBugReportDecorator;
 import admin.utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
 import admin.utils.preparationDataTests.setting.SetSAMSMU_Logo;
-import admin.utils.otherUtils.DataHelper;
+import admin.utils.otherUtils.TestHelper;
 import admin.utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -59,7 +59,7 @@ public class SettingPageTest extends BaseTest {
         bugReport.verifyBugReport();
         assertEquals(TestData.DataTest.NAME_PATIENT, bugReport.getAuthorText());
         assertEquals(TestData.DataTest.EMAIL_PATIENT, bugReport.getEmailAuthorText());
-        assertEquals(DataHelper.getCurrentDateRuYear(), bugReport.getDateText());
+        assertEquals(TestHelper.getCurrentDateRuYear(), bugReport.getDateText());
         assertEquals(TestData.DataTest.MESSAGE_BUG_REPORT, bugReport.getReportText());
         assertEquals("BUG_REPORT_CREATED_CLIENT_SUCCESS",DataBaseQuery.selectLog(USER_NAME_LK).getCode());
     }

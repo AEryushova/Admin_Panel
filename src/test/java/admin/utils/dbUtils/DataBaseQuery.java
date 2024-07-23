@@ -1,7 +1,7 @@
 package admin.utils.dbUtils;
 
 import admin.utils.dbUtils.dbaseData.*;
-import admin.utils.otherUtils.DataHelper;
+import admin.utils.otherUtils.TestHelper;
 import lombok.SneakyThrows;
 
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -73,9 +73,9 @@ public class DataBaseQuery {
     public static void addSection(UUID doctorId, String title, int sequence) {
         var addSection = "INSERT INTO employee_details (employee_details_id,title,employee_card_employee_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var employee_details_id = DataHelper.generateUuid();
-            var created_at = DataHelper.generateDateTime();
-            var updated_at = DataHelper.generateDateTime();
+            var employee_details_id = TestHelper.generateUuid();
+            var created_at = TestHelper.generateDateTime();
+            var updated_at = TestHelper.generateDateTime();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addSection, employee_details_id, title, doctorId, sequence, created_at, updated_at);
         }
     }
@@ -101,9 +101,9 @@ public class DataBaseQuery {
     public static void addDescription(UUID sectionId, String title, int sequence) {
         var addDescription = "INSERT INTO employee_expertises (employee_expertises_id,title,employee_details_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var employee_expertises_id = DataHelper.generateUuid();
-            var created_at = DataHelper.generateDateTime();
-            var updated_at = DataHelper.generateDateTime();
+            var employee_expertises_id = TestHelper.generateUuid();
+            var created_at = TestHelper.generateDateTime();
+            var updated_at = TestHelper.generateDateTime();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addDescription, employee_expertises_id, title, sectionId, sequence, created_at, updated_at);
         }
     }
@@ -128,8 +128,8 @@ public class DataBaseQuery {
     public static void addBugReport(String message, String email, String author) {
         var addBugReport = "INSERT INTO bug_reports (id,message,email,author,created_at ) VALUES (?, ?, ?, ?, ?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var created_at = DataHelper.generateDateTime();
-            var id = DataHelper.generateUuid();
+            var created_at = TestHelper.generateDateTime();
+            var id = TestHelper.generateUuid();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addBugReport, id, message, email, author, created_at);
         }
     }
@@ -162,10 +162,10 @@ public class DataBaseQuery {
     public static void addFaq(int sequence, String question, String answer) {
         var addFaq = "INSERT INTO faq (id,question,answer,created_at,updated_at, group_id, sequence ) VALUES (?, ?, ?, ?, ?,?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var id = DataHelper.generateUuid();
-            var created_at = DataHelper.generateDateTime();
-            var updated_at = DataHelper.generateDateTime();
-            var group_id = DataHelper.generateUuid();
+            var id = TestHelper.generateUuid();
+            var created_at = TestHelper.generateDateTime();
+            var updated_at = TestHelper.generateDateTime();
+            var group_id = TestHelper.generateUuid();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFaq, id, question, answer, created_at, updated_at, group_id, sequence);
         }
     }
@@ -174,10 +174,10 @@ public class DataBaseQuery {
     public static void addFaqSome(int sequence, String question, String answer) {
         var addFaq = "INSERT INTO faq (id,question,answer,created_at,updated_at, group_id, sequence ) VALUES (?, ?, ?, ?, ?,?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var id = DataHelper.generateUuid();
-            var created_at = DataHelper.generateDateTime();
-            var updated_at = DataHelper.generateDateTime();
-            var group_id = DataHelper.generateUuid();
+            var id = TestHelper.generateUuid();
+            var created_at = TestHelper.generateDateTime();
+            var updated_at = TestHelper.generateDateTime();
+            var group_id = TestHelper.generateUuid();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFaq, id, question, answer, created_at, updated_at, group_id, sequence);
         }
     }
@@ -200,9 +200,9 @@ public class DataBaseQuery {
     @SneakyThrows
     public static void addFeedback(UUID doctorId, String author, String content, Boolean is_published) {
         var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
-        var id = DataHelper.generateUuid();
-        var created_at = DataHelper.generateDateTime();
-        var updated_at = DataHelper.generateDateTime();
+        var id = TestHelper.generateUuid();
+        var created_at = TestHelper.generateDateTime();
+        var updated_at = TestHelper.generateDateTime();
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFeedback, id, doctorId, author, content, created_at, updated_at, is_published);
         }
@@ -211,9 +211,9 @@ public class DataBaseQuery {
     @SneakyThrows
     public static void addYesterdayFeedback(UUID doctorId, String author, String content, Boolean is_published) {
         var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
-        var id = DataHelper.generateUuid();
-        var created_at = DataHelper.generatePreviousDateTime();
-        var updated_at = DataHelper.generatePreviousDateTime();
+        var id = TestHelper.generateUuid();
+        var created_at = TestHelper.generatePreviousDateTime();
+        var updated_at = TestHelper.generatePreviousDateTime();
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFeedback, id, doctorId, author, content, created_at, updated_at, is_published);
         }

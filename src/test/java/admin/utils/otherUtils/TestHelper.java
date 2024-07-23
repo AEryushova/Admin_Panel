@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 
+import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.util.UUID;
 import static appData.AppData.URI_PERSONAL_AREA;
 
 
-public class DataHelper {
+public class TestHelper {
 
     @Getter
     public static String login;

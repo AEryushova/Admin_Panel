@@ -1,6 +1,6 @@
 package admin.utils.dbUtils.dbaseData;
 
-import admin.utils.otherUtils.DataHelper;
+import admin.utils.otherUtils.TestHelper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,11 +18,11 @@ public class ServiceCategories {
     private Boolean is_protected;
     private int sequence;
 
-    public String getTitle() {return DataHelper.getValueFromJson(preparing_description, "Title");
+    public String getTitle() {return TestHelper.getValueFromJson(preparing_description, "Title");
     }
 
     public String getDescription() {
-        return DataHelper.getValueFromJson(preparing_description, "Description");
+        return TestHelper.getValueFromJson(preparing_description, "Description");
     }
 
 }

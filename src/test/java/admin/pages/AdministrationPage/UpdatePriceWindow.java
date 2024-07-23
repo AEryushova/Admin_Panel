@@ -5,7 +5,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.SelenideElement;
 import admin.pages.Calendar.Calendar;
-import admin.utils.otherUtils.DataHelper;
+import admin.utils.otherUtils.TestHelper;
 import io.qameta.allure.Step;
 
 import java.io.File;
@@ -28,7 +28,7 @@ public class UpdatePriceWindow {
 
 
     public UpdatePriceWindow() {
-        this.ACTIVATION_DATES_DOWNLOAD = $x("//span[text()='" + DataHelper.generateActivationDateCurrentMonth() + "']/parent::div");
+        this.ACTIVATION_DATES_DOWNLOAD = $x("//span[text()='" + TestHelper.generateActivationDateCurrentMonth() + "']/parent::div");
     }
 
     @Step("Верифицировать окно добавления прайса")

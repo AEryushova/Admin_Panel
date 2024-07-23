@@ -1,6 +1,6 @@
 package admin.utils.dbUtils.dbaseData;
 
-import admin.utils.otherUtils.DataHelper;
+import admin.utils.otherUtils.TestHelper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,11 +15,11 @@ public class PreparingDescriptions {
         private String service_code;
         private String description;
 
-        public String getTitle() {return DataHelper.getValueFromJson(description, "Title");
+        public String getTitle() {return TestHelper.getValueFromJson(description, "Title");
         }
 
         public String getDescriptions() {
-            return DataHelper.getValueFromJson(description, "Description");
+            return TestHelper.getValueFromJson(description, "Description");
         }
 
 }

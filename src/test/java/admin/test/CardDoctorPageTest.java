@@ -405,14 +405,14 @@ public class CardDoctorPageTest extends BaseTest {
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
         addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
-        assertEquals(DataHelper.getCurrentDate(), addFeedbackWindow.getCurrentDateButton());
+        assertEquals(TestHelper.getCurrentDate(), addFeedbackWindow.getCurrentDateButton());
         Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.clickDateActivation();
         addFeedbackWindow.clickButtonPublishFeedbackButton();
         cardDoctor.checkSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        assertEquals(DataHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
+        assertEquals(TestHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
         assertEquals(NAME_PATIENT, feedback.getAuthorFeedback());
         assertEquals(FEEDBACK, feedback.getTextFeedback());
         assertEquals(NAME_PATIENT, DataBaseQuery.selectFeedback().getAuthor());
@@ -446,7 +446,7 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.checkSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        assertEquals(DataHelper.getNextMonthDate(), feedback.getDateFeedback());
+        assertEquals(TestHelper.getNextMonthDate(), feedback.getDateFeedback());
         assertEquals(NAME_PATIENT, feedback.getAuthorFeedback());
         assertEquals(FEEDBACK, feedback.getTextFeedback());
         assertEquals(NAME_PATIENT, DataBaseQuery.selectFeedback().getAuthor());
@@ -480,7 +480,7 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.checkSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        assertEquals(DataHelper.getPreviousMonthDate(), feedback.getDateFeedback());
+        assertEquals(TestHelper.getPreviousMonthDate(), feedback.getDateFeedback());
         assertEquals(NAME_PATIENT, feedback.getAuthorFeedback());
         assertEquals(FEEDBACK, feedback.getTextFeedback());
         assertEquals(NAME_PATIENT, DataBaseQuery.selectFeedback().getAuthor());
@@ -512,7 +512,7 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.checkNoSelectPublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        assertEquals(DataHelper.getCurrentDateRu(), feedback.getDateFeedback());
+        assertEquals(TestHelper.getCurrentDateRu(), feedback.getDateFeedback());
         assertEquals(NAME_PATIENT, feedback.getAuthorFeedback());
         assertEquals(FEEDBACK, feedback.getTextFeedback());
         assertEquals(NAME_PATIENT, DataBaseQuery.selectFeedback().getAuthor());

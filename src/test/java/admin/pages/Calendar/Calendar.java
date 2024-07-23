@@ -2,7 +2,7 @@ package admin.pages.Calendar;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import admin.utils.otherUtils.DataHelper;
+import admin.utils.otherUtils.TestHelper;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
@@ -17,7 +17,7 @@ public class Calendar {
     private final SelenideElement DATE_ACTIVATION;
 
     public Calendar() {
-        this.DATE_ACTIVATION = $x("//div[@role='option' and text()='" + DataHelper.generateFutureDayCurrentMonth() + "']");
+        this.DATE_ACTIVATION = $x("//div[@role='option' and text()='" + TestHelper.generateFutureDayCurrentMonth() + "']");
     }
 
     @Step("Верифицировать окно календаря")
