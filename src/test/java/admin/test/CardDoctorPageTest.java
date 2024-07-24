@@ -61,6 +61,7 @@ public class CardDoctorPageTest extends BaseTest {
         Selenide.sleep(4000);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertNotEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
+        assertEquals("DOCTOR_PHOTO_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(editPhoto.isWindowAppear());
     }
 
@@ -81,7 +82,7 @@ public class CardDoctorPageTest extends BaseTest {
         Selenide.sleep(3000);
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertNotEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
-        assertEquals("DOCTOR_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("DOCTOR_PHOTO_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(editPhoto.isWindowAppear());
     }
 

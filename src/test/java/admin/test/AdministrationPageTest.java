@@ -53,16 +53,16 @@ public class AdministrationPageTest extends BaseTest {
     void addNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddNewAdmin();
         newAdminWindow.verifyNewAdminWindow();
-        newAdminWindow.fillFieldNewAdminLogin(LOGIN_ADMIN_TEST);
+        newAdminWindow.fillFieldNewAdminLogin(DataGenerator.generateLogin());
         newAdminWindow.fillFieldNewAdminPassword(DataGenerator.generatePassword());
         newAdminWindow.fillFieldNewAdminConfirmPassword(DataGenerator.getPassword());
         newAdminWindow.clickAddButton();
-        assertEquals("Новый администратор " + LOGIN_ADMIN_TEST + " успешно создан", adminPage.getNotification());
-        assertEquals(1, DataBaseQuery.selectAdmin(LOGIN_ADMIN_TEST).getRole_id());
-        assertFalse(DataBaseQuery.selectAdmin(LOGIN_ADMIN_TEST).getIs_blocked());
-        assertFalse(DataBaseQuery.selectAdmin(LOGIN_ADMIN_TEST).getIs_deleted());
-        assertEquals("SIGN_UP_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN_TEST).getCode());
-        assertTrue(adminPage.isVisibleAdminCard(LOGIN_ADMIN_TEST));
+        assertEquals("Новый администратор " + DataGenerator.getLogin() + " успешно создан", adminPage.getNotification());
+        assertEquals(1, DataBaseQuery.selectAdmin(DataGenerator.getLogin()).getRole_id());
+        assertFalse(DataBaseQuery.selectAdmin(DataGenerator.getLogin()).getIs_blocked());
+        assertFalse(DataBaseQuery.selectAdmin(DataGenerator.getLogin()).getIs_deleted());
+        assertEquals("SIGN_UP_ADMIN_SUCCESS",DataBaseQuery.selectLog(DataGenerator.getLogin()).getCode());
+        assertTrue(adminPage.isVisibleAdminCard(DataGenerator.getLogin()));
         assertFalse(newAdminWindow.isWindowAppear());
     }
 
