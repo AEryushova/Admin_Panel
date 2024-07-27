@@ -66,7 +66,7 @@ public class AddRuleWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldNot(Condition.appear, Duration.ofSeconds(10));
+        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     @Step("Нажать кнопку возвращения назад")

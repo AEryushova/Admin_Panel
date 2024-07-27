@@ -11,6 +11,6 @@ public class AddBugReportDecorator implements BeforeEachCallback {
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllBugReports();
-        DataBaseQuery.addBugReport(MESSAGE_BUG_REPORT, EMAIL_PATIENT, NAME_PATIENT);
+        DataBaseQuery.addBugReport(MESSAGE_BUG_REPORT, EMAIL_PATIENT2, NAME_PATIENT);
     }
 }

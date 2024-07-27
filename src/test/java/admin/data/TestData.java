@@ -1,6 +1,7 @@
 package admin.data;
 
 import lombok.Data;
+import lombok.Setter;
 
 
 import java.io.File;
@@ -18,17 +19,26 @@ public class TestData {
 
     @Data
     public static class DataTest {
+        @Setter
+        public static String LOGIN_ADMIN_TEST;
+        @Setter
+        public static String PASSWORD_ADMIN_TEST;
+        @Setter
+        public static String NEW_PASSWORD_ADMIN_TEST;
+        @Setter
+        public static String TEXT;
+        @Setter
+        public static String EMAIL_PATIENT;
+
+
         public static final String NEW_PASSWORD_ADMIN = "IIff123456$";
-        public static final String LOGIN_ADMIN_TEST = "RAYAN_GOSLING";
-        public static final String PASSWORD_ADMIN_TEST = "QQss123456*";
-        public static final String NEW_PASSWORD_ADMIN_TEST = "RRjj123456#";
         public static final String DOCTOR = "Fer3 Не ТРОГАТЬ";
         public static final String DOCTOR_SPECIALIZATION = "врач-оториноларинголог";
         public static final String DEFAULT_PHOTO = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
         public static final File PHOTO = new File("src/test/resources/Photo 3,7mbJpeg.jpg");
         public static final File LOGO = new File("src/test/resources/logo.png");
         public static final String MESSAGE_BUG_REPORT = "Не могу записаться к врачу";
-        public static final String EMAIL_PATIENT = "Test@mail.ru";
+        public static final String EMAIL_PATIENT2 = "Test@mail.ru";
         public static final String NAME_PATIENT = "Федоров Федор Федорович";
         public static final String QUESTION = "Как вернуть деньги?";
         public static final String ANSWER = "Никак";

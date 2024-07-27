@@ -17,6 +17,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.UserData.*;
+import static admin.utils.otherUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -87,7 +88,7 @@ public class HeaderMenuTest extends BaseTest {
     void changeMainPasswordNotEqualsOldPassword() {
         UserPanel userPanel=headerMenu.clickButtonUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.clickButtonChangePassword();
-        changeMinePassWindow.fillFieldOldPassword(NEW_PASSWORD_ADMIN_TEST);
+        changeMinePassWindow.fillFieldOldPassword(generatePassword());
         changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickButtonChangePassword();
         assertEquals("{\"error\":\"Задан неверный пароль\",\"innerError\":null,\"exception\":\"ValidationPlatformException\"}",basePage.getNotification());

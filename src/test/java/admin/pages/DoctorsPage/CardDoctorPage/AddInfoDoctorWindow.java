@@ -59,7 +59,7 @@ public class AddInfoDoctorWindow {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW_SECTION.shouldNot(Condition.appear, Duration.ofSeconds(10));
+        WINDOW_SECTION.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     @Step("Нажать на кнопку отмены добавления описания в раздел")
@@ -67,7 +67,7 @@ public class AddInfoDoctorWindow {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW_DESCRIPTION.shouldNot(Condition.appear, Duration.ofSeconds(10));
+        WINDOW_DESCRIPTION.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     @Step("Проверить отображение окна добавления раздела в инфо о враче")

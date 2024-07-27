@@ -137,6 +137,26 @@ public class NewAdminWindow {
         return CONFIRM_PASSWORD_FIELD.getValue();
     }
 
+    public SelenideElement getLoginField() {
+        LOGIN_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
+        return LOGIN_FIELD;
+    }
+
+
+    public SelenideElement getPasswordField() {
+        PASSWORD_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
+        return PASSWORD_FIELD;
+    }
+
+    public SelenideElement getConfirmPasswordField() {
+        CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
+        return CONFIRM_PASSWORD_FIELD;
+    }
+
+
     @Step("Получить текст ошибки поля логина")
     public String getErrorFieldLogin() {
         ERROR_FIELD_LOGIN.shouldBe(Condition.visible);
@@ -170,7 +190,7 @@ public class NewAdminWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldNot(Condition.appear, Duration.ofSeconds(10));
+        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     @Step("Проверить отображение окна добавления нового админа")

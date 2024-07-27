@@ -214,7 +214,7 @@ public class ServiceWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldNot(Condition.appear, Duration.ofSeconds(10));
+        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     @Step("Проверить отображение окна информации об услуге")

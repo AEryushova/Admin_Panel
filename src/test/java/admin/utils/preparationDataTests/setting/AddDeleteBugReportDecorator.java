@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import static admin.data.TestData.DataTest.*;
+import static admin.utils.otherUtils.DataGenerator.generateEmail;
 
 public class AddDeleteBugReportDecorator implements BeforeEachCallback, AfterEachCallback {
 
@@ -14,7 +15,7 @@ public class AddDeleteBugReportDecorator implements BeforeEachCallback, AfterEac
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllBugReports();
         PreparationDataSettingTest.authPatient();
-        PreparationDataSettingTest.addBugReportPatient(MESSAGE_BUG_REPORT,EMAIL_PATIENT,NAME_PATIENT);
+        PreparationDataSettingTest.addBugReportPatient(MESSAGE_BUG_REPORT,generateEmail(),NAME_PATIENT);
     }
 
     @Override

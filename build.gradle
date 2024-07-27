@@ -53,6 +53,7 @@ dependencies {
     implementation 'io.rest-assured:rest-assured:5.3.0'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'org.json:json:20240303'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
@@ -62,7 +63,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    systemProperty 'selenide.headless', System.getProperty('selenide.headless','true')
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless','false')
     systemProperty 'environment', System.getProperty('environment', 'freeze')
     systemProperty 'cab.lab.db.name', System.getProperty('cab.lab.db.name', 'freeze_cab_lab_collection')
 }

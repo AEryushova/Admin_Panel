@@ -18,6 +18,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.UserData.*;
+import static admin.utils.otherUtils.DataGenerator.generateLogin;
+import static admin.utils.otherUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Авторизация")
@@ -98,8 +100,8 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Авторизация несуществующего админа")
     @Test
     void authNonExistentAdmin() {
-        authPage.fillLoginField(LOGIN_ADMIN_TEST);
-        authPage.fillPasswordField(PASSWORD_ADMIN_TEST);
+        authPage.fillLoginField(generateLogin());
+        authPage.fillPasswordField(generatePassword());
         authPage.clickToComeIn();
         assertTrue(authPage.isEnabledComeInButton());
         assertEquals("AuthorizationAdminClient::SignIn: Ошибка авторизации.", authPage.getNotification());
@@ -110,7 +112,7 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Авторизация админа с пустым полем логина")
     @Test
     void authAdminEmptyFieldLogin() {
-        authPage.fillPasswordField(PASSWORD_ADMIN_TEST);
+        authPage.fillPasswordField(generatePassword());
         authPage.verifyAuthPage();
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -119,7 +121,7 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Авторизация админа с пустым полем пароля")
     @Test
     void authAdminEmptyFieldPassword() {
-        authPage.fillLoginField(LOGIN_ADMIN_TEST);
+        authPage.fillLoginField(generateLogin());
         authPage.verifyAuthPage();
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -128,7 +130,7 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Очистка поля логина через кнопку в форме авторизации")
     @Test
     void clearFieldLoginVerifyAuthPageThroughButtonClear() {
-        authPage.fillLoginField(LOGIN_ADMIN_TEST);
+        authPage.fillLoginField(generateLogin());
         authPage.clickClearButtonLoginField();
         authPage.verifyAuthPage();
         assertEquals("", authPage.getValueLoginField());
@@ -139,7 +141,7 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Скрытие пароля при его вводе в поле пароля")
     @Test
     void hideValuePasswordWhenFillPasswordField() {
-        authPage.fillPasswordField(PASSWORD_ADMIN_TEST);
+        authPage.fillPasswordField(generatePassword());
         authPage.verifyAuthPage();
         assertTrue(authPage.isHidePassword());
     }
@@ -148,7 +150,7 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Отображение и скрытие введенного пароля в поле пароля")
     @Test
     void showValuePasswordField() {
-        authPage.fillPasswordField(PASSWORD_ADMIN_TEST);
+        authPage.fillPasswordField(generatePassword());
         authPage.showPassword();
         authPage.verifyAuthPage();
         assertFalse(authPage.isHidePassword());

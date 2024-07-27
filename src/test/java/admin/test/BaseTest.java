@@ -55,6 +55,7 @@ public class BaseTest {
         Configuration.browser="chrome";
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
+        Configuration.holdBrowserOpen=true;
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();

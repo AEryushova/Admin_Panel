@@ -6,13 +6,14 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import static admin.data.TestData.DataTest.LOGIN_ADMIN_TEST;
-import static admin.data.TestData.DataTest.PASSWORD_ADMIN_TEST;
+import static admin.utils.otherUtils.DataGenerator.generateLogin;
+import static admin.utils.otherUtils.DataGenerator.generatePassword;
 
 public class AdminAddDeleteDecorator implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataAdminTest.createAdmin(LOGIN_ADMIN_TEST, PASSWORD_ADMIN_TEST);
+        PreparationDataAdminTest.createAdmin(generateLogin(),generatePassword());
     }
 
     @Override

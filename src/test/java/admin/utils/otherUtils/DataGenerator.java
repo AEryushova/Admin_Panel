@@ -1,27 +1,27 @@
 package admin.utils.otherUtils;
 
-import lombok.Getter;
+import admin.data.TestData;
+import com.github.javafaker.Faker;
 
 import java.security.SecureRandom;
+import java.util.Locale;
 
 public class DataGenerator {
+
+    private final static Faker faker = new Faker(new Locale("ru"));
 
     private static final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String LOWER = "abcdefghijklmnopqrstuvwxyz";
     private static final String DIGITS = "0123456789";
-    private static final String SYMBOLS = "!@#$%^&*";
+    private static final String SYMBOLS = "!@#$^&*";
     private static final String FIRST_CHAR_LOGIN = UPPER + "_";
     private static final String FIRST_CHAR_PASSWORD = UPPER + LOWER;
     private static final String ALL_PASSWORD = UPPER + LOWER + DIGITS + SYMBOLS;
     private static final String ALL_LOGIN = UPPER + DIGITS + "_";
     private static final SecureRandom RANDOM = new SecureRandom();
     private static final int MIN_LENGTH = 8;
-    private static final int MAX_LENGTH = 25;
+    private static final int MAX_LENGTH = 15;
 
-    @Getter
-    private static String password;
-    @Getter
-    private static String login;
 
     public static String generatePassword() {
         int length = RANDOM.nextInt(MAX_LENGTH - MIN_LENGTH + 1) + MIN_LENGTH;
@@ -45,8 +45,9 @@ public class DataGenerator {
             passwordArray[randomIndex] = temp;
         }
 
-        DataGenerator.password = passwordBuilder.charAt(0) + new String(passwordArray);
-        return DataGenerator.password;
+        String generatedPassword = passwordBuilder.charAt(0) + new String(passwordArray);
+        TestData.DataTest.setPASSWORD_ADMIN_TEST(generatedPassword);
+        return generatedPassword;
     }
 
     public static String generateLogin() {
@@ -57,11 +58,23 @@ public class DataGenerator {
         loginBuilder.append(UPPER.charAt(RANDOM.nextInt(UPPER.length())));
         loginBuilder.append(DIGITS.charAt(RANDOM.nextInt(DIGITS.length())));
 
-        for (int i = 3; i < length; i++) { // Начинаем с 3, так как уже добавили 3 символа
+        for (int i = 3; i < length; i++) {
             loginBuilder.append(ALL_LOGIN.charAt(RANDOM.nextInt(ALL_LOGIN.length())));
         }
+        String generateLogin = loginBuilder.toString();
+        TestData.DataTest.setLOGIN_ADMIN_TEST(generateLogin);
+        return generateLogin;
+    }
 
-        DataGenerator.login = loginBuilder.toString();
-        return DataGenerator.login;
+    public static String generateEmail() {
+        String email=faker.internet().emailAddress();
+        TestData.DataTest.setEMAIL_PATIENT(email);
+        return email;
+    }
+
+    public static String generateText() {
+        String text=faker.lorem().sentence();
+        TestData.DataTest.setTEXT(text);
+        return text;
     }
 }

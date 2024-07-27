@@ -55,7 +55,7 @@ public class NavigateMenu {
                 .moveToElement(NAVIGATE_MENU)
                 .moveByOffset(-200, 200)
                 .perform();
-        PHOTO.shouldBe(Condition.hidden, Duration.ofSeconds(5));
+        PHOTO.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
 
     }
 

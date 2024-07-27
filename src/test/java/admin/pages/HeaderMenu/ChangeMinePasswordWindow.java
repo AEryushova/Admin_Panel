@@ -55,7 +55,7 @@ public class ChangeMinePasswordWindow {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldNot(Condition.appear, Duration.ofSeconds(10));
+        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     @Step("Проверить доступность для нажатия кнопки изменения пароля")

@@ -25,7 +25,7 @@ public class ChangePasswordAdminWindow {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NEW_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        SAVE_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
@@ -47,17 +47,18 @@ public class ChangePasswordAdminWindow {
     public void clickButtonSaveNewPassword() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
+                .scrollIntoView(true)
                 .click();
     }
 
     @Step("Проверить доступность для нажатия кнопки сохранения пароля")
-    public boolean isEnabledSaveButton(){
+    public boolean isEnabledSaveButton() {
         return SAVE_BUTTON.isEnabled();
     }
 
     @Step("Проверить отображение админа '{0}' в заголовке окна")
-    public boolean isHeaderLoginAppear(String login){
-        SelenideElement HEADER_LOGIN = $x("//input[@name='login' and @value='"+ login + "']");
+    public boolean isHeaderLoginAppear(String login) {
+        SelenideElement HEADER_LOGIN = $x("//input[@name='login' and @value='" + login + "']");
         return HEADER_LOGIN.isDisplayed();
     }
 
@@ -127,7 +128,7 @@ public class ChangePasswordAdminWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldNot(Condition.appear, Duration.ofSeconds(10));
+        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     @Step("Проверить отображение окна смены пароля админу")

@@ -58,7 +58,7 @@ public class SettingPageTest extends BaseTest {
         BugReport bugReport =settingPage.getBugReportCard();
         bugReport.verifyBugReport();
         assertEquals(TestData.DataTest.NAME_PATIENT, bugReport.getAuthorText());
-        assertEquals(TestData.DataTest.EMAIL_PATIENT, bugReport.getEmailAuthorText());
+        assertEquals(TestData.DataTest.EMAIL_PATIENT2, bugReport.getEmailAuthorText());
         assertEquals(TestHelper.getCurrentDateRuYear(), bugReport.getDateText());
         assertEquals(TestData.DataTest.MESSAGE_BUG_REPORT, bugReport.getReportText());
         assertEquals("BUG_REPORT_CREATED_CLIENT_SUCCESS",DataBaseQuery.selectLog(USER_NAME_LK).getCode());

@@ -17,6 +17,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.UserData.*;
+import static admin.utils.otherUtils.DataGenerator.generateText;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Карточка врача")
@@ -405,7 +406,7 @@ public class CardDoctorPageTest extends BaseTest {
         Selenide.sleep(2000);
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(NAME_PATIENT);
-        addFeedbackWindow.fillFieldTextFeedback(FEEDBACK);
+        addFeedbackWindow.fillFieldTextFeedback(generateText());
         assertEquals(TestHelper.getCurrentDate(), addFeedbackWindow.getCurrentDateButton());
         Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.clickDateActivation();
@@ -415,9 +416,9 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
         assertEquals(TestHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
         assertEquals(NAME_PATIENT, feedback.getAuthorFeedback());
-        assertEquals(FEEDBACK, feedback.getTextFeedback());
+        assertEquals(TEXT, feedback.getTextFeedback());
         assertEquals(NAME_PATIENT, DataBaseQuery.selectFeedback().getAuthor());
-        assertEquals(FEEDBACK, DataBaseQuery.selectFeedback().getContent());
+        assertEquals(TEXT, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
         assertEquals("FEEDBACK_CREATED_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertTrue(cardDoctor.isExistFeedback());
