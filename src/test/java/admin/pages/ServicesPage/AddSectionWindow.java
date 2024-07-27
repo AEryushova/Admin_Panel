@@ -59,6 +59,7 @@ public class AddSectionWindow {
         return NAME_FIELD.getValue();
     }
 
+
     @Step("Нажать на поле названия")
     public void clickFieldName() {
         NAME_FIELD.shouldBe(Condition.visible)
@@ -71,7 +72,7 @@ public class AddSectionWindow {
         CLEAR_FIELD_NAME_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        NAME_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
+        NAME_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(10));
     }
 
     @Step("Получить текст ошибки поля названия")

@@ -4,13 +4,13 @@ import admin.utils.dbUtils.DataBaseQuery;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import static admin.data.TestData.DataTest.*;
+import static admin.utils.otherUtils.DataGenerator.*;
 
 public class AddBugReportDecorator implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllBugReports();
-        DataBaseQuery.addBugReport(MESSAGE_BUG_REPORT, EMAIL_PATIENT2, NAME_PATIENT);
+        DataBaseQuery.addBugReport(generateText(), generateEmail(),generateNamePatient());
     }
 }

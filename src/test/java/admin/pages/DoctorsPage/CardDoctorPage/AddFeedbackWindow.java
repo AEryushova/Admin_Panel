@@ -73,6 +73,7 @@ public class AddFeedbackWindow {
         return FIO_FIELD.getValue();
     }
 
+
     @Step("Получить значение поля текста отзыва")
     public String getValueTextFeedbackField() {
         TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible)
@@ -85,7 +86,7 @@ public class AddFeedbackWindow {
         CLEAR_FIELD_FIO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        FIO_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
+        FIO_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(10));
     }
 
     @Step("Проверить доступность для нажатия кнопки публикации")

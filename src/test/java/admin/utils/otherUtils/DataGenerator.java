@@ -8,7 +8,8 @@ import java.util.Locale;
 
 public class DataGenerator {
 
-    private final static Faker faker = new Faker(new Locale("ru"));
+    private final static Faker fakerRu = new Faker(new Locale("ru"));
+    private final static Faker faker = new Faker(Locale.ENGLISH);
 
     private static final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String LOWER = "abcdefghijklmnopqrstuvwxyz";
@@ -46,7 +47,7 @@ public class DataGenerator {
         }
 
         String generatedPassword = passwordBuilder.charAt(0) + new String(passwordArray);
-        TestData.DataTest.setPASSWORD_ADMIN_TEST(generatedPassword);
+        TestData.DataTest.setPassword(generatedPassword);
         return generatedPassword;
     }
 
@@ -62,19 +63,57 @@ public class DataGenerator {
             loginBuilder.append(ALL_LOGIN.charAt(RANDOM.nextInt(ALL_LOGIN.length())));
         }
         String generateLogin = loginBuilder.toString();
-        TestData.DataTest.setLOGIN_ADMIN_TEST(generateLogin);
+        TestData.DataTest.setLogin(generateLogin);
         return generateLogin;
     }
 
     public static String generateEmail() {
         String email=faker.internet().emailAddress();
-        TestData.DataTest.setEMAIL_PATIENT(email);
+        TestData.DataTest.setEmail(email);
         return email;
     }
 
+
     public static String generateText() {
-        String text=faker.lorem().sentence();
-        TestData.DataTest.setTEXT(text);
+        String text=fakerRu.address().streetAddress();
+        TestData.DataTest.setText(text);
         return text;
+    }
+
+    public static String generateWord() {
+        String word=fakerRu.name().lastName();
+        TestData.DataTest.setWord(word);
+        return word;
+    }
+
+    public static String generateNamePatient() {
+        String name=fakerRu.name().fullName();
+        TestData.DataTest.setNamePatient(name);
+        return name;
+    }
+
+    public static String generateQuestion() {
+        String sentence = fakerRu.company().name();
+        String question=sentence.substring(0, 1).toUpperCase() + sentence.substring(1) + "?";
+        TestData.DataTest.setQuestionFaq(question);
+        return question;
+    }
+
+    public static String generateCategoryName() {
+        String name=fakerRu.address().country();
+        TestData.DataTest.setCategoryName(name);
+        return name;
+    }
+
+    public static String generateSectionName() {
+        String name=fakerRu.address().city();
+        TestData.DataTest.setSectionName(name);
+        return name;
+    }
+
+    public static String generateSubSectionName() {
+        String name=fakerRu.address().streetName();
+        TestData.DataTest.setSubSectionName(name);
+        return name;
     }
 }

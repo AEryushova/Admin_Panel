@@ -17,7 +17,7 @@ public class Calendar {
     private final SelenideElement DATE_ACTIVATION;
 
     public Calendar() {
-        this.DATE_ACTIVATION = $x("//div[@role='option' and text()='" + TestHelper.generateFutureDayCurrentMonth() + "']");
+        this.DATE_ACTIVATION = $x("(//div[@role='option' and text()='" + TestHelper.generateFutureDayCurrentMonth() + "'])[last()]");
     }
 
     @Step("Верифицировать окно календаря")

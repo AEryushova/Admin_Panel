@@ -7,19 +7,18 @@ import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import static admin.data.TestData.DataTest.*;
 
 public class AddSomeFaq implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllFaq();
-        DataBaseQuery.addFaqSome(0, QUESTION, ANSWER);
-        DataBaseQuery.addFaqSome(1, CHANGE_QUESTION, CHANGE_ANSWER);
-        DataBaseQuery.addFaqSome(2, CHANGE_ANSWER, QUESTION);
-        DataBaseQuery.addFaqSome(3, QUESTION, QUESTION);
-        DataBaseQuery.addFaqSome(4, ANSWER, ANSWER);
-        DataBaseQuery.addFaqSome(5, ANSWER, CHANGE_QUESTION);
+        DataBaseQuery.addFaqSome(0, "Как вернуть деньги?", "Никак");
+        DataBaseQuery.addFaqSome(1, "Как записаться к врачу?", "Записаться к врачу можно через вкладку 'Врачи'");
+        DataBaseQuery.addFaqSome(2, "Записаться к врачу можно через вкладку 'Врачи'", "Как вернуть деньги?");
+        DataBaseQuery.addFaqSome(3, "Как вернуть деньги?", "Как вернуть деньги?");
+        DataBaseQuery.addFaqSome(4, "Никак", "Никак");
+        DataBaseQuery.addFaqSome(5, "Никак", "Как записаться к врачу?");
 
     }
 

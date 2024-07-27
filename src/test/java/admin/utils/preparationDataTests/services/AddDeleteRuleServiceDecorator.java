@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.DataTest.NAME_OTHER_SERVICE_CATEGORY;
+import static admin.utils.otherUtils.DataGenerator.*;
 
 public class AddDeleteRuleServiceDecorator implements BeforeEachCallback, AfterEachCallback {
 
@@ -34,14 +35,14 @@ public class AddDeleteRuleServiceDecorator implements BeforeEachCallback, AfterE
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
+        PreparationDataServicesTest.addCategory(generateCategoryName());
+        UUID categoryId= DataBaseQuery.selectServicesCategories(categoryName).getId();
         setCategoryId(categoryId);
-        PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
-        UUID sectionId= DataBaseQuery.selectServicesCategories(NAME_SECTION).getId();
+        PreparationDataServicesTest.addSection(generateSectionName(),categoryId);
+        UUID sectionId= DataBaseQuery.selectServicesCategories(sectionName).getId();
         setSectionId(sectionId);
-        PreparationDataServicesTest.addSection(NAME_SUBSECTION,sectionId);
-        UUID subsectionId= DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getId();
+        PreparationDataServicesTest.addSection(generateSubSectionName(),sectionId);
+        UUID subsectionId= DataBaseQuery.selectServicesCategories(subSectionName).getId();
         setSubsectionId(subsectionId);
         String serviceCode=PreparationDataServicesTest.getRandomService(NAME_OTHER_SERVICE_CATEGORY);
         setServiceCode(serviceCode);
@@ -49,7 +50,7 @@ public class AddDeleteRuleServiceDecorator implements BeforeEachCallback, AfterE
         setParentServiceId(parentServiceId);
         PreparationDataServicesTest.transferServices(serviceCode,parentServiceId,subsectionId.toString());
         PreparationDataServicesTest.deleteRuleService(serviceCode);
-        PreparationDataServicesTest.addRuleService(serviceCode,RULE_TITLE,RULE_DESCRIPTION);
+        PreparationDataServicesTest.addRuleService(serviceCode,generateWord(),generateText());
     }
 
     @Override

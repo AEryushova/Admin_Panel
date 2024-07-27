@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
+import static admin.utils.otherUtils.DataGenerator.*;
 
 public class AddServiceInNewCategoryForTransferDecorator implements BeforeEachCallback, AfterEachCallback {
     @Setter
@@ -31,14 +32,14 @@ public class AddServiceInNewCategoryForTransferDecorator implements BeforeEachCa
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
+        PreparationDataServicesTest.addCategory(generateCategoryName());
+        UUID categoryId= DataBaseQuery.selectServicesCategories(categoryName).getId();
         setCategoryId(categoryId);
-        PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
-        UUID sectionId= DataBaseQuery.selectServicesCategories(NAME_SECTION).getId();
+        PreparationDataServicesTest.addSection(generateSectionName(),categoryId);
+        UUID sectionId= DataBaseQuery.selectServicesCategories(sectionName).getId();
         setSectionId(sectionId);
-        PreparationDataServicesTest.addSection(NAME_SUBSECTION,sectionId);
-        UUID subsectionId= DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getId();
+        PreparationDataServicesTest.addSection(generateSubSectionName(),sectionId);
+        UUID subsectionId= DataBaseQuery.selectServicesCategories(subSectionName).getId();
         setSubsectionId(subsectionId);
         String serviceCode=PreparationDataServicesTest.getRandomService(NAME_OTHER_SERVICE_CATEGORY);
         setServiceCode(serviceCode);

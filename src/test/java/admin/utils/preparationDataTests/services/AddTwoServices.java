@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.DataTest.NAME_OTHER_SERVICE_CATEGORY;
+import static admin.utils.otherUtils.DataGenerator.*;
 
 public class AddTwoServices implements BeforeEachCallback, AfterEachCallback {
 
@@ -37,14 +38,14 @@ public class AddTwoServices implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId = DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
+        PreparationDataServicesTest.addCategory(generateCategoryName());
+        UUID categoryId = DataBaseQuery.selectServicesCategories(categoryName).getId();
         setCategoryId(categoryId);
-        PreparationDataServicesTest.addSection(NAME_SECTION, categoryId);
-        UUID sectionId = DataBaseQuery.selectServicesCategories(NAME_SECTION).getId();
+        PreparationDataServicesTest.addSection(generateSectionName(), categoryId);
+        UUID sectionId = DataBaseQuery.selectServicesCategories(sectionName).getId();
         setSectionId(sectionId);
-        PreparationDataServicesTest.addSection(NAME_SUBSECTION, sectionId);
-        UUID subsectionId = DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getId();
+        PreparationDataServicesTest.addSection(generateSubSectionName(), sectionId);
+        UUID subsectionId = DataBaseQuery.selectServicesCategories(subSectionName).getId();
         setSubsectionId(subsectionId);
         String serviceCodeFirst = PreparationDataServicesTest.getRandomService(NAME_OTHER_SERVICE_CATEGORY);
         setServiceCodeFirst(serviceCodeFirst);

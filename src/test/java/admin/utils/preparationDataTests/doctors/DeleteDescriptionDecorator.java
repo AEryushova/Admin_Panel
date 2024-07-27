@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
+import static admin.utils.otherUtils.DataGenerator.generateWord;
 
 public class DeleteDescriptionDecorator implements BeforeEachCallback, AfterEachCallback {
 
@@ -26,7 +27,7 @@ public class DeleteDescriptionDecorator implements BeforeEachCallback, AfterEach
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearSection(doctorId);
-        DataBaseQuery.addSection(doctorId, SECTION,0);
+        DataBaseQuery.addSection(doctorId, generateWord(),0);
         UUID sectionId = DataBaseQuery.selectSection(doctorId).getEmployee_details_id();
         setSectionId(sectionId);
     }

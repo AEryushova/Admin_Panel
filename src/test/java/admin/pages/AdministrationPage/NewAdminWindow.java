@@ -97,7 +97,7 @@ public class NewAdminWindow {
         CLEAR_FIELD_LOGIN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        LOGIN_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
+        LOGIN_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(10));
     }
 
     @Step("Нажать на кнопку очищения поля пароля")
@@ -105,7 +105,7 @@ public class NewAdminWindow {
         CLEAR_FIELD_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        PASSWORD_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
+        PASSWORD_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(10));
     }
 
     @Step("Нажать на кнопку очищения поля подтверждения пароля")
@@ -113,7 +113,7 @@ public class NewAdminWindow {
         CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        CONFIRM_PASSWORD_FIELD.shouldBe(Condition.value(""), Duration.ofSeconds(10));
+        CONFIRM_PASSWORD_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(10));
     }
 
     @Step("Получить значение поля логина")
@@ -136,26 +136,6 @@ public class NewAdminWindow {
                 .shouldBe(Condition.enabled);
         return CONFIRM_PASSWORD_FIELD.getValue();
     }
-
-    public SelenideElement getLoginField() {
-        LOGIN_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
-        return LOGIN_FIELD;
-    }
-
-
-    public SelenideElement getPasswordField() {
-        PASSWORD_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
-        return PASSWORD_FIELD;
-    }
-
-    public SelenideElement getConfirmPasswordField() {
-        CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
-        return CONFIRM_PASSWORD_FIELD;
-    }
-
 
     @Step("Получить текст ошибки поля логина")
     public String getErrorFieldLogin() {

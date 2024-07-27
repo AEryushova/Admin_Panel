@@ -12,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
+import static admin.utils.otherUtils.DataGenerator.generateCategoryName;
+import static admin.utils.otherUtils.DataGenerator.generateSectionName;
 
 public class AddDeleteSectionSubsectionDecorator implements BeforeEachCallback, AfterEachCallback {
 
@@ -26,17 +28,17 @@ public class AddDeleteSectionSubsectionDecorator implements BeforeEachCallback, 
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
+        PreparationDataServicesTest.addCategory(generateCategoryName());
+        UUID categoryId= DataBaseQuery.selectServicesCategories(categoryName).getId();
         setCategoryId(categoryId);
-        PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
-        UUID sectionId= DataBaseQuery.selectServicesCategories(NAME_SECTION).getId();
+        PreparationDataServicesTest.addSection(generateSectionName(),categoryId);
+        UUID sectionId= DataBaseQuery.selectServicesCategories(sectionName).getId();
         setSectionId(sectionId);
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        UUID subsectionId=DataBaseQuery.selectServicesCategories(NAME_SUBSECTION).getId();
+        UUID subsectionId=DataBaseQuery.selectServicesCategories(subSectionName).getId();
         PreparationDataServicesTest.deleteCategory(subsectionId);
         PreparationDataServicesTest.deleteCategory(sectionId);
         PreparationDataServicesTest.deleteCategory(categoryId);

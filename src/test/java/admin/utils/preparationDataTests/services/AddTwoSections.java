@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
+import static admin.utils.otherUtils.DataGenerator.*;
 
 public class AddTwoSections implements BeforeEachCallback, AfterEachCallback {
 
@@ -27,14 +28,14 @@ public class AddTwoSections implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
+        PreparationDataServicesTest.addCategory(generateCategoryName());
+        UUID categoryId= DataBaseQuery.selectServicesCategories(categoryName).getId();
         setCategoryId(categoryId);
-        PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
-        UUID sectionIdFirst= DataBaseQuery.selectServicesCategories(NAME_SECTION).getId();
+        PreparationDataServicesTest.addSection(generateSectionName(),categoryId);
+        UUID sectionIdFirst= DataBaseQuery.selectServicesCategories(sectionName).getId();
         setSectionIdFirst(sectionIdFirst);
-        PreparationDataServicesTest.addSection(NEW_NAME_SECTION,categoryId);
-        UUID sectionIdSecond= DataBaseQuery.selectServicesCategories(NEW_NAME_SECTION).getId();
+        PreparationDataServicesTest.addSection(generateSubSectionName(),categoryId);
+        UUID sectionIdSecond= DataBaseQuery.selectServicesCategories(subSectionName).getId();
         setSectionIdSecond(sectionIdSecond);
     }
 

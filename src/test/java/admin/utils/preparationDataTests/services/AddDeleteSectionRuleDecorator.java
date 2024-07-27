@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
-import static admin.data.TestData.DataTest.RULE_DESCRIPTION;
+import static admin.utils.otherUtils.DataGenerator.*;
 
 public class AddDeleteSectionRuleDecorator implements BeforeEachCallback, AfterEachCallback {
 
@@ -24,14 +24,14 @@ public class AddDeleteSectionRuleDecorator implements BeforeEachCallback, AfterE
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
+        PreparationDataServicesTest.addCategory(generateCategoryName());
+        UUID categoryId= DataBaseQuery.selectServicesCategories(categoryName).getId();
         setCategoryId(categoryId);
-        PreparationDataServicesTest.addSection(NAME_SECTION,categoryId);
-        UUID sectionId= DataBaseQuery.selectServicesCategories(NAME_SECTION).getId();
+        PreparationDataServicesTest.addSection(generateSectionName(),categoryId);
+        UUID sectionId= DataBaseQuery.selectServicesCategories(sectionName).getId();
         setSectionId(sectionId);
         PreparationDataServicesTest.deleteRuleCategory(sectionId);
-        PreparationDataServicesTest.addRuleCategory(sectionId, RULE_TITLE, RULE_DESCRIPTION);
+        PreparationDataServicesTest.addRuleCategory(sectionId, generateWord(), generateText());
     }
 
     @Override

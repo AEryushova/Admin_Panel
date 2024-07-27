@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
+import static admin.utils.otherUtils.DataGenerator.generateNamePatient;
+import static admin.utils.otherUtils.DataGenerator.generateText;
 
 public class AddPublishedDeleteFeedback implements BeforeEachCallback, AfterEachCallback {
 
@@ -26,7 +28,7 @@ public class AddPublishedDeleteFeedback implements BeforeEachCallback, AfterEach
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId, NAME_PATIENT, FEEDBACK,false);
+        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(),false);
         UUID feedbackId=DataBaseQuery.selectFeedback().getId();
         setFeedbackId(feedbackId);
         DataBaseQuery.publishedFeedback(feedbackId);

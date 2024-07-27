@@ -10,7 +10,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.UUID;
 
-import static admin.data.TestData.DataTest.NAME_CATEGORY;
+import static admin.data.TestData.DataTest.categoryName;
+import static admin.utils.otherUtils.DataGenerator.generateCategoryName;
 
 public class AddDeleteCategoryDecorator implements BeforeEachCallback, AfterEachCallback {
 
@@ -20,8 +21,8 @@ public class AddDeleteCategoryDecorator implements BeforeEachCallback, AfterEach
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        PreparationDataServicesTest.addCategory(NAME_CATEGORY);
-        UUID categoryId= DataBaseQuery.selectServicesCategories(NAME_CATEGORY).getId();
+        PreparationDataServicesTest.addCategory(generateCategoryName());
+        UUID categoryId= DataBaseQuery.selectServicesCategories(categoryName).getId();
         setCategoryId(categoryId);
     }
 

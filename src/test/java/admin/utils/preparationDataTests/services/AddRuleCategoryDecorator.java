@@ -7,14 +7,16 @@ import lombok.Getter;
 
 import lombok.Setter;
 
+import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.UUID;
 
 import static admin.data.TestData.DataTest.*;
+import static admin.utils.otherUtils.DataGenerator.*;
 
-public class AddRuleCategoryDecorator implements BeforeEachCallback {
+public class AddRuleCategoryDecorator implements BeforeEachCallback, AfterEachCallback {
 
     @Setter
     @Getter
@@ -22,9 +24,16 @@ public class AddRuleCategoryDecorator implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-      UUID categoryId=DataBaseQuery.selectServicesCategories(CATEGORY_RULES).getId();
-      setCategoryId(categoryId);
-      PreparationDataServicesTest.deleteRuleCategory(categoryId);
-      PreparationDataServicesTest.addRuleCategory(categoryId, RULE_TITLE, RULE_DESCRIPTION);
+        PreparationDataServicesTest.addCategory(generateCategoryName());
+        UUID categoryId = DataBaseQuery.selectServicesCategories(categoryName).getId();
+        setCategoryId(categoryId);
+        PreparationDataServicesTest.deleteRuleCategory(categoryId);
+        PreparationDataServicesTest.addRuleCategory(categoryId, generateWord(), generateText());
     }
+
+    @Override
+    public void afterEach(ExtensionContext context) throws Exception {
+        PreparationDataServicesTest.deleteCategory(categoryId);
+    }
+
 }

@@ -15,7 +15,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.UserData.*;
 import static admin.utils.otherUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,7 +55,7 @@ public class HeaderMenuTest extends BaseTest {
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.clickButtonChangePassword();
         changeMinePassWindow.verifyChangeMinePasswordWindow();
         changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
-        changeMinePassWindow.fillFieldNewPassword(NEW_PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldNewPassword(generatePassword());
         changeMinePassWindow.clickButtonChangePassword();
         assertEquals("Пароль успешно обновлен",basePage.getNotification());
         assertEquals("CHANGE_PASSWORD_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
@@ -89,7 +88,7 @@ public class HeaderMenuTest extends BaseTest {
         UserPanel userPanel=headerMenu.clickButtonUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.clickButtonChangePassword();
         changeMinePassWindow.fillFieldOldPassword(generatePassword());
-        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldNewPassword(generatePassword());
         changeMinePassWindow.clickButtonChangePassword();
         assertEquals("{\"error\":\"Задан неверный пароль\",\"innerError\":null,\"exception\":\"ValidationPlatformException\"}",basePage.getNotification());
         assertTrue(changeMinePassWindow.isWindowAppear());
@@ -102,7 +101,7 @@ public class HeaderMenuTest extends BaseTest {
     void changeMainPasswordEmptyFieldsOldPassword() {
         UserPanel userPanel=headerMenu.clickButtonUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.clickButtonChangePassword();
-        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldNewPassword(generatePassword());
         assertFalse(changeMinePassWindow.isEnabledChangeButton());
     }
 
@@ -113,7 +112,7 @@ public class HeaderMenuTest extends BaseTest {
     void changeMainPasswordEmptyFieldsNewPassword() {
         UserPanel userPanel=headerMenu.clickButtonUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.clickButtonChangePassword();
-        changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldOldPassword(generatePassword());
         assertFalse(changeMinePassWindow.isEnabledChangeButton());
     }
 
@@ -213,15 +212,14 @@ public class HeaderMenuTest extends BaseTest {
     void clearFieldsWindowChangeMainPasswordThroughButtonClear(){
         UserPanel userPanel=headerMenu.clickButtonUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.clickButtonChangePassword();
-        changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldOldPassword(generatePassword());
         changeMinePassWindow.clickClearButtonOldPasswordField();
-        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
-        changeMinePassWindow.clickClearButtonNewPasswordField();
-        Selenide.sleep(3000);
-        assertEquals("", changeMinePassWindow.getValueOldPasswordField());
         assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldOldPassword());
-        assertEquals("", changeMinePassWindow.getValueNewPasswordField());
+        changeMinePassWindow.fillFieldNewPassword(generatePassword());
+        changeMinePassWindow.clickClearButtonNewPasswordField();
         assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldNewPassword());
+        assertEquals("", changeMinePassWindow.getValueOldPasswordField());
+        assertEquals("", changeMinePassWindow.getValueNewPasswordField());
     }
 
 
@@ -232,8 +230,8 @@ public class HeaderMenuTest extends BaseTest {
     void closeWindowChangeMainPassword() {
         UserPanel userPanel=headerMenu.clickButtonUserPanel();
         ChangeMinePasswordWindow changeMinePassWindow=userPanel.clickButtonChangePassword();
-        changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
-        changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
+        changeMinePassWindow.fillFieldOldPassword(generatePassword());
+        changeMinePassWindow.fillFieldNewPassword(generatePassword());
         changeMinePassWindow.clickCancelButtonChangePassword();
         assertFalse(changeMinePassWindow.isWindowAppear());
         assertFalse(userPanel.isWindowAppear());

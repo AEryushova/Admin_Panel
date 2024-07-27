@@ -273,5 +273,16 @@ public class DataBaseQuery {
         }
     }
 
+    @SneakyThrows
+    public static Logs selectLogPhoto(String userName) {
+        var selectInfo = "SELECT * FROM (" +
+                "    SELECT * FROM logs WHERE user_name=? ORDER BY log_time DESC LIMIT 2" +
+                ") subquery ORDER BY log_time ASC LIMIT 1";
+        try (var connection = DataBaseManager.getConnection("lod_db")) {
+            //noinspection deprecation
+            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo, new Object[]{userName}, new BeanHandler<>(Logs.class));
+        }
+    }
+
 }
 

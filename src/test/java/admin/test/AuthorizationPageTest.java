@@ -90,7 +90,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void authAdminWithWrongPassword() {
         authPage.fillLoginField(LOGIN_ADMIN);
-        authPage.fillPasswordField("WWqq123456!78");
+        authPage.fillPasswordField(generatePassword());
         authPage.clickToComeIn();
         assertTrue(authPage.isEnabledComeInButton());
         assertEquals("Неверный логин или пароль", authPage.getNotification());
@@ -252,7 +252,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void closeNotificationTimeout()  {
         authPage.fillLoginField(LOGIN_ADMIN);
-        authPage.fillPasswordField("WWqq123456!78");
+        authPage.fillPasswordField(generatePassword());
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
         Selenide.sleep(2000);
@@ -266,7 +266,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void closeNotification() {
         authPage.fillLoginField(LOGIN_ADMIN);
-        authPage.fillPasswordField("WWqq123456!78");
+        authPage.fillPasswordField(generatePassword());
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
         Selenide.sleep(2000);
