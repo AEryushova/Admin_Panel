@@ -414,7 +414,7 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.checkSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertEquals("Отзыв успешно добавлен", cardDoctor.getNotification());
-        assertEquals(TestHelper.generateFutureDateCurrentMonth(), feedback.getDateFeedback());
+        assertEquals(TestHelper.getFutureDateCurrentMonth(), feedback.getDateFeedback());
         assertEquals(namePatient, feedback.getAuthorFeedback());
         assertEquals(text, feedback.getTextFeedback());
         assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());

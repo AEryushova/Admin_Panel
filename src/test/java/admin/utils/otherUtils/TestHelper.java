@@ -4,7 +4,6 @@ import admin.utils.APIUtils.PreparationDataSettingTest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import lombok.Getter;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -18,9 +17,6 @@ import static appData.AppData.URI_PERSONAL_AREA;
 
 public class TestHelper {
 
-    @Getter
-    public static String login;
-
     //Генерирует и возвращает ссылку на фото врача//
     public static String urlPhotoBuilder() {
         return URI_PERSONAL_AREA + PreparationDataSettingTest.getLocation();
@@ -32,13 +28,13 @@ public class TestHelper {
     }
 
     //Генерирует и возвращает дату и время в формате Timestamp для SQL-запросов//
-    public static Timestamp generateDateTime() {
+    public static Timestamp getDateTime() {
         LocalDateTime now = LocalDateTime.now();
         return Timestamp.valueOf(now);
     }
 
     //Генерирует и возвращает дату и время - 1 день от текущей даты в формате Timestamp для SQL-запросов//
-    public static Timestamp generatePreviousDateTime() {
+    public static Timestamp getPreviousDateTime() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime oneDaysAgo = now.minusDays(1);
         return Timestamp.valueOf(oneDaysAgo);
@@ -112,7 +108,7 @@ public class TestHelper {
     }
 
     //Возвращает день т.е только число, который наступит через 2 дня от текущей даты (текущего дня)//
-    public static String generateFutureDayCurrentMonth() {
+    public static String getFutureDayCurrentMonth() {
         LocalDate currentDate = LocalDate.now();
         LocalDate futureDate = currentDate.plusDays(2);
         int futureDay = futureDate.getDayOfMonth();
@@ -120,14 +116,14 @@ public class TestHelper {
     }
 
     //Возвращает дату, которая наступит через 2 дня от текущей даты в русской локали в формате "03 Апреля 2024"//
-    public static String generateFutureDateCurrentMonth() {
+    public static String getFutureDateCurrentMonth() {
         LocalDate currentDate = LocalDate.now();
         LocalDate futureDate = currentDate.plusDays(2);
         return futureDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU")));
     }
 
     //Возвращает дату, которая наступит через 2 дня от текущей даты в цифровом формате "03.04.2023"//
-    public static String generateActivationDateCurrentMonth() {
+    public static String getActivationDateCurrentMonth() {
         LocalDate currentDate = LocalDate.now();
         LocalDate futureDate = currentDate.plusDays(2);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");

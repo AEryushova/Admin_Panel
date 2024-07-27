@@ -28,7 +28,7 @@ public class UpdatePriceWindow {
 
 
     public UpdatePriceWindow() {
-        this.ACTIVATION_DATES_DOWNLOAD = $x("//span[text()='" + TestHelper.generateActivationDateCurrentMonth() + "']/parent::div");
+        this.ACTIVATION_DATES_DOWNLOAD = $x("//span[text()='" + TestHelper.getActivationDateCurrentMonth() + "']/parent::div");
     }
 
     @Step("Верифицировать окно добавления прайса")
