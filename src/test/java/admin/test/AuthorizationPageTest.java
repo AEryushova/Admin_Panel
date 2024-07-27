@@ -16,7 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static admin.data.TestData.DataTest.*;
+
 import static admin.data.TestData.UserData.*;
 import static admin.utils.otherUtils.DataGenerator.generateLogin;
 import static admin.utils.otherUtils.DataGenerator.generatePassword;
