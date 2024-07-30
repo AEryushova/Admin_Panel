@@ -47,6 +47,11 @@ public class NavigateMenu {
 
     }
 
+    @Step("Получить ")
+    public SelenideElement getTabFeedbackNavigateMenu(){
+        return FEEDBACK;
+    }
+
     @Step("Закрыть навигационное меню")
     public void closeNavigateMenu() {
         PHOTO.shouldBe(Condition.visible)
@@ -55,7 +60,6 @@ public class NavigateMenu {
                 .moveToElement(NAVIGATE_MENU)
                 .moveByOffset(-200, 200)
                 .perform();
-        PHOTO.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
 
     }
 

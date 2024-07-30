@@ -57,7 +57,7 @@ public class HeaderMenuTest extends BaseTest {
         changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
         changeMinePassWindow.fillFieldNewPassword(generatePassword());
         changeMinePassWindow.clickButtonChangePassword();
-        assertEquals("Пароль успешно обновлен",basePage.getNotification());
+        assertEquals("Пароль успешно обновлен",basePage.getTextNotification());
         assertEquals("CHANGE_PASSWORD_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(changeMinePassWindow.isWindowAppear());
         assertFalse(userPanel.isWindowAppear());
@@ -75,7 +75,7 @@ public class HeaderMenuTest extends BaseTest {
         changeMinePassWindow.fillFieldOldPassword(PASSWORD_ADMIN);
         changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickButtonChangePassword();
-        assertEquals("Пароль успешно обновлен",basePage.getNotification());
+        assertEquals("Пароль успешно обновлен",basePage.getTextNotification());
         assertFalse(changeMinePassWindow.isWindowAppear());
         assertFalse(userPanel.isWindowAppear());
     }
@@ -90,7 +90,7 @@ public class HeaderMenuTest extends BaseTest {
         changeMinePassWindow.fillFieldOldPassword(generatePassword());
         changeMinePassWindow.fillFieldNewPassword(generatePassword());
         changeMinePassWindow.clickButtonChangePassword();
-        assertEquals("{\"error\":\"Задан неверный пароль\",\"innerError\":null,\"exception\":\"ValidationPlatformException\"}",basePage.getNotification());
+        assertEquals("{\"error\":\"Задан неверный пароль\",\"innerError\":null,\"exception\":\"ValidationPlatformException\"}",basePage.getTextNotification());
         assertTrue(changeMinePassWindow.isWindowAppear());
     }
 

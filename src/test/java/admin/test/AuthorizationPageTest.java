@@ -4,6 +4,7 @@ import admin.pages.BasePage.BasePage;
 import admin.pages.HeaderMenu.UserPanel;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.authorization.CloseWebDriverDecorator;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -16,6 +17,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+
+import java.time.Duration;
 
 import static admin.data.TestData.UserData.*;
 import static admin.utils.otherUtils.DataGenerator.generateLogin;
@@ -93,7 +96,7 @@ public class AuthorizationPageTest extends BaseTest {
         authPage.fillPasswordField(generatePassword());
         authPage.clickToComeIn();
         assertTrue(authPage.isEnabledComeInButton());
-        assertEquals("Неверный логин или пароль", authPage.getNotification());
+        assertEquals("Неверный логин или пароль", authPage.getTextNotification());
     }
 
     @Story("Авторизация несуществующего админа")
@@ -104,7 +107,7 @@ public class AuthorizationPageTest extends BaseTest {
         authPage.fillPasswordField(generatePassword());
         authPage.clickToComeIn();
         assertTrue(authPage.isEnabledComeInButton());
-        assertEquals("AuthorizationAdminClient::SignIn: Ошибка авторизации.", authPage.getNotification());
+        assertEquals("AuthorizationAdminClient::SignIn: Ошибка авторизации.", authPage.getTextNotification());
     }
 
 
@@ -255,9 +258,9 @@ public class AuthorizationPageTest extends BaseTest {
         authPage.fillPasswordField(generatePassword());
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
-        Selenide.sleep(2000);
+        basePage.getNotification().should(Condition.visible);
         assertTrue(basePage.isNotificationAppear());
-        Selenide.sleep(7000);
+        basePage.getNotification().should(Condition.disappear, Duration.ofSeconds(7));
         assertFalse(basePage.isNotificationAppear());
     }
 
@@ -269,7 +272,7 @@ public class AuthorizationPageTest extends BaseTest {
         authPage.fillPasswordField(generatePassword());
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
-        Selenide.sleep(2000);
+        basePage.getNotification().should(Condition.visible);
         assertTrue(basePage.isNotificationAppear());
         basePage.closeNotification();
         assertFalse(basePage.isNotificationAppear());

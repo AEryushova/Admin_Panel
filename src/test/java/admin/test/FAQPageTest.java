@@ -54,7 +54,7 @@ public class FAQPageTest extends BaseTest {
         addQuestionWindow.fillAnswerField(generateText());
         addQuestionWindow.clickButtonAddQuestion();
         Question question = faqPage.getQuestion();
-        assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
+        assertEquals("Вопрос успешно добавлен", faqPage.getTextNotification());
         assertEquals(questionFaq,question.getQuestion());
         assertEquals(text,question.getAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
@@ -72,7 +72,7 @@ public class FAQPageTest extends BaseTest {
         addQuestionWindow.fillQuestionField(questionFaq);
         addQuestionWindow.fillAnswerField(text);
         addQuestionWindow.clickButtonAddQuestion();
-        assertEquals("Вопрос уже существует", faqPage.getNotification());
+        assertEquals("Вопрос уже существует", faqPage.getTextNotification());
         assertFalse(faqPage.isExistQuestionsByIndex(1));
     }
 
@@ -86,7 +86,7 @@ public class FAQPageTest extends BaseTest {
         addQuestionWindow.fillQuestionField(questionFaq);
         addQuestionWindow.fillAnswerField(generateText());
         addQuestionWindow.clickButtonAddQuestion();
-        assertEquals("Вопрос уже существует", faqPage.getNotification());
+        assertEquals("Вопрос уже существует", faqPage.getTextNotification());
         assertFalse(faqPage.isExistQuestionsByIndex(1));
     }
 
@@ -101,7 +101,7 @@ public class FAQPageTest extends BaseTest {
         addQuestionWindow.fillAnswerField(text);
         addQuestionWindow.clickButtonAddQuestion();
         Question question = faqPage.getQuestion();
-        assertEquals("Вопрос успешно добавлен", faqPage.getNotification());
+        assertEquals("Вопрос успешно добавлен", faqPage.getTextNotification());
         assertEquals(questionFaq,question.getQuestionByIndex(1));
         assertEquals(text,question.getAnswerByIndex(1));
         assertEquals(questionFaq, DataBaseQuery.selectFaqBySequence(1).getQuestion());
@@ -158,7 +158,7 @@ public class FAQPageTest extends BaseTest {
         editQuestionWindow.fillQuestionField(generateQuestion());
         editQuestionWindow.fillAnswerField(generateText());
         editQuestionWindow.clickButtonSaveChangesQuestion();
-        assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
+        assertEquals("Вопрос успешно обновлен", faqPage.getTextNotification());
         assertEquals(questionFaq,question.getQuestion());
         assertEquals(text,question.getAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
@@ -199,7 +199,7 @@ public class FAQPageTest extends BaseTest {
         Question question = faqPage.getQuestion();
         EditQuestionWindow editQuestionWindow = question.clickButtonChangeQuestion();
         editQuestionWindow.clickButtonSaveChangesQuestion();
-        assertEquals("Вопрос успешно обновлен", faqPage.getNotification());
+        assertEquals("Вопрос успешно обновлен", faqPage.getTextNotification());
         assertEquals(questionFaq,question.getQuestion());
         assertEquals(text,question.getAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
@@ -255,7 +255,7 @@ public class FAQPageTest extends BaseTest {
         Question question = faqPage.getQuestion();
         EditQuestionWindow editQuestionWindow = question.clickButtonChangeQuestion();
         editQuestionWindow.clickButtonDeleteQuestion();
-        assertEquals("Вопрос успешно удален", faqPage.getNotification());
+        assertEquals("Вопрос успешно удален", faqPage.getTextNotification());
         assertFalse(faqPage.isExistQuestions());
         assertTrue(faqPage.isExistsEmptyList());
         assertNull(DataBaseQuery.selectFaq());

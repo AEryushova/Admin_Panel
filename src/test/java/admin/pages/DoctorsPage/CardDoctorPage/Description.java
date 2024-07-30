@@ -24,7 +24,7 @@ public class Description {
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    @Step("Ввести в поле названия пункта '{0}'")
+    @Step("Ввести в поле описания '{0}'")
     public void fillDescriptionField(String description){
         FIELD_DESCRIPTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -38,7 +38,7 @@ public class Description {
                 .click();
     }
 
-    @Step("Очистить поле названия пункта")
+    @Step("Очистить поле описания")
     public void clearDescriptionField(){
         FIELD_DESCRIPTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -46,10 +46,15 @@ public class Description {
         FIELD_DESCRIPTION.sendKeys(Keys.BACK_SPACE);
     }
 
-    @Step("Получить текст поля названия пункта описания")
-    public String getDescription() {
+    @Step("Получить текст поля описания")
+    public String getTextDescription() {
         NAME_DESCRIPTION.shouldBe(Condition.visible);
         return NAME_DESCRIPTION.getText();
+    }
+
+    @Step("Получить поле описания")
+    public SelenideElement getDescription() {
+        return FIELD_DESCRIPTION;
     }
 
     @Step("Нажать на кнопку удаления")

@@ -19,7 +19,7 @@ public class BasePage {
 
 
     @Step("Получить текст нотификации")
-    public String getNotification() {
+    public String getTextNotification() {
         NOTIFICATION.shouldBe(visible, Duration.ofSeconds(8));
         return NOTIFICATION.getText();
     }
@@ -29,6 +29,11 @@ public class BasePage {
         CLOSE_NOTIFICATION.shouldBe(visible, Duration.ofSeconds(8))
                 .shouldBe(Condition.enabled)
                 .click();
+    }
+
+    @Step("Получить нотификацию")
+    public SelenideElement getNotification() {
+        return NOTIFICATION;
     }
 
     @Step("Проверить отображение нотификации")

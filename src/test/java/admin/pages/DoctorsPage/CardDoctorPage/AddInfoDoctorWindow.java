@@ -17,7 +17,7 @@ public class AddInfoDoctorWindow {
     private final SelenideElement WINDOW_DESCRIPTION = $x("//input[@placeholder='Укажите название пункта']//parent::div//parent::div[@class='S8Lv']");
 
 
-    @Step("Верифицировать окно добавления информации о враче")
+    @Step("Верифицировать окно добавления раздела врачу")
     public void verifyAddSectionDoctorWindow() {
         WINDOW_SECTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -25,7 +25,7 @@ public class AddInfoDoctorWindow {
         CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    @Step("Верифицировать окно добавления информации о враче")
+    @Step("Верифицировать окно добавления описания врачу")
     public void verifyAddDescriptionDoctorWindow() {
         WINDOW_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -33,14 +33,14 @@ public class AddInfoDoctorWindow {
         CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    @Step("Ввести в поле названия пункта '{0}'")
+    @Step("Ввести в поле названия '{0}'")
     public void fillFieldText(String title) {
         TEXT_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(title);
     }
 
-    @Step("Получить значение поля названия пункта")
+    @Step("Получить значение поля названия")
     public String getValueField() {
         TEXT_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
@@ -70,11 +70,11 @@ public class AddInfoDoctorWindow {
         WINDOW_DESCRIPTION.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
-    @Step("Проверить отображение окна добавления раздела в инфо о враче")
+    @Step("Проверить отображение окна добавления раздела врачу")
     public boolean isWindowAppearSection() {return WINDOW_SECTION.isDisplayed();
     }
 
-    @Step("Проверить отображение окна добавления описания в инфо о враче")
+    @Step("Проверить отображение окна добавления описания врачу")
     public boolean isWindowAppearDescription() {return WINDOW_DESCRIPTION.isDisplayed();
     }
 

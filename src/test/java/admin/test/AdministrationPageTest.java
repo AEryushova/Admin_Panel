@@ -18,7 +18,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-
 import static admin.data.TestData.DataTest.login;
 import static admin.data.TestData.DataTest.password;
 import static admin.data.TestData.UserData.*;
@@ -63,7 +62,7 @@ public class AdministrationPageTest extends BaseTest {
         newAdminWindow.fillFieldNewAdminPassword(generatePassword());
         newAdminWindow.fillFieldNewAdminConfirmPassword(password);
         newAdminWindow.clickAddButton();
-        assertEquals("Новый администратор " + login + " успешно создан", adminPage.getNotification());
+        assertEquals("Новый администратор " + login + " успешно создан", adminPage.getTextNotification());
         assertEquals(1, DataBaseQuery.selectAdmin(login).getRole_id());
         assertFalse(DataBaseQuery.selectAdmin(login).getIs_blocked());
         assertFalse(DataBaseQuery.selectAdmin(login).getIs_deleted());
@@ -84,7 +83,7 @@ public class AdministrationPageTest extends BaseTest {
         newAdminWindow.fillFieldNewAdminPassword(generatePassword());
         newAdminWindow.fillFieldNewAdminConfirmPassword(password);
         newAdminWindow.clickAddButton();
-        assertEquals("{\"error\":\"Пользователь уже существует, логин: " + login + "\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}", adminPage.getNotification());
+        assertEquals("{\"error\":\"Пользователь уже существует, логин: " + login + "\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}", adminPage.getTextNotification());
         assertTrue(adminPage.isVisibleAdminCard(login));
     }
 
@@ -312,8 +311,8 @@ public class AdministrationPageTest extends BaseTest {
         changePasswordAdminWindow.fillFieldNewPassword(generatePassword());
         changePasswordAdminWindow.fillFieldConfirmPassword(password);
         changePasswordAdminWindow.clickButtonSaveNewPassword();
-        assertEquals("Админ " + login + " успешно изменен", adminPage.getNotification());
-        assertEquals("RESET_PASSWORD_SADMIN_SUCCESS",DataBaseQuery.selectLog(login).getCode());
+        assertEquals("Админ " + login + " успешно изменен", adminPage.getTextNotification());
+        assertEquals("RESET_PASSWORD_SADMIN_SUCCESS", DataBaseQuery.selectLog(login).getCode());
         assertFalse(changePasswordAdminWindow.isWindowAppear());
     }
 
@@ -473,10 +472,10 @@ public class AdministrationPageTest extends BaseTest {
         deleteAdminWindow.verifyDeleteAdminWindow();
         assertTrue(deleteAdminWindow.verifyLoginAdmin(login));
         deleteAdminWindow.clickButtonDeleteAdmin();
-        assertEquals("Админ " + login + " успешно удален", adminPage.getNotification());
+        assertEquals("Админ " + login + " успешно удален", adminPage.getTextNotification());
         assertFalse(adminPage.isExistAdminCard(login));
         assertNull(DataBaseQuery.selectAdmin(login));
-        assertEquals("DELETE_ADMIN_SUCCESS",DataBaseQuery.selectLog(login).getCode());
+        assertEquals("DELETE_ADMIN_SUCCESS", DataBaseQuery.selectLog(login).getCode());
     }
 
     @Feature("Документация")
@@ -490,7 +489,7 @@ public class AdministrationPageTest extends BaseTest {
         updateLegalDocWindow.uploadDoc("src/test/resources/Оферта.pdf");
         adminPage.clickButtonUpdateOffer();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
-        assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
     @Feature("Документация")
@@ -504,7 +503,7 @@ public class AdministrationPageTest extends BaseTest {
         updateLegalDocWindow.uploadDoc("src/test/resources/Политика обработки персональных данных.pdf");
         adminPage.clickButtonUpdateProcessingPolicy();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
-        assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
     @Feature("Документация")
@@ -541,8 +540,8 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(TestHelper.getCurrentMonthYear(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
-        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
+        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updateOrderWindow.isWindowAppear());
     }
 
@@ -557,8 +556,8 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(TestHelper.getFutureMonthYear(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
-        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
+        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updateOrderWindow.isWindowAppear());
     }
 
@@ -573,8 +572,8 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(TestHelper.getPreviousMonthYear(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
-        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
+        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updateOrderWindow.isWindowAppear());
     }
 
@@ -586,8 +585,8 @@ public class AdministrationPageTest extends BaseTest {
     void updateOrderTodayNotUseCalendar() {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
-        assertEquals("Федеральный приказ успешно обновлен", adminPage.getNotification());
-        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
+        assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updateOrderWindow.isWindowAppear());
     }
 
@@ -614,8 +613,8 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(TestHelper.getCurrentMonthYear(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
-        assertEquals("PRICE_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
+        assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updatePriceWindow.isWindowAppear());
     }
 
@@ -631,8 +630,8 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(TestHelper.getFutureMonthYear(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
-        assertEquals("PRICE_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
+        assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updatePriceWindow.isWindowAppear());
     }
 
@@ -647,8 +646,8 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(TestHelper.getPreviousMonthYear(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
-        assertEquals("PRICE_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
+        assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updatePriceWindow.isWindowAppear());
     }
 
@@ -660,8 +659,8 @@ public class AdministrationPageTest extends BaseTest {
     void clickButtonUpdatePriceTodayNotUseCalendar() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
-        assertEquals("Прайс успешно обновлен", adminPage.getNotification());
-        assertEquals("PRICE_UPDATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
+        assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
         assertFalse(updatePriceWindow.isWindowAppear());
     }
 
@@ -683,7 +682,7 @@ public class AdministrationPageTest extends BaseTest {
     void updateOfferInvalidFormat(String path) {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateOffer();
         updateLegalDocWindow.uploadDoc(path);
-        assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением PDF", adminPage.getTextNotification());
         assertTrue(updateLegalDocWindow.isWindowAppear());
     }
 
@@ -696,7 +695,7 @@ public class AdministrationPageTest extends BaseTest {
     void updateProcessingPolicyInvalidFormat(String path) {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateProcessingPolicy();
         updateLegalDocWindow.uploadDoc(path);
-        assertEquals("Допускаются файлы с расширением PDF", adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением PDF", adminPage.getTextNotification());
         assertTrue(updateLegalDocWindow.isWindowAppear());
     }
 
@@ -708,7 +707,7 @@ public class AdministrationPageTest extends BaseTest {
     void updateOrderWithStringError() {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.uploadOrder("src/test/resources/Приказ с ошибкой в строке 10858.xlsx");
-        assertEquals("Ошибка в 10858 строке", adminPage.getNotification());
+        assertEquals("Ошибка в 10858 строке", adminPage.getTextNotification());
         assertTrue(updateOrderWindow.isWindowAppear());
     }
 
@@ -720,7 +719,7 @@ public class AdministrationPageTest extends BaseTest {
     void updateOrderInvalidFormat(String path) {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.uploadOrder(path);
-        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getTextNotification());
         assertTrue(updateOrderWindow.isWindowAppear());
     }
 
@@ -732,7 +731,7 @@ public class AdministrationPageTest extends BaseTest {
     void clickButtonUpdatePriceWithStringError() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.uploadPrice("src/test/resources/Прайс с ошибкой в строке 1398.xlsx");
-        assertEquals("Ошибка в 1398 строке", adminPage.getNotification());
+        assertEquals("Ошибка в 1398 строке", adminPage.getTextNotification());
         assertTrue(updatePriceWindow.isWindowAppear());
     }
 
@@ -794,11 +793,10 @@ public class AdministrationPageTest extends BaseTest {
     void clickButtonUpdatePriceInvalidFormat(String path) {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.uploadPrice(path);
-        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getNotification());
+        assertEquals("Допускаются файлы с расширением xlsx", adminPage.getTextNotification());
         assertTrue(updatePriceWindow.isWindowAppear());
 
     }
-
 }
 /*
     @Feature("Документация")
@@ -806,8 +804,10 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Загрузка файла с прайсом")
     @Test
     void downloadPrice() {
-        UpdatePriceWindow updatePriceWindow = adminPage.updatePrice();
-        updatePriceWindow.updatePriceWindow();
+        UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         File downloadedFile = updatePriceWindow.downloadPriceDateActivation();
+        assertTrue(downloadedFile.exists(), "Downloaded file does not exist");
+        assertTrue(downloadedFile.length() > 0, "Downloaded file is empty");
     }
-*/
+    */
+

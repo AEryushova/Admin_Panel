@@ -72,7 +72,7 @@ public class SettingPageTest extends BaseTest {
     void deleteBugReport() {
         BugReport bugReport =settingPage.getBugReportCard();
         bugReport.clickButtonDeleteBugReport();
-        assertEquals("Сообщение удалено", settingPage.getNotification());
+        assertEquals("Сообщение удалено", settingPage.getTextNotification());
         assertFalse(settingPage.isExistsBugReport());
         assertTrue(settingPage.isExistsEmptyList());
         assertNull(DataBaseQuery.selectBugReports());
@@ -104,7 +104,7 @@ public class SettingPageTest extends BaseTest {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo 3,7mbJpeg.jpg");
-        assertEquals("Неверный запрос (400)", settingPage.getNotification());
+        assertEquals("Неверный запрос (400)", settingPage.getTextNotification());
         assertTrue(editLogoWindow.isWindowAppear());
     }
 
@@ -116,7 +116,7 @@ public class SettingPageTest extends BaseTest {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
-        assertEquals("Допускаются файлы размером не выше 4Мб",settingPage.getNotification());
+        assertEquals("Допускаются файлы размером не выше 4Мб",settingPage.getTextNotification());
         assertTrue(editLogoWindow.isWindowAppear());
     }
 
@@ -130,7 +130,7 @@ public class SettingPageTest extends BaseTest {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo(path);
-        assertEquals("Допускаются файлы с расширением jpg jpeg png",settingPage.getNotification());
+        assertEquals("Допускаются файлы с расширением jpg jpeg png",settingPage.getTextNotification());
         assertTrue(editLogoWindow.isWindowAppear());
     }
 

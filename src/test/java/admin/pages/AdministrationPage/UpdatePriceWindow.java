@@ -52,7 +52,7 @@ public class UpdatePriceWindow {
     @Step("Загрузить файл '{0}'")
     public void uploadPrice(String pathFilesPrice) {
         FILE_INPUT_ELEMENT.shouldBe(Condition.exist)
-        .uploadFile(new File(pathFilesPrice));
+                .uploadFile(new File(pathFilesPrice));
     }
 
     @Step("Открыть окно ошибок прайса")
@@ -69,7 +69,8 @@ public class UpdatePriceWindow {
     @SuppressWarnings("unused")
     public File downloadPriceDateActivation() {
         ACTIVATIONS_DATES_LIST.click();
-        ACTIVATION_DATES_DOWNLOAD.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        ACTIVATION_DATES_DOWNLOAD.shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldBe(Condition.enabled);
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         File downloadedFile;
         try {

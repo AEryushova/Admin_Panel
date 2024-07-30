@@ -3,6 +3,7 @@ package admin.test;
 import admin.pages.BasePage.BasePage;
 import admin.pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
 import admin.pages.DoctorsPage.DoctorsPage;
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -11,6 +12,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 
+import java.time.Duration;
 import java.util.List;
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.UserData.*;
@@ -65,9 +67,9 @@ public class DoctorPageTest extends BaseTest {
         doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_SEARCH);
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
+        namesDoctors.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
+        int countResult = doctorsPage.getCountDoctors();
         for (SelenideElement nameDoctor : namesDoctors) {
             assertThat(nameDoctor.getText().toLowerCase(), containsString(DOCTOR_NAME_SEARCH.toLowerCase()));
         }
@@ -83,9 +85,9 @@ public class DoctorPageTest extends BaseTest {
         doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_SPECIALIZATION_SEARCH);
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
+        specializationDoctors.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
+        int countResult = doctorsPage.getCountDoctors();
         for (SelenideElement specializationDoctor : specializationDoctors) {
             assertThat(specializationDoctor.getText().toLowerCase(), containsString(DOCTOR_SPECIALIZATION_SEARCH.toLowerCase()));
         }
@@ -100,10 +102,11 @@ public class DoctorPageTest extends BaseTest {
         doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(SEARCH_BY_INCLUSION_DOCTORS);
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
+        namesDoctors.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
+        specializationDoctors.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
+        int countResult = doctorsPage.getCountDoctors();
         for (int i = 0; i < namesDoctors.size(); i++) {
             String nameDoctor = namesDoctors.get(i).getText();
             String specializationDoctor = specializationDoctors.get(i).getText();
@@ -120,19 +123,20 @@ public class DoctorPageTest extends BaseTest {
     @Test
     void resetSearchResultDoctors() {
         doctorsPage.verifyDoctorsPage();
+        int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_SEARCH);
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctorsSearch = doctorsPage.getNamesDoctors();
+        namesDoctorsSearch.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
+        int countResult = doctorsPage.getCountDoctors();
         int resultSearch = namesDoctorsSearch.size();
         doctorsPage.clearSearchField();
-        Selenide.sleep(5000);
-        int countAllDoctors = doctorsPage.getCountDoctors();
         ElementsCollection nameDoctorsAll = doctorsPage.getNamesDoctors();
+        nameDoctorsAll.shouldHave(CollectionCondition.sizeGreaterThan(resultSearch), Duration.ofSeconds(5));
+        int countAllDoctorsAfterReset = doctorsPage.getCountDoctors();
         int allDoctors = nameDoctorsAll.size();
         assertEquals("", doctorsPage.getValueSearchField());
         assertTrue(resultSearch < allDoctors);
-        assertTrue(countResult < countAllDoctors);
+        assertTrue(countResult < countAllDoctorsAfterReset);
     }
 
     @Feature("Поиск по врачам")
@@ -143,9 +147,9 @@ public class DoctorPageTest extends BaseTest {
         doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_HIGH_REGISTER);
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
+        namesDoctors.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
+        int countResult = doctorsPage.getCountDoctors();
         for (SelenideElement nameDoctor : namesDoctors) {
             assertThat(nameDoctor.getText().toLowerCase(), containsString(DOCTOR_NAME_HIGH_REGISTER.toLowerCase()));
         }
@@ -160,9 +164,9 @@ public class DoctorPageTest extends BaseTest {
         doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_DIFFERENT_REGISTER);
-        Selenide.sleep(5000);
-        int countResult = doctorsPage.getCountDoctors();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
+        namesDoctors.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
+        int countResult = doctorsPage.getCountDoctors();
         for (SelenideElement nameDoctor : namesDoctors) {
             assertThat(nameDoctor.getText().toLowerCase(), containsString(DOCTOR_NAME_DIFFERENT_REGISTER.toLowerCase()));
         }
@@ -177,7 +181,8 @@ public class DoctorPageTest extends BaseTest {
         doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.clickSortingPhotoNo();
-        Selenide.sleep(5000);
+        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
+        namesDoctors.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
         int countResult = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
         for (String attributeValue : photoDoctorsAttributes) {
@@ -194,7 +199,8 @@ public class DoctorPageTest extends BaseTest {
         doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.clickSortingPhotoYes();
-        Selenide.sleep(5000);
+        ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
+        namesDoctors.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
         int countResult = doctorsPage.getCountDoctors();
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
         for (String attributeValue : photoDoctorsAttributes) {
@@ -209,12 +215,14 @@ public class DoctorPageTest extends BaseTest {
     @Test
     void sortingWithAndWithoutPhoto() {
         doctorsPage.verifyDoctorsPage();
+        int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.clickSortingPhotoNo();
-        Selenide.sleep(5000);
+        ElementsCollection namesDoctorsNoPhoto = doctorsPage.getNamesDoctors();
+        namesDoctorsNoPhoto.shouldHave(CollectionCondition.sizeLessThan(countAllDoctors), Duration.ofSeconds(5));
         int countResult = doctorsPage.getCountDoctors();
         doctorsPage.clickSortingPhotoAll();
-        Selenide.sleep(5000);
-        int countAllDoctors = doctorsPage.getCountDoctors();
+        ElementsCollection namesDoctorsAllPhoto = doctorsPage.getNamesDoctors();
+        namesDoctorsAllPhoto.shouldHave(CollectionCondition.sizeGreaterThan(countResult), Duration.ofSeconds(5));
         List<String> photoDoctorsAttributes = doctorsPage.getPhotoDoctorsAttributes();
         boolean withoutPhoto = false;
         boolean withPhoto = false;

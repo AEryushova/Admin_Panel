@@ -26,7 +26,7 @@ public class Section {
         ADD_DESCRIPTION_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    @Step("Ввести в поле названия пункта '{0}'")
+    @Step("Ввести в поле названия раздела '{0}'")
     public void fillTitleField(String title){
         FIELD_TITLE.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -40,7 +40,7 @@ public class Section {
                 .click();
     }
 
-    @Step("Очистить поле названия пункта")
+    @Step("Очистить поле названия раздела")
     public void clearTitleField(){
         FIELD_TITLE.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -48,10 +48,15 @@ public class Section {
         FIELD_TITLE.sendKeys(Keys.BACK_SPACE);
     }
 
-    @Step("Получить текст поля названия пункта раздела")
-    public String getSection() {
+    @Step("Получить текст поля названия раздела")
+    public String getTextSection() {
         NAME_SECTION.shouldBe(Condition.visible);
         return NAME_SECTION.getText();
+    }
+
+    @Step("Получить поле названия раздела")
+    public SelenideElement getSection() {
+        return FIELD_TITLE;
     }
 
     @Step("Нажать на кнопку удаления")

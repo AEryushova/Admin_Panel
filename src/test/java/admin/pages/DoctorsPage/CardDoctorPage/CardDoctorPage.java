@@ -62,6 +62,11 @@ public class CardDoctorPage extends BasePage {
         return DOCTOR_PHOTO.getAttribute("src");
     }
 
+    @Step("Получить фотографию")
+    public SelenideElement getPhoto() {
+        return DOCTOR_PHOTO;
+    }
+
     @Step("Нажать кнопку добавления информации о враче")
     public AddInfoDoctorWindow clickButtonAddSection() {
         ADD_SECTION.shouldBe(Condition.visible)

@@ -80,7 +80,7 @@ public class ServicesPageTest extends BaseTest {
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldDescription(generateText());
         addRuleWindow.clickSaveButton();
-        assertEquals("Неверный запрос (400)", servicesPage.getNotification());
+        assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
     }
 
@@ -94,7 +94,7 @@ public class ServicesPageTest extends BaseTest {
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldTitle(generateWord());
         addRuleWindow.clickSaveButton();
-        assertEquals("Неверный запрос (400)", servicesPage.getNotification());
+        assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
     }
 
@@ -107,7 +107,7 @@ public class ServicesPageTest extends BaseTest {
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.clickSaveButton();
-        assertEquals("Неверный запрос (400)", servicesPage.getNotification());
+        assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
     }
 
@@ -185,7 +185,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.clearTitleField();
         editRuleWindow.fillFieldDescription(generateText());
         editRuleWindow.clickButtonChangeRules();
-        assertEquals("Неверный запрос (400)", servicesPage.getNotification());
+        assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertTrue(editRuleWindow.isWindowAppear());
     }
 
@@ -201,7 +201,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.fillFieldTitle(generateWord());
         editRuleWindow.clearDescriptionField();
         editRuleWindow.clickButtonChangeRules();
-        assertEquals("Неверный запрос (400)", servicesPage.getNotification());
+        assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertTrue(editRuleWindow.isWindowAppear());
     }
 
@@ -217,7 +217,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.clearTitleField();
         editRuleWindow.clearDescriptionField();
         editRuleWindow.clickButtonChangeRules();
-        assertEquals("Неверный запрос (400)", servicesPage.getNotification());
+        assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertTrue(editRuleWindow.isWindowAppear());
     }
 
@@ -503,7 +503,7 @@ public class ServicesPageTest extends BaseTest {
     void openRulePreparingCategoryOtherServices() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(NAME_OTHER_SERVICE_CATEGORY);
         assertFalse(rulePreparingWindow.isWindowAppear());
-        assertEquals("Категория не найдена", servicesPage.getNotification());
+        assertEquals("Категория не найдена", servicesPage.getTextNotification());
     }
 
 
@@ -552,7 +552,7 @@ public class ServicesPageTest extends BaseTest {
         serviceWindow.clickRulesPreparingTab();
         serviceWindow.fillFieldDescription(generateText());
         serviceWindow.clickAddButton();
-        assertEquals("Неверный запрос (400)", servicesPage.getNotification());
+        assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertTrue(serviceWindow.isEnabledAddButton());
     }
 
@@ -955,7 +955,7 @@ public class ServicesPageTest extends BaseTest {
         int sequenceSecondCategory = servicesPage.getCategoryIndexByName(NAME_OTHER_SERVICE_CATEGORY);
         int sequenceFirstCategoryDB = DataBaseQuery.selectServicesCategories(categoryName).getSequence();
         servicesPage.changeSequenceDisplayCategories(categoryName, NAME_OTHER_SERVICE_CATEGORY);
-        assertEquals("Нельзя перемещать раздел \"Иные услуги\"", servicesPage.getNotification());
+        assertEquals("Нельзя перемещать раздел \"Иные услуги\"", servicesPage.getTextNotification());
         assertEquals(sequenceFirstCategory, servicesPage.getCategoryIndexByName(categoryName));
         assertEquals(sequenceSecondCategory, servicesPage.getCategoryIndexByName(NAME_OTHER_SERVICE_CATEGORY));
         assertEquals(sequenceFirstCategoryDB, DataBaseQuery.selectServicesCategories(categoryName).getSequence());
@@ -972,7 +972,7 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         DeleteSectionWindow deleteSectionWindow = sectionCard.clickButtonDeleteSection();
         deleteSectionWindow.clickButtonDeleteSection();
-        assertEquals("Нельзя удалить категорию, т.к. имеются дочерние объекты", servicesPage.getNotification());
+        assertEquals("Нельзя удалить категорию, т.к. имеются дочерние объекты", servicesPage.getTextNotification());
         assertFalse(deleteSectionWindow.isWindowAppear());
         assertTrue(sectionCard.isExistSubsectionCard());
         assertFalse(sectionCard.isExistEmptyList());
@@ -1095,7 +1095,7 @@ public class ServicesPageTest extends BaseTest {
         serviceWindow.clickServiceTransferTab();
         serviceWindow.clickCategoryForTransfer(NAME_OTHER_SERVICE_CATEGORY);
         serviceWindow.clickButtonTransferServiceToOtherServices();
-        assertEquals("Категории источника и приёмника для переноса не должны совпадать", servicesPage.getNotification());
+        assertEquals("Категории источника и приёмника для переноса не должны совпадать", servicesPage.getTextNotification());
         serviceWindow.closeWindowInfoService();
         assertFalse(serviceWindow.isWindowAppear());
         assertTrue(categoryCard.isExistService(codeService));
