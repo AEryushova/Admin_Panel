@@ -18,7 +18,7 @@ public class RulesPreparingWindow {
     private final SelenideElement RULE = $x("//div[@class='A7Gv']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
     private final SelenideElement EMPTY_LIST_RULE =$x("//span[text()='Список пуст']");
-    private ElementsCollection ruleElements = $$x("//selector_for_rule_elements");
+    private final ElementsCollection ruleElements = $$x("//selector_for_rule_elements");
 
     @Step("Верифицировать окно правил подготовки")
     public void verifyRulesPreparingWindow() {

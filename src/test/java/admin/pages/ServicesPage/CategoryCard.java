@@ -18,7 +18,7 @@ public class CategoryCard {
     private final SelenideElement SECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
     private final SelenideElement EMPTY_LIST_SECTION = $x("//div[@class='kblo']/span");
     private final SelenideElement SERVICE = $x("//div[@class='hzR2' and @draggable='false']");
-    private ElementsCollection ruleElements = $$x("//selector_for_rule_elements");
+    private final ElementsCollection ruleElements = $$x("//selector_for_rule_elements");
 
     @Step("Верифицировать карточку категории")
     public void verifyCategoryCard() {
