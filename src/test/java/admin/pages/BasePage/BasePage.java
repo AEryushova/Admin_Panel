@@ -48,6 +48,12 @@ public class BasePage {
         RETURN_TO_HEADER_BUTTON.shouldBe(visible, Duration.ofSeconds(5));
     }
 
+
+    @Step("Получить кнопку возврата к хереру страницы")
+    public SelenideElement getButtonReturnToHeader() {
+        return RETURN_TO_HEADER_BUTTON;
+    }
+
     @Step("Нажать на кнопку возврата к хедеру страницы")
     public void clickButtonReturnToHeader() {
         RETURN_TO_HEADER_BUTTON.shouldBe(visible)

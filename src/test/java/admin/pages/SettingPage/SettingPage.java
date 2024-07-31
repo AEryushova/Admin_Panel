@@ -30,6 +30,11 @@ public class SettingPage extends BasePage {
         return new BugReport();
     }
 
+    @Step("Получить логотип")
+    public SelenideElement getLogo() {
+        return LOGO_APP;
+    }
+
     @Step("Проверить отображение сообщения об ошибке")
     public boolean isExistsBugReport() {
         return BUG_REPORT.isDisplayed();

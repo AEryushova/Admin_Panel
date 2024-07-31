@@ -6,6 +6,7 @@ import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.dbUtils.dbaseData.PreparingDescriptions;
 import admin.utils.dbUtils.dbaseData.ServiceCategories;
 import admin.utils.preparationDataTests.services.*;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -57,7 +58,7 @@ public class ServicesPageTest extends BaseTest {
         addRuleWindow.fillFieldTitle(generateWord());
         addRuleWindow.fillFieldDescription(generateText());
         addRuleWindow.clickSaveButton();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
         rule.verifyRule();
@@ -161,7 +162,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.fillFieldTitle(generateWord());
         editRuleWindow.fillFieldDescription(generateText());
         editRuleWindow.clickButtonChangeRules();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.clickButtonEditRule();
@@ -251,7 +252,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.fillFieldTitle(generateNamePatient());
         editRuleWindow.fillFieldDescription(generateQuestion());
         editRuleWindow.closeWindowEditRule();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.clickButtonEditRule();
@@ -272,7 +273,7 @@ public class ServicesPageTest extends BaseTest {
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
         editRuleWindow.clickButtonDeleteRules();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldNotBe(Condition.exist);
         assertEquals("CATEGORY_PREPARING_DESCRIPTION_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertEquals("[]", DataBaseQuery.selectServicesCategories(categoryName).getPreparing_description());
         assertFalse(editRuleWindow.isWindowAppear());
@@ -289,7 +290,7 @@ public class ServicesPageTest extends BaseTest {
     void deleteAllRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         rulePreparingWindow.clickButtonDeleteAllRules();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldNotBe(Condition.exist);
         assertEquals("CATEGORY_PREPARING_DESCRIPTION_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertEquals("[]", DataBaseQuery.selectServicesCategories(categoryName).getPreparing_description());
         assertFalse(rulePreparingWindow.isExistRule());
@@ -309,7 +310,7 @@ public class ServicesPageTest extends BaseTest {
         addRuleWindow.fillFieldTitle(generateWord());
         addRuleWindow.fillFieldDescription(generateText());
         addRuleWindow.clickSaveButton();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -336,7 +337,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.fillFieldTitle(generateWord());
         editRuleWindow.fillFieldDescription(generateText());
         editRuleWindow.clickButtonChangeRules();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.clickButtonEditRule();
@@ -360,7 +361,7 @@ public class ServicesPageTest extends BaseTest {
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
         editRuleWindow.clickButtonDeleteRules();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldNotBe(Condition.exist);
         assertEquals("CATEGORY_PREPARING_DESCRIPTION_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertEquals("[]", DataBaseQuery.selectServicesCategories(sectionName).getPreparing_description());
         assertFalse(editRuleWindow.isWindowAppear());
@@ -379,7 +380,7 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         RulesPreparingWindow rulePreparingWindow = sectionCard.clickButtonOpenRulesPreparingSection();
         rulePreparingWindow.clickButtonDeleteAllRules();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldNotBe(Condition.exist);
         assertEquals("CATEGORY_PREPARING_DESCRIPTION_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertEquals("[]", DataBaseQuery.selectServicesCategories(sectionName).getPreparing_description());
         assertFalse(rulePreparingWindow.isExistRule());
@@ -401,7 +402,7 @@ public class ServicesPageTest extends BaseTest {
         addRuleWindow.fillFieldTitle(generateWord());
         addRuleWindow.fillFieldDescription(generateText());
         addRuleWindow.clickSaveButton();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -430,7 +431,7 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.fillFieldTitle(generateWord());
         editRuleWindow.fillFieldDescription(generateText());
         editRuleWindow.clickButtonChangeRules();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertFalse(editRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rule.clickButtonEditRule();
@@ -456,7 +457,7 @@ public class ServicesPageTest extends BaseTest {
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
         editRuleWindow.clickButtonDeleteRules();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldNotBe(Condition.exist);
         assertEquals("CATEGORY_PREPARING_DESCRIPTION_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertEquals("[]", DataBaseQuery.selectServicesCategories(subSectionName).getPreparing_description());
         assertFalse(editRuleWindow.isWindowAppear());
@@ -477,7 +478,7 @@ public class ServicesPageTest extends BaseTest {
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         RulesPreparingWindow rulePreparingWindow = subsectionCard.clickButtonOpenRulesPreparingSubsection();
         rulePreparingWindow.clickButtonDeleteAllRules();
-        Selenide.sleep(2000);
+        rulePreparingWindow.getRuleByTitle(word).shouldNotBe(Condition.exist);
         assertEquals("CATEGORY_PREPARING_DESCRIPTION_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertEquals("[]", DataBaseQuery.selectServicesCategories(subSectionName).getPreparing_description());
         assertFalse(rulePreparingWindow.isExistRule());
@@ -492,7 +493,6 @@ public class ServicesPageTest extends BaseTest {
     void closeWindowRulePreparingCategory() {
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         rulePreparingWindow.closeWindowRulesPreparing();
-        Selenide.sleep(2000);
         assertFalse(rulePreparingWindow.isWindowAppear());
     }
 
@@ -685,7 +685,7 @@ public class ServicesPageTest extends BaseTest {
         addSectionWindow.fillNameSectionField(generateSectionName());
         assertTrue(addSectionWindow.isEnabledAddButton());
         addSectionWindow.clickButtonAddSection();
-        Selenide.sleep(2000);
+        categoryCard.getSectionByName(sectionName).shouldBe(Condition.visible);
         assertEquals("CATEGORY_CREATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(addSectionWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(categoryName);
@@ -764,7 +764,7 @@ public class ServicesPageTest extends BaseTest {
         editSectionWindow.verifyEditSectionWindow();
         editSectionWindow.fillNameField(generateSectionName());
         editSectionWindow.clickButtonSaveChange();
-        Selenide.sleep(2000);
+        categoryCard.getSectionByName(sectionName).shouldBe(Condition.visible);
         assertEquals("CATEGORY_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(editSectionWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(categoryName);
@@ -799,7 +799,7 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.clickButtonEditSection();
         editSectionWindow.clickButtonSaveChange();
-        Selenide.sleep(2000);
+        categoryCard.getSectionByName(sectionName).shouldBe(Condition.visible);
         assertFalse(editSectionWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(categoryName);
         assertEquals(sectionName, sectionCard.getNameSection());
@@ -833,7 +833,7 @@ public class ServicesPageTest extends BaseTest {
         deleteSectionWindow.verifyDeleteSectionWindow();
         assertTrue(deleteSectionWindow.verifyNameSection(sectionName));
         deleteSectionWindow.clickButtonDeleteSection();
-        Selenide.sleep(2000);
+        categoryCard.getSectionByName(sectionName).shouldNotBe(Condition.exist);
         assertEquals("CATEGORY_DELETED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(deleteSectionWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(categoryName);
@@ -885,7 +885,7 @@ public class ServicesPageTest extends BaseTest {
         addSectionWindow.fillNameSectionField(generateSubSectionName());
         assertTrue(addSectionWindow.isEnabledAddButton());
         addSectionWindow.clickButtonAddSection();
-        Selenide.sleep(2000);
+        sectionCard.getSubsectionByName(subSectionName).shouldBe(Condition.visible);
         assertEquals("CATEGORY_CREATED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(addSectionWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(categoryName);
@@ -911,7 +911,7 @@ public class ServicesPageTest extends BaseTest {
         EditSectionWindow editSectionWindow = subsectionCard.clickButtonEditSubsection();
         editSectionWindow.fillNameField(generateSubSectionName());
         editSectionWindow.clickButtonSaveChange();
-        Selenide.sleep(2000);
+        sectionCard.getSubsectionByName(subSectionName).shouldBe(Condition.visible);
         assertEquals("CATEGORY_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(editSectionWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(categoryName);
@@ -934,7 +934,7 @@ public class ServicesPageTest extends BaseTest {
         DeleteSectionWindow deleteSectionWindow = subsectionCard.clickButtonDeleteSubsection();
         assertTrue(deleteSectionWindow.verifyNameSection(subSectionName));
         deleteSectionWindow.clickButtonDeleteSection();
-        Selenide.sleep(2000);
+        sectionCard.getSubsectionByName(subSectionName).shouldNotBe(Condition.exist);
         assertEquals("CATEGORY_DELETED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(deleteSectionWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(categoryName);
@@ -1020,7 +1020,7 @@ public class ServicesPageTest extends BaseTest {
         serviceWindow.verifyServiceWindowServiceTransfer();
         serviceWindow.clickCategoryForTransfer(NAME_OTHER_SERVICE_CATEGORY);
         serviceWindow.clickButtonTransferServiceToOtherServices();
-        Selenide.sleep(2000);
+        serviceWindow.getWindow().shouldNotBe(Condition.visible);
         assertEquals("SERVICE_TRANSFER_LOCATION_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(serviceWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
@@ -1046,7 +1046,7 @@ public class ServicesPageTest extends BaseTest {
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickButtonDeleteService();
-        Selenide.sleep(2000);
+        serviceWindow.getWindow().shouldNotBe(Condition.visible);
         assertEquals("SERVICE_TRANSFER_LOCATION_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(serviceWindow.isWindowAppear());
         servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
@@ -1074,7 +1074,7 @@ public class ServicesPageTest extends BaseTest {
         subsectionCard.clickButtonCloseSubsection(subSectionName);
         DeleteSectionWindow deleteSectionWindow = subsectionCard.clickButtonDeleteSubsection();
         deleteSectionWindow.clickButtonDeleteSection();
-        Selenide.sleep(2000);
+        deleteSectionWindow.getWindow().shouldNotBe(Condition.visible);
         assertEquals("CATEGORY_DELETED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
         assertTrue(categoryCard.isExistService(codeService));
@@ -1131,7 +1131,8 @@ public class ServicesPageTest extends BaseTest {
         int sequenceFirstCategoryDB = DataBaseQuery.selectServicesCategories("Диагностика").getSequence();
         int sequenceSecondCategoryDB = DataBaseQuery.selectServicesCategories(categoryName).getSequence();
         servicesPage.changeSequenceDisplayCategories("Диагностика", categoryName);
-        Selenide.sleep(3000);
+        servicesPage.getCategories().get(0).shouldHave(Condition.text(categoryName));
+        servicesPage.getCategories().get(1).shouldHave(Condition.text("Диагностика"));
         assertEquals("CATEGORY_SWAP_LOCATION_IN_LIST_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertEquals(sequenceFirstCategory, servicesPage.getCategoryIndexByName(categoryName));
         assertEquals(sequenceSecondCategory, servicesPage.getCategoryIndexByName("Диагностика"));
@@ -1154,7 +1155,8 @@ public class ServicesPageTest extends BaseTest {
         int sequenceSecondSectionDB = DataBaseQuery.selectServicesCategories(subSectionName).getSequence();
         Selenide.sleep(3000);
         categoryCard.changeSequenceDisplaySections(sectionName, subSectionName);
-        Selenide.sleep(3000);
+        categoryCard.getSections().get(0).shouldHave(Condition.text(subSectionName));
+        categoryCard.getSections().get(1).shouldHave(Condition.text(sectionName));
         assertEquals("CATEGORY_SWAP_LOCATION_IN_LIST_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         servicesPage.clickButtonOpenCategory(categoryName);
         servicesPage.scrollPage("500");
@@ -1181,7 +1183,8 @@ public class ServicesPageTest extends BaseTest {
         int sequenceSecondSubsectionDB = DataBaseQuery.selectServicesCategories(text).getSequence();
         Selenide.sleep(3000);
         sectionCard.changeSequenceDisplaySubsections(subSectionName,text);
-        Selenide.sleep(3000);
+        sectionCard.getSubsections().get(0).shouldHave(Condition.text(text));
+        sectionCard.getSubsections().get(1).shouldHave(Condition.text(subSectionName));
         assertEquals("CATEGORY_SWAP_LOCATION_IN_LIST_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         servicesPage.clickButtonOpenCategory(categoryName);
         sectionCard.clickButtonOpenSection();
@@ -1212,7 +1215,8 @@ public class ServicesPageTest extends BaseTest {
         int sequenceSecondServiceDB = DataBaseQuery.selectAllService(codeSecond).getSequence();
         Selenide.sleep(3000);
         subsectionCard.changeSequenceDisplayServices(codeFirst, codeSecond);
-        Selenide.sleep(3000);
+        subsectionCard.getServices().get(0).shouldHave(Condition.text(codeSecond));
+        subsectionCard.getServices().get(0).shouldHave(Condition.text(codeFirst));
         assertEquals("SERVICE_SWAP_LOCATION_IN_LIST_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         servicesPage.clickButtonOpenCategory(categoryName);
         sectionCard.clickButtonOpenSection();

@@ -217,6 +217,10 @@ public class ServiceWindow {
         WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
+    public SelenideElement getWindow() {
+        return WINDOW;
+    }
+
     @Step("Проверить отображение окна информации об услуге")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();

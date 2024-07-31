@@ -65,6 +65,7 @@ public class FaqPage extends BasePage {
                 .moveToElement(targetQuestion)
                 .release()
                 .perform();
+
     }
 
     @Step("Ввести в поле поиска '{0}'")
@@ -83,6 +84,7 @@ public class FaqPage extends BasePage {
     public ElementsCollection getAnswerFields() {
         return ANSWER_FIELDS;
     }
+
 
     @Step("Очистить поле поиска")
     public void clearSearchField() {

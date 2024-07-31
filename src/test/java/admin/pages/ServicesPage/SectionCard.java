@@ -15,13 +15,14 @@ public class SectionCard {
 
     private final SelenideElement NAME_SECTION=$x("//div[@class='CtIw' and @draggable='true']/div/div[@class='OurO']/span");
     private final SelenideElement EDIT_SECTION_BUTTON = $x("//div[@class='V5So']");
-    private final ElementsCollection CONTAINER_SECTIONS = $$x("//div[@class='OurO']/span");
+    private final ElementsCollection CONTAINER_SUBSECTIONS = $$x("//div[@class='OurO']/span");
     private final SelenideElement DELETE_SECTION_BUTTON = $x("//div[@class='mJna']");
     private final SelenideElement RULES_PREPARING_SECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='tSFL']");
     private final SelenideElement EXPAND_SECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='xrjl']");
     private final SelenideElement ADD_SUBSECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button/parent::div[@class='gVuT']");
     private final SelenideElement SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
     private final SelenideElement EMPTY_LIST_SUBSECTION = $x("//div[@class='b8mg']/span");
+    private ElementsCollection ruleElements = $$x("//selector_for_rule_elements");
 
     @Step("Верифицировать карточку раздела")
     public void verifySectionCard() {
@@ -91,9 +92,17 @@ public class SectionCard {
         return new SubsectionCard();
     }
 
+    public SelenideElement getSubsectionByName(String title) {
+        return ruleElements.findBy(Condition.text(title));
+    }
+
+    public ElementsCollection getSubsections() {
+        return CONTAINER_SUBSECTIONS;
+    }
+
     @Step("Получить индекс подраздела по названию '{0}'")
     public int getSubsectionIndexByName(String subsectionName) {
-        List<SelenideElement> subsectionElements = CONTAINER_SECTIONS;
+        List<SelenideElement> subsectionElements = CONTAINER_SUBSECTIONS;
         for (int i = 0; i < subsectionElements.size(); i++) {
             if (subsectionElements.get(i).getText().equals(subsectionName)) {
                 return i;

@@ -81,6 +81,11 @@ public class ServicesPage extends BasePage {
         throw new IllegalArgumentException("Category not found: " + categoryName);
     }
 
+    @Step("Получить все категории")
+    public ElementsCollection getCategories() {
+        return CONTAINER_CATEGORIES;
+    }
+
     @Step("Поменять местами категорию с названием '{0}' и категорию с названием '{1}'")
     public void changeSequenceDisplayCategories(String sourceName, String targetName) {
         SelenideElement categorySource = searchCategory(sourceName);

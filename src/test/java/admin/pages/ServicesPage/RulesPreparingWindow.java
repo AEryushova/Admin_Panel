@@ -1,11 +1,13 @@
 package admin.pages.ServicesPage;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class RulesPreparingWindow {
@@ -16,6 +18,7 @@ public class RulesPreparingWindow {
     private final SelenideElement RULE = $x("//div[@class='A7Gv']");
     private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
     private final SelenideElement EMPTY_LIST_RULE =$x("//span[text()='Список пуст']");
+    private ElementsCollection ruleElements = $$x("//selector_for_rule_elements");
 
     @Step("Верифицировать окно правил подготовки")
     public void verifyRulesPreparingWindow() {
@@ -37,6 +40,10 @@ public class RulesPreparingWindow {
     public Rule getRule(){
         RULE.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new Rule();
+    }
+
+    public SelenideElement getRuleByTitle(String title) {
+        return ruleElements.findBy(Condition.text(title));
     }
 
     @Step("Нажать кнопку удаления всех правил")

@@ -19,6 +19,8 @@ public class Rule {
         TITLE_RULE.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+
+
     @Step("Нажать кнопку изменения правила")
     public EditRuleWindow clickButtonEditRule() {
         OPEN_RULE.shouldBe(Condition.visible)

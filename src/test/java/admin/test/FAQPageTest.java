@@ -4,6 +4,8 @@ import admin.pages.FaqPage.*;
 import admin.pages.HeaderMenu.HeaderMenu;
 import admin.utils.dbUtils.DataBaseQuery;
 import admin.utils.preparationDataTests.faq.*;
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -11,6 +13,9 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import java.time.Duration;
+
 import static admin.data.TestData.DataTest.*;
 import static admin.data.TestData.UserData.*;
 import static admin.data.TestData.DataSearch.*;
@@ -55,8 +60,8 @@ public class FAQPageTest extends BaseTest {
         addQuestionWindow.clickButtonAddQuestion();
         Question question = faqPage.getQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getTextNotification());
-        assertEquals(questionFaq,question.getQuestion());
-        assertEquals(text,question.getAnswer());
+        assertEquals(questionFaq,question.getTextQuestion());
+        assertEquals(text,question.getTextAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
         assertTrue(faqPage.isExistQuestions());
         assertFalse(addQuestionWindow.isWindowAppear());
@@ -102,8 +107,8 @@ public class FAQPageTest extends BaseTest {
         addQuestionWindow.clickButtonAddQuestion();
         Question question = faqPage.getQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getTextNotification());
-        assertEquals(questionFaq,question.getQuestionByIndex(1));
-        assertEquals(text,question.getAnswerByIndex(1));
+        assertEquals(questionFaq,question.getQuestionTextByIndex(1));
+        assertEquals(text,question.getAnswerTextByIndex(1));
         assertEquals(questionFaq, DataBaseQuery.selectFaqBySequence(1).getQuestion());
         assertTrue(faqPage.isExistQuestionsByIndex(1));
         assertFalse(addQuestionWindow.isWindowAppear());
@@ -159,8 +164,8 @@ public class FAQPageTest extends BaseTest {
         editQuestionWindow.fillAnswerField(generateText());
         editQuestionWindow.clickButtonSaveChangesQuestion();
         assertEquals("Вопрос успешно обновлен", faqPage.getTextNotification());
-        assertEquals(questionFaq,question.getQuestion());
-        assertEquals(text,question.getAnswer());
+        assertEquals(questionFaq,question.getTextQuestion());
+        assertEquals(text,question.getTextAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
         assertFalse(editQuestionWindow.isWindowAppear());
     }
@@ -200,8 +205,8 @@ public class FAQPageTest extends BaseTest {
         EditQuestionWindow editQuestionWindow = question.clickButtonChangeQuestion();
         editQuestionWindow.clickButtonSaveChangesQuestion();
         assertEquals("Вопрос успешно обновлен", faqPage.getTextNotification());
-        assertEquals(questionFaq,question.getQuestion());
-        assertEquals(text,question.getAnswer());
+        assertEquals(questionFaq,question.getTextQuestion());
+        assertEquals(text,question.getTextAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
         assertFalse(editQuestionWindow.isWindowAppear());
     }
@@ -217,11 +222,10 @@ public class FAQPageTest extends BaseTest {
         editQuestionWindow.fillQuestionField(generateNamePatient());
         editQuestionWindow.fillAnswerField(generateWord());
         editQuestionWindow.closeWindowEditQuestion();
-        Selenide.sleep(1000);
         assertFalse(editQuestionWindow.isWindowAppear());
         question.clickButtonChangeQuestion();
-        assertEquals(questionFaq,question.getQuestion());
-        assertEquals(text,question.getAnswer());
+        assertEquals(questionFaq,question.getTextQuestion());
+        assertEquals(text,question.getTextAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
     }
 
@@ -232,16 +236,17 @@ public class FAQPageTest extends BaseTest {
     @Test
     void changeDisplaySequenceFaqQuestion() {
         Question question = faqPage.getQuestion();
-        String firstQuestionText = question.getQuestionByIndex(0);
-        String secondQuestionText = question.getQuestionByIndex(1);
-        String firstAnswerText=question.getAnswerByIndex(0);
-        String secondAnswerText=question.getAnswerByIndex(1);
+        String firstQuestionText = question.getQuestionTextByIndex(0);
+        String secondQuestionText = question.getQuestionTextByIndex(1);
+        String firstAnswerText=question.getAnswerTextByIndex(0);
+        String secondAnswerText=question.getAnswerTextByIndex(1);
         faqPage.changeSequenceDisplayQuestions(0, 1);
-        Selenide.sleep(1000);
-        assertEquals(secondQuestionText, question.getQuestionByIndex(0));
-        assertEquals(firstQuestionText, question.getQuestionByIndex(1));
-        assertEquals(secondAnswerText,question.getAnswerByIndex(0));
-        assertEquals(firstAnswerText,question.getAnswerByIndex(1));
+        faqPage.getQuestionsFields().get(0).shouldHave(Condition.text(secondQuestionText));
+        faqPage.getQuestionsFields().get(1).shouldHave(Condition.text(firstQuestionText));
+        assertEquals(secondQuestionText, question.getQuestionTextByIndex(0));
+        assertEquals(firstQuestionText, question.getQuestionTextByIndex(1));
+        assertEquals(secondAnswerText,question.getAnswerTextByIndex(0));
+        assertEquals(firstAnswerText,question.getAnswerTextByIndex(1));
         assertEquals(firstQuestionText,DataBaseQuery.selectFaqBySequence(1).getQuestion());
         assertEquals(secondQuestionText,DataBaseQuery.selectFaqBySequence(0).getQuestion());
     }
@@ -270,10 +275,11 @@ public class FAQPageTest extends BaseTest {
         faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_SEARCH);
-        Selenide.sleep(5000);
-        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
+        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        answerTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        int countResult= faqPage.getCountFaq();
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
@@ -295,10 +301,11 @@ public class FAQPageTest extends BaseTest {
         faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(SEARCH_BY_INCLUSION_FAQ);
-        Selenide.sleep(5000);
-        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
+        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        answerTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        int countResult= faqPage.getCountFaq();
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
@@ -318,19 +325,21 @@ public class FAQPageTest extends BaseTest {
     @ExtendWith(AddSomeFaq.class)
     @Test
     void resetSearchResultFaqQuestion() {
+        faqPage.verifyFaqPage();
+        int countAllFaq=faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_SEARCH);
-        Selenide.sleep(5000);
-        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
+        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        int countResult= faqPage.getCountFaq();
         int resultSearch=questionTexts.size();
         faqPage.clearSearchField();
-        Selenide.sleep(5000);
-        int countAllFaq= faqPage.getCountFaq();
-        ElementsCollection questionAll =faqPage.getQuestionsFields();
+        ElementsCollection questionAll = faqPage.getQuestionsFields();
+        questionAll.shouldHave(CollectionCondition.sizeGreaterThan(resultSearch), Duration.ofSeconds(7));
+        int countAllFaqAfterReset = faqPage.getCountFaq();
         int allFaq=questionAll.size();
         assertEquals("", faqPage.getValueSearchField());
         assertTrue(resultSearch < allFaq);
-        assertTrue(countResult<countAllFaq);
+        assertTrue(countResult< countAllFaqAfterReset);
     }
 
     @Feature("Поиск по faq")
@@ -342,10 +351,11 @@ public class FAQPageTest extends BaseTest {
         faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_HIGH_REGISTER);
-        Selenide.sleep(5000);
-        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
+        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        answerTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        int countResult= faqPage.getCountFaq();
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
@@ -367,10 +377,11 @@ public class FAQPageTest extends BaseTest {
         faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_HIGH_REGISTER);
-        Selenide.sleep(5000);
-        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
+        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        answerTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        int countResult= faqPage.getCountFaq();
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");

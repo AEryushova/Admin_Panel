@@ -84,6 +84,7 @@ public class EditQuestionWindow {
         WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
+
     @Step("Проверить отображение окна изменения вопроса")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();

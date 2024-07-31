@@ -56,6 +56,10 @@ public class DeleteSectionWindow {
         WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
+    public SelenideElement getWindow() {
+        return WINDOW;
+    }
+
     @Step("Проверить отображение окна удаления раздела")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();

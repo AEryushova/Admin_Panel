@@ -89,7 +89,7 @@ public class SettingPageTest extends BaseTest {
         int oldHeightLogo = settingPage.getHeightLogo();
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/visa.png");
-        Selenide.sleep(5000);
+        Selenide.Wait().until(condition -> settingPage.getHeightLogo() != oldHeightLogo);
         assertFalse(editLogoWindow.isWindowAppear());
         assertNotEquals(oldHeightLogo,settingPage.getHeightLogo());
         assertNotEquals(oldHeightLogo,headerMenu.getHeightLogo());

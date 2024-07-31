@@ -33,26 +33,26 @@ public class Question {
     }
 
     @Step("Получить текст заголовка вопроса")
-    public String getQuestion() {
+    public String getTextQuestion() {
         QUESTION_TEXT.shouldBe(Condition.visible);
         return QUESTION_TEXT.getText();
     }
 
     @Step("Получить текст ответа вопроса")
-    public String getAnswer() {
+    public String getTextAnswer() {
         ANSWER_TEXT.shouldBe(Condition.visible);
         return ANSWER_TEXT.getText();
     }
 
     @Step("Получить текст заголовка по индексу '{0}'")
-    public String getQuestionByIndex(int index) {
+    public String getQuestionTextByIndex(int index) {
         SelenideElement questionText = QUESTIONS_TEXTS.get(index);
         questionText.shouldBe(Condition.visible);
         return questionText.getText();
     }
 
     @Step("Получить текст ответа по индексу '{0}'")
-    public String getAnswerByIndex(int index) {
+    public String getAnswerTextByIndex(int index) {
         SelenideElement questionText = ANSWERS_TEXTS.get(index);
         questionText.shouldBe(Condition.visible);
         return questionText.getText();
