@@ -3,7 +3,7 @@
 - Java 11
 - ОС : **Windows 10 64-bit**
 - IDE : **IntelliJ IDEA**
-- Браузер : **Google Chrome**, **Mozilla Firefox**, **Microsoft Edge**
+- Браузер : **Google Chrome**
 
 
 ## Запуск :
