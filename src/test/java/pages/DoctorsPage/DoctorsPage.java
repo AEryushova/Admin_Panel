@@ -141,7 +141,7 @@ public class DoctorsPage extends BasePage {
 
     @Step("Проскроллить страницу до элемента '{0}'")
     public void scrollToCard(SelenideElement element) {
-        element.scrollIntoView("{behavior: 'smooth', block: 'center'}");
+        element.scrollIntoView("{behavior: 'auto', block: 'center'}");
         Selenide.sleep(3000);
     }
 

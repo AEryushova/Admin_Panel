@@ -1,11 +1,11 @@
 package test;
 
+
 import data.TestData;
 import pages.AdministrationPage.*;
 import pages.Calendar.Calendar;
 import pages.HeaderMenu.HeaderMenu;
 import utils.dbUtils.DataBaseQuery;
-import utils.otherUtils.TestHelper;
 import utils.preparationDataTests.administration.AdminAddDecorator;
 import utils.preparationDataTests.administration.AdminAddDeleteDecorator;
 import utils.preparationDataTests.administration.AdminDeleteDecorator;
@@ -17,32 +17,34 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import static data.TestData.DataTest.login;
 import static data.TestData.DataTest.password;
 import static data.TestData.UserData.*;
 import static utils.otherUtils.DataGenerator.generateLogin;
 import static utils.otherUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;
+import static utils.otherUtils.TestHelper.*;
 
 
 @Epic("Администрирование")
 @DisplayName("Страница Администрирования")
 public class AdministrationPageTest extends BaseTest {
 
-    private AdministrationPage adminPage;
+    private static AdministrationPage adminPage;
+
 
     @BeforeAll
     static void setUpAuth() {
         BaseTest.openAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickAdministrationTab();
+        adminPage = new AdministrationPage();
     }
 
     @BeforeEach
     void setUp() {
         Selenide.refresh();
-        adminPage = new AdministrationPage();
+        Selenide.sleep(2000);
     }
 
     @AfterAll
@@ -304,6 +306,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdmin() {
+        adminPage.scrollToCardAdmin(login);
         adminPage.verifyAdminCard(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login);
         changePasswordAdminWindow.verifyChangePasswordAdminWindow();
@@ -335,6 +338,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void changePasswordAdminEmptyFieldConfirmPassword() {
+        adminPage.scrollToCardAdmin(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login);
         changePasswordAdminWindow.fillFieldNewPassword(generatePassword());
         assertFalse(changePasswordAdminWindow.isEnabledSaveButton());
@@ -346,6 +350,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void displayNotificationAboutRequiredFieldsWindowChangingPasswordAdmin() {
+        adminPage.scrollToCardAdmin(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login);
         changePasswordAdminWindow.clickFieldNewPassword();
         changePasswordAdminWindow.clickFieldConfirmPassword();
@@ -359,6 +364,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void fillInvalidValuesConfirmPasswordChangingPasswordAdmin() {
+        adminPage.scrollToCardAdmin(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login);
         changePasswordAdminWindow.clickFieldNewPassword();
         changePasswordAdminWindow.fillFieldNewPassword(generatePassword());
@@ -374,6 +380,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void fillLimitInvalidValuesPasswordChainingPasswordAdmin_7_Symbol() {
+        adminPage.scrollToCardAdmin(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login);
         changePasswordAdminWindow.fillFieldNewPassword("Wwqq12#");
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
@@ -385,9 +392,10 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
-    void fillLimitValidValuesPasswordChainingPasswordAdmin_8_9_24_25_Symbol(String login) {
+    void fillLimitValidValuesPasswordChainingPasswordAdmin_8_9_24_25_Symbol(String password) {
+        adminPage.scrollToCardAdmin(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(TestData.DataTest.login);
-        changePasswordAdminWindow.fillFieldNewPassword(login);
+        changePasswordAdminWindow.fillFieldNewPassword(password);
         assertFalse(changePasswordAdminWindow.isErrorPasswordAppear());
     }
 
@@ -398,6 +406,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void fillLimitInvalidValuesPasswordChainingPasswordAdmin_26_Symbol() {
+        adminPage.scrollToCardAdmin(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login);
         changePasswordAdminWindow.fillFieldNewPassword("Wwqq123456789#QQgg12345678");
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
@@ -409,9 +418,10 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
-    void fillInvalidValuesPasswordChainingPasswordAdmin() {
+    void fillInvalidValuesPasswordChainingPasswordAdmin(String password) {
+        adminPage.scrollToCardAdmin(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login);
-        changePasswordAdminWindow.fillFieldNewPassword("wwqq123456#");
+        changePasswordAdminWindow.fillFieldNewPassword(password);
         assertEquals("Пароль не валиден", changePasswordAdminWindow.getErrorFieldPassword());
     }
 
@@ -421,6 +431,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void clearFieldsWindowChainingPasswordThroughButtonClear() {
+        adminPage.scrollToCardAdmin(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login);
         changePasswordAdminWindow.fillFieldNewPassword(generatePassword());
         changePasswordAdminWindow.clickClearButtonNewPasswordField();
@@ -438,6 +449,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void closeWindowChainingPasswordAdmin() {
+        adminPage.scrollToCardAdmin(login);
         ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login);
         changePasswordAdminWindow.fillFieldNewPassword(generatePassword());
         changePasswordAdminWindow.fillFieldConfirmPassword(password);
@@ -454,6 +466,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDeleteDecorator.class)
     @Test
     void cancelDeleteAdmin() {
+        adminPage.scrollToCardAdmin(login);
         adminPage.verifyAdminCard(login);
         DeleteAdminWindow deleteAdminWindow = adminPage.clickButtonDeleteAdmin(login);
         deleteAdminWindow.clickCancelButtonDeleteAdmin();
@@ -467,6 +480,7 @@ public class AdministrationPageTest extends BaseTest {
     @ExtendWith(AdminAddDecorator.class)
     @Test
     void deleteAdmin() {
+        adminPage.scrollToCardAdmin(login);
         adminPage.verifyAdminCard(login);
         DeleteAdminWindow deleteAdminWindow = adminPage.clickButtonDeleteAdmin(login);
         deleteAdminWindow.verifyDeleteAdminWindow();
@@ -477,6 +491,7 @@ public class AdministrationPageTest extends BaseTest {
         assertNull(DataBaseQuery.selectAdmin(login));
         assertEquals("DELETE_ADMIN_SUCCESS", DataBaseQuery.selectLog(login).getCode());
     }
+
 
     @Feature("Документация")
     @Story("Успешное обновление оферты")
@@ -534,11 +549,10 @@ public class AdministrationPageTest extends BaseTest {
     void updateOrderCurrentMonth() {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.verifyUpdateOrderWindow();
-        assertEquals(TestHelper.getCurrentDate(), updateOrderWindow.getValuesButtonToday());
         Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.verifyCalendar();
-        assertEquals(TestHelper.getCurrentMonthYear(), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation();
+        assertEquals(getNameCurrentMonth(), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDayCurrentMonth());
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -553,8 +567,8 @@ public class AdministrationPageTest extends BaseTest {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.switchFutureMonth();
-        assertEquals(TestHelper.getFutureMonthYear(), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation();
+        assertEquals(getNameFutureMonth(), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDayFutureMonth());
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -569,8 +583,8 @@ public class AdministrationPageTest extends BaseTest {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.switchPreviousMonth();
-        assertEquals(TestHelper.getPreviousMonthYear(), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation();
+        assertEquals(getNamePreviousMonth(), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDayPreviousMonth());
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -584,6 +598,7 @@ public class AdministrationPageTest extends BaseTest {
     @Test
     void updateOrderTodayNotUseCalendar() {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
+        assertEquals(getCurrentDate(), updateOrderWindow.getValuesButtonToday());
         updateOrderWindow.uploadOrder("src/test/resources/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -607,11 +622,10 @@ public class AdministrationPageTest extends BaseTest {
     void clickButtonUpdatePriceCurrentMonth() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow();
-        assertEquals(TestHelper.getCurrentDate(), updatePriceWindow.getValuesButtonToday());
         Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.verifyCalendar();
-        assertEquals(TestHelper.getCurrentMonthYear(), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation();
+        assertEquals(getNameCurrentMonth(), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDayCurrentMonth());
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -627,8 +641,8 @@ public class AdministrationPageTest extends BaseTest {
         Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.verifyCalendar();
         calendar.switchFutureMonth();
-        assertEquals(TestHelper.getFutureMonthYear(), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation();
+        assertEquals(getNameFutureMonth(), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDayFutureMonth());
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -642,9 +656,10 @@ public class AdministrationPageTest extends BaseTest {
     void clickButtonUpdatePricePreviousMonth() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
+        calendar.verifyCalendar();
         calendar.switchPreviousMonth();
-        assertEquals(TestHelper.getPreviousMonthYear(), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation();
+        assertEquals(getNamePreviousMonth(), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDayPreviousMonth());
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -658,6 +673,7 @@ public class AdministrationPageTest extends BaseTest {
     @Test
     void clickButtonUpdatePriceTodayNotUseCalendar() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
+        assertEquals(getCurrentDate(), updatePriceWindow.getValuesButtonToday());
         updatePriceWindow.uploadPrice("src/test/resources/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -799,6 +815,7 @@ public class AdministrationPageTest extends BaseTest {
     }
 }
 /*
+
     @Feature("Документация")
     @Story("Загрузка файла с прайсом")
     @DisplayName("Загрузка файла с прайсом")

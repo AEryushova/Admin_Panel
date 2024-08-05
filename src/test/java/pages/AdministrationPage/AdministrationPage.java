@@ -38,8 +38,8 @@ public class AdministrationPage extends BasePage {
 
     @Step("Нажать кнопку замены пароля админу '{0}'")
     public ChangePasswordAdminWindow clickButtonChangePassword(String login) {
-        searchCardAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5));
-        searchButtonChangedPassword(login).shouldBe(Condition.visible,Duration.ofSeconds(5))
+        getCardAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5));
+        getButtonChangedPassword(login).shouldBe(Condition.visible,Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();
         return new ChangePasswordAdminWindow();
@@ -47,8 +47,8 @@ public class AdministrationPage extends BasePage {
 
     @Step("Нажать кнопку удаления админа '{0}'")
     public DeleteAdminWindow clickButtonDeleteAdmin(String login) {
-        searchCardAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5));
-        searchButtonDeleteAdmin(login).shouldBe(Condition.visible)
+        getCardAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5));
+        getButtonDeleteAdmin(login).shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new DeleteAdminWindow();
@@ -56,44 +56,44 @@ public class AdministrationPage extends BasePage {
 
     @Step("Верифицировать карточку админа '{0}'")
     public void verifyAdminCard(String login){
-        searchCardAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5));
-        searchButtonChangedPassword(login).shouldBe(Condition.visible,Duration.ofSeconds(5))
+        getCardAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5));
+        getButtonChangedPassword(login).shouldBe(Condition.visible,Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled);
-        searchButtonDeleteAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5))
+        getButtonDeleteAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled);
     }
 
-    @Step("Найти карточку админа '{0}'")
-    private SelenideElement searchCardAdmin(String login){
+    @Step("Получить карточку админа '{0}'")
+    public SelenideElement getCardAdmin(String login){
         return $x("//input[@name='login' and @value='" + login + "']/parent::div/parent::div/parent::div");
     }
 
-    @Step("Найти кнопку смены пароля админу '{0}'")
-    private SelenideElement searchButtonChangedPassword(String login){
+    @Step("Получить кнопку смены пароля админу '{0}'")
+    private SelenideElement getButtonChangedPassword(String login){
         return $x("//div[.//input[contains(@value, '" + login + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
     }
 
-    @Step("Найти кнопку удаления админа '{0}'")
-    private SelenideElement searchButtonDeleteAdmin(String login) {
+    @Step("Получить кнопку удаления админа '{0}'")
+    private SelenideElement getButtonDeleteAdmin(String login) {
         return $x("//div[.//input[contains(@value, '" + login + "')]]/following-sibling::div/button[contains(text(), 'Удалить')]");
     }
 
-    @Step("Проскроллить страницу вниз")
+    @Step("Проскроллить страницу до карточки админа '{0}'")
     public void scrollToCardAdmin(String login){
-        SelenideElement cardAdmin = searchCardAdmin(login);
-        cardAdmin.scrollIntoView(true);
-        cardAdmin.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        SelenideElement cardAdmin = getCardAdmin(login);
+        cardAdmin.scrollIntoView("{behavior: 'auto', block: 'center'}");
+        Selenide.sleep(3000);
     }
 
     @Step("Проверить отображение карточки админа '{0}'")
     public boolean isVisibleAdminCard(String login) {
-        return searchCardAdmin(login).isDisplayed();
+        return getCardAdmin(login).isDisplayed();
     }
 
     @Step("Проверить существование карточки админа '{0}'")
     public boolean isExistAdminCard(String login) {
         try {
-            SelenideElement cardAdmin = searchCardAdmin(login);
+            SelenideElement cardAdmin = getCardAdmin(login);
             return cardAdmin.exists();
         } catch (Exception e) {
             return false;

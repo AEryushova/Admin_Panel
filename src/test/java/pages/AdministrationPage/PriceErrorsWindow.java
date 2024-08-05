@@ -26,14 +26,14 @@ public class PriceErrorsWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    @Step("Нажать вкладку правил корректирования")
+    @Step("Нажать на вкладку правил корректирования")
     public void clickAdjustmentRulesTab() {
         ADJUSTMENT_RULES_TAB.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
-    @Step("Нажать вкладку ошибок в прайсе")
+    @Step("Нажать на вкладку ошибок в прайсе")
     public void clickErrorPriceTab() {
         ERROR_PRICE_TAB.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)

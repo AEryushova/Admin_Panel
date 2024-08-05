@@ -275,6 +275,7 @@ public class FAQPageTest extends BaseTest {
         faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_SEARCH);
+        Selenide.sleep(7000);
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
         questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
@@ -301,6 +302,7 @@ public class FAQPageTest extends BaseTest {
         faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(SEARCH_BY_INCLUSION_FAQ);
+        Selenide.sleep(7000);
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
         questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
@@ -328,18 +330,19 @@ public class FAQPageTest extends BaseTest {
         faqPage.verifyFaqPage();
         int countAllFaq=faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_SEARCH);
-        ElementsCollection questionTexts = faqPage.getQuestionsFields();
-        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
+        Selenide.sleep(7000);
         int countResult= faqPage.getCountFaq();
+        ElementsCollection questionTexts = faqPage.getQuestionsFields();
         int resultSearch=questionTexts.size();
         faqPage.clearSearchField();
-        ElementsCollection questionAll = faqPage.getQuestionsFields();
-        questionAll.shouldHave(CollectionCondition.sizeGreaterThan(resultSearch), Duration.ofSeconds(7));
+        Selenide.sleep(7000);
         int countAllFaqAfterReset = faqPage.getCountFaq();
+        ElementsCollection questionAll = faqPage.getQuestionsFields();
         int allFaq=questionAll.size();
         assertEquals("", faqPage.getValueSearchField());
         assertTrue(resultSearch < allFaq);
         assertTrue(countResult< countAllFaqAfterReset);
+        assertTrue(countAllFaq == countAllFaqAfterReset);
     }
 
     @Feature("Поиск по faq")
@@ -369,14 +372,14 @@ public class FAQPageTest extends BaseTest {
     }
 
     @Feature("Поиск по faq")
-    @Story("Поиск вопроса по значению в верхнем регистре")
-    @DisplayName("Поиск вопроса по значению в верхнем регистре")
+    @Story("Поиск вопроса по значению в различном регистре")
+    @DisplayName("Поиск вопроса по значению в различном регистре")
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchDifferentRegister() {
         faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
-        faqPage.searchFaq(FAQ_HIGH_REGISTER);
+        faqPage.searchFaq(FAQ_DIFFERENT_REGISTER );
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
         questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
@@ -387,8 +390,8 @@ public class FAQPageTest extends BaseTest {
             String answerText = answerTexts.get(i).getAttribute("value");
             assertNotNull(questionText);
             assertNotNull(answerText);
-            boolean isQuestionFound = questionText.toLowerCase().contains(FAQ_HIGH_REGISTER.toLowerCase());
-            boolean isAnswerFound = answerText.toLowerCase().contains(FAQ_HIGH_REGISTER.toLowerCase());
+            boolean isQuestionFound = questionText.toLowerCase().contains(FAQ_DIFFERENT_REGISTER .toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(FAQ_DIFFERENT_REGISTER .toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
         assertTrue(countResult<countAllFaq);

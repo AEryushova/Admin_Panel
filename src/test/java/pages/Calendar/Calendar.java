@@ -1,12 +1,13 @@
 package pages.Calendar;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import utils.otherUtils.TestHelper;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class Calendar {
@@ -14,23 +15,21 @@ public class Calendar {
     private final SelenideElement HEADER_CURRENT_MONTH = $x("//div[@class='react-datepicker__current-month']");
     private final SelenideElement SWITCH_PREVIOUS_MONTH_BUTTON = $x("//button[@aria-label='Previous Month']");
     private final SelenideElement SWITCH_NEXT_MONTH_BUTTON = $x("//button[@aria-label='Next Month']");
-    private final SelenideElement DATE_ACTIVATION;
+    private final ElementsCollection DATES_ACTIVATIONS = $$x("//div[@role='option']");
 
-    public Calendar() {
-        this.DATE_ACTIVATION = $x("(//div[@role='option' and text()='" + TestHelper.getFutureDayCurrentMonth() + "'])[last()]");
-    }
 
     @Step("Верифицировать окно календаря")
     public void verifyCalendar() {
         HEADER_CURRENT_MONTH.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SWITCH_PREVIOUS_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SWITCH_NEXT_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        DATE_ACTIVATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    @Step("Нажать на выбранную в календаре дату")
-    public void clickDateActivation() {
-        DATE_ACTIVATION.shouldBe(Condition.visible)
+
+    @Step("Нажать на дату '{0}' в календаре")
+    public void clickDateActivation(String date) {
+        SelenideElement date_activation=getDate(date);
+        date_activation.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
@@ -55,4 +54,13 @@ public class Calendar {
         return HEADER_CURRENT_MONTH.getText();
     }
 
+    @Step("Получить дату '{0}' из календаря")
+    private SelenideElement getDate(String date) {
+        for (SelenideElement element : DATES_ACTIVATIONS) {
+            if (element.getAttribute("aria-label").equals(date)) {
+                return element;
+            }
+        }
+        throw new IllegalArgumentException("Date not found: " + date);
+    }
 }

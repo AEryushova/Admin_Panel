@@ -76,7 +76,7 @@ public class TestHelper {
     }
 
     //Возвращает название текущего месяца и год в русской локали в формате "апрель 2024"
-    public static String getCurrentMonthYear() {
+    public static String getNameCurrentMonth() {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"));
         String formattedDate = currentDate.format(formatter);
@@ -84,7 +84,7 @@ public class TestHelper {
     }
 
     //Возвращает название следующего месяца и год в русской локали в формате "май 2024"
-    public static String getFutureMonthYear() {
+    public static String getNameFutureMonth() {
         LocalDate currentDate = LocalDate.now();
         int currentMonth = currentDate.getMonthValue();
         int currentYear = currentDate.getYear();
@@ -96,7 +96,7 @@ public class TestHelper {
     }
 
     //Возвращает название предыдущего месяца и год в русской локали в формате "март 2024"//
-    public static String getPreviousMonthYear() {
+    public static String getNamePreviousMonth() {
         LocalDate currentDate = LocalDate.now();
         int currentMonth = currentDate.getMonthValue();
         int currentYear = currentDate.getYear();
@@ -107,12 +107,39 @@ public class TestHelper {
         return previousMonthDate.format(formatter).toLowerCase();
     }
 
-    //Возвращает день т.е только число, который наступит через 2 дня от текущей даты (текущего дня)//
-    public static String getFutureDayCurrentMonth() {
+
+    //Возвращает день недели и дату которая наступит через 2 дня от текущей даты в формате "Choose пятница, 1 ноября 2024 г."//
+    public static String getDayCurrentMonth() {
         LocalDate currentDate = LocalDate.now();
         LocalDate futureDate = currentDate.plusDays(2);
-        int futureDay = futureDate.getDayOfMonth();
-        return String.valueOf(futureDay);
+        DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("EEEE", new Locale("ru"));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy 'г.'", new Locale("ru"));
+        String dayOfWeek = futureDate.format(dayFormatter);
+        String formattedDate = futureDate.format(dateFormatter);
+        return "Choose " + dayOfWeek + ", " + formattedDate;
+    }
+
+
+    //Возвращает день недели и дату которая наступит в следующем месяце в формате "Choose понедельник, 2 декабря 2024 г."//
+    public static String getDayFutureMonth() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate futureDate = currentDate.plusMonths(1).plusDays(2);
+        DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("EEEE", new Locale("ru"));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy 'г.'", new Locale("ru"));
+        String dayOfWeek = futureDate.format(dayFormatter);
+        String formattedDate = futureDate.format(dateFormatter);
+        return "Choose " + dayOfWeek + ", " + formattedDate;
+    }
+
+    //Возвращает день недели и дату которая наступила в предыдущем месяце в формате "Choose понедельник, 7 октября 2024 г."//
+    public static String getDayPreviousMonth() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate futureDate = currentDate.minusMonths(1).plusDays(2);
+        DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("EEEE", new Locale("ru"));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy 'г.'", new Locale("ru"));
+        String dayOfWeek = futureDate.format(dayFormatter);
+        String formattedDate = futureDate.format(dateFormatter);
+        return "Choose " + dayOfWeek + ", " + formattedDate;
     }
 
     //Возвращает дату, которая наступит через 2 дня от текущей даты в русской локали в формате "03 Апреля 2024"//
