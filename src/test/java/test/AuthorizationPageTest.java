@@ -30,22 +30,23 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Страница Авторизации")
 public class AuthorizationPageTest extends BaseTest {
 
-    private AuthorizationPage authPage;
-    private HeaderMenu headerMenu;
-    private BasePage basePage;
+    private static AuthorizationPage authPage;
+    private static HeaderMenu headerMenu;
+    private static BasePage basePage;
 
 
     @BeforeAll
     static void setUpAuth() {
         BaseTest.openBrowser();
+        authPage = new AuthorizationPage();
+        headerMenu = new HeaderMenu();
+        basePage = new BasePage();
     }
 
     @BeforeEach
     void setUp() {
         Selenide.refresh();
-        authPage = new AuthorizationPage();
-        headerMenu = new HeaderMenu();
-        basePage = new BasePage();
+       authPage.verifyAuthPage();
     }
 
     @AfterAll
@@ -58,7 +59,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ExtendWith(CloseWebDriverDecorator.class)
     @Test
     void authSuperAdmin() {
-        authPage.verifyAuthPage();
         DoctorsPage doctorPage = authPage.authorization(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
         doctorPage.verifyDoctorsPage();
         headerMenu.verifyHeaderBarSuperAdmin();
@@ -76,7 +76,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ExtendWith(CloseWebDriverDecorator.class)
     @Test
     void authAdmin() {
-        authPage.verifyAuthPage();
         DoctorsPage doctorPage = authPage.authorization(LOGIN_ADMIN, PASSWORD_ADMIN);
         doctorPage.verifyDoctorsPage();
         headerMenu.verifyHeaderBarAdmin();
@@ -116,7 +115,6 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void authAdminEmptyFieldLogin() {
         authPage.fillPasswordField(generatePassword());
-        authPage.verifyAuthPage();
         assertFalse(authPage.isEnabledComeInButton());
     }
 
@@ -125,7 +123,6 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void authAdminEmptyFieldPassword() {
         authPage.fillLoginField(generateLogin());
-        authPage.verifyAuthPage();
         assertFalse(authPage.isEnabledComeInButton());
     }
 
@@ -135,7 +132,6 @@ public class AuthorizationPageTest extends BaseTest {
     void clearFieldLoginVerifyAuthPageThroughButtonClear() {
         authPage.fillLoginField(generateLogin());
         authPage.clickClearButtonLoginField();
-        authPage.verifyAuthPage();
         assertEquals("", authPage.getValueLoginField());
         assertEquals("Обязательное поле", authPage.getErrorFieldLogin());
     }
@@ -145,7 +141,6 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void hideValuePasswordWhenFillPasswordField() {
         authPage.fillPasswordField(generatePassword());
-        authPage.verifyAuthPage();
         assertTrue(authPage.isHidePassword());
     }
 
@@ -155,10 +150,8 @@ public class AuthorizationPageTest extends BaseTest {
     void showValuePasswordField() {
         authPage.fillPasswordField(generatePassword());
         authPage.showPassword();
-        authPage.verifyAuthPage();
         assertFalse(authPage.isHidePassword());
         authPage.hidePassword();
-        authPage.verifyAuthPage();
         assertTrue(authPage.isHidePassword());
     }
 
@@ -168,7 +161,6 @@ public class AuthorizationPageTest extends BaseTest {
     void displayNotificationAboutRequiredFieldsVerifyAuthPage() {
         authPage.clickLoginField();
         authPage.clickPasswordField();
-        authPage.verifyAuthPage();
         assertEquals("Обязательное поле", authPage.getErrorFieldLogin());
         assertEquals("Обязательное поле", authPage.getErrorFieldPassword());
     }
@@ -179,7 +171,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ValueSource(strings = {"ANNA_TEST_ADMIN123456789_ANNA_1", "ANNA_TEST_ADMIN123456789_ANNA_12"})
     void fillLimitValidValuesLoginVerifyAuthPage_31_32_Symbol(String login) {
         authPage.fillLoginField(login);
-        authPage.verifyAuthPage();
         assertFalse(authPage.isErrorLoginAppear());
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -189,7 +180,6 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void fillLimitInvalidValuesLoginVerifyAuthPage_33_Symbol() {
         authPage.fillLoginField("ANNA_TEST_ADMIN123456789_ANNA_123");
-        authPage.verifyAuthPage();
         assertEquals("Максимальная длина 32 символа", authPage.getErrorFieldLogin());
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -200,7 +190,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ValueSource(strings = {"БRUCE_LI", "1ANNA_TEST", "Админ_25"})
     void fillInvalidValuesFirstSymbolLoginVerifyAuthPage(String login) {
         authPage.fillLoginField(login);
-        authPage.verifyAuthPage();
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", authPage.getErrorFieldLogin());
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -211,7 +200,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ValueSource(strings = {"AННА_ТЕСТ", "ANNA TEST"})
     void fillInvalidValuesLoginVerifyAuthPage(String login) {
         authPage.fillLoginField(login);
-        authPage.verifyAuthPage();
         assertEquals("Доступны только числа, латиница и \"_\"", authPage.getErrorFieldLogin());
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -223,7 +211,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
     void fillLimitValidValuesPasswordVerifyAuthPage_8_9_24_25_Symbol(String password) {
         authPage.fillPasswordField(password);
-        authPage.verifyAuthPage();
         assertFalse(authPage.isErrorPasswordAppear());
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -234,7 +221,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ValueSource(strings = {"Wwqq12#","Wwqq123456789#QQgg12345678"})
     void fillLimitInvalidValuesPasswordVerifyAuthPage_7_26_Symbol(String password) {
         authPage.fillPasswordField(password);
-        authPage.verifyAuthPage();
         assertEquals("Пароль не валиден", authPage.getErrorFieldPassword());
         assertFalse(authPage.isEnabledComeInButton());
     }
@@ -245,7 +231,6 @@ public class AuthorizationPageTest extends BaseTest {
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
     void fillInvalidValuesPasswordVerifyAuthPage(String password) {
         authPage.fillPasswordField(password);
-        authPage.verifyAuthPage();
         assertEquals("Пароль не валиден", authPage.getErrorFieldPassword());
         assertFalse(authPage.isEnabledComeInButton());
     }

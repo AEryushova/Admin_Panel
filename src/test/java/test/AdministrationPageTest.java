@@ -44,7 +44,7 @@ public class AdministrationPageTest extends BaseTest {
     @BeforeEach
     void setUp() {
         Selenide.refresh();
-        Selenide.sleep(2000);
+        adminPage.verifyAdminPage();
     }
 
     @AfterAll

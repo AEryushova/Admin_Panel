@@ -44,7 +44,7 @@ public class CardDoctorPageTest extends BaseTest {
     @BeforeEach
     void setUp() {
         Selenide.refresh();
-    Selenide.sleep(2000);
+        cardDoctor.verifyDoctorCardPage();
     }
 
 
@@ -61,7 +61,6 @@ public class CardDoctorPageTest extends BaseTest {
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg", "src/test/resources/Photo 3,2mbPng.png"})
     void addPhotoDoctor(String path) {
-        cardDoctor.verifyDoctorCardPage();
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         editPhoto.verifyEditPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
@@ -163,7 +162,6 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(DeleteSectionDecorator.class)
     @Test
     void addSection() {
-        cardDoctor.verifyDoctorCardPage();
         AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
         addInfoDoctorWindow.verifyAddSectionDoctorWindow();
         addInfoDoctorWindow.fillFieldText(generateWord());
@@ -358,7 +356,6 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addFeedbackCurrentMonth() {
         cardDoctor.scrollPage("500");
-        cardDoctor.verifyDoctorCardPage();
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(generateNamePatient());
         addFeedbackWindow.fillFieldTextFeedback(generateText());
@@ -377,7 +374,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(text, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
-        assertEquals("FEEDBACK_CREATED_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("FEEDBACK_CREATED_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -410,7 +407,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(text, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
-        assertEquals("FEEDBACK_CREATED_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("FEEDBACK_CREATED_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -443,7 +440,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(text, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
-        assertEquals("FEEDBACK_CREATED_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("FEEDBACK_CREATED_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -472,7 +469,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
         assertEquals(text, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
-        assertEquals("FEEDBACK_CREATED_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("FEEDBACK_CREATED_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertTrue(cardDoctor.isExistFeedback());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
@@ -553,7 +550,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(text, feedback.getTextFeedback());
         assertEquals(text, DataBaseQuery.selectFeedback().getContent());
         assertEquals(false, DataBaseQuery.selectFeedback().getIs_published());
-        assertEquals("FEEDBACK_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("FEEDBACK_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
         assertFalse(editFeedback.isWindowAppear());
@@ -601,7 +598,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(text, feedback.getTextFeedback());
         assertEquals(text, DataBaseQuery.selectFeedback().getContent());
         assertEquals(true, DataBaseQuery.selectFeedback().getIs_published());
-        assertEquals("FEEDBACK_CHANGED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("FEEDBACK_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
         assertFalse(cardDoctor.isSelectUnPublishedFeedback());
         assertTrue(cardDoctor.isSelectPublishedFeedback());
         assertFalse(editFeedback.isWindowAppear());
@@ -672,7 +669,7 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals("Отзыв успешно удален", cardDoctor.getTextNotification());
         assertFalse(cardDoctor.isExistFeedback());
         assertNull(DataBaseQuery.selectFeedback());
-        assertEquals("FEEDBACK_DELETED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("FEEDBACK_DELETED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Отзывы о враче")

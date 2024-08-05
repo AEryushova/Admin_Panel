@@ -24,20 +24,21 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Страница Врачи")
 public class DoctorPageTest extends BaseTest {
 
-    private DoctorsPage doctorsPage;
-    private BasePage basePage;
+    private static DoctorsPage doctorsPage;
+    private static BasePage basePage;
 
 
     @BeforeAll
     static void setUpAuth() {
         BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        doctorsPage = new DoctorsPage();
+        basePage = new BasePage();
     }
 
     @BeforeEach
     void setUp() {
         Selenide.refresh();
-        doctorsPage = new DoctorsPage();
-        basePage = new BasePage();
+        doctorsPage.verifyDoctorsPage();
     }
 
     @AfterAll
@@ -50,7 +51,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Открытие карточки врача и возврат к списку врачей")
     @Test
     void returnToDoctorsPageFromCardDoctorPage() {
-        doctorsPage.verifyDoctorsPage();
         CardDoctorPage cardDoctor = doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION,DOCTOR);
         cardDoctor.clickButtonComebackDoctorsPage();
         doctorsPage.verifyDoctorsPage();
@@ -61,7 +61,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по имени")
     @Test
     void searchNameDoctor() {
-        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_SEARCH);
         Selenide.sleep(7000);
@@ -80,7 +79,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по специальности")
     @Test
     void searchSpecializationDoctor() {
-        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_SPECIALIZATION_SEARCH);
         Selenide.sleep(7000);
@@ -98,7 +96,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по включению")
     @Test
     void searchByInclusion() {
-        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(SEARCH_BY_INCLUSION_DOCTORS);
         Selenide.sleep(7000);
@@ -122,7 +119,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Сброс поискового результата врачей после очистки поля")
     @Test
     void resetSearchResultDoctors() {
-        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_SEARCH);
         Selenide.sleep(7000);
@@ -145,7 +141,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по значению в верхнем регистре")
     @Test
     void searchHighRegister() {
-        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_HIGH_REGISTER);
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
@@ -162,7 +157,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Поиск врачей по значению в различном регистре")
     @Test
     void searchDifferentRegister() {
-        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_NAME_DIFFERENT_REGISTER);
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
@@ -179,7 +173,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Сортировка врачей по отсутствию фото")
     @Test
     void sortingWithoutPhoto() {
-        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.clickSortingPhotoNo();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
@@ -197,7 +190,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Сортировка врачей по наличию фото")
     @Test
     void sortingWithPhoto() {
-        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.clickSortingPhotoYes();
         ElementsCollection namesDoctors = doctorsPage.getNamesDoctors();
@@ -215,7 +207,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Сортировка по всем врачам")
     @Test
     void sortingWithAndWithoutPhoto() {
-        doctorsPage.verifyDoctorsPage();
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.clickSortingPhotoNo();
         ElementsCollection namesDoctorsNoPhoto = doctorsPage.getNamesDoctors();
@@ -243,7 +234,6 @@ public class DoctorPageTest extends BaseTest {
     @DisplayName("Возврат к хэдеру на странице врачей")
     @Test
     void returnToHeaderPageAdministration() {
-        doctorsPage.verifyDoctorsPage();
         assertFalse(basePage.isVisibleButtonReturnToHeader());
         basePage.scrollPage("700");
         basePage.getButtonReturnToHeader().shouldBe(Condition.visible);

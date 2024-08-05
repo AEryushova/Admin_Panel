@@ -20,12 +20,12 @@ public class AdministrationPage extends BasePage {
 
     @Step("Верифицировать страницу Администрирования")
     public void verifyAdminPage() {
-        TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        UPDATE_OFFER.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        UPDATE_PROCESSING_POLICY.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        UPDATE_ORDER.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        UPDATE_PRICE.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        ADD_ADMIN.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        UPDATE_OFFER.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        UPDATE_PROCESSING_POLICY.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        UPDATE_ORDER.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        UPDATE_PRICE.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        ADD_ADMIN.shouldBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     @Step("Нажать кнопку добавления нового админа")
