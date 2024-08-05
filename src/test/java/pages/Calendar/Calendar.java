@@ -57,7 +57,8 @@ public class Calendar {
     @Step("Получить дату '{0}' из календаря")
     private SelenideElement getDate(String date) {
         for (SelenideElement element : DATES_ACTIVATIONS) {
-            if (element.getAttribute("aria-label").equals(date)) {
+            String ariaLabel = element.getAttribute("aria-label");
+            if (ariaLabel != null && ariaLabel.equals(date)) {
                 return element;
             }
         }
