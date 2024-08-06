@@ -94,6 +94,10 @@ public class AddSectionWindow {
         WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
+    public SelenideElement getAddSectionWindow() {
+        return WINDOW;
+    }
+
     @Step("Проверить отображение окна добавления нового раздела")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();

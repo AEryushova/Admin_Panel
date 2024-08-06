@@ -56,8 +56,8 @@ public class TestData {
         public static final String FAQ_SEARCH = "врач";
         public static final String SEARCH_BY_INCLUSION_DOCTORS = "етс";
         public static final String SEARCH_BY_INCLUSION_FAQ = "пис";
-        public static final String DOCTOR_NAME_HIGH_REGISTER = "НAДЕЖДА";
-        public static final String DOCTOR_NAME_DIFFERENT_REGISTER = "НаДеЖдА";
+        public static final String DOCTOR_NAME_HIGH_REGISTER = "АННА";
+        public static final String DOCTOR_NAME_DIFFERENT_REGISTER = "сВеТлАнА";
         public static final String FAQ_HIGH_REGISTER = "ВРАЧ";
         public static final String FAQ_DIFFERENT_REGISTER = "ВрАч";
     }

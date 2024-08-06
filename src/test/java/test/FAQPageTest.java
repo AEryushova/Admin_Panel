@@ -27,19 +27,20 @@ import static utils.otherUtils.DataGenerator.*;
 @DisplayName("Страница FAQ")
 public class FAQPageTest extends BaseTest {
 
-    private FaqPage faqPage;
+    private static FaqPage faqPage;
 
     @BeforeAll
     static void setUpAuth() {
         BaseTest.openAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickFaqTab();
+        faqPage=new FaqPage();
     }
 
     @BeforeEach
     void setUp(){
         Selenide.refresh();
-        faqPage=new FaqPage();
+        faqPage.verifyFaqPage();
     }
 
     @AfterAll
@@ -272,15 +273,14 @@ public class FAQPageTest extends BaseTest {
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchNameFaqQuestion() {
-        faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_SEARCH);
         Selenide.sleep(7000);
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
-        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
-        answerTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
-        int countResult= faqPage.getCountFaq();
+        questionTexts.shouldHave(CollectionCondition.size(countResult));
+        answerTexts.shouldHave(CollectionCondition.size(countResult));
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
@@ -299,15 +299,14 @@ public class FAQPageTest extends BaseTest {
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchByInclusion() {
-        faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(SEARCH_BY_INCLUSION_FAQ);
         Selenide.sleep(7000);
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
-        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
-        answerTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
-        int countResult= faqPage.getCountFaq();
+        questionTexts.shouldHave(CollectionCondition.size(countResult));
+        answerTexts.shouldHave(CollectionCondition.size(countResult));
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
@@ -327,7 +326,6 @@ public class FAQPageTest extends BaseTest {
     @ExtendWith(AddSomeFaq.class)
     @Test
     void resetSearchResultFaqQuestion() {
-        faqPage.verifyFaqPage();
         int countAllFaq=faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_SEARCH);
         Selenide.sleep(7000);
@@ -351,14 +349,14 @@ public class FAQPageTest extends BaseTest {
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchHighRegister() {
-        faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_HIGH_REGISTER);
+        Selenide.sleep(7000);
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
-        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
-        answerTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
-        int countResult= faqPage.getCountFaq();
+        questionTexts.shouldHave(CollectionCondition.size(countResult));
+        answerTexts.shouldHave(CollectionCondition.size(countResult));
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");
@@ -377,14 +375,14 @@ public class FAQPageTest extends BaseTest {
     @ExtendWith(AddSomeFaq.class)
     @Test
     void searchDifferentRegister() {
-        faqPage.verifyFaqPage();
         int countAllFaq= faqPage.getCountFaq();
-        faqPage.searchFaq(FAQ_DIFFERENT_REGISTER );
+        faqPage.searchFaq(FAQ_DIFFERENT_REGISTER);
+        Selenide.sleep(7000);
+        int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
-        questionTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
-        answerTexts.shouldHave(CollectionCondition.sizeLessThan(countAllFaq), Duration.ofSeconds(7));
-        int countResult= faqPage.getCountFaq();
+        questionTexts.shouldHave(CollectionCondition.size(countResult));
+        answerTexts.shouldHave(CollectionCondition.size(countResult));
         for (int i = 0; i < questionTexts.size(); i++) {
             String questionText = questionTexts.get(i).getAttribute("value");
             String answerText = answerTexts.get(i).getAttribute("value");

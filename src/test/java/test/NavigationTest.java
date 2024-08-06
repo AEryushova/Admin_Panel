@@ -17,17 +17,18 @@ import static data.TestData.UserData.*;
 @DisplayName("Навигационное меню")
 public class NavigationTest extends BaseTest{
 
-    private HeaderMenu headerMenu;
+    private static HeaderMenu headerMenu;
 
     @BeforeAll
     static void setUpAuth() {
         BaseTest.openAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
+        headerMenu = new HeaderMenu();
     }
 
     @BeforeEach
     void setUp(){
         Selenide.refresh();
-        headerMenu = new HeaderMenu();
+        headerMenu.verifyHeaderBarSuperAdmin();
     }
 
     @AfterAll
@@ -40,7 +41,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Переход на вкладку докторов")
     @Test
     void openDoctorsPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         DoctorsPage doctorsPage = headerMenu.clickDoctorsTab();
         doctorsPage.verifyDoctorsPage();
     }
@@ -50,7 +50,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Сохранение вкладки докторов")
     @Test
     void saveDoctorsPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         DoctorsPage doctorsPage = headerMenu.clickDoctorsTab();
         doctorsPage.verifyDoctorsPage();
         headerMenu.clickDoctorsTab();
@@ -62,7 +61,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Переход на вкладку услуг")
     @Test
     void openServicesPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         ServicesPage servicesPage = headerMenu.clickServicesTab();
         servicesPage.verifyServicesPage();
     }
@@ -72,7 +70,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Сохранение вкладки услуг")
     @Test
     void saveServicesPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         ServicesPage servicesPage = headerMenu.clickServicesTab();
         servicesPage.verifyServicesPage();
         headerMenu.clickServicesTab();
@@ -84,7 +81,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Переход на вкладку faq")
     @Test
     void openFaqPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         FaqPage faqPage = headerMenu.clickFaqTab();
         faqPage.verifyFaqPage();
     }
@@ -94,7 +90,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Сохранение вкладки faq")
     @Test
     void saveFaqPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         FaqPage faqPage = headerMenu.clickFaqTab();
         faqPage.verifyFaqPage();
         headerMenu.clickFaqTab();
@@ -106,7 +101,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Переход на вкладку настроек")
     @Test
     void openSettingPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         SettingPage settingPage = headerMenu.clickSettingTab();
         settingPage.verifySettingPage();
     }
@@ -116,7 +110,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Сохранение вклакди настроек")
     @Test
     void saveSettingPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         SettingPage settingPage = headerMenu.clickSettingTab();
         settingPage.verifySettingPage();
         headerMenu.clickSettingTab();
@@ -128,7 +121,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Переход на вкладку администрирования")
     @Test
     void openAdministrationPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         AdministrationPage adminPage = headerMenu.clickAdministrationTab();
         adminPage.verifyAdminPage();
     }
@@ -138,7 +130,6 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Сохранение вкладки администрирования")
     @Test
     void saveAdministrationPage() {
-        headerMenu.verifyHeaderBarSuperAdmin();
         AdministrationPage adminPage = headerMenu.clickAdministrationTab();
         adminPage.verifyAdminPage();
         headerMenu.clickAdministrationTab();

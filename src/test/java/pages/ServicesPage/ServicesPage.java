@@ -85,6 +85,10 @@ public class ServicesPage extends BasePage {
         return CONTAINER_CATEGORIES;
     }
 
+    public SelenideElement getCategoryByName(String title) {
+        return CONTAINER_CATEGORIES.findBy(Condition.text(title));
+    }
+
     @Step("Поменять местами категорию с названием '{0}' и категорию с названием '{1}'")
     public void changeSequenceDisplayCategories(String sourceName, String targetName) {
         SelenideElement categorySource = searchCategory(sourceName);
