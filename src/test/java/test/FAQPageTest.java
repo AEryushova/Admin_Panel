@@ -14,7 +14,6 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.time.Duration;
 
 import static data.TestData.DataTest.*;
 import static data.TestData.UserData.*;

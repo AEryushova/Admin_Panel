@@ -9,7 +9,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 
-import java.time.Duration;
 import java.util.List;
 import static data.TestData.DataTest.*;
 import static data.TestData.UserData.*;

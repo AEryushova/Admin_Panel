@@ -26,22 +26,22 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Страница Настройки")
 public class SettingPageTest extends BaseTest {
 
-    private SettingPage settingPage;
-    private HeaderMenu headerMenu;
+    private static SettingPage settingPage;
+    private static HeaderMenu headerMenu;
 
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
-        HeaderMenu headerMenu = new HeaderMenu();
+        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        headerMenu = new HeaderMenu();
         headerMenu.clickSettingTab();
+        settingPage = new SettingPage();
     }
 
     @BeforeEach
     void setUp() {
         Selenide.refresh();
-        settingPage = new SettingPage();
-        headerMenu = new HeaderMenu();
+        settingPage.verifySettingPage();
     }
 
     @AfterAll
@@ -55,13 +55,13 @@ public class SettingPageTest extends BaseTest {
     @ExtendWith(AddDeleteBugReportDecorator.class)
     @Test
     void checkBugReport() {
-        BugReport bugReport =settingPage.getBugReportCard();
+        BugReport bugReport = settingPage.getBugReportCard();
         bugReport.verifyBugReport();
         assertEquals(TestData.DataTest.namePatient, bugReport.getAuthorText());
         assertEquals(TestData.DataTest.email, bugReport.getEmailAuthorText());
         assertEquals(TestHelper.getCurrentDateRuYear(), bugReport.getDateText());
         assertEquals(TestData.DataTest.text, bugReport.getReportText());
-        assertEquals("BUG_REPORT_CREATED_CLIENT_SUCCESS",DataBaseQuery.selectLog(USER_NAME_LK).getCode());
+        assertEquals("BUG_REPORT_CREATED_CLIENT_SUCCESS", DataBaseQuery.selectLog(USER_NAME_LK).getCode());
     }
 
     @Feature("Сообщения об ошибках")
@@ -70,13 +70,13 @@ public class SettingPageTest extends BaseTest {
     @ExtendWith(AddBugReportDecorator.class)
     @Test
     void deleteBugReport() {
-        BugReport bugReport =settingPage.getBugReportCard();
+        BugReport bugReport = settingPage.getBugReportCard();
         bugReport.clickButtonDeleteBugReport();
         assertEquals("Сообщение удалено", settingPage.getTextNotification());
         assertFalse(settingPage.isExistsBugReport());
         assertTrue(settingPage.isExistsEmptyList());
         assertNull(DataBaseQuery.selectBugReports());
-        assertEquals("BUG_REPORT_DELETED_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("BUG_REPORT_DELETED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Настройки личного кабинета")
@@ -91,8 +91,8 @@ public class SettingPageTest extends BaseTest {
         editLogoWindow.uploadLogo("src/test/resources/visa.png");
         Selenide.Wait().until(condition -> settingPage.getHeightLogo() != oldHeightLogo);
         assertFalse(editLogoWindow.isWindowAppear());
-        assertNotEquals(oldHeightLogo,settingPage.getHeightLogo());
-        assertNotEquals(oldHeightLogo,headerMenu.getHeightLogo());
+        assertNotEquals(oldHeightLogo, settingPage.getHeightLogo());
+        assertNotEquals(oldHeightLogo, headerMenu.getHeightLogo());
     }
 
 
@@ -116,7 +116,7 @@ public class SettingPageTest extends BaseTest {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
-        assertEquals("Допускаются файлы размером не выше 4Мб",settingPage.getTextNotification());
+        assertEquals("Допускаются файлы размером не выше 4Мб", settingPage.getTextNotification());
         assertTrue(editLogoWindow.isWindowAppear());
     }
 
@@ -130,7 +130,7 @@ public class SettingPageTest extends BaseTest {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo(path);
-        assertEquals("Допускаются файлы с расширением jpg jpeg png",settingPage.getTextNotification());
+        assertEquals("Допускаются файлы с расширением jpg jpeg png", settingPage.getTextNotification());
         assertTrue(editLogoWindow.isWindowAppear());
     }
 
