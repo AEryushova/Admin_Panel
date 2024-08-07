@@ -47,8 +47,7 @@ public class NavigateMenu {
 
     }
 
-
-    @Step("Получить ")
+    @Step("Получить вкладку отзывов навигационного меню")
     public SelenideElement getTabFeedbackNavigateMenu(){
         return FEEDBACK;
     }

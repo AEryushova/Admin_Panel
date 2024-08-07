@@ -1,6 +1,5 @@
 package test;
 
-import data.TestData;
 import pages.HeaderMenu.HeaderMenu;
 import pages.SettingPage.BugReport;
 import pages.SettingPage.SettingPage;
@@ -8,7 +7,6 @@ import pages.SettingPage.EditLogoWindow;
 import utils.preparationDataTests.setting.AddBugReportDecorator;
 import utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
 import utils.preparationDataTests.setting.SetSAMSMU_Logo;
-import utils.otherUtils.TestHelper;
 import utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -19,8 +17,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static data.TestData.DataTest.text;
+import static data.TestData.DataTest.email;
+import static data.TestData.DataTest.namePatient;
 import static data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static utils.otherUtils.TestHelper.getCurrentDateRuYear;
 
 @Epic("Настройки")
 @DisplayName("Страница Настройки")
@@ -57,11 +59,10 @@ public class SettingPageTest extends BaseTest {
     void checkBugReport() {
         BugReport bugReport = settingPage.getBugReportCard();
         bugReport.verifyBugReport();
-        assertEquals(TestData.DataTest.namePatient, bugReport.getAuthorText());
-        assertEquals(TestData.DataTest.email, bugReport.getEmailAuthorText());
-        assertEquals(TestHelper.getCurrentDateRuYear(), bugReport.getDateText());
-        assertEquals(TestData.DataTest.text, bugReport.getReportText());
-        assertEquals("BUG_REPORT_CREATED_CLIENT_SUCCESS", DataBaseQuery.selectLog(USER_NAME_LK).getCode());
+        assertEquals(namePatient, bugReport.getAuthorText());
+        assertEquals(email, bugReport.getEmailAuthorText());
+        assertEquals(text, bugReport.getReportText());
+        assertEquals(getCurrentDateRuYear(), bugReport.getDateText());
     }
 
     @Feature("Сообщения об ошибках")

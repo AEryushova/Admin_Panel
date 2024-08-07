@@ -92,13 +92,6 @@ public class SectionCard {
         return new SubsectionCard();
     }
 
-    public SelenideElement getSubsectionByName(String title) {
-        return ruleElements.findBy(Condition.text(title));
-    }
-
-    public ElementsCollection getSubsections() {
-        return CONTAINER_SUBSECTIONS;
-    }
 
     @Step("Получить индекс подраздела по названию '{0}'")
     public int getSubsectionIndexByName(String subsectionName) {

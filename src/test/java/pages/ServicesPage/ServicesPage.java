@@ -11,13 +11,14 @@ import java.time.Duration;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
+import static data.TestData.DataTest.NAME_OTHER_SERVICE_CATEGORY;
 
 public class ServicesPage extends BasePage {
 
     private final SelenideElement TAB_NAME = $x("//a[text()='Услуги']");
     private final SelenideElement SEARCH_SERVICES = $x("//input[@placeholder='Поиск услуги']");
     private final ElementsCollection CONTAINER_CATEGORIES = $$x("//div[@class='qH7D']/span");
-    private final SelenideElement OTHER_SERVICES = $x("//span[text()='Иные услуги']//parent::div//parent::div[@class='ZAC4']");
+    private final SelenideElement OTHER_SERVICES = $x("//span[text()='" + NAME_OTHER_SERVICE_CATEGORY + "']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement TELEMEDICINE = $x("//span[text()='Телемедицина']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement DOCTORS = $x("//span[text()='Врачи']//parent::div//parent::div[@class='ZAC4']");
     private final SelenideElement LABORATORY = $x("//span[text()='Лаборатория']//parent::div//parent::div[@class='ZAC4']");
@@ -80,11 +81,7 @@ public class ServicesPage extends BasePage {
         throw new IllegalArgumentException("Category not found: " + categoryName);
     }
 
-    @Step("Получить все категории")
-    public ElementsCollection getCategories() {
-        return CONTAINER_CATEGORIES;
-    }
-
+    @Step("Получить категорию по названию '{0}'")
     public SelenideElement getCategoryByName(String title) {
         return CONTAINER_CATEGORIES.findBy(Condition.text(title));
     }

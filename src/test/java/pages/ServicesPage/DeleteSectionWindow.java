@@ -8,6 +8,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
+import static data.TestData.DataTest.NAME_OTHER_SERVICE_CATEGORY;
 
 public class DeleteSectionWindow {
 
@@ -44,7 +45,7 @@ public class DeleteSectionWindow {
 
     @Step("Верифицировать название раздела")
     public boolean verifyNameSection(String nameSection){
-        return TEXT_WINDOW.has(text("Раздел \"" + nameSection + "\" будет безвозвратно удален и все имеющиеся услуги внутри него будут перенесены в категорию \"Иные услуги\". \n" +
+        return TEXT_WINDOW.has(text("Раздел \"" + nameSection + "\" будет безвозвратно удален и все имеющиеся услуги внутри него будут перенесены в категорию \"" + NAME_OTHER_SERVICE_CATEGORY + "\". \n" +
                 "Заранее убедитесь, что нет услуг которые должны быть отображены клиенту."));
     }
 
@@ -56,7 +57,8 @@ public class DeleteSectionWindow {
         WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
-    public SelenideElement getWindow() {
+    @Step("Получить окно удаления раздела")
+    public SelenideElement getDeleteSectionWindow() {
         return WINDOW;
     }
 

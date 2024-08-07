@@ -68,9 +68,6 @@ public class CategoryCard {
         return SECTION;
     }
 
-    public ElementsCollection getSections() {
-        return CONTAINER_SECTIONS;
-    }
 
     @Step("Получить услугу")
     public ServiceCard getService() {
@@ -87,6 +84,7 @@ public class CategoryCard {
     public boolean isExistEmptyList() {
         return EMPTY_LIST_SECTION.isDisplayed();
     }
+
 
     @Step("Проверить отображение услуги")
     public boolean isExistService(String nameService) {

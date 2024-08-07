@@ -42,10 +42,12 @@ public class RulesPreparingWindow {
         return new Rule();
     }
 
+    @Step("Получить заголовок правила")
     public SelenideElement getRuleByTitle(String title) {
         return RULES.findBy(Condition.text(title));
     }
 
+    @Step("Получить информацию о пустом списке правил")
     public SelenideElement getEmptyList() {
         return EMPTY_LIST_RULE;
     }

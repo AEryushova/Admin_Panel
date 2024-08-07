@@ -20,7 +20,6 @@ public class Rule {
     }
 
 
-
     @Step("Нажать кнопку изменения правила")
     public EditRuleWindow clickButtonEditRule() {
         OPEN_RULE.shouldBe(Condition.visible)

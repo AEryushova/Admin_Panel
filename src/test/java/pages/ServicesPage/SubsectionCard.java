@@ -81,10 +81,6 @@ public class SubsectionCard {
         return new ServiceCard();
     }
 
-    public ElementsCollection getServices() {
-        return CONTAINER_SERVICES;
-    }
-
 
     @Step("Получить индекс услуги по коду '{0}'")
     public int getServiceByCode(String serviceCode) {

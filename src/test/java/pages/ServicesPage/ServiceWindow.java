@@ -217,7 +217,8 @@ public class ServiceWindow {
         WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
-    public SelenideElement getWindow() {
+    @Step("Получить окно информации об услуге")
+    public SelenideElement getServiceWindow() {
         return WINDOW;
     }
 

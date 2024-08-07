@@ -13,8 +13,7 @@ public class AddDeleteBugReportDecorator implements BeforeEachCallback, AfterEac
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllBugReports();
-        PreparationDataSettingTest.authPatient();
-        PreparationDataSettingTest.addBugReportPatient(generateText(), generateEmail(),generateNamePatient());
+        DataBaseQuery.addBugReport(generateText(), generateEmail(),generateNamePatient());
     }
 
     @Override

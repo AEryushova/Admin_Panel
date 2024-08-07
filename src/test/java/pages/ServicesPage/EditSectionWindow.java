@@ -54,6 +54,11 @@ public class EditSectionWindow {
         WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
+    @Step("Получить окно изменения раздела")
+    public SelenideElement getEditSectionWindow() {
+        return WINDOW;
+    }
+
     @Step("Проверить отображение окна изменения раздела")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();

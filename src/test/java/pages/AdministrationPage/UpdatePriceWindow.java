@@ -75,7 +75,6 @@ public class UpdatePriceWindow {
         File downloadedFile;
         try {
             downloadedFile = ACTIVATION_DATES_DOWNLOAD.download(withExtension("xlsx"));
-            sleep(5000);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
