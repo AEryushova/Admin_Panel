@@ -53,10 +53,9 @@ public class BaseTest {
                 .extract()
                 .response();
         token = response.getBody().jsonPath().getString("accessToken");
-        Configuration.browser= System.getProperty("selenide.browser");
+        Configuration.browser = System.getProperty("selenide.browser", "chrome");
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
-        Configuration.holdBrowserOpen=true;
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();

@@ -2,7 +2,7 @@ package utils.dbUtils;
 
 public class DataBaseConfig {
     public static final String CAB_LAB_DB_URL_DEFAULT="jdbc:postgresql://192.168.6.225:5432/";
-    public static final String CAB_LAB_DB_NAME=System.getProperty("cab.lab.db.name");
+    public static final String CAB_LAB_DB_NAME=System.getProperty("cab.lab.db.name", "freeze_cab_lab_collection");
     public static final String CAB_LAB_DB_URL = CAB_LAB_DB_URL_DEFAULT + CAB_LAB_DB_NAME;
     public static final String CAB_LAB_DB_USERNAME = "username";
     public static final String CAB_LAB_DB_PASSWORD = "password";
