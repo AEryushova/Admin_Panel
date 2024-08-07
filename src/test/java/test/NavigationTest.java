@@ -1,5 +1,6 @@
 package test;
 
+import com.codeborne.selenide.WebDriverRunner;
 import pages.AdministrationPage.AdministrationPage;
 import pages.DoctorsPage.DoctorsPage;
 import pages.FaqPage.FaqPage;
@@ -11,7 +12,10 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
+
+import static appData.AppData.URI_ADMIN_PANEL;
 import static data.TestData.UserData.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Навигационное меню")
 @DisplayName("Навигационное меню")
@@ -41,8 +45,10 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Переход на вкладку докторов")
     @Test
     void openDoctorsPage() {
+        headerMenu.clickServicesTab();
         DoctorsPage doctorsPage = headerMenu.clickDoctorsTab();
         doctorsPage.verifyDoctorsPage();
+        assertEquals(URI_ADMIN_PANEL + "/doctors", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -50,10 +56,11 @@ public class NavigationTest extends BaseTest{
     @DisplayName("Сохранение вкладки докторов")
     @Test
     void saveDoctorsPage() {
+        headerMenu.clickServicesTab();
         DoctorsPage doctorsPage = headerMenu.clickDoctorsTab();
-        doctorsPage.verifyDoctorsPage();
         headerMenu.clickDoctorsTab();
         doctorsPage.verifyDoctorsPage();
+        assertEquals(URI_ADMIN_PANEL + "/doctors", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -63,6 +70,7 @@ public class NavigationTest extends BaseTest{
     void openServicesPage() {
         ServicesPage servicesPage = headerMenu.clickServicesTab();
         servicesPage.verifyServicesPage();
+        assertEquals(URI_ADMIN_PANEL + "/services", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -71,9 +79,9 @@ public class NavigationTest extends BaseTest{
     @Test
     void saveServicesPage() {
         ServicesPage servicesPage = headerMenu.clickServicesTab();
-        servicesPage.verifyServicesPage();
         headerMenu.clickServicesTab();
         servicesPage.verifyServicesPage();
+        assertEquals(URI_ADMIN_PANEL + "/services", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -83,6 +91,7 @@ public class NavigationTest extends BaseTest{
     void openFaqPage() {
         FaqPage faqPage = headerMenu.clickFaqTab();
         faqPage.verifyFaqPage();
+        assertEquals(URI_ADMIN_PANEL + "/faq", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -91,9 +100,9 @@ public class NavigationTest extends BaseTest{
     @Test
     void saveFaqPage() {
         FaqPage faqPage = headerMenu.clickFaqTab();
-        faqPage.verifyFaqPage();
         headerMenu.clickFaqTab();
         faqPage.verifyFaqPage();
+        assertEquals(URI_ADMIN_PANEL + "/faq", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -103,6 +112,7 @@ public class NavigationTest extends BaseTest{
     void openSettingPage() {
         SettingPage settingPage = headerMenu.clickSettingTab();
         settingPage.verifySettingPage();
+        assertEquals(URI_ADMIN_PANEL + "/settings", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -111,11 +121,10 @@ public class NavigationTest extends BaseTest{
     @Test
     void saveSettingPage() {
         SettingPage settingPage = headerMenu.clickSettingTab();
-        settingPage.verifySettingPage();
         headerMenu.clickSettingTab();
         settingPage.verifySettingPage();
+        assertEquals(URI_ADMIN_PANEL + "/settings", WebDriverRunner.url());
     }
-
     @Feature("Навигация")
     @Story("Переход на вкладку администрирования")
     @DisplayName("Переход на вкладку администрирования")
@@ -123,6 +132,7 @@ public class NavigationTest extends BaseTest{
     void openAdministrationPage() {
         AdministrationPage adminPage = headerMenu.clickAdministrationTab();
         adminPage.verifyAdminPage();
+        assertEquals(URI_ADMIN_PANEL + "/admins", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -131,8 +141,8 @@ public class NavigationTest extends BaseTest{
     @Test
     void saveAdministrationPage() {
         AdministrationPage adminPage = headerMenu.clickAdministrationTab();
-        adminPage.verifyAdminPage();
         headerMenu.clickAdministrationTab();
         adminPage.verifyAdminPage();
+        assertEquals(URI_ADMIN_PANEL + "/admins", WebDriverRunner.url());
     }
 }

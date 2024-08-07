@@ -31,12 +31,6 @@ public class DataBaseManager {
                             DataBaseConfig.PLATFORM_DB_USERNAME,
                             DataBaseConfig.PLATFORM_DB_PASSWORD
                     );
-                case "medical_record_db":
-                    return createDataSource(
-                            DataBaseConfig.MEDICAL_RECORD_DB_URL,
-                            DataBaseConfig.MEDICAL_RECORD_DB_USERNAME,
-                            DataBaseConfig.MEDICAL_RECORD_DB_PASSWORD
-                    );
                 case "lod_db":
                     return createDataSource(
                             DataBaseConfig.LOG_DB_URL,

@@ -1,3 +1,5 @@
+//file:noinspection VulnerableLibrariesLocal
+//file:noinspection GroovyUnusedAssignment
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.11.2'
@@ -6,24 +8,21 @@ plugins {
 group = 'lk.mdapp.online'
 version = '1.0-SNAPSHOT'
 
-//noinspection GroovyUnusedAssignment
+
 sourceCompatibility = 11
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
 
 allure {
-    report {
-        version.set("2.30.0")
-        useJUnit5 {
-            version = '2.25.0'
-        }
-        adapter {
-            aspectjWeaver.set(true)
-            frameworks {
-                junit5 {
-                    adapterVersion.set("2.25.0")
-                }
+    version = '2.30.0'
+    useJUnit5 {
+        version = '2.25.0'
+    }
+    adapter {
+        frameworks {
+            junit5 {
+                adapterVersion = '2.25.0'
             }
         }
     }
@@ -34,27 +33,29 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.3'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
-    testImplementation 'org.hamcrest:hamcrest:2.2'
-    testImplementation 'org.postgresql:postgresql:42.7.3'
-    testImplementation 'commons-dbutils:commons-dbutils:1.7'
-    //noinspection VulnerableLibrariesLocal
-    testImplementation 'com.codeborne:selenide:6.17.0'
-    testImplementation 'io.qameta.allure:allure-selenide:2.25.0'
-    testImplementation 'io.qameta.allure:allure-junit5:2.25.0'
-    testImplementation 'io.qameta.allure:allure-assertj:2.25.0'
-    testImplementation 'io.qameta.allure:allure-rest-assured:2.25.0'
-    testImplementation 'org.aspectj:aspectjweaver:1.9.22'
-    implementation 'io.qameta.allure:allure-java-commons:2.25.0'
-    implementation 'org.apache.commons:commons-dbcp2:2.8.0'
-    //noinspection VulnerableLibrariesLocal
-    implementation 'io.rest-assured:rest-assured:5.3.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'org.json:json:20240303'
-    //noinspection VulnerableLibrariesLocal
-    implementation 'com.github.javafaker:javafaker:1.0.2'
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.10.3',
+            'org.junit.jupiter:junit-jupiter-engine:5.8.1',
+            'org.junit.jupiter:junit-jupiter-params:5.10.2',
+            'org.hamcrest:hamcrest:2.2',
+            'org.postgresql:postgresql:42.7.3',
+            'commons-dbutils:commons-dbutils:1.7',
+            'com.codeborne:selenide:6.17.0',
+            'io.qameta.allure:allure-selenide:2.25.0',
+            'io.qameta.allure:allure-junit5:2.25.0',
+            'io.qameta.allure:allure-assertj:2.25.0',
+            'io.qameta.allure:allure-rest-assured:2.25.0',
+            'org.aspectj:aspectjweaver:1.9.22',
+            'org.slf4j:slf4j-simple:2.0.13'
+    )
+    implementation(
+            'io.qameta.allure:allure-java-commons:2.25.0',
+            'org.apache.commons:commons-dbcp2:2.8.0',
+            'io.rest-assured:rest-assured:5.3.0',
+            'com.google.code.gson:gson:2.10.1',
+            'org.json:json:20240303',
+            'com.github.javafaker:javafaker:1.0.2'
+    )
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
@@ -64,7 +65,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    systemProperty 'selenide.headless', System.getProperty('selenide.headless','false')
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless', 'false')
+    systemProperty 'selenide.browser', System.getProperty('selenide.browser', 'chrome')
     systemProperty 'environment', System.getProperty('environment', 'freeze')
     systemProperty 'cab.lab.db.name', System.getProperty('cab.lab.db.name', 'freeze_cab_lab_collection')
 }
