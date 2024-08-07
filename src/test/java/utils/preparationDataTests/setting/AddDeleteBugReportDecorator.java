@@ -1,6 +1,5 @@
 package utils.preparationDataTests.setting;
 
-import utils.APIUtils.PreparationDataSettingTest;
 import utils.dbUtils.DataBaseQuery;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;

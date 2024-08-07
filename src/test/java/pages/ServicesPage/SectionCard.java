@@ -22,7 +22,6 @@ public class SectionCard {
     private final SelenideElement ADD_SUBSECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button/parent::div[@class='gVuT']");
     private final SelenideElement SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
     private final SelenideElement EMPTY_LIST_SUBSECTION = $x("//div[@class='b8mg']/span");
-    private final ElementsCollection ruleElements = $$x("//selector_for_rule_elements");
 
     @Step("Верифицировать карточку раздела")
     public void verifySectionCard() {
