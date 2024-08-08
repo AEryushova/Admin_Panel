@@ -19,24 +19,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Навигационное меню")
 @DisplayName("Навигационное меню")
-public class NavigationTest extends BaseTest{
+public class NavigationTest extends BaseTest {
 
-    private static HeaderMenu headerMenu;
+    private HeaderMenu headerMenu;
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
-        headerMenu = new HeaderMenu();
+        BaseTest.authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
     }
 
     @BeforeEach
-    void setUp(){
-        Selenide.refresh();
+    void setUp() {
+        BaseTest.openAdminPanel();
+        headerMenu = new HeaderMenu();
         headerMenu.verifyHeaderBarSuperAdmin();
     }
 
-    @AfterAll
-    static void closeWebDriver() {
+    @AfterEach()
+    void closeWebDriver() {
         Selenide.closeWebDriver();
     }
 
@@ -125,6 +125,7 @@ public class NavigationTest extends BaseTest{
         settingPage.verifySettingPage();
         assertEquals(URI_ADMIN_PANEL + "/settings", WebDriverRunner.url());
     }
+
     @Feature("Навигация")
     @Story("Переход на вкладку администрирования")
     @DisplayName("Переход на вкладку администрирования")

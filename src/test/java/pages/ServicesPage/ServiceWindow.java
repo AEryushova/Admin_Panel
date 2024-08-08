@@ -201,6 +201,16 @@ public class ServiceWindow {
                 .click();
     }
 
+    @Step("Получить поле заголовка")
+    public SelenideElement getFieldTitle(){
+        return TITLE_FIELD;
+    }
+
+    @Step("Получить поле описания")
+    public SelenideElement getFieldDescription(){
+        return DESCRIPTION_FIELD;
+    }
+
     @Step("Нажать кнопку удаления")
     public void clickDeleteButton() {
         DELETE_RULE_BUTTON.shouldBe(Condition.visible)

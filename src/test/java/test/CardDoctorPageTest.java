@@ -34,22 +34,21 @@ public class CardDoctorPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
-        DoctorsPage doctorsPage = new DoctorsPage();
-        doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
-        doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION, DOCTOR);
-        cardDoctor = new CardDoctorPage();
+        BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        Selenide.refresh();
+        BaseTest.openAdminPanel();
+        DoctorsPage doctorsPage = new DoctorsPage();
+        doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
+        doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION, DOCTOR);
+        cardDoctor = new CardDoctorPage();
         cardDoctor.verifyDoctorCardPage();
     }
 
-
-    @AfterAll
-    static void closeWebDriver() {
+    @AfterEach()
+    void closeWebDriver() {
         Selenide.closeWebDriver();
     }
 
@@ -61,6 +60,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg", "src/test/resources/Photo 3,2mbPng.png"})
     void addPhotoDoctor(String path) {
+        cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         editPhoto.verifyEditPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
@@ -78,6 +78,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddDeletePhotoDoctorDecorator.class)
     @Test
     void changePhotoDoctor() {
+        cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         editPhoto.verifyEditPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
@@ -95,6 +96,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Замена фотографии врачу с файлом весом более 4mb")
     @Test
     void changePhotoDoctorWeightMoreThan4mb() {
+        cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
@@ -109,6 +111,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
+        cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto(path);
@@ -123,6 +126,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Закрытие окна смены фотографии")
     @Test
     void closeWindowEditPhoto() {
+        cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         editPhoto.closeWindowEditPhoto();
         assertFalse(editPhoto.isWindowAppear());
@@ -134,6 +138,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddPhotoDoctorDecorator.class)
     @Test
     void deletePhoto() {
+        cardDoctor.scrollPageUp("500");
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.clickButtonDeletePhoto();
         cardDoctor.getPhoto().should(Condition.not(Condition.attribute("src", srcOriginalPhoto)), Duration.ofSeconds(6));
@@ -150,6 +155,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(DeletePhotoDoctorDecorator.class)
     @Test
     void deleteDefaultPhoto() {
+        cardDoctor.scrollPageUp("500");
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         cardDoctor.clickButtonDeletePhoto();
         assertEquals("Конфликт (409)", cardDoctor.getTextNotification());
@@ -355,7 +361,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackCurrentMonth() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(generateNamePatient());
         addFeedbackWindow.fillFieldTextFeedback(generateText());
@@ -388,7 +394,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackFutureMonth() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(generateNamePatient());
         addFeedbackWindow.fillFieldTextFeedback(generateText());
@@ -421,7 +427,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackPreviousMonth() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(generateNamePatient());
         addFeedbackWindow.fillFieldTextFeedback(generateText());
@@ -453,7 +459,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(DeleteFeedbackDecorator.class)
     @Test
     void addFeedbackTodayNotUseCalendar() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.verifyAddFeedbackWindow();
         addFeedbackWindow.fillFieldFio(generateNamePatient());
@@ -481,7 +487,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Очистка поля ФИО через кнопку в окне добавления отзыва")
     @Test
     void clearFioFieldWindowAddFeedbackThroughButtonClear() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(generateNamePatient());
         addFeedbackWindow.clickClearButtonFioField();
@@ -493,7 +499,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Сброс значений полей в окне добавления отзыва при закрытии окна")
     @Test
     void closeWindowAddNewFeedback() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(generateNamePatient());
         addFeedbackWindow.fillFieldTextFeedback(generateText());
@@ -509,7 +515,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Добавление нового отзыва с пустым полем ФИО")
     @Test
     void addFeedbackEmptyFieldFio() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldTextFeedback(generateText());
         assertFalse(addFeedbackWindow.isEnabledPublishButton());
@@ -521,7 +527,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Добавление нового отзыва с пустым полем отзыва")
     @Test
     void addFeedbackEmptyFieldText() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
         addFeedbackWindow.fillFieldFio(generateNamePatient());
         assertFalse(addFeedbackWindow.isEnabledPublishButton());
@@ -533,7 +539,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddDeleteFeedbackDecorator.class)
     @Test
     void editUnpublishedFeedback() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         cardDoctor.checkSelectPublishedFeedback();
         cardDoctor.checkNoSelectUnpublishedFeedback();
         cardDoctor.clickButtonUnpublishedFeedback();
@@ -563,7 +569,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddDeleteFeedbackDecorator.class)
     @Test
     void publicationUnpublishedFeedback() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackUnpublished();
@@ -584,7 +590,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void editPublishedFeedback() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         cardDoctor.checkSelectPublishedFeedback();
         cardDoctor.checkNoSelectUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
@@ -611,7 +617,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void withdrawalPublicationFeedback() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackPublished();
         feedback.clickButtonWithdrawalPublication();
@@ -630,7 +636,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void closeWindowEditFeedback() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
         EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
         editFeedback.fillFieldText(generateNamePatient());
@@ -647,7 +653,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void editFeedbackEmptyFieldText() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
         EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
         editFeedback.clearTextField();
@@ -661,7 +667,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddFeedbackDecorator.class)
     @Test
     void deleteUnpublishedFeedback() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackUnpublished();
@@ -678,7 +684,7 @@ public class CardDoctorPageTest extends BaseTest {
     @ExtendWith(AddTwoFeedbackDecorator.class)
     @Test
     void sortingUnpublishedFeedbacks() {
-        cardDoctor.scrollPage("500");
+        cardDoctor.scrollPageDown("500");
         cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         assertTrue(cardDoctor.isSortingNewAppear());

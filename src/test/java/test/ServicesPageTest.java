@@ -15,6 +15,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 
+import static com.codeborne.selenide.Condition.value;
 import static data.TestData.DataTest.*;
 import static data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,24 +26,24 @@ import static utils.otherUtils.DataGenerator.*;
 @DisplayName("Страница Услуги")
 public class ServicesPageTest extends BaseTest {
 
-    private static ServicesPage servicesPage;
+    private ServicesPage servicesPage;
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
-        HeaderMenu headerMenu = new HeaderMenu();
-        headerMenu.clickServicesTab();
-        servicesPage = new ServicesPage();
+        BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        Selenide.refresh();
+        BaseTest.openAdminPanel();
+        HeaderMenu headerMenu = new HeaderMenu();
+        headerMenu.clickServicesTab();
+        servicesPage = new ServicesPage();
         servicesPage.verifyServicesPage();
     }
 
-    @AfterAll
-    static void closeWebDriver() {
+    @AfterEach()
+    void closeWebDriver() {
         Selenide.closeWebDriver();
     }
 
@@ -52,7 +53,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void addRulePreparingCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         rulePreparingWindow.verifyRulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
@@ -79,7 +80,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void addRulePreparingCategoryEmptyFieldTitle() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldDescription(generateText());
@@ -94,7 +95,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void addRulePreparingCategoryEmptyFieldDescription() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldTitle(generateWord());
@@ -109,7 +110,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void addRulePreparingCategoryEmptyFields() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.clickSaveButton();
@@ -123,7 +124,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void closeWindowAddRulePreparingCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldTitle(generateWord());
@@ -143,7 +144,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void comebackRulesListFromWindowAddRulePreparingCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldTitle(generateWord());
@@ -162,7 +163,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void editRulePreparingCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -188,7 +189,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void editRulePreparingCategoryEmptyFieldTitle() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -205,7 +206,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void editRulePreparingCategoryEmptyFieldDescription() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -222,7 +223,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void editRulePreparingCategoryEmptyFields() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -239,7 +240,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void saveRulePreparingCategoryNotChange() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -258,7 +259,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryRuleDecorator.class)
     @Test
     void closeWindowEditRulePreparingCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -282,7 +283,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddRuleCategoryDecorator.class)
     @Test
     void deleteRulePreparingCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -302,7 +303,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddRuleCategoryDecorator.class)
     @Test
     void deleteAllRulePreparingCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         rulePreparingWindow.clickButtonDeleteAllRules();
         rulePreparingWindow.getEmptyList().shouldBe(Condition.visible);
@@ -318,10 +319,10 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void addRulePreparingSection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = sectionCard.clickButtonOpenRulesPreparingSection();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldTitle(generateWord());
@@ -345,10 +346,10 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionRuleDecorator.class)
     @Test
     void editRulePreparingSection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = sectionCard.clickButtonOpenRulesPreparingSection();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -374,10 +375,10 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionRuleDecorator.class)
     @Test
     void deleteRulePreparingSection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = sectionCard.clickButtonOpenRulesPreparingSection();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -397,10 +398,10 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionRuleDecorator.class)
     @Test
     void deleteAllRulePreparingSection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = sectionCard.clickButtonOpenRulesPreparingSection();
         rulePreparingWindow.clickButtonDeleteAllRules();
         rulePreparingWindow.getEmptyList().shouldBe(Condition.visible);
@@ -416,13 +417,13 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSubsectionDecorator.class)
     @Test
     void addRulePreparingSubsection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = subsectionCard.clickButtonOpenRulesPreparingSubsection();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldTitle(generateWord());
@@ -446,13 +447,13 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSubsectionRuleDecorator.class)
     @Test
     void editRulePreparingSubsection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = subsectionCard.clickButtonOpenRulesPreparingSubsection();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -478,13 +479,13 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSubsectionRuleDecorator.class)
     @Test
     void deleteRulePreparingSubsection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = subsectionCard.clickButtonOpenRulesPreparingSubsection();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
@@ -504,13 +505,13 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSubsectionRuleDecorator.class)
     @Test
     void deleteAllRulePreparingSubsection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = subsectionCard.clickButtonOpenRulesPreparingSubsection();
         rulePreparingWindow.clickButtonDeleteAllRules();
         rulePreparingWindow.getEmptyList().shouldBe(Condition.visible);
@@ -526,7 +527,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(DeleteRuleCategoryDecorator.class)
     @Test
     void closeWindowRulePreparingCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         rulePreparingWindow.closeWindowRulesPreparing();
         assertFalse(rulePreparingWindow.isWindowAppear());
@@ -549,16 +550,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddServiceInNewCategoryDecorator.class)
     @Test
     void addRulePreparingService() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickRulesPreparingTab();
@@ -566,6 +567,8 @@ public class ServicesPageTest extends BaseTest {
         serviceWindow.fillFieldTitle(generateWord());
         serviceWindow.fillFieldDescription(generateText());
         serviceWindow.clickAddButton();
+        serviceWindow.getFieldTitle().shouldHave(value(word));
+        serviceWindow.getFieldDescription().shouldHave(value(text));
         PreparingDescriptions preparingDescription = DataBaseQuery.selectDescriptionService(codeService);
         assertEquals(word, serviceWindow.getValueTitleField());
         assertEquals(text, serviceWindow.getValueDescriptionField());
@@ -582,16 +585,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddServiceInNewCategoryDecorator.class)
     @Test
     void addRulePreparingServiceEmptyFieldTitle() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickRulesPreparingTab();
         serviceWindow.fillFieldDescription(generateText());
@@ -606,16 +609,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddServiceInNewCategoryDecorator.class)
     @Test
     void addRulePreparingServiceEmptyFieldDescription() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickRulesPreparingTab();
         serviceWindow.fillFieldTitle(generateWord());
@@ -628,16 +631,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddServiceInNewCategoryDecorator.class)
     @Test
     void closePreparingDescriptionsService() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickRulesPreparingTab();
         serviceWindow.fillFieldTitle(generateWord());
@@ -654,22 +657,24 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteRuleServiceDecorator.class)
     @Test
     void editRulePreparingService() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickRulesPreparingTab();
         serviceWindow.fillFieldTitle(generateWord());
         serviceWindow.fillFieldDescription(generateText());
         serviceWindow.clickChangeButton();
+        serviceWindow.getFieldTitle().shouldHave(value(word));
+        serviceWindow.getFieldDescription().shouldHave(value(text));
         PreparingDescriptions preparingDescription = DataBaseQuery.selectDescriptionService(codeService);
         assertEquals(word, serviceWindow.getValueTitleField());
         assertEquals(text, serviceWindow.getValueDescriptionField());
@@ -686,16 +691,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteRuleServiceDecorator.class)
     @Test
     void saveRulePreparingServiceNotChange() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickRulesPreparingTab();
@@ -714,16 +719,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddRuleServiceDecorator.class)
     @Test
     void deleteRulePreparingService() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickRulesPreparingTab();
@@ -742,7 +747,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategorySectionDecorator.class)
     @Test
     void addSectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         categoryCard.verifyCategoryCard();
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
@@ -753,7 +758,7 @@ public class ServicesPageTest extends BaseTest {
         addSectionWindow.getAddSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertFalse(addSectionWindow.isWindowAppear());
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
         assertTrue(categoryCard.isExistSectionCard());
         SectionCard sectionCard = categoryCard.getSection();
@@ -769,7 +774,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void closeWindowAddSection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
         addSectionWindow.fillNameSectionField(generateSectionName());
@@ -785,7 +790,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void displayNotificationAboutRequiredFieldsWindowAddSection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
         addSectionWindow.clickFieldName();
@@ -799,7 +804,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void clearFieldWindowAddSectionThroughButtonClear() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
         addSectionWindow.fillNameSectionField(generateSectionName());
@@ -814,7 +819,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void cancelAddSectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
         addSectionWindow.clickCancelButtonAddSection();
@@ -828,7 +833,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.verifySectionCard();
@@ -839,7 +844,7 @@ public class ServicesPageTest extends BaseTest {
         editSectionWindow.getEditSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertFalse(editSectionWindow.isWindowAppear());
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
         assertEquals(sectionName, sectionCard.getNameSection());
         assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
@@ -853,7 +858,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void closeWindowEditSectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.clickButtonEditSection();
@@ -870,7 +875,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void saveSectionInCategoryNotChange() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.clickButtonEditSection();
@@ -878,7 +883,7 @@ public class ServicesPageTest extends BaseTest {
         editSectionWindow.getEditSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertFalse(editSectionWindow.isWindowAppear());
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
         assertEquals(sectionName, sectionCard.getNameSection());
         assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
@@ -890,7 +895,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void editSectionInCategoryEmptyFieldName() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.clickButtonEditSection();
@@ -906,7 +911,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddSectionDecorator.class)
     @Test
     void deleteSectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         DeleteSectionWindow deleteSectionWindow = sectionCard.clickButtonDeleteSection();
@@ -916,7 +921,7 @@ public class ServicesPageTest extends BaseTest {
         deleteSectionWindow.getDeleteSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertFalse(deleteSectionWindow.isWindowAppear());
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
         assertFalse(categoryCard.isExistSectionCard());
         assertTrue(categoryCard.isExistEmptyList());
@@ -930,7 +935,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void cancelDeleteSectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         DeleteSectionWindow deleteSectionWindow = sectionCard.clickButtonDeleteSection();
@@ -946,7 +951,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionDecorator.class)
     @Test
     void closeWindowDeleteSectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         DeleteSectionWindow deleteSectionWindow = sectionCard.clickButtonDeleteSection();
@@ -962,10 +967,10 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSectionSubsectionDecorator.class)
     @Test
     void addSubsectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         AddSectionWindow addSectionWindow = sectionCard.clickButtonAddSubsection();
         addSectionWindow.fillNameSectionField(generateSubSectionName());
@@ -974,9 +979,9 @@ public class ServicesPageTest extends BaseTest {
         addSectionWindow.getAddSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertFalse(addSectionWindow.isWindowAppear());
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         assertTrue(sectionCard.isExistSubsectionCard());
         SubsectionCard subsectionCard = sectionCard.getSubsection();
@@ -992,10 +997,10 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSubsectionDecorator.class)
     @Test
     void editSubsectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         subsectionCard.verifySubsectionCard();
@@ -1005,9 +1010,9 @@ public class ServicesPageTest extends BaseTest {
         editSectionWindow.getEditSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertFalse(editSectionWindow.isWindowAppear());
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         assertEquals(subSectionName, subsectionCard.getNameSubsection());
         assertNotNull(DataBaseQuery.selectServicesCategories(subSectionName));
@@ -1021,10 +1026,10 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddSubsectionDecorator.class)
     @Test
     void deleteSubsectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         DeleteSectionWindow deleteSectionWindow = subsectionCard.clickButtonDeleteSubsection();
@@ -1033,11 +1038,11 @@ public class ServicesPageTest extends BaseTest {
         deleteSectionWindow.getDeleteSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertFalse(deleteSectionWindow.isWindowAppear());
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         assertFalse(sectionCard.isExistSubsectionCard());
         assertTrue(sectionCard.isExistEmptyList());
         assertNull(DataBaseQuery.selectServicesCategories(subSectionName));
@@ -1050,7 +1055,7 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void changeSequenceDisplayCategoriesCategoryOtherServices() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         int sequenceFirstCategory = servicesPage.getCategoryIndexByName(categoryName);
         int sequenceSecondCategory = servicesPage.getCategoryIndexByName(NAME_OTHER_SERVICE_CATEGORY);
         int sequenceFirstCategoryDB = DataBaseQuery.selectServicesCategories(categoryName).getSequence();
@@ -1068,10 +1073,10 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteSubsectionDecorator.class)
     @Test
     void deleteSectionThatHasSubsectionInCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         DeleteSectionWindow deleteSectionWindow = sectionCard.clickButtonDeleteSection();
         deleteSectionWindow.clickButtonDeleteSection();
         assertEquals("Нельзя удалить категорию, т.к. имеются дочерние объекты", servicesPage.getTextNotification());
@@ -1087,16 +1092,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddServiceInNewCategoryDecorator.class)
     @Test
     void openCardService() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         serviceCard.verifyServiceCard();
         String nameService = serviceCard.getNameService();
         String codeService = serviceCard.getCodeService();
@@ -1114,16 +1119,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddServiceInNewCategoryForTransferDecorator.class)
     @Test
     void transferServiceToOtherServices() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickServiceTransferTab();
@@ -1133,13 +1138,13 @@ public class ServicesPageTest extends BaseTest {
         serviceWindow.getServiceWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertFalse(serviceWindow.isWindowAppear());
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         assertTrue(subsectionCard.isExistEmptyList());
         servicesPage.clickButtonCloseCategory(categoryName);
         servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
@@ -1153,29 +1158,29 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddServiceInNewCategoryForTransferDecorator.class)
     @Test
     void deleteServiceFromCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
         serviceWindow.clickButtonDeleteService();
         serviceWindow.getServiceWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertFalse(serviceWindow.isWindowAppear());
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         assertTrue(subsectionCard.isExistEmptyList());
         servicesPage.clickButtonCloseCategory(categoryName);
         servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
@@ -1190,27 +1195,27 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddServiceInNewCategoryForDeleteSection.class)
     @Test
     void transferServiceToOtherServicesIfDeleteSection() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
         ServiceCard serviceCard = subsectionCard.getService();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         subsectionCard.clickButtonCloseSubsection(subSectionName);
         DeleteSectionWindow deleteSectionWindow = subsectionCard.clickButtonDeleteSubsection();
         deleteSectionWindow.clickButtonDeleteSection();
         deleteSectionWindow.getDeleteSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         assertTrue(sectionCard.isExistEmptyList());
         servicesPage.clickButtonCloseCategory(categoryName);
         servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
@@ -1242,16 +1247,16 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddServiceInNewCategoryDecorator.class)
     @Test
     void closeCategory() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.clickButtonOpenSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         subsectionCard.clickButtonOpenSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonCloseSubsection(subSectionName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         assertFalse(subsectionCard.isExistService());
         sectionCard.clickButtonCloseSection(sectionName);
         servicesPage.clickButtonCloseCategory(categoryName);
@@ -1264,13 +1269,13 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddDeleteCategoryDecorator.class)
     @Test
     void changeSequenceDisplayCategoriesCategories() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         int sequenceFirstCategory = servicesPage.getCategoryIndexByName("Диагностика");
         int sequenceSecondCategory = servicesPage.getCategoryIndexByName(categoryName);
         int sequenceFirstCategoryDB = DataBaseQuery.selectServicesCategories("Диагностика").getSequence();
         int sequenceSecondCategoryDB = DataBaseQuery.selectServicesCategories(categoryName).getSequence();
         servicesPage.changeSequenceDisplayCategories("Диагностика", categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         assertEquals(sequenceFirstCategory, servicesPage.getCategoryIndexByName(categoryName));
         assertEquals(sequenceSecondCategory, servicesPage.getCategoryIndexByName("Диагностика"));
@@ -1285,18 +1290,18 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddTwoSections.class)
     @Test
     void changeSequenceDisplayCategoriesSections() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         int sequenceFirstSection = categoryCard.getSectionIndexByName(sectionName);
         int sequenceSecondSection = categoryCard.getSectionIndexByName(subSectionName);
         int sequenceFirstSectionDB = DataBaseQuery.selectServicesCategories(sectionName).getSequence();
         int sequenceSecondSectionDB = DataBaseQuery.selectServicesCategories(subSectionName).getSequence();
         categoryCard.changeSequenceDisplaySections(sectionName, subSectionName);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         assertEquals(sequenceFirstSection, categoryCard.getSectionIndexByName(subSectionName));
         assertEquals(sequenceSecondSection, categoryCard.getSectionIndexByName(sectionName));
         assertEquals(sequenceFirstSectionDB, DataBaseQuery.selectServicesCategories(subSectionName).getSequence());
@@ -1311,22 +1316,22 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddTwoSubsections.class)
     @Test
     void changeSequenceDisplayCategoriesSubsections() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.clickButtonOpenSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         int sequenceFirstSubsection = sectionCard.getSubsectionIndexByName(subSectionName);
         int sequenceSecondSubsection = sectionCard.getSubsectionIndexByName(text);
         int sequenceFirstSubsectionDB = DataBaseQuery.selectServicesCategories(subSectionName).getSequence();
         int sequenceSecondSubsectionDB = DataBaseQuery.selectServicesCategories(text).getSequence();
         sectionCard.changeSequenceDisplaySubsections(subSectionName, text);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         assertEquals(sequenceFirstSubsection, categoryCard.getSectionIndexByName(text));
         assertEquals(sequenceSecondSubsection, categoryCard.getSectionIndexByName(subSectionName));
         assertEquals(sequenceFirstSubsectionDB, DataBaseQuery.selectServicesCategories(text).getSequence());
@@ -1340,15 +1345,15 @@ public class ServicesPageTest extends BaseTest {
     @ExtendWith(AddTwoServices.class)
     @Test
     void changeSequenceDisplayCategoriesServices() {
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.clickButtonOpenSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         subsectionCard.clickButtonOpenSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         String codeFirst = AddTwoServices.getServiceCodeFirst();
         String codeSecond = AddTwoServices.getServiceCodeSecond();
         int sequenceFirstService = subsectionCard.getServiceByCode(codeFirst);
@@ -1357,13 +1362,13 @@ public class ServicesPageTest extends BaseTest {
         int sequenceSecondServiceDB = DataBaseQuery.selectAllService(codeSecond).getSequence();
         subsectionCard.changeSequenceDisplayServices(codeFirst, codeSecond);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         servicesPage.clickButtonOpenCategory(categoryName);
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         subsectionCard.clickButtonOpenSubsection();
-        servicesPage.scrollPage("500");
+        servicesPage.scrollPageDown("500");
         assertEquals(sequenceFirstService, subsectionCard.getServiceByCode(codeSecond));
         assertEquals(sequenceSecondService, subsectionCard.getServiceByCode(codeFirst));
         assertEquals(sequenceFirstServiceDB, DataBaseQuery.selectAllService(codeSecond).getSequence());

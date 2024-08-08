@@ -23,25 +23,25 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Страница Врачи")
 public class DoctorPageTest extends BaseTest {
 
-    private static DoctorsPage doctorsPage;
-    private static BasePage basePage;
+    private DoctorsPage doctorsPage;
+    private BasePage basePage;
 
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
-        doctorsPage = new DoctorsPage();
-        basePage = new BasePage();
+        BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        Selenide.refresh();
+        BaseTest.openAdminPanel();
+        doctorsPage = new DoctorsPage();
+        basePage = new BasePage();
         doctorsPage.verifyDoctorsPage();
     }
 
-    @AfterAll
-    static void closeWebDriver() {
+    @AfterEach()
+    void closeWebDriver() {
         Selenide.closeWebDriver();
     }
 
@@ -238,7 +238,7 @@ public class DoctorPageTest extends BaseTest {
     @Test
     void returnToHeaderPageAdministration() {
         assertFalse(basePage.isVisibleButtonReturnToHeader());
-        basePage.scrollPage("700");
+        basePage.scrollPageDown("700");
         basePage.getButtonReturnToHeader().shouldBe(Condition.visible);
         assertTrue(basePage.isVisibleButtonReturnToHeader());
         basePage.clickButtonReturnToHeader();

@@ -3,7 +3,6 @@ package test;
 import pages.BasePage.BasePage;
 import pages.HeaderMenu.UserPanel;
 import utils.dbUtils.DataBaseQuery;
-import utils.preparationDataTests.authorization.CloseWebDriverDecorator;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.*;
 import pages.AuthorizationPage.AuthorizationPage;
 import pages.DoctorsPage.DoctorsPage;
 import pages.HeaderMenu.HeaderMenu;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -30,61 +28,53 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Страница Авторизации")
 public class AuthorizationPageTest extends BaseTest {
 
-    private static AuthorizationPage authPage;
-    private static HeaderMenu headerMenu;
-    private static BasePage basePage;
+    private AuthorizationPage authPage;
+    private HeaderMenu headerMenu;
+    private BasePage basePage;
 
-
-    @BeforeAll
-    static void setUpAuth() {
+    @BeforeEach
+    void setUp() {
         BaseTest.openBrowser();
         authPage = new AuthorizationPage();
         headerMenu = new HeaderMenu();
         basePage = new BasePage();
+        authPage.verifyAuthPage();
     }
 
-    @BeforeEach
-    void setUp() {
-        Selenide.refresh();
-       authPage.verifyAuthPage();
-    }
-
-    @AfterAll
-    static void closeWebDriver() {
+    @AfterEach()
+    void closeWebDriver() {
         Selenide.closeWebDriver();
     }
 
     @Story("Успешная авторизация супер-админа")
     @DisplayName("Успешная авторизация супер-админа")
-    @ExtendWith(CloseWebDriverDecorator.class)
     @Test
     void authSuperAdmin() {
         DoctorsPage doctorPage = authPage.authorization(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
         doctorPage.verifyDoctorsPage();
         headerMenu.verifyHeaderBarSuperAdmin();
-        UserPanel userPanel=headerMenu.clickButtonUserPanel();
+        UserPanel userPanel = headerMenu.clickButtonUserPanel();
         userPanel.verifyUserPanelSuperAdmin();
         assertEquals("Супер-Администратор", userPanel.getProfileInfoUser());
-        assertEquals(LOGIN_SUPER_ADMIN,userPanel.getLogin());
+        assertEquals(LOGIN_SUPER_ADMIN, userPanel.getLogin());
         assertEquals(0, DataBaseQuery.selectAdmin(LOGIN_SUPER_ADMIN).getRole_id());
-        assertEquals("SIGN_IN_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("SIGN_IN_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
 
     @Story("Успешная авторизация админа")
     @DisplayName("Успешная авторизация админа")
-    @ExtendWith(CloseWebDriverDecorator.class)
     @Test
     void authAdmin() {
         DoctorsPage doctorPage = authPage.authorization(LOGIN_ADMIN, PASSWORD_ADMIN);
         doctorPage.verifyDoctorsPage();
         headerMenu.verifyHeaderBarAdmin();
-        UserPanel userPanel=headerMenu.clickButtonUserPanel();
+        UserPanel userPanel = headerMenu.clickButtonUserPanel();
         userPanel.verifyUserPanelAdmin();
         assertEquals("Администратор", userPanel.getProfileInfoUser());
-        assertEquals(LOGIN_ADMIN,userPanel.getLogin());
+        assertEquals(LOGIN_ADMIN, userPanel.getLogin());
         assertEquals(1, DataBaseQuery.selectAdmin(LOGIN_ADMIN).getRole_id());
-        assertEquals("SIGN_IN_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
+        assertEquals("SIGN_IN_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Story("Авторизация админа с неверным паролем")
@@ -218,7 +208,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Ввод не валидных граничных значений пароля из 7 и 26 символов")
     @DisplayName("Ввод не валидных граничных значений пароля из 7 и 26 символов")
     @ParameterizedTest
-    @ValueSource(strings = {"Wwqq12#","Wwqq123456789#QQgg12345678"})
+    @ValueSource(strings = {"Wwqq12#", "Wwqq123456789#QQgg12345678"})
     void fillLimitInvalidValuesPasswordVerifyAuthPage_7_26_Symbol(String password) {
         authPage.fillPasswordField(password);
         assertEquals("Пароль не валиден", authPage.getErrorFieldPassword());
@@ -238,7 +228,7 @@ public class AuthorizationPageTest extends BaseTest {
     @Story("Закрытие уведомления на странице авторизации по таймауту")
     @DisplayName("Закрытие уведомления на странице авторизации по таймауту")
     @Test
-    void closeNotificationTimeout()  {
+    void closeNotificationTimeout() {
         authPage.fillLoginField(LOGIN_ADMIN);
         authPage.fillPasswordField(generatePassword());
         assertTrue(authPage.isEnabledComeInButton());
@@ -269,11 +259,11 @@ public class AuthorizationPageTest extends BaseTest {
     @Test
     void exitAdminPanel() {
         authPage.authorization(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
-        UserPanel userPanel=headerMenu.clickButtonUserPanel();
+        UserPanel userPanel = headerMenu.clickButtonUserPanel();
         userPanel.verifyUserPanelSuperAdmin();
-        AuthorizationPage authPage=userPanel.clickButtonExitAdminPanel();
+        AuthorizationPage authPage = userPanel.clickButtonExitAdminPanel();
         authPage.verifyAuthPage();
-        assertEquals("SIGN_OUT_ADMIN_SUCCESS",DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
+        assertEquals("SIGN_OUT_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
 }

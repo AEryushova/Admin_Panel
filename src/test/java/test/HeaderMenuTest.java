@@ -25,24 +25,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName("Юзер панель")
 public class HeaderMenuTest extends BaseTest {
 
-    private static HeaderMenu headerMenu;
-    private static BasePage basePage;
+    private HeaderMenu headerMenu;
+    private BasePage basePage;
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
-        headerMenu = new HeaderMenu();
-        basePage = new BasePage();
+        BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        Selenide.refresh();
+        BaseTest.openAdminPanel();
+        headerMenu = new HeaderMenu();
+        basePage = new BasePage();
         headerMenu.verifyHeaderBarAdmin();
     }
 
-    @AfterAll
-    static void closeWebDriver() {
+    @AfterEach()
+    void closeWebDriver() {
         Selenide.closeWebDriver();
     }
 
@@ -196,7 +196,7 @@ public class HeaderMenuTest extends BaseTest {
 
     @Feature("Смена своего пароля админом")
     @Story("Ввод не валидного нового пароля")
-    @DisplayName("вод не валидного нового пароля")
+    @DisplayName("Ввод не валидного нового пароля")
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
     void fillInvalidValuesNewPasswordChangeMainPassword(String password) {

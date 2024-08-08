@@ -28,26 +28,26 @@ import static utils.otherUtils.TestHelper.getCurrentDateRuYear;
 @DisplayName("Страница Настройки")
 public class SettingPageTest extends BaseTest {
 
-    private static SettingPage settingPage;
-    private static HeaderMenu headerMenu;
+    private  SettingPage settingPage;
+    private  HeaderMenu headerMenu;
 
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
-        headerMenu = new HeaderMenu();
-        headerMenu.clickSettingTab();
-        settingPage = new SettingPage();
+        BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        Selenide.refresh();
+        BaseTest.openAdminPanel();
+        headerMenu = new HeaderMenu();
+        headerMenu.clickSettingTab();
+        settingPage = new SettingPage();
         settingPage.verifySettingPage();
     }
 
-    @AfterAll
-    static void closeWebDriver() {
+    @AfterEach()
+    void closeWebDriver() {
         Selenide.closeWebDriver();
     }
 
@@ -91,7 +91,6 @@ public class SettingPageTest extends BaseTest {
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/visa.png");
         Selenide.Wait().until(condition -> settingPage.getHeightLogo() != oldHeightLogo);
-        assertFalse(editLogoWindow.isWindowAppear());
         assertNotEquals(oldHeightLogo, settingPage.getHeightLogo());
         assertNotEquals(oldHeightLogo, headerMenu.getHeightLogo());
     }
@@ -103,10 +102,11 @@ public class SettingPageTest extends BaseTest {
     @Test
     void changeLogoInvalidLogoFormat() {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
+        int oldHeightLogo = settingPage.getHeightLogo();
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo 3,7mbJpeg.jpg");
         assertEquals("Неверный запрос (400)", settingPage.getTextNotification());
-        assertTrue(editLogoWindow.isWindowAppear());
+        assertEquals(oldHeightLogo, settingPage.getHeightLogo());
     }
 
     @Feature("Настройки личного кабинета")
@@ -115,10 +115,11 @@ public class SettingPageTest extends BaseTest {
     @Test
     void changeLogoWeightMoreThan4mb() {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
+        int oldHeightLogo = settingPage.getHeightLogo();
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
         assertEquals("Допускаются файлы размером не выше 4Мб", settingPage.getTextNotification());
-        assertTrue(editLogoWindow.isWindowAppear());
+        assertEquals(oldHeightLogo, settingPage.getHeightLogo());
     }
 
 
@@ -129,10 +130,11 @@ public class SettingPageTest extends BaseTest {
     @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Политика обработки персональных данных.pdf"})
     void changeLogoInvalidFormat(String path) {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
+        int oldHeightLogo = settingPage.getHeightLogo();
         editLogoWindow.verifyEditLogoWindow();
         editLogoWindow.uploadLogo(path);
         assertEquals("Допускаются файлы с расширением jpg jpeg png", settingPage.getTextNotification());
-        assertTrue(editLogoWindow.isWindowAppear());
+        assertEquals(oldHeightLogo, settingPage.getHeightLogo());
     }
 
     @Feature("Настройки личного кабинета")

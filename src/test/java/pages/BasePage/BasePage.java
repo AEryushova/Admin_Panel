@@ -62,8 +62,14 @@ public class BasePage {
 
 
     @Step("Проскроллить страницу вниз на '{0}' пикселей")
-    public void scrollPage(String countPixel) {
+    public void scrollPageDown(String countPixel) {
         Selenide.executeJavaScript("window.scrollBy(0, " + countPixel + ")");
+        Selenide.sleep(3000);
+    }
+
+    @Step("Проскроллить страницу вверх на '{0}' пикселей")
+    public void scrollPageUp(String countPixel) {
+        Selenide.executeJavaScript("window.scrollBy(0, -arguments[0]);", countPixel);
         Selenide.sleep(3000);
     }
 

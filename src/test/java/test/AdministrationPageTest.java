@@ -30,25 +30,24 @@ import static utils.otherUtils.TestHelper.*;
 @DisplayName("Страница Администрирования")
 public class AdministrationPageTest extends BaseTest {
 
-    private static AdministrationPage adminPage;
-
+    private AdministrationPage adminPage;
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
-        HeaderMenu headerMenu = new HeaderMenu();
-        headerMenu.clickAdministrationTab();
-        adminPage = new AdministrationPage();
+        BaseTest.authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        Selenide.refresh();
+        BaseTest.openAdminPanel();
+        HeaderMenu headerMenu = new HeaderMenu();
+        headerMenu.clickAdministrationTab();
+        adminPage = new AdministrationPage();
         adminPage.verifyAdminPage();
     }
 
-    @AfterAll
-    static void closeWebDriver() {
+    @AfterEach()
+    void closeWebDriver() {
         Selenide.closeWebDriver();
     }
 
@@ -491,7 +490,6 @@ public class AdministrationPageTest extends BaseTest {
         assertNull(DataBaseQuery.selectAdmin(login));
         assertEquals("DELETE_ADMIN_SUCCESS", DataBaseQuery.selectLog(login).getCode());
     }
-
 
     @Feature("Документация")
     @Story("Успешное обновление оферты")

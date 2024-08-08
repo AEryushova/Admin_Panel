@@ -15,8 +15,6 @@ public class ReturnPasswordAdmin implements AfterEachCallback {
     public void afterEach(ExtensionContext context) throws Exception {
         PreparationDataHeaderTest.authAdmin(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
         PreparationDataHeaderTest.changePasswordAdmin(LOGIN_ADMIN, PASSWORD_ADMIN);
-        Selenide.closeWebDriver();
-        BaseTest.openAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
-
+        BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 }

@@ -51,7 +51,7 @@ public class TestData {
     @Data
     public static class DataSearch {
         public static final String DOCTOR_NAME_SEARCH = "надежда";
-        public static final String DOCTOR_SPECIALIZATION_SEARCH = "терапевт";
+        public static final String DOCTOR_SPECIALIZATION_SEARCH = "гинеколог";
         public static final String FAQ_SEARCH = "врач";
         public static final String SEARCH_BY_INCLUSION_DOCTORS = "етс";
         public static final String SEARCH_BY_INCLUSION_FAQ = "пис";

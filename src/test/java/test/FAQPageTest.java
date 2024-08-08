@@ -26,26 +26,27 @@ import static utils.otherUtils.DataGenerator.*;
 @DisplayName("Страница FAQ")
 public class FAQPageTest extends BaseTest {
 
-    private static FaqPage faqPage;
+    private FaqPage faqPage;
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.openAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
-        HeaderMenu headerMenu = new HeaderMenu();
-        headerMenu.clickFaqTab();
-        faqPage=new FaqPage();
+        BaseTest.authAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp(){
-        Selenide.refresh();
+        BaseTest.openAdminPanel();
+        HeaderMenu headerMenu = new HeaderMenu();
+        headerMenu.clickFaqTab();
+        faqPage=new FaqPage();
         faqPage.verifyFaqPage();
     }
 
-    @AfterAll
-    static void closeWebDriver() {
+    @AfterEach()
+    void closeWebDriver() {
         Selenide.closeWebDriver();
     }
+
 
     @Feature("Добавление нового faq-вопроса")
     @Story("Успешное добавление нового faq-вопроса")

@@ -31,13 +31,15 @@ public class BaseTest {
 
 
     public static void openBrowser(){
+        Configuration.browser = System.getProperty("selenide.browser", "chrome");
         Configuration.browserSize = "1920x1080";
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();
     }
 
-    public static void openAdminPanel(String login, String password) {
+    public static void authAdminPanel(String login, String password) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("password", password);
@@ -53,9 +55,12 @@ public class BaseTest {
                 .extract()
                 .response();
         token = response.getBody().jsonPath().getString("accessToken");
+    }
+
+    public static void openAdminPanel() {
         Configuration.browser = System.getProperty("selenide.browser", "chrome");
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "true"));
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();
