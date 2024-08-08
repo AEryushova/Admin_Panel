@@ -132,7 +132,7 @@ public class DoctorPageTest extends BaseTest {
         assertEquals("", doctorsPage.getValueSearchField());
         assertTrue(resultSearch < allDoctors);
         assertTrue(countResult < countAllDoctorsAfterReset);
-        assertTrue(countAllDoctors == countAllDoctorsAfterReset);
+        assertEquals(countAllDoctors, countAllDoctorsAfterReset);
     }
 
     @Feature("Поиск по врачам")
@@ -229,7 +229,7 @@ public class DoctorPageTest extends BaseTest {
         }
         assertTrue(withoutPhoto);
         assertTrue(withPhoto);
-        assertTrue(countAllDoctors == countAllDoctorsPhoto);
+        assertEquals(countAllDoctors, countAllDoctorsPhoto);
         assertTrue(countResult < countAllDoctorsPhoto);
     }
 

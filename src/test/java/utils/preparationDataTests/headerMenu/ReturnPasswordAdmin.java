@@ -3,7 +3,6 @@ package utils.preparationDataTests.headerMenu;
 
 import test.BaseTest;
 import utils.APIUtils.PreparationDataHeaderTest;
-import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 

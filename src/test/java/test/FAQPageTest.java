@@ -340,7 +340,7 @@ public class FAQPageTest extends BaseTest {
         assertEquals("", faqPage.getValueSearchField());
         assertTrue(resultSearch < allFaq);
         assertTrue(countResult< countAllFaqAfterReset);
-        assertTrue(countAllFaq == countAllFaqAfterReset);
+        assertEquals(countAllFaq, countAllFaqAfterReset);
     }
 
     @Feature("Поиск по faq")
