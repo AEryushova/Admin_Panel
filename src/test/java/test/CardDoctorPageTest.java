@@ -58,7 +58,7 @@ public class CardDoctorPageTest extends BaseTest {
     @DisplayName("Успешное добавление фотографии врачу в формате Jpeg и Png")
     @ExtendWith(DeletePhotoDoctorDecorator.class)
     @ParameterizedTest
-    @ValueSource(strings = {"src/test/resources/Photo 3,7mbJpeg.jpg", "src/test/resources/Photo 3,2mbPng.png"})
+    @ValueSource(strings = {"src/test/resources/images/Photo 3,7mbJpeg.jpg", "src/test/resources/images/Photo 3,2mbPng.png"})
     void addPhotoDoctor(String path) {
         cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
@@ -82,12 +82,26 @@ public class CardDoctorPageTest extends BaseTest {
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         editPhoto.verifyEditPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
-        editPhoto.uploadPhoto("src/test/resources/Photo 3,2mbPng.png");
+        editPhoto.uploadPhoto("src/test/resources/images/Photo 3,2mbPng.png");
         cardDoctor.getPhoto().should(Condition.not(Condition.attribute("src", srcOriginalPhoto)), Duration.ofSeconds(7));
         assertNotEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertNotEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
         assertEquals("DOCTOR_PHOTO_CREATED_SUCCESS", DataBaseQuery.selectLogPhoto(LOGIN_ADMIN).getCode());
         assertFalse(editPhoto.isWindowAppear());
+    }
+
+    @Feature("Замена фотографии врачу")
+    @Story("Замена фотографии врачу с файлом весом 4mb")
+    @DisplayName("Замена фотографии врачу с файлом весом 4mb")
+    @Test
+    void changePhotoDoctorWeight4mb() {
+        cardDoctor.scrollPageUp("500");
+        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
+        String srcOriginalPhoto = cardDoctor.getSrcPhoto();
+        editPhoto.uploadPhoto("src/test/resources/images/Photo 4mbJpeg.jpg");
+        assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getTextNotification());
+        assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
+        assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
     }
 
 
@@ -99,7 +113,7 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
-        editPhoto.uploadPhoto("src/test/resources/Photo 6,8mbJpeg.jpg");
+        editPhoto.uploadPhoto("src/test/resources/images/Photo 6,8mbJpeg.jpg");
         assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getTextNotification());
         assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
@@ -109,7 +123,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Story("Замена фотографии врачу с не валидным файлом")
     @DisplayName("Замена фотографии врачу с не валидным файлом")
     @ParameterizedTest
-    @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Оферта.pdf"})
+    @ValueSource(strings = {"src/test/resources/files/Оферта,Политика обработки docx.docx", "src/test/resources/files/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/files/Оферта.pdf"})
     void changePhotoDoctorInvalidFormat(String path) {
         cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();

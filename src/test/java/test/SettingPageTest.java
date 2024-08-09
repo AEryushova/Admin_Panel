@@ -89,7 +89,7 @@ public class SettingPageTest extends BaseTest {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
         editLogoWindow.verifyEditLogoWindow();
-        editLogoWindow.uploadLogo("src/test/resources/visa.png");
+        editLogoWindow.uploadLogo("src/test/resources/images/visa.png");
         Selenide.Wait().until(condition -> settingPage.getHeightLogo() != oldHeightLogo);
         assertNotEquals(oldHeightLogo, settingPage.getHeightLogo());
         assertNotEquals(oldHeightLogo, headerMenu.getHeightLogo());
@@ -104,7 +104,7 @@ public class SettingPageTest extends BaseTest {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
         editLogoWindow.verifyEditLogoWindow();
-        editLogoWindow.uploadLogo("src/test/resources/Photo 3,7mbJpeg.jpg");
+        editLogoWindow.uploadLogo("src/test/resources/images/Photo 3,7mbJpeg.jpg");
         assertEquals("Неверный запрос (400)", settingPage.getTextNotification());
         assertEquals(oldHeightLogo, settingPage.getHeightLogo());
     }
@@ -117,7 +117,7 @@ public class SettingPageTest extends BaseTest {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
         editLogoWindow.verifyEditLogoWindow();
-        editLogoWindow.uploadLogo("src/test/resources/Photo-6_8mbPng.png");
+        editLogoWindow.uploadLogo("src/test/resources/images/Photo-6_8mbPng.png");
         assertEquals("Допускаются файлы размером не выше 4Мб", settingPage.getTextNotification());
         assertEquals(oldHeightLogo, settingPage.getHeightLogo());
     }
@@ -127,7 +127,7 @@ public class SettingPageTest extends BaseTest {
     @Story("Замена логотипа с файлом в невалидном формате")
     @DisplayName("Замена логотипа с файлом в невалидном формате")
     @ParameterizedTest
-    @ValueSource(strings = {"src/test/resources/Оферта,Политика обработки docx.docx", "src/test/resources/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/Политика обработки персональных данных.pdf"})
+    @ValueSource(strings = {"src/test/resources/files/Оферта,Политика обработки docx.docx", "src/test/resources/files/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/files/Политика обработки персональных данных.pdf"})
     void changeLogoInvalidFormat(String path) {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
