@@ -93,11 +93,15 @@ public class DoctorsPage extends BasePage {
                 .click();
     }
 
+
     @Step("Ввести в поле поиска '{0}'")
     public void searchDoctor(String textSearch) {
         SEARCH_DOCTOR.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .setValue(textSearch);
+                .shouldBe(Condition.enabled);
+        for (char c : textSearch.toCharArray()) {
+            SEARCH_DOCTOR.sendKeys(String.valueOf(c));
+            Selenide.sleep(1000);
+        }
     }
 
     @Step("Получить имена врачей")

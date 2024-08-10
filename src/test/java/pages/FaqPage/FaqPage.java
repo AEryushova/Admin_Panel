@@ -1,5 +1,6 @@
 package pages.FaqPage;
 
+import com.codeborne.selenide.Selenide;
 import pages.BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -71,8 +72,11 @@ public class FaqPage extends BasePage {
     @Step("Ввести в поле поиска '{0}'")
     public void searchFaq(String textSearch) {
         SEARCH_FAQ.shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled)
-                .setValue(textSearch);
+                .shouldBe(Condition.enabled);
+        for (char c : textSearch.toCharArray()) {
+            SEARCH_FAQ.sendKeys(String.valueOf(c));
+            Selenide.sleep(1000);
+        }
     }
 
     @Step("Получить заголовки вопросов")

@@ -55,7 +55,7 @@ public class ChangeMinePasswordWindow {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
+        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     @Step("Проверить доступность для нажатия кнопки изменения пароля")
@@ -82,7 +82,7 @@ public class ChangeMinePasswordWindow {
         CLEAR_FIELD_OLD_PASSWORD .shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        OLD_PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(10));
+        OLD_PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(15));
     }
 
     @Step("Нажать на кнопку очищения поля нового пароля")

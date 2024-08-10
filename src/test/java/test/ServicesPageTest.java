@@ -85,8 +85,10 @@ public class ServicesPageTest extends BaseTest {
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldDescription(generateText());
         addRuleWindow.clickSaveButton();
+        addRuleWindow.clickButtonReturnRulesList();
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
+        assertTrue(rulePreparingWindow.isExistsEmptyListRules());
     }
 
     @Feature("Управление правилами подготовки")
@@ -100,8 +102,10 @@ public class ServicesPageTest extends BaseTest {
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.fillFieldTitle(generateWord());
         addRuleWindow.clickSaveButton();
+        addRuleWindow.clickButtonReturnRulesList();
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
+        assertTrue(rulePreparingWindow.isExistsEmptyListRules());
     }
 
     @Feature("Управление правилами подготовки")
@@ -114,8 +118,10 @@ public class ServicesPageTest extends BaseTest {
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
         addRuleWindow.clickSaveButton();
+        addRuleWindow.clickButtonReturnRulesList();
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
+        assertTrue(rulePreparingWindow.isExistsEmptyListRules());
     }
 
     @Feature("Управление правилами подготовки")
@@ -192,8 +198,10 @@ public class ServicesPageTest extends BaseTest {
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
         editRuleWindow.clearTitleField();
-        editRuleWindow.fillFieldDescription(generateText());
+        editRuleWindow.fillFieldDescription(generateNamePatient());
         editRuleWindow.clickButtonChangeRules();
+        editRuleWindow.closeWindowEditRule();
+        rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(categoryName);
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertEquals(word, editRuleWindow.getTitleRule());
@@ -212,9 +220,11 @@ public class ServicesPageTest extends BaseTest {
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.fillFieldTitle(generateWord());
+        editRuleWindow.fillFieldTitle(generateNamePatient());
         editRuleWindow.clearDescriptionField();
         editRuleWindow.clickButtonChangeRules();
+        editRuleWindow.closeWindowEditRule();
+        rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(categoryName);
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertEquals(word, editRuleWindow.getTitleRule());
@@ -236,6 +246,8 @@ public class ServicesPageTest extends BaseTest {
         editRuleWindow.clearTitleField();
         editRuleWindow.clearDescriptionField();
         editRuleWindow.clickButtonChangeRules();
+        editRuleWindow.closeWindowEditRule();
+        rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(categoryName);
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertEquals(word, editRuleWindow.getTitleRule());
@@ -773,8 +785,8 @@ public class ServicesPageTest extends BaseTest {
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
         addSectionWindow.fillNameSectionField(generateSectionName());
         addSectionWindow.closeWindowAddSection();
-        categoryCard.clickButtonAddSection();
         assertFalse(addSectionWindow.isWindowAppear());
+        categoryCard.clickButtonAddSection();
         assertEquals("", addSectionWindow.getValueNameField());
     }
 

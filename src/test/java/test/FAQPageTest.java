@@ -275,8 +275,8 @@ public class FAQPageTest extends BaseTest {
     @Test
     void searchNameFaqQuestion() {
         int countAllFaq= faqPage.getCountFaq();
-        faqPage.searchFaq(FAQ_SEARCH);
-        Selenide.sleep(7000);
+        faqPage.searchFaq(FAQ_SEARCH.toLowerCase());
+        Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
@@ -302,7 +302,7 @@ public class FAQPageTest extends BaseTest {
     void searchByInclusion() {
         int countAllFaq= faqPage.getCountFaq();
         faqPage.searchFaq(SEARCH_BY_INCLUSION_FAQ);
-        Selenide.sleep(7000);
+        Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
@@ -329,12 +329,12 @@ public class FAQPageTest extends BaseTest {
     void resetSearchResultFaqQuestion() {
         int countAllFaq=faqPage.getCountFaq();
         faqPage.searchFaq(FAQ_SEARCH);
-        Selenide.sleep(7000);
+        Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         int resultSearch=questionTexts.size();
         faqPage.clearSearchField();
-        Selenide.sleep(7000);
+        Selenide.sleep(5000);
         int countAllFaqAfterReset = faqPage.getCountFaq();
         ElementsCollection questionAll = faqPage.getQuestionsFields();
         int allFaq=questionAll.size();
@@ -351,8 +351,8 @@ public class FAQPageTest extends BaseTest {
     @Test
     void searchHighRegister() {
         int countAllFaq= faqPage.getCountFaq();
-        faqPage.searchFaq(FAQ_HIGH_REGISTER);
-        Selenide.sleep(7000);
+        faqPage.searchFaq(FAQ_SEARCH.toUpperCase());
+        Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
@@ -363,8 +363,8 @@ public class FAQPageTest extends BaseTest {
             String answerText = answerTexts.get(i).getAttribute("value");
             assertNotNull(questionText);
             assertNotNull(answerText);
-            boolean isQuestionFound = questionText.toLowerCase().contains(FAQ_HIGH_REGISTER.toLowerCase());
-            boolean isAnswerFound = answerText.toLowerCase().contains(FAQ_HIGH_REGISTER.toLowerCase());
+            boolean isQuestionFound = questionText.toLowerCase().contains(FAQ_SEARCH.toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(FAQ_SEARCH.toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
         assertTrue(countResult<countAllFaq);
@@ -377,8 +377,8 @@ public class FAQPageTest extends BaseTest {
     @Test
     void searchDifferentRegister() {
         int countAllFaq= faqPage.getCountFaq();
-        faqPage.searchFaq(FAQ_DIFFERENT_REGISTER);
-        Selenide.sleep(7000);
+        faqPage.searchFaq(FAQ_SEARCH);
+        Selenide.sleep(5000);
         int countResult= faqPage.getCountFaq();
         ElementsCollection questionTexts = faqPage.getQuestionsFields();
         ElementsCollection answerTexts = faqPage.getAnswerFields();
@@ -389,8 +389,8 @@ public class FAQPageTest extends BaseTest {
             String answerText = answerTexts.get(i).getAttribute("value");
             assertNotNull(questionText);
             assertNotNull(answerText);
-            boolean isQuestionFound = questionText.toLowerCase().contains(FAQ_DIFFERENT_REGISTER .toLowerCase());
-            boolean isAnswerFound = answerText.toLowerCase().contains(FAQ_DIFFERENT_REGISTER .toLowerCase());
+            boolean isQuestionFound = questionText.toLowerCase().contains(FAQ_SEARCH .toLowerCase());
+            boolean isAnswerFound = answerText.toLowerCase().contains(FAQ_SEARCH .toLowerCase());
             assertTrue(isQuestionFound || isAnswerFound);
         }
         assertTrue(countResult<countAllFaq);

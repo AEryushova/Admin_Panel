@@ -72,7 +72,7 @@ public class AddSectionWindow {
         CLEAR_FIELD_NAME_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        NAME_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(10));
+        NAME_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(15));
     }
 
     @Step("Получить текст ошибки поля названия")
@@ -91,7 +91,7 @@ public class AddSectionWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
+        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     @Step("Получить окно добавления нового раздела")

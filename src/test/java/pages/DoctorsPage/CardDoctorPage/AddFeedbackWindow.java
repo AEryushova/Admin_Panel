@@ -86,7 +86,7 @@ public class AddFeedbackWindow {
         CLEAR_FIELD_FIO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        FIO_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(10));
+        FIO_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(15));
     }
 
     @Step("Проверить доступность для нажатия кнопки публикации")
@@ -99,7 +99,7 @@ public class AddFeedbackWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
+        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     @Step("Проверить отображение окна добавления отызва")

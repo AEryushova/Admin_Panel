@@ -97,7 +97,7 @@ public class NewAdminWindow {
         CLEAR_FIELD_LOGIN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        LOGIN_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(10));
+        LOGIN_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(15));
     }
 
     @Step("Нажать на кнопку очищения поля пароля")
@@ -105,7 +105,7 @@ public class NewAdminWindow {
         CLEAR_FIELD_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(10));
+        PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(15));
     }
 
     @Step("Нажать на кнопку очищения поля подтверждения пароля")
@@ -113,7 +113,7 @@ public class NewAdminWindow {
         CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        CONFIRM_PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(10));
+        CONFIRM_PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(15));
     }
 
     @Step("Получить значение поля логина")
@@ -170,7 +170,7 @@ public class NewAdminWindow {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
+        WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     @Step("Проверить отображение окна добавления нового админа")

@@ -43,21 +43,17 @@ public class TestData {
         public static final String DOCTOR_SURNAME = "Тестов";
         public static final String DOCTOR_SPECIALIZATION = "врач-оториноларинголог";
         public static final String DEFAULT_PHOTO = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
-        public static final File PHOTO = new File("src/test/resources/Photo 3,7mbJpeg.jpg");
-        public static final File LOGO = new File("src/test/resources/logo.png");
+        public static final File PHOTO = new File("src/test/resources/images/Photo 3,7mbJpeg.jpg");
+        public static final File LOGO = new File("src/test/resources/images/logo.png");
         public static final String NAME_OTHER_SERVICE_CATEGORY = "Иные услуги";
     }
 
     @Data
     public static class DataSearch {
-        public static final String DOCTOR_NAME_SEARCH = "надежда";
+        public static final String DOCTOR_NAME_SEARCH = "Надежда";
         public static final String DOCTOR_SPECIALIZATION_SEARCH = "гинеколог";
-        public static final String FAQ_SEARCH = "врач";
         public static final String SEARCH_BY_INCLUSION_DOCTORS = "етс";
+        public static final String FAQ_SEARCH = "Врач";
         public static final String SEARCH_BY_INCLUSION_FAQ = "пис";
-        public static final String DOCTOR_NAME_HIGH_REGISTER = "АННА";
-        public static final String DOCTOR_NAME_DIFFERENT_REGISTER = "сВеТлАнА";
-        public static final String FAQ_HIGH_REGISTER = "ВРАЧ";
-        public static final String FAQ_DIFFERENT_REGISTER = "ВрАч";
     }
 }
