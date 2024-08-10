@@ -25,7 +25,7 @@ public class ServiceWindow {
     private final SelenideElement TRANSFER_BUTTON = $x("//button[contains(text(), 'Перенести услугу')]");
     private final SelenideElement TITLE_FIELD = $x("//input[@placeholder='Укажите заголовок правила']");
     private final SelenideElement DESCRIPTION_FIELD = $x("//textarea[@placeholder='Укажите описание правила']");
-    private final SelenideElement ADD__RULE_BUTTON = $x("//button[text()='Добавить']");
+    private final SelenideElement ADD_RULE_BUTTON = $x("//button[text()='Добавить']");
     private final SelenideElement EDIT_RULE_BUTTON = $x("//button[text()='Изменить']");
     private final SelenideElement DELETE_RULE_BUTTON = $x("//button[text()='Удалить']");
     private final SelenideElement EMPTY_LIST_RULES_PREPARING = $x("//div[@class='HMP4']/div/span");
@@ -62,7 +62,7 @@ public class ServiceWindow {
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TITLE_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DESCRIPTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        ADD__RULE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        ADD_RULE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
     }
 
     @Step("Нажать вкладку переноса услуг")
@@ -152,14 +152,14 @@ public class ServiceWindow {
 
     @Step("Нажать кнопку добавления")
     public void clickAddButton() {
-        ADD__RULE_BUTTON.shouldBe(Condition.visible)
+        ADD_RULE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Проверить доступность для нажатия кнопки добавления правила подготовки")
     public boolean isEnabledAddButton(){
-        return ADD__RULE_BUTTON.isEnabled();
+        return ADD_RULE_BUTTON.isEnabled();
     }
 
     @Step("Получить значение поля заголовка")
@@ -218,13 +218,27 @@ public class ServiceWindow {
                 .click();
     }
 
-
     @Step("Закрыть окно информации об услуге")
     public void closeWindowInfoService() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
+    }
+
+    @Step("Получить кнопку добавления правила подготовки")
+    public SelenideElement getAddRuleButton(){
+        return ADD_RULE_BUTTON;
+    }
+
+    @Step("Получить кнопку изменения правила подготовки")
+    public SelenideElement getEditRuleButton(){
+        return EDIT_RULE_BUTTON;
+    }
+
+    @Step("Получить кнопку удаления правила подготовки")
+    public SelenideElement getDeleteRuleButton(){
+        return DELETE_RULE_BUTTON;
     }
 
     @Step("Получить окно информации об услуге")

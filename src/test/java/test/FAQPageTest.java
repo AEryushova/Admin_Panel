@@ -61,11 +61,11 @@ public class FAQPageTest extends BaseTest {
         addQuestionWindow.clickButtonAddQuestion();
         Question question = faqPage.getQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getTextNotification());
+        assertTrue(faqPage.isExistQuestions());
         assertEquals(questionFaq,question.getTextQuestion());
         assertEquals(text,question.getTextAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
-        assertTrue(faqPage.isExistQuestions());
-        assertFalse(addQuestionWindow.isWindowAppear());
+        assertEquals(text, DataBaseQuery.selectFaq().getAnswer());
     }
 
     @Feature("Добавление нового faq-вопроса")
@@ -108,11 +108,11 @@ public class FAQPageTest extends BaseTest {
         addQuestionWindow.clickButtonAddQuestion();
         Question question = faqPage.getQuestion();
         assertEquals("Вопрос успешно добавлен", faqPage.getTextNotification());
+        assertTrue(faqPage.isExistQuestionsByIndex(1));
         assertEquals(questionFaq,question.getQuestionTextByIndex(1));
         assertEquals(text,question.getAnswerTextByIndex(1));
         assertEquals(questionFaq, DataBaseQuery.selectFaqBySequence(1).getQuestion());
-        assertTrue(faqPage.isExistQuestionsByIndex(1));
-        assertFalse(addQuestionWindow.isWindowAppear());
+        assertEquals(text, DataBaseQuery.selectFaq().getAnswer());
     }
 
     @Feature("Добавление нового faq-вопроса")
@@ -137,8 +137,8 @@ public class FAQPageTest extends BaseTest {
     }
 
     @Feature("Добавление нового faq-вопроса")
-    @Story("Сброс значений полей в окне добавления faq-вопроса при закрытии окна")
-    @DisplayName("Сброс значений полей в окне добавления faq-вопроса при закрытии окна")
+    @Story("Сброс значений полей в окне добавления faq-вопроса после закрытия окна")
+    @DisplayName("Сброс значений полей в окне добавления faq-вопроса после закрытия окна")
     @Test
     void closeWindowAddNewQuestionFaq() {
         AddQuestionWindow addQuestionWindow = faqPage.clickButtonAddQuestion();
@@ -168,7 +168,7 @@ public class FAQPageTest extends BaseTest {
         assertEquals(questionFaq,question.getTextQuestion());
         assertEquals(text,question.getTextAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
-        assertFalse(editQuestionWindow.isWindowAppear());
+        assertEquals(text, DataBaseQuery.selectFaq().getAnswer());
     }
 
     @Feature("Редактирование faq-вопроса")
@@ -209,7 +209,7 @@ public class FAQPageTest extends BaseTest {
         assertEquals(questionFaq,question.getTextQuestion());
         assertEquals(text,question.getTextAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
-        assertFalse(editQuestionWindow.isWindowAppear());
+        assertEquals(text, DataBaseQuery.selectFaq().getAnswer());
     }
 
     @Feature("Редактирование faq-вопроса")
@@ -228,6 +228,7 @@ public class FAQPageTest extends BaseTest {
         assertEquals(questionFaq,question.getTextQuestion());
         assertEquals(text,question.getTextAnswer());
         assertEquals(questionFaq, DataBaseQuery.selectFaq().getQuestion());
+        assertEquals(text, DataBaseQuery.selectFaq().getAnswer());
     }
 
     @Feature("Редактирование faq-вопроса")

@@ -14,7 +14,9 @@ public class AllureTestListeners implements BeforeAllCallback, AfterAllCallback,
 
     @Override
     public void beforeAll(ExtensionContext context) {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(true)
+                .savePageSource(true));
     }
 
 
@@ -38,7 +40,7 @@ public class AllureTestListeners implements BeforeAllCallback, AfterAllCallback,
     @SuppressWarnings("UnusedReturnValue")
     @Attachment(value = "Screenshot", type = "image/png")
     public static byte[] attachScreenshot() {
-        return ((TakesScreenshot)WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
 }

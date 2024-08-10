@@ -15,14 +15,16 @@ compileTestJava.options.encoding = "UTF-8"
 
 
 allure {
-    version = '2.30.0'
-    useJUnit5 {
-        version = '2.25.0'
-    }
-    adapter {
-        frameworks {
-            junit5 {
-                adapterVersion = '2.25.0'
+    report {
+        version.set("2.30.0")
+        useJUnit5 {
+            version = '2.25.0'
+        }
+        adapter {
+            frameworks {
+                junit5 {
+                    adapterVersion.set("2.25.0")
+                }
             }
         }
     }
@@ -45,10 +47,7 @@ dependencies {
             'io.qameta.allure:allure-junit5:2.25.0',
             'io.qameta.allure:allure-assertj:2.25.0',
             'io.qameta.allure:allure-rest-assured:2.25.0',
-            'org.aspectj:aspectjweaver:1.9.22',
-            'org.slf4j:slf4j-simple:2.0.13',
-            'ru.testit:testit-java-commons:2.3.6',
-            'ru.testit:testit-adapter-junit5:2.3.6'
+            'org.slf4j:slf4j-simple:2.0.13'
     )
     implementation(
             'io.qameta.allure:allure-java-commons:2.25.0',
@@ -57,6 +56,8 @@ dependencies {
             'com.google.code.gson:gson:2.10.1',
             'org.json:json:20240303',
             'com.github.javafaker:javafaker:1.0.2',
+            'org.aspectj:aspectjweaver:1.9.22'
+
     )
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
@@ -72,3 +73,5 @@ test {
     systemProperty 'environment', System.getProperty('environment', 'freeze')
     systemProperty 'cab.lab.db.name', System.getProperty('cab.lab.db.name', 'freeze_cab_lab_collection')
 }
+
+

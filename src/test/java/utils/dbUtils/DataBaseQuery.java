@@ -18,8 +18,7 @@ public class DataBaseQuery {
     public static Admins selectAdmin(String login) {
         var selectAdmin = "SELECT * FROM platform.users INNER JOIN platform.users_roles ON users.id=users_roles.user_id WHERE username = ?";
         try (var connection = DataBaseManager.getConnection("platform_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("platform_db").query(connection, selectAdmin, login, new BeanHandler<>(Admins.class));
+            return DataBaseManager.queryRunner("platform_db").query(connection, selectAdmin, new BeanHandler<>(Admins.class), login);
         }
     }
 
@@ -32,8 +31,7 @@ public class DataBaseQuery {
             String firstName = nameParts[1];
             String secondName = nameParts[0];
             String middleName = nameParts[2];
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, new Object[]{doctorSpecialization, firstName, secondName, middleName}, new BeanHandler<>(DoctorCard.class));
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, new BeanHandler<>(DoctorCard.class), doctorSpecialization, firstName, secondName, middleName);
         }
     }
 
@@ -95,10 +93,10 @@ public class DataBaseQuery {
     public static Description selectDescription(UUID sectionId) {
         var selectDescription = "SELECT * FROM employee_expertises WHERE employee_details_id = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectDescription, sectionId, new BeanHandler<>(Description.class));
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectDescription, new BeanHandler<>(Description.class), sectionId);
         }
     }
+
 
     @SneakyThrows
     public static void addDescription(UUID sectionId, String title, int sequence) {
@@ -156,8 +154,7 @@ public class DataBaseQuery {
     public static Faq selectFaqBySequence(int sequence) {
         var selectFaq = "SELECT * FROM faq WHERE sequence = ?";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectFaq, sequence, new BeanHandler<>(Faq.class));
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectFaq, new BeanHandler<>(Faq.class), sequence);
         }
     }
 
@@ -242,8 +239,7 @@ public class DataBaseQuery {
     public static ServiceCategories selectServicesCategories(String nameCategorySection) {
         var selectInfo = "SELECT * FROM service_categories WHERE name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, nameCategorySection, new BeanHandler<>(ServiceCategories.class));
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, new BeanHandler<>(ServiceCategories.class),nameCategorySection);
         }
     }
 
@@ -251,8 +247,7 @@ public class DataBaseQuery {
     public static PreparingDescriptions selectDescriptionService(String codeService) {
         var selectInfo = "SELECT * FROM preparing_descriptions WHERE service_code = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, codeService, new BeanHandler<>(PreparingDescriptions.class));
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, new BeanHandler<>(PreparingDescriptions.class), codeService);
         }
     }
 
@@ -261,9 +256,7 @@ public class DataBaseQuery {
     public static AllServices selectAllService(String codeService) {
         var selectInfo = "SELECT * FROM all_services WHERE code = CAST(? AS ltree)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("cab_lab_db")
-                    .query(connection, selectInfo, new Object[]{codeService}, new BeanHandler<>(AllServices.class));
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, new BeanHandler<>(AllServices.class), codeService);
         }
     }
 
@@ -271,8 +264,7 @@ public class DataBaseQuery {
     public static Logs selectLog(String userName) {
         var selectInfo = "SELECT * FROM logs WHERE user_name=? ORDER BY log_time DESC LIMIT 1";
         try (var connection = DataBaseManager.getConnection("lod_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo, new Object[]{userName}, new BeanHandler<>(Logs.class));
+            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo,new BeanHandler<>(Logs.class), userName);
         }
     }
 
@@ -282,10 +274,8 @@ public class DataBaseQuery {
                 "    SELECT * FROM logs WHERE user_name=? ORDER BY log_time DESC LIMIT 2" +
                 ") subquery ORDER BY log_time ASC LIMIT 1";
         try (var connection = DataBaseManager.getConnection("lod_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo, new Object[]{userName}, new BeanHandler<>(Logs.class));
+            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo, new BeanHandler<>(Logs.class), userName);
         }
     }
-
 }
 

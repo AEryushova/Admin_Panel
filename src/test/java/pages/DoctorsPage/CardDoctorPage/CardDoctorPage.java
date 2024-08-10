@@ -1,14 +1,12 @@
 package pages.DoctorsPage.CardDoctorPage;
 
+import com.codeborne.selenide.*;
 import pages.BasePage.BasePage;
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import java.time.Duration;
 
-
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class CardDoctorPage extends BasePage {
 
@@ -213,6 +211,10 @@ public class CardDoctorPage extends BasePage {
         return new NavigateMenu();
     }
 
-
+    @SuppressWarnings("unused")
+    @Step("Получить секцию по имени")
+    public SelenideElement getSectionPageByName(String nameSection){
+        return $x("//div[@class='S1TV']/span[text()='" + nameSection + "']");
+    }
 }
 

@@ -31,9 +31,9 @@ public class BaseTest {
 
 
     public static void openBrowser(){
-        Configuration.browser = System.getProperty("selenide.browser", "chrome");
+        Configuration.browser = System.getProperty("selenide.browser");
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();
@@ -58,9 +58,9 @@ public class BaseTest {
     }
 
     public static void openAdminPanel() {
-        Configuration.browser = System.getProperty("selenide.browser", "chrome");
+        Configuration.browser = System.getProperty("selenide.browser");
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "true"));
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         clearBrowserCookies();

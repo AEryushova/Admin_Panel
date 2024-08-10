@@ -25,6 +25,7 @@ public class NavigateMenu {
         FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @SuppressWarnings("unused")
     @Step("Нажать на раздел фотографии врача")
     public void clickTabOpenPhoto(){
         PHOTO.shouldBe(Condition.visible)
@@ -32,6 +33,7 @@ public class NavigateMenu {
                 .click();
     }
 
+    @SuppressWarnings("unused")
     @Step("Нажать на раздел инфорамации о враче")
     public void clickTabOpenDescription(){
         DESCRIPTION.shouldBe(Condition.visible)
@@ -39,6 +41,7 @@ public class NavigateMenu {
                 .click();
     }
 
+    @SuppressWarnings("unused")
     @Step("Нажать на раздел отзывов о враче")
     public void clickTabOpenFeedback(){
         FEEDBACK.shouldBe(Condition.visible)

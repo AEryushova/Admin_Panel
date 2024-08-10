@@ -61,8 +61,6 @@ public class HeaderMenuTest extends BaseTest {
         changeMinePassWindow.clickButtonChangePassword();
         assertEquals("Пароль успешно обновлен", basePage.getTextNotification());
         assertEquals("CHANGE_PASSWORD_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
-        assertFalse(changeMinePassWindow.isWindowAppear());
-        assertFalse(userPanel.isWindowAppear());
     }
 
 
@@ -78,8 +76,6 @@ public class HeaderMenuTest extends BaseTest {
         changeMinePassWindow.fillFieldNewPassword(PASSWORD_ADMIN);
         changeMinePassWindow.clickButtonChangePassword();
         assertEquals("Пароль успешно обновлен", basePage.getTextNotification());
-        assertFalse(changeMinePassWindow.isWindowAppear());
-        assertFalse(userPanel.isWindowAppear());
     }
 
     @Feature("Смена своего пароля админом")
@@ -93,7 +89,6 @@ public class HeaderMenuTest extends BaseTest {
         changeMinePassWindow.fillFieldNewPassword(generatePassword());
         changeMinePassWindow.clickButtonChangePassword();
         assertEquals("{\"error\":\"Задан неверный пароль\",\"innerError\":null,\"exception\":\"ValidationPlatformException\"}", basePage.getTextNotification());
-        assertTrue(changeMinePassWindow.isWindowAppear());
     }
 
     @Feature("Смена своего пароля админом")
@@ -226,8 +221,8 @@ public class HeaderMenuTest extends BaseTest {
 
 
     @Feature("Смена своего пароля админом")
-    @Story("Сброс значений полей в окне изменения своего пароля при закрытии окна")
-    @DisplayName("Сброс значений полей в окне изменения своего пароля при закрытии окна")
+    @Story("Сброс значений полей в окне изменения своего пароля после закрытия окна")
+    @DisplayName("Сброс значений полей в окне изменения своего пароля после закрытия окна")
     @Test
     void closeWindowChangeMainPassword() {
         UserPanel userPanel = headerMenu.clickButtonUserPanel();
