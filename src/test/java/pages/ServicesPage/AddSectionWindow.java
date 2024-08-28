@@ -10,14 +10,15 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class AddSectionWindow {
 
-    public final SelenideElement WINDOW = $x("//span[text()='Добавить Раздел']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement HEADER_WINDOW = $x("//span[text()='Добавить Раздел']");
-    private final SelenideElement NAME_FIELD = $x("//input[@name='name']");
-    private final SelenideElement ADD_BUTTON = $x("//button[text()='Добавить']");
-    private final SelenideElement CANCEL_BUTTON = $x("//button[text()='Отменить']");
-    private final SelenideElement CLEAR_FIELD_NAME_BUTTON = $x("//input[@name='name']//preceding-sibling::div[@class='m4oD']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Добавить Раздел']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
-    private final SelenideElement ERROR_FIELD_NAME = $x("//input[@name='name']/following-sibling::div");
+    public final SelenideElement
+            WINDOW = $x("//span[text()='Добавить Раздел']//parent::div//parent::div//parent::div[@class='eV2Y']"),
+            HEADER_WINDOW = $x("//span[text()='Добавить Раздел']"),
+            NAME_FIELD = $x("//input[@name='name']"),
+            ADD_BUTTON = $x("//button[text()='Добавить']"),
+            CANCEL_BUTTON = $x("//button[text()='Отменить']"),
+            CLEAR_FIELD_NAME_BUTTON = $x("//input[@name='name']//preceding-sibling::div[@class='m4oD']"),
+            CLOSE_WINDOW_BUTTON = $x("//span[text()='Добавить Раздел']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']"),
+            ERROR_FIELD_NAME = $x("//input[@name='name']/following-sibling::div");
 
     @Step("Верифицировать окно добавления нового раздела")
     public void verifyAddSectionWindow() {
@@ -72,7 +73,7 @@ public class AddSectionWindow {
         CLEAR_FIELD_NAME_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        NAME_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(15));
+        NAME_FIELD.shouldBe((Condition.empty), Duration.ofSeconds(15));
     }
 
     @Step("Получить текст ошибки поля названия")
@@ -82,7 +83,7 @@ public class AddSectionWindow {
     }
 
     @Step("Проверить доступность для нажатия кнопки добавления раздела")
-    public boolean isEnabledAddButton(){
+    public boolean isEnabledAddButton() {
         return ADD_BUTTON.isEnabled();
     }
 

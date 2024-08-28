@@ -12,13 +12,14 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.*;
 
 public class SubsectionCard {
-    private final SelenideElement NAME_SUBSECTION=$x("//div[@class='CtIw' and @draggable='true']/div/div[@class='OurO']/span");
-    private final SelenideElement EDIT_SUBSECTION_BUTTON = $x("//div[@class='V5So']");
-    private final SelenideElement DELETE_SUBSECTION_BUTTON = $x("//div[@class='mJna']");
-    private final SelenideElement RULES_PREPARING_SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='tSFL']");
-    private final SelenideElement EXPAND_SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='xrjl']");
-    private final SelenideElement SERVICE = $x("//div[@class='hzR2' and @draggable='true']");
-    private final SelenideElement EMPTY_LIST_SERVICE = $x("//div[@class='b8mg']/span");
+    private final SelenideElement
+            NAME_SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='OurO']/span"),
+            EDIT_SUBSECTION_BUTTON = $x("//div[@class='V5So']"),
+            DELETE_SUBSECTION_BUTTON = $x("//div[@class='mJna']"),
+            RULES_PREPARING_SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='tSFL']"),
+            EXPAND_SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='xrjl']"),
+            SERVICE = $x("//div[@class='hzR2' and @draggable='true']"),
+            EMPTY_LIST_SERVICE = $x("//div[@class='b8mg']/span");
     private final ElementsCollection CONTAINER_SERVICES = $$x("//div[@class='D_7z']/span");
 
     @Step("Верифицировать карточку подраздела")
@@ -47,7 +48,7 @@ public class SubsectionCard {
     }
 
     @Step("Получить название подраздела")
-    public String getNameSubsection(){
+    public String getNameSubsection() {
         NAME_SUBSECTION.shouldBe(Condition.visible);
         return NAME_SUBSECTION.getText();
     }
@@ -61,14 +62,14 @@ public class SubsectionCard {
 
     @Step("Нажать кнопку сворачивания подраздела")
     public void clickButtonCloseSubsection(String nameSubsection) {
-        SelenideElement SUBSECTION=$x("//span[text()='" + nameSubsection + "']/parent::div/following-sibling::div[@class='xrjl']");
+        SelenideElement SUBSECTION = $x("//span[text()='" + nameSubsection + "']/parent::div/following-sibling::div[@class='xrjl']");
         SUBSECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать кнопку открытия правил подготовки к подразделу")
-    public RulesPreparingWindow clickButtonOpenRulesPreparingSubsection(){
+    public RulesPreparingWindow clickButtonOpenRulesPreparingSubsection() {
         RULES_PREPARING_SUBSECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -105,8 +106,8 @@ public class SubsectionCard {
     }
 
     @Step("Найти услугу с кодом '{0}'")
-    public SelenideElement searchService(String serviceCode){
-        SelenideElement SERVICE =$x("//span[text()='" + serviceCode + "']//parent::div//parent::div[@class='hzR2']");
+    public SelenideElement searchService(String serviceCode) {
+        SelenideElement SERVICE = $x("//span[text()='" + serviceCode + "']//parent::div//parent::div[@class='hzR2']");
         SERVICE.shouldBe(Condition.visible);
         return SERVICE;
     }
@@ -117,7 +118,7 @@ public class SubsectionCard {
     }
 
     @Step("Проверить отображение услуги")
-    public boolean isExistService(){
+    public boolean isExistService() {
         return SERVICE.isDisplayed();
     }
 

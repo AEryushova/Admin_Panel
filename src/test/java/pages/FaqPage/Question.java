@@ -11,11 +11,12 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class Question {
-    private final SelenideElement EDIT_BUTTON = $x("//div[@class='UnAf hwSa eQX6']");
-    private final ElementsCollection QUESTIONS_TEXTS = $$x("//div[@class='zxOH vkQg']/textarea");
-    private final SelenideElement QUESTION_TEXT = $x("//div[@class='zxOH vkQg']/textarea");
-    private final SelenideElement ANSWER_TEXT = $x("//div[@class='zxOH yCzg']/textarea");
-    private final ElementsCollection ANSWERS_TEXTS=$$x("//div[@class='zxOH yCzg']/textarea");
+    private final SelenideElement
+            EDIT_BUTTON = $x("//div[@class='UnAf hwSa eQX6']"),
+            QUESTION_TEXT = $x("//div[@class='zxOH vkQg']/textarea"),
+            ANSWER_TEXT = $x("//div[@class='zxOH yCzg']/textarea");
+    private final ElementsCollection QUESTIONS_TEXTS = $$x("//div[@class='zxOH vkQg']/textarea"),
+            ANSWERS_TEXTS = $$x("//div[@class='zxOH yCzg']/textarea");
 
     @Step("Верифицировать вопрос")
     public void verifyQuestion() {

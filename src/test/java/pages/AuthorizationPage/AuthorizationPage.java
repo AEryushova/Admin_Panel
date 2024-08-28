@@ -12,21 +12,22 @@ import java.util.Objects;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AuthorizationPage extends BasePage {
-    private final SelenideElement LOGIN_FIELD = $x("//input[@name='login']");
-    private final SelenideElement PASSWORD_FIELD = $x("//input[@name='password']");
-    private final SelenideElement CLEAR_LOGIN_BUTTON = $x("//input[@name='login']//preceding-sibling::div[@class='m4oD']");
-    private final SelenideElement SHOW_PASSWORD_BUTTON = $x("//input[@name='password']//preceding-sibling::div[@class='m4oD']");
-    private final SelenideElement LOADER = $x("//div[@class='ocE_']");
-    private final SelenideElement TO_COME_IN_BUTTON = $x("//button[text()='Войти']");
-    private final SelenideElement ERROR_FIELD_LOGIN = $x("//input[@type='text']//following-sibling::div");
-    private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@type='password']//following-sibling::div");
-    private final SelenideElement LOGO=$x("//div[@class='RDMc']/img");
+    private final SelenideElement
+            LOGIN_FIELD = $x("//input[@name='login']"),
+            PASSWORD_FIELD = $x("//input[@name='password']"),
+            CLEAR_LOGIN_BUTTON = $x("//input[@name='login']//preceding-sibling::div[@class='m4oD']"),
+            SHOW_PASSWORD_BUTTON = $x("//input[@name='password']//preceding-sibling::div[@class='m4oD']"),
+            LOADER = $x("//div[@class='ocE_']"),
+            TO_COME_IN_BUTTON = $x("//button[text()='Войти']"),
+            ERROR_FIELD_LOGIN = $x("//input[@type='text']//following-sibling::div"),
+            ERROR_FIELD_PASSWORD = $x("//input[@type='password']//following-sibling::div"),
+            LOGO = $x("//div[@class='RDMc']/img");
 
     @Step("Верифицировать страницу Авторизации")
     public void verifyAuthPage() {
         LOGIN_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        TO_COME_IN_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        TO_COME_IN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLEAR_LOGIN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SHOW_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         LOGO.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -48,17 +49,19 @@ public class AuthorizationPage extends BasePage {
     }
 
     @Step("Ввести в поле логина '{0}'")
-    public void fillLoginField(String login) {
+    public AuthorizationPage fillLoginField(String login) {
         LOGIN_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(login);
+        return this;
     }
 
     @Step("Ввести в поле пароля '{0}'")
-    public void fillPasswordField(String password) {
+    public AuthorizationPage fillPasswordField(String password) {
         PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(password);
+        return this;
     }
 
     @Step("Нажать кнопку входа")
@@ -69,10 +72,11 @@ public class AuthorizationPage extends BasePage {
     }
 
     @Step("Нажать на поле логина")
-    public void clickLoginField() {
+    public AuthorizationPage clickLoginField() {
         LOGIN_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать на поле пароля")
@@ -106,7 +110,7 @@ public class AuthorizationPage extends BasePage {
     @Step("Нажать на кнопку отображения значения пароля")
     public void showPassword() {
         PASSWORD_FIELD.shouldBe(Condition.visible)
-        .shouldHave(Condition.attribute("type", "password"));
+                .shouldHave(Condition.attribute("type", "password"));
         SHOW_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -115,14 +119,14 @@ public class AuthorizationPage extends BasePage {
     @Step("Нажать на кнопку скрытия значения пароля")
     public void hidePassword() {
         PASSWORD_FIELD.shouldBe(Condition.visible)
-        .shouldHave(Condition.attribute("type", "text"));
+                .shouldHave(Condition.attribute("type", "text"));
         SHOW_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Проверить доступность для нажатия кнопки входа")
-    public boolean isEnabledComeInButton(){
+    public boolean isEnabledComeInButton() {
         return TO_COME_IN_BUTTON.isEnabled();
     }
 

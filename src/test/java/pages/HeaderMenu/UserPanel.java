@@ -10,11 +10,12 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class UserPanel {
-    private final SelenideElement WINDOW =$x("//div[@class='iJul uLXf']");
-    private final SelenideElement ROLE_STATUS = $x("//div[@data-locator='admin-role']/span");
-    private final SelenideElement LOGIN=$x("//div[@data-locator='admin-login']/span");
-    private final SelenideElement EXIT_BUTTON = $x("//span[@data-locator='logout-btn']");
-    private final SelenideElement CHANGE_PASSWORD_BUTTON=$x("//span[@data-locator='change-password-btn']");
+    private final SelenideElement
+            WINDOW = $x("//div[@class='iJul uLXf']"),
+            ROLE_STATUS = $x("//div[@data-locator='admin-role']/span"),
+            LOGIN = $x("//div[@data-locator='admin-login']/span"),
+            EXIT_BUTTON = $x("//span[@data-locator='logout-btn']"),
+            CHANGE_PASSWORD_BUTTON = $x("//span[@data-locator='change-password-btn']");
 
     @Step("Верифицировать юзер-панели для Суперадмина")
     public void verifyUserPanelSuperAdmin() {
@@ -46,7 +47,7 @@ public class UserPanel {
     }
 
     @Step("Нажать на кнопку изменения своего пароля")
-    public ChangeMinePasswordWindow clickButtonChangePassword(){
+    public ChangeMinePasswordWindow clickButtonChangePassword() {
         CHANGE_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();

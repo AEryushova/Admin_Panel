@@ -11,12 +11,13 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class EditRuleWindow {
 
-    public final SelenideElement WINDOW = $x("//button[text()='Изменить']//parent::div//parent::div//parent::div//parent::div//parent::div[@class='TW3C']");
-    public final SelenideElement TITLE_FIELD = $x("//input[@placeholder='Укажите заголовок правила']");
-    public final SelenideElement DESCRIPTION_FIELD = $x("//textarea[@placeholder='Укажите описание правила']");
-    public final SelenideElement EDIT_BUTTON = $x("//button[text()='Изменить']");
-    private final SelenideElement DELETE_BUTTON = $x("//button[text()='Удалить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
+    public final SelenideElement
+            WINDOW = $x("//button[text()='Изменить']//parent::div//parent::div//parent::div//parent::div//parent::div[@class='TW3C']"),
+            TITLE_FIELD = $x("//input[@placeholder='Укажите заголовок правила']"),
+            DESCRIPTION_FIELD = $x("//textarea[@placeholder='Укажите описание правила']"),
+            EDIT_BUTTON = $x("//button[text()='Изменить']"),
+            DELETE_BUTTON = $x("//button[text()='Удалить']"),
+            CLOSE_WINDOW_BUTTON = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно изменения правила")
     public void verifyEditRuleWindow() {
@@ -57,7 +58,7 @@ public class EditRuleWindow {
     }
 
     @Step("Очистить поле заголовка")
-    public void clearTitleField(){
+    public void clearTitleField() {
         TITLE_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");
@@ -65,7 +66,7 @@ public class EditRuleWindow {
     }
 
     @Step("Очистить поле описания")
-    public void clearDescriptionField(){
+    public void clearDescriptionField() {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");

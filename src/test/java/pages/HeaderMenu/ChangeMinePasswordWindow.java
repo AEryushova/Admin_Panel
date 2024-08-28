@@ -10,22 +10,23 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ChangeMinePasswordWindow {
 
-    private final SelenideElement WINDOW = $x("//input[@name='oldPassword']//parent::div//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement OLD_PASSWORD_FIELD = $x("//input[@name='oldPassword']");
-    private final SelenideElement NEW_PASSWORD_FIELD = $x("//input[@name='newPassword']");
-    private final SelenideElement CHANGE_PASSWORD_BUTTON=$x("//button[text()='Сменить']");
-    private final SelenideElement CANCEL_BUTTON=$x("//button[text()='Отменить']");
-    private final SelenideElement CLEAR_FIELD_OLD_PASSWORD = $x("//input[@name='oldPassword']//preceding-sibling::div[@class='m4oD']");
-    private final SelenideElement CLEAR_FIELD_NEW_PASSWORD = $x("//input[@name='newPassword']//preceding-sibling::div[@class='m4oD']");
-    private final SelenideElement ERROR_FIELD_OLD_PASSWORD = $x("//input[@name='oldPassword']/following-sibling::div");
-    private final SelenideElement ERROR_FIELD_NEW_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
+    private final SelenideElement
+            WINDOW = $x("//input[@name='oldPassword']//parent::div//parent::div//parent::div//parent::div[@class='eV2Y']"),
+            OLD_PASSWORD_FIELD = $x("//input[@name='oldPassword']"),
+            NEW_PASSWORD_FIELD = $x("//input[@name='newPassword']"),
+            CHANGE_PASSWORD_BUTTON = $x("//button[text()='Сменить']"),
+            CANCEL_BUTTON = $x("//button[text()='Отменить']"),
+            CLEAR_FIELD_OLD_PASSWORD = $x("//input[@name='oldPassword']//preceding-sibling::div[@class='m4oD']"),
+            CLEAR_FIELD_NEW_PASSWORD = $x("//input[@name='newPassword']//preceding-sibling::div[@class='m4oD']"),
+            ERROR_FIELD_OLD_PASSWORD = $x("//input[@name='oldPassword']/following-sibling::div"),
+            ERROR_FIELD_NEW_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
 
     @Step("Верифицировать окно замены своего пароля")
     public void verifyChangeMinePasswordWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         OLD_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NEW_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        CHANGE_PASSWORD_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        CHANGE_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
@@ -59,7 +60,7 @@ public class ChangeMinePasswordWindow {
     }
 
     @Step("Проверить доступность для нажатия кнопки изменения пароля")
-    public boolean isEnabledChangeButton(){
+    public boolean isEnabledChangeButton() {
         return CHANGE_PASSWORD_BUTTON.isEnabled();
     }
 
@@ -79,10 +80,10 @@ public class ChangeMinePasswordWindow {
 
     @Step("Нажать на кнопку очищения поля старого пароля")
     public void clickClearButtonOldPasswordField() {
-        CLEAR_FIELD_OLD_PASSWORD .shouldBe(Condition.visible)
+        CLEAR_FIELD_OLD_PASSWORD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        OLD_PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(15));
+        OLD_PASSWORD_FIELD.shouldHave((Condition.empty), Duration.ofSeconds(15));
     }
 
     @Step("Нажать на кнопку очищения поля нового пароля")
@@ -90,7 +91,7 @@ public class ChangeMinePasswordWindow {
         CLEAR_FIELD_NEW_PASSWORD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        NEW_PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(10));
+        NEW_PASSWORD_FIELD.shouldHave((Condition.empty), Duration.ofSeconds(10));
     }
 
     @Step("Получить значение поля старого пароля")

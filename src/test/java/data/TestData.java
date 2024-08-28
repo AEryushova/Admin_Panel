@@ -10,10 +10,11 @@ public class TestData {
 
     @Data
     public static class UserData {
-        public static final String LOGIN_SUPER_ADMIN = "SUPER_ADMIN";
-        public static final String PASSWORD_SUPER_ADMIN = "Qqqq123#";
-        public static final String LOGIN_ADMIN = "ADMIN_TESTUI";
-        public static final String PASSWORD_ADMIN = "WWqq123456!";
+        public static final String
+                LOGIN_SUPER_ADMIN = "SUPER_ADMIN",
+                PASSWORD_SUPER_ADMIN = "Qqqq123#",
+                LOGIN_ADMIN = "ADMIN_TESTUI",
+                PASSWORD_ADMIN = "WWqq123456!";
     }
 
     @Data
@@ -39,21 +40,23 @@ public class TestData {
         @Setter
         public static String subSectionName;
 
-        public static final String DOCTOR = "Fer3 Не ТРОГАТЬ";
-        public static final String DOCTOR_SURNAME = "Тестов";
-        public static final String DOCTOR_SPECIALIZATION = "врач-оториноларинголог";
-        public static final String DEFAULT_PHOTO = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg";
-        public static final File PHOTO = new File("src/test/resources/images/Photo 3,7mbJpeg.jpg");
-        public static final File LOGO = new File("src/test/resources/images/logo.png");
-        public static final String NAME_OTHER_SERVICE_CATEGORY = "Иные услуги";
+        public static final String
+                DOCTOR = "Fer3 Копия Тест",
+                DOCTOR_SPECIALIZATION = "врач-терапевт",
+                DEFAULT_PHOTO = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg",
+                NAME_OTHER_SERVICE_CATEGORY = "Иные услуги";
+        public static final File
+                PHOTO = new File("src/test/resources/images/Photo 3,7mbJpeg.jpg"),
+                LOGO = new File("src/test/resources/images/logo.png");
     }
 
     @Data
     public static class DataSearch {
-        public static final String DOCTOR_NAME_SEARCH = "Надежда";
-        public static final String DOCTOR_SPECIALIZATION_SEARCH = "гинеколог";
-        public static final String SEARCH_BY_INCLUSION_DOCTORS = "етс";
-        public static final String FAQ_SEARCH = "Врач";
-        public static final String SEARCH_BY_INCLUSION_FAQ = "пис";
+        public static final String
+                DOCTOR_NAME_SEARCH = "Надежда",
+                DOCTOR_SPECIALIZATION_SEARCH = "гинеколог",
+                SEARCH_BY_INCLUSION_DOCTORS = "етс",
+                FAQ_SEARCH = "Врач",
+                SEARCH_BY_INCLUSION_FAQ = "пис";
     }
 }

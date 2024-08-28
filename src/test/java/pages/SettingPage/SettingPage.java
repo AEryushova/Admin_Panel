@@ -11,12 +11,13 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class SettingPage extends BasePage {
 
-    private final SelenideElement BUG_REPORTS_SECTION = $x("//span[text()='Раздел для мониторинга сообщений и жалоб пользователей ЛК']/parent::div/preceding-sibling::div/span");
-    private final SelenideElement LOGO_APP_SECTION = $x("//span[text()='Логотип Приложения']");
-    private final SelenideElement LOGO_APP = $x("//div[@class='D1Px']/img");
-    private final SelenideElement EDIT_LOGO_BUTTON = $x("//div[@class='jUqF']/div");
-    private final SelenideElement BUG_REPORT=$x("//div[@class='eYxe']");
-    private final SelenideElement EMPTY_LIST_BUG_REPORT=$x("//span[text()='Нет сообщений от пользователей']");
+    private final SelenideElement
+            BUG_REPORTS_SECTION = $x("//span[text()='Раздел для мониторинга сообщений и жалоб пользователей ЛК']/parent::div/preceding-sibling::div/span"),
+            LOGO_APP_SECTION = $x("//span[text()='Логотип Приложения']"),
+            LOGO_APP = $x("//div[@class='D1Px']/img"),
+            EDIT_LOGO_BUTTON = $x("//div[@class='jUqF']/div"),
+            BUG_REPORT = $x("//div[@class='eYxe']"),
+            EMPTY_LIST_BUG_REPORT = $x("//span[text()='Нет сообщений от пользователей']");
 
     @Step("Верифицировать страницу Настройки")
     public void verifySettingPage() {
@@ -25,7 +26,7 @@ public class SettingPage extends BasePage {
     }
 
     @Step("Получить сообщение об ошибке")
-    public BugReport getBugReportCard(){
+    public BugReport getBugReportCard() {
         BUG_REPORT.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new BugReport();
     }
@@ -44,12 +45,12 @@ public class SettingPage extends BasePage {
     }
 
     @Step("Получить высоту изображения логотипа")
-    public int getHeightLogo(){
+    public int getHeightLogo() {
         return LOGO_APP.getSize().getHeight();
     }
 
     @Step("Проверить отображение информации о пустом списке сообщений об ошибках")
-    public boolean isExistsEmptyList(){
+    public boolean isExistsEmptyList() {
         return EMPTY_LIST_BUG_REPORT.isDisplayed();
     }
 }

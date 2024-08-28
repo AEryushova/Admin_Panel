@@ -16,13 +16,14 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class HeaderMenu extends BasePage {
 
-    private final SelenideElement DOCTOR = $x("//a[text()='Врачи']");
-    private final SelenideElement SERVICES = $x("//a[text()='Услуги']");
-    private final SelenideElement SETTING = $x("//a[text()='Настройки']");
-    private final SelenideElement FAQ = $x("//a[text()='FAQ']");
-    private final SelenideElement ADMINISTRATION = $x("//a[text()='Администрирование']");
-    private final SelenideElement PROFILE_BUTTON = $x("//button[@class='MxFR oAei']");
-    private final SelenideElement LOGO=$x("//div[@class='AacY']/img");
+    private final SelenideElement
+            DOCTOR = $x("//a[text()='Врачи']"),
+            SERVICES = $x("//a[text()='Услуги']"),
+            SETTING = $x("//a[text()='Настройки']"),
+            FAQ = $x("//a[text()='FAQ']"),
+            ADMINISTRATION = $x("//a[text()='Администрирование']"),
+            PROFILE_BUTTON = $x("//button[@class='MxFR oAei']"),
+            LOGO = $x("//div[@class='AacY']/img");
 
     @Step("Верифицировать навигационное меню для Суперадмина")
     public void verifyHeaderBarSuperAdmin() {
@@ -95,7 +96,7 @@ public class HeaderMenu extends BasePage {
     }
 
     @Step("Получить высоту изображения логотипа")
-    public int getHeightLogo(){
+    public int getHeightLogo() {
         return LOGO.getSize().getHeight();
     }
 

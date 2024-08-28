@@ -12,18 +12,20 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class Feedback {
 
-    private final SelenideElement FEEDBACK = $x("//div[@class='qJe_']");
-    private final SelenideElement DATE_FEEDBACK = $x("//div[@class='YxjE']/span");
+    private final SelenideElement
+            FEEDBACK = $x("//div[@class='qJe_']"),
+            DATE_FEEDBACK = $x("//div[@class='YxjE']/span"),
+            AUTHOR = $x("//div[@class='zuRY']/span"),
+            TEXT = $x("//div[@class='zxOH']/textarea"),
+            EDIT_BUTTON = $x("//div[@class='UnAf gvNC']"),
+            PUBLICATION = $x("//button[text()='Опубликовать']"),
+            WITHDRAWAL_PUBLICATION = $x("//button[text()='Снять публикацию']"),
+            DELETE_BUTTON = $x("//button[text()='Удалить']");
     private final ElementsCollection DATES_FEEDBACKS = $$x("//div[@class='YxjE']/span");
-    private final SelenideElement AUTHOR = $x("//div[@class='zuRY']/span");
-    private final SelenideElement TEXT = $x("//div[@class='zxOH']/textarea");
-    private final SelenideElement EDIT_BUTTON = $x("//div[@class='UnAf gvNC']");
-    private final SelenideElement PUBLICATION = $x("//button[text()='Опубликовать']");
-    private final SelenideElement WITHDRAWAL_PUBLICATION = $x("//button[text()='Снять публикацию']");
-    private final SelenideElement DELETE_BUTTON = $x("//button[text()='Удалить']");
+
 
     @Step("Верифицировать неопубликованный отзыв")
-    public void verifyFeedbackUnpublished() {
+    public Feedback verifyFeedbackUnpublished() {
         FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DATE_FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -31,16 +33,18 @@ public class Feedback {
         EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PUBLICATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Верифицировать опубликованный отзыв")
-    public void verifyFeedbackPublished() {
+    public Feedback verifyFeedbackPublished() {
         FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DATE_FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
         AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         WITHDRAWAL_PUBLICATION.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Получить дату отзыва")
@@ -77,17 +81,19 @@ public class Feedback {
     }
 
     @Step("Нажать на кнопку публикации")
-    public void clickButtonPublicationFeedback() {
+    public Feedback clickButtonPublicationFeedback() {
         PUBLICATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать на кнопку снятия с публикации")
-    public void clickButtonWithdrawalPublication() {
+    public Feedback clickButtonWithdrawalPublication() {
         WITHDRAWAL_PUBLICATION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать на кнопку удаления")

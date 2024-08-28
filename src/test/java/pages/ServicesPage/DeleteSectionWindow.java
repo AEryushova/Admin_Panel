@@ -12,12 +12,13 @@ import static data.TestData.DataTest.NAME_OTHER_SERVICE_CATEGORY;
 
 public class DeleteSectionWindow {
 
-    public final SelenideElement WINDOW = $x("//div[@class='sCwo']");
-    private final SelenideElement HEADER_WINDOW = $x("//span[text()='Удалить Раздел']");
-    private final SelenideElement TEXT_WINDOW = $x("//div[@class='Fujp']/span");
-    private final SelenideElement DELETE_BUTTON = $x("//button[text()='Удалить']");
-    private final SelenideElement CANCEL_BUTTON = $x("//button[text()='Отменить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Удалить Раздел']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
+    public final SelenideElement
+            WINDOW = $x("//div[@class='sCwo']"),
+            HEADER_WINDOW = $x("//span[text()='Удалить Раздел']"),
+            TEXT_WINDOW = $x("//div[@class='Fujp']/span"),
+            DELETE_BUTTON = $x("//button[text()='Удалить']"),
+            CANCEL_BUTTON = $x("//button[text()='Отменить']"),
+            CLOSE_WINDOW_BUTTON = $x("//span[text()='Удалить Раздел']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно удаления раздела")
     public void verifyDeleteSectionWindow() {
@@ -30,21 +31,21 @@ public class DeleteSectionWindow {
     }
 
     @Step("Нажать кнопку удаления")
-    public void clickButtonDeleteSection(){
+    public void clickButtonDeleteSection() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Нажать кнопку отмены")
-    public void clickCancelButtonDeleteSection(){
+    public void clickCancelButtonDeleteSection() {
         CANCEL_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @Step("Верифицировать название раздела")
-    public boolean verifyNameSection(String nameSection){
+    public boolean verifyNameSection(String nameSection) {
         return TEXT_WINDOW.has(text("Раздел \"" + nameSection + "\" будет безвозвратно удален и все имеющиеся услуги внутри него будут перенесены в категорию \"" + NAME_OTHER_SERVICE_CATEGORY + "\". \n" +
                 "Заранее убедитесь, что нет услуг которые должны быть отображены клиенту."));
     }

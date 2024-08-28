@@ -13,36 +13,40 @@ import static com.codeborne.selenide.Selenide.$x;
 public class AddFeedbackWindow {
 
 
-    private final SelenideElement WINDOW = $x("//div[@class='SIqL']");
-    private final SelenideElement FIO_FIELD = $x("//input[@name='fio']");
-    private final SelenideElement TODAY_BUTTON = $x("//div[@class='zMyf']");
-    private final SelenideElement TEXT_FEEDBACK_FIELD = $x("//textarea[@placeholder='Введите текст отзыва']");
-    private final SelenideElement CLEAR_FIELD_FIO_BUTTON = $x("//input[@name='fio']//preceding-sibling::div[@class='m4oD']");
-    private final SelenideElement PUBLISH_BUTTON = $x("//button[text()='Опубликовать']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//input[@name='fio']/parent::div/parent::div/parent::div/preceding-sibling::div");
+    private final SelenideElement
+            WINDOW = $x("//div[@class='SIqL']"),
+            FIO_FIELD = $x("//input[@name='fio']"),
+            TODAY_BUTTON = $x("//div[@class='zMyf']"),
+            TEXT_FEEDBACK_FIELD = $x("//textarea[@placeholder='Введите текст отзыва']"),
+            CLEAR_FIELD_FIO_BUTTON = $x("//input[@name='fio']//preceding-sibling::div[@class='m4oD']"),
+            PUBLISH_BUTTON = $x("//button[text()='Опубликовать']"),
+            CLOSE_WINDOW_BUTTON = $x("//input[@name='fio']/parent::div/parent::div/parent::div/preceding-sibling::div");
 
     @Step("Верифицировать окно добавления отзыва")
-    public void verifyAddFeedbackWindow() {
+    public AddFeedbackWindow verifyAddFeedbackWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         FIO_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        PUBLISH_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        PUBLISH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLEAR_FIELD_FIO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле ФИО '{0}'")
-    public void fillFieldFio(String fio) {
+    public AddFeedbackWindow fillFieldFio(String fio) {
         FIO_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(fio);
+        return this;
     }
 
     @Step("Ввести в поле текста отзыва '{0}'")
-    public void fillFieldTextFeedback(String textFeedback) {
+    public AddFeedbackWindow fillFieldTextFeedback(String textFeedback) {
         TEXT_FEEDBACK_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(textFeedback);
+        return this;
     }
 
     @Step("Открыть календарь")
@@ -86,11 +90,11 @@ public class AddFeedbackWindow {
         CLEAR_FIELD_FIO_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        FIO_FIELD.shouldBe((Condition.empty),Duration.ofSeconds(15));
+        FIO_FIELD.shouldBe((Condition.empty), Duration.ofSeconds(15));
     }
 
     @Step("Проверить доступность для нажатия кнопки публикации")
-    public boolean isEnabledPublishButton(){
+    public boolean isEnabledPublishButton() {
         return PUBLISH_BUTTON.isEnabled();
     }
 

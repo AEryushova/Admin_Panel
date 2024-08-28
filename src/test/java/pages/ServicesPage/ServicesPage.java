@@ -15,15 +15,16 @@ import static data.TestData.DataTest.NAME_OTHER_SERVICE_CATEGORY;
 
 public class ServicesPage extends BasePage {
 
-    private final SelenideElement TAB_NAME = $x("//a[text()='Услуги']");
-    private final SelenideElement SEARCH_SERVICES = $x("//input[@placeholder='Поиск услуги']");
+    private final SelenideElement
+            TAB_NAME = $x("//a[text()='Услуги']"),
+            SEARCH_SERVICES = $x("//input[@placeholder='Поиск услуги']"),
+            OTHER_SERVICES = $x("//span[text()='" + NAME_OTHER_SERVICE_CATEGORY + "']//parent::div//parent::div[@class='ZAC4']"),
+            TELEMEDICINE = $x("//span[text()='Телемедицина']//parent::div//parent::div[@class='ZAC4']"),
+            DOCTORS = $x("//span[text()='Врачи']//parent::div//parent::div[@class='ZAC4']"),
+            LABORATORY = $x("//span[text()='Лаборатория']//parent::div//parent::div[@class='ZAC4']"),
+            DIAGNOSTICS = $x("//span[text()='Диагностика']//parent::div//parent::div[@class='ZAC4']"),
+            DENTISTRY = $x("//span[text()='Стоматология']//parent::div//parent::div[@class='ZAC4']");
     private final ElementsCollection CONTAINER_CATEGORIES = $$x("//div[@class='qH7D']/span");
-    private final SelenideElement OTHER_SERVICES = $x("//span[text()='" + NAME_OTHER_SERVICE_CATEGORY + "']//parent::div//parent::div[@class='ZAC4']");
-    private final SelenideElement TELEMEDICINE = $x("//span[text()='Телемедицина']//parent::div//parent::div[@class='ZAC4']");
-    private final SelenideElement DOCTORS = $x("//span[text()='Врачи']//parent::div//parent::div[@class='ZAC4']");
-    private final SelenideElement LABORATORY = $x("//span[text()='Лаборатория']//parent::div//parent::div[@class='ZAC4']");
-    private final SelenideElement DIAGNOSTICS = $x("//span[text()='Диагностика']//parent::div//parent::div[@class='ZAC4']");
-    private final SelenideElement DENTISTRY = $x("//span[text()='Стоматология']//parent::div//parent::div[@class='ZAC4']");
 
     @Step("Верифицировать страницу Услуги")
     public void verifyServicesPage() {
@@ -38,7 +39,7 @@ public class ServicesPage extends BasePage {
     }
 
     @Step("Нажать кнопку открытия правил подготовки к категории '{0}'")
-    public RulesPreparingWindow clickButtonOpenRulesPreparingCategory(String categoryName){
+    public RulesPreparingWindow clickButtonOpenRulesPreparingCategory(String categoryName) {
         SelenideElement RULES_PREPARING = searchCategory(categoryName).$x("div[@class='Ie41']");
         RULES_PREPARING.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -64,8 +65,8 @@ public class ServicesPage extends BasePage {
     }
 
     @Step("Найти категорию с названием '{0}'")
-    public SelenideElement searchCategory(String categoryName){
-        SelenideElement CATEGORY=$x("//span[text()='" + categoryName + "']//parent::div//parent::div[@class='ZAC4']");
+    public SelenideElement searchCategory(String categoryName) {
+        SelenideElement CATEGORY = $x("//span[text()='" + categoryName + "']//parent::div//parent::div[@class='ZAC4']");
         CATEGORY.shouldBe(Condition.visible);
         return CATEGORY;
     }

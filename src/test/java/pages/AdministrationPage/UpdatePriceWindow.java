@@ -17,14 +17,15 @@ import static com.codeborne.selenide.files.FileFilters.withExtension;
 
 public class UpdatePriceWindow {
 
-    private final SelenideElement WINDOW = $x("//span[text()='Обновить прайс']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement HEADER_WINDOW = $x("//div[@id='popap_window']/div/div/div/div/div/span[text()='Обновить прайс']");
-    private final SelenideElement ACTIVATIONS_DATES_LIST = $x("//span[text()='Даты активации']//parent::div");
-    private final SelenideElement ACTIVATION_DATES_DOWNLOAD;
-    private final SelenideElement FILE_INPUT_ELEMENT = $("input[type='file']");
-    private final SelenideElement UPLOAD_BUTTON = $x("//span[text()='Загрузить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Обновить прайс']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
-    private final SelenideElement TODAY_BUTTON = $x("//div[@class='zMyf']");
+    private final SelenideElement
+            WINDOW = $x("//span[text()='Обновить прайс']//parent::div//parent::div//parent::div[@class='eV2Y']"),
+            HEADER_WINDOW = $x("//div[@id='popap_window']/div/div/div/div/div/span[text()='Обновить прайс']"),
+            ACTIVATIONS_DATES_LIST = $x("//span[text()='Даты активации']//parent::div"),
+            ACTIVATION_DATES_DOWNLOAD,
+            FILE_INPUT_ELEMENT = $("input[type='file']"),
+            UPLOAD_BUTTON = $x("//span[text()='Загрузить']"),
+            CLOSE_WINDOW_BUTTON = $x("//span[text()='Обновить прайс']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']"),
+            TODAY_BUTTON = $x("//div[@class='zMyf']");
 
 
     public UpdatePriceWindow() {
@@ -32,13 +33,14 @@ public class UpdatePriceWindow {
     }
 
     @Step("Верифицировать окно добавления прайса")
-    public void verifyUpdatePriceWindow() {
+    public UpdatePriceWindow verifyUpdatePriceWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ACTIVATIONS_DATES_LIST.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         UPLOAD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Открыть календарь")

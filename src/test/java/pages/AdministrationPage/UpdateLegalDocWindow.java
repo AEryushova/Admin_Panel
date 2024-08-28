@@ -12,27 +12,29 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class UpdateLegalDocWindow {
 
-    private final SelenideElement WINDOW = $x("//span[text()='Изменить ссылку документа']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement HEADER_WINDOW = $x("//span[text()='Изменить ссылку документа']");
-    private final SelenideElement DOC_IMAGE = $("iframe");
-    private final SelenideElement FILE_INPUT_ELEMENT = $("input[type='file']");
-    private final SelenideElement UPLOAD_BUTTON = $x("//span[text()='Загрузить документ']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Изменить ссылку документа']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
+    private final SelenideElement
+            WINDOW = $x("//span[text()='Изменить ссылку документа']//parent::div//parent::div//parent::div[@class='eV2Y']"),
+            HEADER_WINDOW = $x("//span[text()='Изменить ссылку документа']"),
+            DOC_IMAGE = $("iframe"),
+            FILE_INPUT_ELEMENT = $("input[type='file']"),
+            UPLOAD_BUTTON = $x("//span[text()='Загрузить документ']"),
+            CLOSE_WINDOW_BUTTON = $x("//span[text()='Изменить ссылку документа']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
 
     @Step("Верифицировать окно добавления оферты и политики обработки")
-    public void verifyUploadDocWindow() {
+    public UpdateLegalDocWindow verifyUploadDocWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DOC_IMAGE.shouldHave(Condition.attribute("src")).shouldNotBe(Condition.attribute("src", ""));
         UPLOAD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Загрузить файл '{0}'")
     public void uploadDoc(String pathFilesOffer) {
         FILE_INPUT_ELEMENT.shouldBe(Condition.exist)
-        .uploadFile(new File(pathFilesOffer));
+                .uploadFile(new File(pathFilesOffer));
     }
 
     @Step("Получить ссылку на файл")

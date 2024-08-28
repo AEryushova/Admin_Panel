@@ -10,26 +10,27 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ServiceWindow {
 
-    public final SelenideElement WINDOW = $x("//div[@class='rVVQ']");
-    private final SelenideElement GENERAL_INFO = $x("//div[text()='Общая информация']");
-    private final SelenideElement SERVICE_TRANSFER = $x("//div[text()='Перенос услуги']");
-    private final SelenideElement RULES_PREPARING = $x("//div[text()='Правила подготовки']");
-    private final SelenideElement HEADER_SERVICE = $x("//div[@class='fbzq']/span");
-    private final SelenideElement DELETE_BUTTON = $x("//div[@class='wxIJ']");
-    private final SelenideElement PATH_TO_SERVICE = $x("//span[text()='Путь к услуге']/following-sibling::span");
-    private final SelenideElement NAME_SERVICE = $x("//span[text()='Наименование']/following-sibling::span");
-    private final SelenideElement CODE_SERVICE = $x("//span[text()='Код услуги']/following-sibling::span");
-    private final SelenideElement NAME_CATEGORY = $x("//div[@class='ZbgC']");
-    private final SelenideElement NAME_SECTION = $x("//div[@class='l89u']");
-    private final SelenideElement NO_SECTIONS = $x("//span[contains(text(), 'Разделы отсутствуют')]");
-    private final SelenideElement TRANSFER_BUTTON = $x("//button[contains(text(), 'Перенести услугу')]");
-    private final SelenideElement TITLE_FIELD = $x("//input[@placeholder='Укажите заголовок правила']");
-    private final SelenideElement DESCRIPTION_FIELD = $x("//textarea[@placeholder='Укажите описание правила']");
-    private final SelenideElement ADD_RULE_BUTTON = $x("//button[text()='Добавить']");
-    private final SelenideElement EDIT_RULE_BUTTON = $x("//button[text()='Изменить']");
-    private final SelenideElement DELETE_RULE_BUTTON = $x("//button[text()='Удалить']");
-    private final SelenideElement EMPTY_LIST_RULES_PREPARING = $x("//div[@class='HMP4']/div/span");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[text()='Общая информация']/parent::div/parent::div/preceding-sibling::div[@class='UnAf Ee5G']");
+    public final SelenideElement
+            WINDOW = $x("//div[@class='rVVQ']"),
+            GENERAL_INFO = $x("//div[text()='Общая информация']"),
+            SERVICE_TRANSFER = $x("//div[text()='Перенос услуги']"),
+            RULES_PREPARING = $x("//div[text()='Правила подготовки']"),
+            HEADER_SERVICE = $x("//div[@class='fbzq']/span"),
+            DELETE_BUTTON = $x("//div[@class='wxIJ']"),
+            PATH_TO_SERVICE = $x("//span[text()='Путь к услуге']/following-sibling::span"),
+            NAME_SERVICE = $x("//span[text()='Наименование']/following-sibling::span"),
+            CODE_SERVICE = $x("//span[text()='Код услуги']/following-sibling::span"),
+            NAME_CATEGORY = $x("//div[@class='ZbgC']"),
+            NAME_SECTION = $x("//div[@class='l89u']"),
+            NO_SECTIONS = $x("//span[contains(text(), 'Разделы отсутствуют')]"),
+            TRANSFER_BUTTON = $x("//button[contains(text(), 'Перенести услугу')]"),
+            TITLE_FIELD = $x("//input[@placeholder='Укажите заголовок правила']"),
+            DESCRIPTION_FIELD = $x("//textarea[@placeholder='Укажите описание правила']"),
+            ADD_RULE_BUTTON = $x("//button[text()='Добавить']"),
+            EDIT_RULE_BUTTON = $x("//button[text()='Изменить']"),
+            DELETE_RULE_BUTTON = $x("//button[text()='Удалить']"),
+            EMPTY_LIST_RULES_PREPARING = $x("//div[@class='HMP4']/div/span"),
+            CLOSE_WINDOW_BUTTON = $x("//div[text()='Общая информация']/parent::div/parent::div/preceding-sibling::div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать вкладку общей информации окна услуги")
     public void verifyServiceWindowGeneralInfo() {
@@ -111,10 +112,10 @@ public class ServiceWindow {
     }
 
     @Step("Нажать кнопку удаления услуги")
-    public void clickButtonDeleteService(){
+    public void clickButtonDeleteService() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
-            .click();
+                .click();
     }
 
     @Step("Выбрать категорию для переноса")
@@ -158,7 +159,7 @@ public class ServiceWindow {
     }
 
     @Step("Проверить доступность для нажатия кнопки добавления правила подготовки")
-    public boolean isEnabledAddButton(){
+    public boolean isEnabledAddButton() {
         return ADD_RULE_BUTTON.isEnabled();
     }
 
@@ -202,12 +203,12 @@ public class ServiceWindow {
     }
 
     @Step("Получить поле заголовка")
-    public SelenideElement getFieldTitle(){
+    public SelenideElement getFieldTitle() {
         return TITLE_FIELD;
     }
 
     @Step("Получить поле описания")
-    public SelenideElement getFieldDescription(){
+    public SelenideElement getFieldDescription() {
         return DESCRIPTION_FIELD;
     }
 
@@ -227,17 +228,17 @@ public class ServiceWindow {
     }
 
     @Step("Получить кнопку добавления правила подготовки")
-    public SelenideElement getAddRuleButton(){
+    public SelenideElement getAddRuleButton() {
         return ADD_RULE_BUTTON;
     }
 
     @Step("Получить кнопку изменения правила подготовки")
-    public SelenideElement getEditRuleButton(){
+    public SelenideElement getEditRuleButton() {
         return EDIT_RULE_BUTTON;
     }
 
     @Step("Получить кнопку удаления правила подготовки")
-    public SelenideElement getDeleteRuleButton(){
+    public SelenideElement getDeleteRuleButton() {
         return DELETE_RULE_BUTTON;
     }
 

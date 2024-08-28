@@ -10,24 +10,25 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class CardDoctorPage extends BasePage {
 
-    private final SelenideElement RETURN_BUTTON = $x("//span[text()='Вернуться назад']");
-    private final SelenideElement DOCTOR_PHOTO = $x("//div[@class='zzfM']/img");
-    private final SelenideElement EDIT_PHOTO_BUTTON = $x("//div[@class='ctFG']/div");
-    private final SelenideElement DELETE_PHOTO_BUTTON = $x("//div[@class='ctFG']/div/following-sibling::div");
-    private final SelenideElement ADD_SECTION = $x("//button[text()='Добавить раздел']");
-    private final SelenideElement SECTION = $x("//div[@class='aksW']");
-    private final SelenideElement DESCRIPTION = $x("//div[@class='IrCo']");
-    private final SelenideElement ADD_FEEDBACK = $x("//button[text()='Добавить отзыв']");
-    private final SelenideElement NO_SELECTED_PUBLISHED_BUTTON = $x("//span[text()='Опубликованные']/preceding-sibling::div");
-    private final SelenideElement SELECTED_PUBLISHED_BUTTON = $x("//span[text()='Опубликованные']/preceding-sibling::div/div[@class='WzjF']");
-    private final SelenideElement NO_SELECTED_UNPUBLISHED_BUTTON = $x("//span[text()='Неопубликованные']/preceding-sibling::div");
-    private final SelenideElement SELECTED_UNPUBLISHED_BUTTON = $x("//span[text()='Неопубликованные']/preceding-sibling::div/div[@class='WzjF']");
-    private final SelenideElement FEEDBACK = $x("//div[@class='qJe_']");
-    private final SelenideElement SORTING_FEEDBACK_NEW = $x("//span[text()='Новые']//parent::div//parent::button");
-    private final SelenideElement SORTING_FEEDBACK_OLD = $x("//span[text()='Старые ']//parent::div//parent::button");
-    private final SelenideElement EMPTY_LIST_SECTION = $x("//span[text()='Описание в карточке отсутствует!']");
-    private final SelenideElement EMPTY_LIST_DESCRIPTION = $x("//div[text()='Пустой список']");
-    private final SelenideElement NAVIGATE_MENU = $x("//div[@class='_odc']");
+    private final SelenideElement
+            RETURN_BUTTON = $x("//span[text()='Вернуться назад']"),
+            DOCTOR_PHOTO = $x("//div[@class='zzfM']/img"),
+            EDIT_PHOTO_BUTTON = $x("//div[@class='ctFG']/div"),
+            DELETE_PHOTO_BUTTON = $x("//div[@class='ctFG']/div/following-sibling::div"),
+            ADD_SECTION = $x("//button[text()='Добавить раздел']"),
+            SECTION = $x("//div[@class='aksW']"),
+            DESCRIPTION = $x("//div[@class='IrCo']"),
+            ADD_FEEDBACK = $x("//button[text()='Добавить отзыв']"),
+            NO_SELECTED_PUBLISHED_BUTTON = $x("//span[text()='Опубликованные']/preceding-sibling::div"),
+            SELECTED_PUBLISHED_BUTTON = $x("//span[text()='Опубликованные']/preceding-sibling::div/div[@class='WzjF']"),
+            NO_SELECTED_UNPUBLISHED_BUTTON = $x("//span[text()='Неопубликованные']/preceding-sibling::div"),
+            SELECTED_UNPUBLISHED_BUTTON = $x("//span[text()='Неопубликованные']/preceding-sibling::div/div[@class='WzjF']"),
+            FEEDBACK = $x("//div[@class='qJe_']"),
+            SORTING_FEEDBACK_NEW = $x("//span[text()='Новые']//parent::div//parent::button"),
+            SORTING_FEEDBACK_OLD = $x("//span[text()='Старые ']//parent::div//parent::button"),
+            EMPTY_LIST_SECTION = $x("//span[text()='Описание в карточке отсутствует!']"),
+            EMPTY_LIST_DESCRIPTION = $x("//div[text()='Пустой список']"),
+            NAVIGATE_MENU = $x("//div[@class='_odc']");
 
     @Step("Верифицировать раздел фото")
     public void verifyDoctorCardPage() {
@@ -213,7 +214,7 @@ public class CardDoctorPage extends BasePage {
 
     @SuppressWarnings("unused")
     @Step("Получить секцию по имени")
-    public SelenideElement getSectionPageByName(String nameSection){
+    public SelenideElement getSectionPageByName(String nameSection) {
         return $x("//div[@class='S1TV']/span[text()='" + nameSection + "']");
     }
 }

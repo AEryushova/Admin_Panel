@@ -11,12 +11,13 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class AdministrationPage extends BasePage {
 
-    private final SelenideElement TAB_NAME = $x("//span[text()='Админы ']");
-    private final SelenideElement UPDATE_OFFER = $x("//span[text()='Обновить оферту' ]//parent::div//parent::button");
-    private final SelenideElement UPDATE_PROCESSING_POLICY = $x("//span[text()='Обновить политику обработки' ]//parent::div//parent::button");
-    private final SelenideElement UPDATE_ORDER = $x("//span[text()='Обновить приказ' ]//parent::div//parent::button");
-    private final SelenideElement UPDATE_PRICE = $x("//span[text()='Обновить прайс' ]//parent::div//parent::button");
-    private final SelenideElement ADD_ADMIN = $x("//span[text()='Добавить админа']//parent::div//parent::button");
+    private final SelenideElement
+            TAB_NAME = $x("//span[text()='Админы ']"),
+            UPDATE_OFFER = $x("//span[text()='Обновить оферту' ]//parent::div//parent::button"),
+            UPDATE_PROCESSING_POLICY = $x("//span[text()='Обновить политику обработки' ]//parent::div//parent::button"),
+            UPDATE_ORDER = $x("//span[text()='Обновить приказ' ]//parent::div//parent::button"),
+            UPDATE_PRICE = $x("//span[text()='Обновить прайс' ]//parent::div//parent::button"),
+            ADD_ADMIN = $x("//span[text()='Добавить админа']//parent::div//parent::button");
 
     @Step("Верифицировать страницу Администрирования")
     public void verifyAdminPage() {
@@ -38,8 +39,8 @@ public class AdministrationPage extends BasePage {
 
     @Step("Нажать кнопку замены пароля админу '{0}'")
     public ChangePasswordAdminWindow clickButtonChangePassword(String login) {
-        getCardAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5));
-        getButtonChangedPassword(login).shouldBe(Condition.visible,Duration.ofSeconds(5))
+        getCardAdmin(login).shouldBe(Condition.visible, Duration.ofSeconds(5));
+        getButtonChangedPassword(login).shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled)
                 .click();
         return new ChangePasswordAdminWindow();
@@ -47,7 +48,7 @@ public class AdministrationPage extends BasePage {
 
     @Step("Нажать кнопку удаления админа '{0}'")
     public DeleteAdminWindow clickButtonDeleteAdmin(String login) {
-        getCardAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5));
+        getCardAdmin(login).shouldBe(Condition.visible, Duration.ofSeconds(5));
         getButtonDeleteAdmin(login).shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -55,21 +56,21 @@ public class AdministrationPage extends BasePage {
     }
 
     @Step("Верифицировать карточку админа '{0}'")
-    public void verifyAdminCard(String login){
-        getCardAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5));
-        getButtonChangedPassword(login).shouldBe(Condition.visible,Duration.ofSeconds(5))
+    public void verifyAdminCard(String login) {
+        getCardAdmin(login).shouldBe(Condition.visible, Duration.ofSeconds(5));
+        getButtonChangedPassword(login).shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled);
-        getButtonDeleteAdmin(login).shouldBe(Condition.visible,Duration.ofSeconds(5))
+        getButtonDeleteAdmin(login).shouldBe(Condition.visible, Duration.ofSeconds(5))
                 .shouldBe(Condition.enabled);
     }
 
     @Step("Получить карточку админа '{0}'")
-    public SelenideElement getCardAdmin(String login){
+    public SelenideElement getCardAdmin(String login) {
         return $x("//input[@name='login' and @value='" + login + "']/parent::div/parent::div/parent::div");
     }
 
     @Step("Получить кнопку смены пароля админу '{0}'")
-    private SelenideElement getButtonChangedPassword(String login){
+    private SelenideElement getButtonChangedPassword(String login) {
         return $x("//div[.//input[contains(@value, '" + login + "')]]/following-sibling::div/button[contains(text(), 'Сменить пароль')]");
     }
 
@@ -79,10 +80,11 @@ public class AdministrationPage extends BasePage {
     }
 
     @Step("Проскроллить страницу до карточки админа '{0}'")
-    public void scrollToCardAdmin(String login){
+    public AdministrationPage scrollToCardAdmin(String login) {
         SelenideElement cardAdmin = getCardAdmin(login);
         cardAdmin.scrollIntoView("{behavior: 'auto', block: 'center'}");
         Selenide.sleep(3000);
+        return this;
     }
 
     @Step("Проверить отображение карточки админа '{0}'")

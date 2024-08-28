@@ -10,12 +10,13 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class EditQuestionWindow {
-    public final SelenideElement WINDOW = $x("//div[@class='dc4P zw3J']");
-    private final SelenideElement QUESTION_FIELD = $x("//div[@class='zxOH vkQg']/textarea");
-    private final SelenideElement ANSWER_FIELD = $x("//div[@class='zxOH yCzg']/textarea");
-    private final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
-    private final SelenideElement DELETE_BUTTON = $x("//button[text()='Удалить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf hwSa Er9P']");
+    public final SelenideElement
+            WINDOW = $x("//div[@class='dc4P zw3J']"),
+            QUESTION_FIELD = $x("//div[@class='zxOH vkQg']/textarea"),
+            ANSWER_FIELD = $x("//div[@class='zxOH yCzg']/textarea"),
+            SAVE_BUTTON = $x("//button[text()='Сохранить']"),
+            DELETE_BUTTON = $x("//button[text()='Удалить']"),
+            CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf hwSa Er9P']");
 
     @Step("Верифицировать окно изменения вопроса")
     public void verifyChangeQuestionWindow() {
@@ -42,7 +43,7 @@ public class EditQuestionWindow {
     }
 
     @Step("Очистить поле вопроса")
-    public void clearQuestionField(){
+    public void clearQuestionField() {
         QUESTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");
@@ -50,7 +51,7 @@ public class EditQuestionWindow {
     }
 
     @Step("Очистить поле ответа")
-    public void clearAnswerField(){
+    public void clearAnswerField() {
         ANSWER_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");
@@ -65,7 +66,7 @@ public class EditQuestionWindow {
     }
 
     @Step("Проверить доступность для нажатия кнопки сохранения вопроса")
-    public boolean isEnabledSaveButton(){
+    public boolean isEnabledSaveButton() {
         return SAVE_BUTTON.isEnabled();
     }
 

@@ -12,53 +12,58 @@ import static com.codeborne.selenide.Selenide.$x;
 
 
 public class NewAdminWindow {
-    private final SelenideElement WINDOW = $x("//span[text()='Добавить Администратора']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement HEADER_WINDOW = $x("//span[text()='Добавить Администратора']");
-    private final SelenideElement LOGIN_FIELD = $x("//div[@id='popap_window']//input[@name=\"login\"]");
-    private final SelenideElement PASSWORD_FIELD = $x("//div[@id='popap_window']//input[@name=\"password\"]");
-    private final SelenideElement CONFIRM_PASSWORD_FIELD = $x("//div[@id='popap_window']//input[@name=\"confirmPassword\"]");
-    private final SelenideElement ADD_BUTTON = $x("//div[@id='popap_window']//button[text()='Добавить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Добавить Администратора']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
-    private final SelenideElement CLEAR_FIELD_LOGIN_BUTTON = $x("//input[@name='login']//preceding-sibling::div[@class='m4oD']");
-    private final SelenideElement CLEAR_FIELD_PASSWORD_BUTTON = $x("//input[@name='password']//preceding-sibling::div[@class='m4oD']");
-    private final SelenideElement CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON = $x("//input[@name='confirmPassword']//preceding-sibling::div[@class='m4oD']");
-    private final SelenideElement ERROR_FIELD_LOGIN = $x("//input[@name='login']/following-sibling::div");
-    private final SelenideElement ERROR_FIELD_PASSWORD = $x("//input[@name='password']/following-sibling::div");
-    private final SelenideElement ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");
+    private final SelenideElement
+            WINDOW = $x("//span[text()='Добавить Администратора']//parent::div//parent::div//parent::div[@class='eV2Y']"),
+            HEADER_WINDOW = $x("//span[text()='Добавить Администратора']"),
+            LOGIN_FIELD = $x("//div[@id='popap_window']//input[@name=\"login\"]"),
+            PASSWORD_FIELD = $x("//div[@id='popap_window']//input[@name=\"password\"]"),
+            CONFIRM_PASSWORD_FIELD = $x("//div[@id='popap_window']//input[@name=\"confirmPassword\"]"),
+            ADD_BUTTON = $x("//div[@id='popap_window']//button[text()='Добавить']"),
+            CLOSE_WINDOW_BUTTON = $x("//span[text()='Добавить Администратора']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']"),
+            CLEAR_FIELD_LOGIN_BUTTON = $x("//input[@name='login']//preceding-sibling::div[@class='m4oD']"),
+            CLEAR_FIELD_PASSWORD_BUTTON = $x("//input[@name='password']//preceding-sibling::div[@class='m4oD']"),
+            CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON = $x("//input[@name='confirmPassword']//preceding-sibling::div[@class='m4oD']"),
+            ERROR_FIELD_LOGIN = $x("//input[@name='login']/following-sibling::div"),
+            ERROR_FIELD_PASSWORD = $x("//input[@name='password']/following-sibling::div"),
+            ERROR_FIELD_CONFIRM_PASSWORD = $x("//input[@name='confirmPassword']/following-sibling::div");
 
     @Step("Верифицировать окно добавления нового админа")
-    public void verifyNewAdminWindow() {
+    public NewAdminWindow verifyNewAdminWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         LOGIN_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        ADD_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        ADD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле логина '{0}'")
-    public void fillFieldNewAdminLogin(String login) {
+    public NewAdminWindow fillFieldNewAdminLogin(String login) {
         LOGIN_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(login);
+        return this;
     }
 
     @Step("Ввести в поле пароля '{0}'")
-    public void fillFieldNewAdminPassword(String password) {
+    public NewAdminWindow fillFieldNewAdminPassword(String password) {
         PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(password);
+        return this;
     }
 
     @Step("Ввести в поле подтверждения пароля '{0}'")
-    public void fillFieldNewAdminConfirmPassword(String confirmPassword) {
+    public NewAdminWindow fillFieldNewAdminConfirmPassword(String confirmPassword) {
         CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(confirmPassword);
+        return this;
     }
 
-    @Step("Нажать кнопку удаления админа")
+    @Step("Нажать кнопку добавления админа")
     public void clickAddButton() {
         ADD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
@@ -66,54 +71,60 @@ public class NewAdminWindow {
     }
 
     @Step("Проверить доступность для нажатия кнопки добавления админа")
-    public boolean isEnabledAddButton(){
+    public boolean isEnabledAddButton() {
         return ADD_BUTTON.isEnabled();
     }
 
 
     @Step("Нажать на поле логина")
-    public void clickFieldNewAdminLogin() {
+    public NewAdminWindow clickFieldNewAdminLogin() {
         LOGIN_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать на поле пароля")
-    public void clickFieldNewAdminPassword() {
+    public NewAdminWindow clickFieldNewAdminPassword() {
         PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать на поле подтверждения пароля")
-    public void clickFieldNewAdminConfirmPassword() {
+    public NewAdminWindow clickFieldNewAdminConfirmPassword() {
         CONFIRM_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать на кнопку очищения поля логина")
-    public void clickClearButtonLoginField() {
+    public NewAdminWindow clickClearButtonLoginField() {
         CLEAR_FIELD_LOGIN_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        LOGIN_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(15));
+        LOGIN_FIELD.shouldHave((Condition.empty), Duration.ofSeconds(15));
+        return this;
     }
 
     @Step("Нажать на кнопку очищения поля пароля")
-    public void clickClearButtonPasswordField() {
+    public NewAdminWindow clickClearButtonPasswordField() {
         CLEAR_FIELD_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(15));
+        PASSWORD_FIELD.shouldHave((Condition.empty), Duration.ofSeconds(15));
+        return this;
     }
 
     @Step("Нажать на кнопку очищения поля подтверждения пароля")
-    public void clickClearButtonConfirmPasswordField() {
+    public NewAdminWindow clickClearButtonConfirmPasswordField() {
         CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        CONFIRM_PASSWORD_FIELD.shouldHave((Condition.empty),Duration.ofSeconds(15));
+        CONFIRM_PASSWORD_FIELD.shouldHave((Condition.empty), Duration.ofSeconds(15));
+        return this;
     }
 
     @Step("Получить значение поля логина")

@@ -10,11 +10,12 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class BugReport {
 
-    private final SelenideElement AUTHOR = $x("//div[@class='CYEV']/span");
-    private final SelenideElement EMAIL_AUTHOR = $x("//div[@class='A23y']/span");
-    private final SelenideElement DATE_REPORT = $x("//div[@class='PEGd']/span");
-    private final SelenideElement TEXT_REPORT = $x("//div[@class='fEEm']/span");
-    private final SelenideElement DELETE_BUTTON = $x("//div[@class='wXIR']");
+    private final SelenideElement
+            AUTHOR = $x("//div[@class='CYEV']/span"),
+            EMAIL_AUTHOR = $x("//div[@class='A23y']/span"),
+            DATE_REPORT = $x("//div[@class='PEGd']/span"),
+            TEXT_REPORT = $x("//div[@class='fEEm']/span"),
+            DELETE_BUTTON = $x("//div[@class='wXIR']");
 
     @Step("Верифицировать сообщение об ошибке")
     public void verifyBugReport() {

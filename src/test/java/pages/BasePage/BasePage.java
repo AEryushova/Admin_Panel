@@ -13,9 +13,10 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
 
-    private final SelenideElement NOTIFICATION = $x("//div[@role='alert']/div//following-sibling::div");
-    private final SelenideElement CLOSE_NOTIFICATION = $x("//button[@aria-label='close']");
-    private final SelenideElement RETURN_TO_HEADER_BUTTON = $x("//div[@class='_x1E']");
+    private final SelenideElement
+            NOTIFICATION = $x("//div[@role='alert']/div//following-sibling::div"),
+            CLOSE_NOTIFICATION = $x("//button[@aria-label='close']"),
+            RETURN_TO_HEADER_BUTTON = $x("//div[@class='_x1E']");
 
 
     @Step("Получить текст нотификации")
@@ -42,7 +43,6 @@ public class BasePage {
 
     }
 
-
     @Step("Получить кнопку возврата к хереру страницы")
     public SelenideElement getButtonReturnToHeader() {
         return RETURN_TO_HEADER_BUTTON;
@@ -56,7 +56,7 @@ public class BasePage {
     }
 
     @Step("Проверить отображение кнопки возврата к хэдеру страницы")
-    public boolean isVisibleButtonReturnToHeader(){
+    public boolean isVisibleButtonReturnToHeader() {
         return RETURN_TO_HEADER_BUTTON.isDisplayed();
     }
 
@@ -70,6 +70,12 @@ public class BasePage {
     @Step("Проскроллить страницу вверх на '{0}' пикселей")
     public void scrollPageUp(String countPixel) {
         Selenide.executeJavaScript("window.scrollBy(0, -arguments[0]);", countPixel);
+        Selenide.sleep(3000);
+    }
+
+    @Step("Проскроллить страницу до элемента '{0}'")
+    public void scrollToCard(SelenideElement element) {
+        element.scrollIntoView("{behavior: 'auto', block: 'center'}");
         Selenide.sleep(3000);
     }
 

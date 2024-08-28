@@ -19,18 +19,20 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class DoctorsPage extends BasePage {
 
-    private final SelenideElement TAB_NAME = $x("//div[@class='wYqZ']/span[text()='Врачи']");
-    private final SelenideElement SEARCH_DOCTOR = $x("//input[@placeholder='Поиск по врачам']");
-    private final SelenideElement CARD_DOCTOR = $x("//div[@class='eF30']");
-    private final SelenideElement DROP_DOWN_PHOTO = $x("//button[@class='MxFR']");
-    private final SelenideElement OPTION_ALL = $x("//div[@class='U2Xk']/div[text()='Все']");
-    private final SelenideElement OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']");
-    private final SelenideElement OPTION_YES = $x("//div[@class='U2Xk']/div[text()='Есть']");
-    private final SelenideElement SHOW_DOCTOR_WITHOUT_DESCRIPTION = $x("//span[text()='Показать']//parent::button");
-    private final SelenideElement COUNT_DOCTORS=$x("//div[@class='wYqZ']/span[2]");
-    private final ElementsCollection NAMES_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[1]");
-    private final ElementsCollection SPECIALIZATIONS_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[2]");
-    private final ElementsCollection PHOTO_DOCTORS=$$x("//div[@class='eF30']/div[@class='Uw0W']/img");
+    private final SelenideElement
+            TAB_NAME = $x("//div[@class='wYqZ']/span[text()='Врачи']"),
+            SEARCH_DOCTOR = $x("//input[@placeholder='Поиск по врачам']"),
+            CARD_DOCTOR = $x("//div[@class='eF30']"),
+            DROP_DOWN_PHOTO = $x("//button[@class='MxFR']"),
+            OPTION_ALL = $x("//div[@class='U2Xk']/div[text()='Все']"),
+            OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']"),
+            OPTION_YES = $x("//div[@class='U2Xk']/div[text()='Есть']"),
+            SHOW_DOCTOR_WITHOUT_DESCRIPTION = $x("//span[text()='Показать']//parent::button"),
+            COUNT_DOCTORS = $x("//div[@class='wYqZ']/span[2]");
+    private final ElementsCollection
+            NAMES_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[1]"),
+            SPECIALIZATIONS_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[2]"),
+            PHOTO_DOCTORS = $$x("//div[@class='eF30']/div[@class='Uw0W']/img");
 
     @Step("Верифицировать страницу Врачи")
     public void verifyDoctorsPage() {
@@ -43,7 +45,7 @@ public class DoctorsPage extends BasePage {
 
     @Step("Нажать на кнопку редактирования информации о враче с именем '{1}' и специализацией '{0}'")
     public CardDoctorPage clickButtonEditInfoDoctor(String specialization, String doctorName) {
-        SelenideElement edit_button =searchCardDoctor(specialization,doctorName);
+        SelenideElement edit_button = searchCardDoctor(specialization, doctorName);
         edit_button.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -51,7 +53,7 @@ public class DoctorsPage extends BasePage {
     }
 
     @Step("Получить кнопку редактирования карточки врача по имени '{1}' и специализации '{0}' ")
-    public SelenideElement searchCardDoctor(String specialization, String doctorName){
+    public SelenideElement searchCardDoctor(String specialization, String doctorName) {
         return $x("//span[text()='" + specialization + "']/preceding-sibling::span[text()='" + doctorName + "'] /parent::div/following-sibling::button[text()='Редактировать']");
     }
 
@@ -141,12 +143,6 @@ public class DoctorsPage extends BasePage {
     public int getCountDoctors() {
         COUNT_DOCTORS.shouldBe(Condition.visible);
         return Integer.parseInt(COUNT_DOCTORS.getText().split(" ")[0]);
-    }
-
-    @Step("Проскроллить страницу до элемента '{0}'")
-    public void scrollToCard(SelenideElement element) {
-        element.scrollIntoView("{behavior: 'auto', block: 'center'}");
-        Selenide.sleep(3000);
     }
 
 }

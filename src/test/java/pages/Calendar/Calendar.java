@@ -12,9 +12,10 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class Calendar {
 
-    private final SelenideElement HEADER_CURRENT_MONTH = $x("//div[@class='react-datepicker__current-month']");
-    private final SelenideElement SWITCH_PREVIOUS_MONTH_BUTTON = $x("//button[@aria-label='Previous Month']");
-    private final SelenideElement SWITCH_NEXT_MONTH_BUTTON = $x("//button[@aria-label='Next Month']");
+    private final SelenideElement
+            HEADER_CURRENT_MONTH = $x("//div[@class='react-datepicker__current-month']"),
+            SWITCH_PREVIOUS_MONTH_BUTTON = $x("//button[@aria-label='Previous Month']"),
+            SWITCH_NEXT_MONTH_BUTTON = $x("//button[@aria-label='Next Month']");
     private final ElementsCollection DATES_ACTIVATIONS = $$x("//div[@role='option']");
 
 
@@ -28,7 +29,7 @@ public class Calendar {
 
     @Step("Нажать на дату '{0}' в календаре")
     public void clickDateActivation(String date) {
-        SelenideElement date_activation=getDate(date);
+        SelenideElement date_activation = getDate(date);
         date_activation.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

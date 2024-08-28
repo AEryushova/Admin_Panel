@@ -13,15 +13,16 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class SectionCard {
 
-    private final SelenideElement NAME_SECTION=$x("//div[@class='CtIw' and @draggable='true']/div/div[@class='OurO']/span");
-    private final SelenideElement EDIT_SECTION_BUTTON = $x("//div[@class='V5So']");
+    private final SelenideElement
+            NAME_SECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='OurO']/span"),
+            EDIT_SECTION_BUTTON = $x("//div[@class='V5So']"),
+            DELETE_SECTION_BUTTON = $x("//div[@class='mJna']"),
+            RULES_PREPARING_SECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='tSFL']"),
+            EXPAND_SECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='xrjl']"),
+            ADD_SUBSECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button/parent::div[@class='gVuT']"),
+            SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div"),
+            EMPTY_LIST_SUBSECTION = $x("//div[@class='b8mg']/span");
     private final ElementsCollection CONTAINER_SUBSECTIONS = $$x("//div[@class='OurO']/span");
-    private final SelenideElement DELETE_SECTION_BUTTON = $x("//div[@class='mJna']");
-    private final SelenideElement RULES_PREPARING_SECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='tSFL']");
-    private final SelenideElement EXPAND_SECTION = $x("//div[@class='CtIw' and @draggable='true']/div/div[@class='xrjl']");
-    private final SelenideElement ADD_SUBSECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button/parent::div[@class='gVuT']");
-    private final SelenideElement SUBSECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
-    private final SelenideElement EMPTY_LIST_SUBSECTION = $x("//div[@class='b8mg']/span");
 
     @Step("Верифицировать карточку раздела")
     public void verifySectionCard() {
@@ -49,7 +50,7 @@ public class SectionCard {
     }
 
     @Step("Получить название раздела")
-    public String getNameSection(){
+    public String getNameSection() {
         NAME_SECTION.shouldBe(Condition.visible);
         return NAME_SECTION.getText();
     }
@@ -63,7 +64,7 @@ public class SectionCard {
 
     @Step("Нажать кнопку сворачивания раздела")
     public void clickButtonCloseSection(String nameSection) {
-        SelenideElement SECTION=$x("//span[text()='" + nameSection + "']/parent::div/following-sibling::div[@class='xrjl']");
+        SelenideElement SECTION = $x("//span[text()='" + nameSection + "']/parent::div/following-sibling::div[@class='xrjl']");
         SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -78,7 +79,7 @@ public class SectionCard {
     }
 
     @Step("Нажать кнопку открытия правил подготовки к разделу")
-    public RulesPreparingWindow clickButtonOpenRulesPreparingSection(){
+    public RulesPreparingWindow clickButtonOpenRulesPreparingSection() {
         RULES_PREPARING_SECTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
@@ -115,14 +116,14 @@ public class SectionCard {
     }
 
     @Step("Найти подраздел с названием '{0}'")
-    public SelenideElement searchSubsection(String subsectionName){
-        SelenideElement SUBSECTION =$x("//span[text()='" + subsectionName + "']//parent::div//parent::div[@class='K9Fo']");
+    public SelenideElement searchSubsection(String subsectionName) {
+        SelenideElement SUBSECTION = $x("//span[text()='" + subsectionName + "']//parent::div//parent::div[@class='K9Fo']");
         SUBSECTION.shouldBe(Condition.visible);
         return SUBSECTION;
     }
 
     @Step("Проверить отображение подраздела")
-    public boolean isExistSubsectionCard(){
+    public boolean isExistSubsectionCard() {
         return SUBSECTION.isDisplayed();
     }
 

@@ -9,12 +9,13 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class AddRuleWindow {
-    public final SelenideElement WINDOW = $x("//span[text()='вернуться назад']/parent::div/parent::div/parent::div/parent::div");
-    public final SelenideElement RETURN_BUTTON = $x("//span[text()='вернуться назад']");
-    public final SelenideElement TITLE_FIELD = $x("//input[@placeholder='Укажите заголовок правила']");
-    public final SelenideElement DESCRIPTION_FIELD = $x("//textarea[@placeholder='Укажите описание правила']");
-    public final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='вернуться назад']/parent::div/parent::div/parent::div/parent::div/preceding-sibling::div[@class='UnAf Ee5G']");
+    public final SelenideElement
+            WINDOW = $x("//span[text()='вернуться назад']/parent::div/parent::div/parent::div/parent::div"),
+            RETURN_BUTTON = $x("//span[text()='вернуться назад']"),
+            TITLE_FIELD = $x("//input[@placeholder='Укажите заголовок правила']"),
+            DESCRIPTION_FIELD = $x("//textarea[@placeholder='Укажите описание правила']"),
+            SAVE_BUTTON = $x("//button[text()='Сохранить']"),
+            CLOSE_WINDOW_BUTTON = $x("//span[text()='вернуться назад']/parent::div/parent::div/parent::div/parent::div/preceding-sibling::div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно добавления нового правила")
     public void verifyAddRuleWindow() {

@@ -95,6 +95,7 @@ public class CardDoctorPageTest extends BaseTest {
     void changePhotoDoctorWeight4mb() {
         cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
+        editPhoto.verifyEditPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto("src/test/resources/images/Photo 4mbJpeg.jpg");
         assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getTextNotification());
@@ -110,6 +111,7 @@ public class CardDoctorPageTest extends BaseTest {
     void changePhotoDoctorWeightMoreThan4mb() {
         cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
+        editPhoto.verifyEditPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto("src/test/resources/images/Photo 6,8mbJpeg.jpg");
         assertEquals("Допускаются файлы размером не выше 4Мб", cardDoctor.getTextNotification());
@@ -125,6 +127,7 @@ public class CardDoctorPageTest extends BaseTest {
     void changePhotoDoctorInvalidFormat(String path) {
         cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
+        editPhoto.verifyEditPhotoDoctorWindow();
         String srcOriginalPhoto = cardDoctor.getSrcPhoto();
         editPhoto.uploadPhoto(path);
         assertEquals("Допускаются файлы с расширением jpg jpeg png", cardDoctor.getTextNotification());
@@ -140,7 +143,8 @@ public class CardDoctorPageTest extends BaseTest {
     void closeWindowEditPhoto() {
         cardDoctor.scrollPageUp("500");
         EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
-        editPhoto.closeWindowEditPhoto();
+        editPhoto.verifyEditPhotoDoctorWindow()
+                .closeWindowEditPhoto();
         assertFalse(editPhoto.isWindowAppear());
     }
 
@@ -181,9 +185,9 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addSection() {
         AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
-        addInfoDoctorWindow.verifyAddSectionDoctorWindow();
-        addInfoDoctorWindow.fillFieldText(generateWord());
-        addInfoDoctorWindow.clickButtonSaveValue();
+        addInfoDoctorWindow.verifyAddSectionDoctorWindow()
+                .fillFieldText(generateWord())
+                .clickButtonSaveValue();
         Section section = cardDoctor.getSection();
         assertTrue(cardDoctor.isExistSection());
         assertEquals(word, section.getTextSection());
@@ -198,7 +202,8 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addSectionEmptyField() {
         AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
-        addInfoDoctorWindow.clickButtonSaveValue();
+        addInfoDoctorWindow.verifyAddSectionDoctorWindow()
+                .clickButtonSaveValue();
         addInfoDoctorWindow.clickCancelButtonAddSectionDoctor();
         assertEquals("Неверный запрос (400)", cardDoctor.getTextNotification());
         assertFalse(cardDoctor.isExistSection());
@@ -212,7 +217,8 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void cancelAddSection() {
         AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
-        addInfoDoctorWindow.fillFieldText(generateWord());
+        addInfoDoctorWindow.verifyAddSectionDoctorWindow()
+                .fillFieldText(generateWord());
         addInfoDoctorWindow.clickCancelButtonAddSectionDoctor();
         assertFalse(addInfoDoctorWindow.isWindowAppearSection());
         cardDoctor.clickButtonAddSection();
@@ -227,11 +233,11 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editSection() {
         Section section = cardDoctor.getSection();
-        section.verifySection();
-        section.clickButtonEditSaveTitle();
-        section.fillTitleField(generateWord());
-        section.clickButtonEditSaveTitle();
-        section.getSection().shouldHave(Condition.text(word));
+        section.verifySection()
+                .clickButtonEditSaveTitle()
+                .fillTitleField(generateWord())
+                .clickButtonEditSaveTitle()
+                .getSection().shouldHave(Condition.text(word));
         assertEquals(word, section.getTextSection());
         assertEquals(word, DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
         assertEquals("DOCTOR_GROUP_EXPERTISE_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
@@ -244,9 +250,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editSectionEmptyField() {
         Section section = cardDoctor.getSection();
-        section.clickButtonEditSaveTitle();
-        section.clearTitleField();
-        section.clickButtonEditSaveTitle();
+        section.verifySection()
+                .clickButtonEditSaveTitle()
+                .clearTitleField()
+                .clickButtonEditSaveTitle();
         assertEquals("Неверный запрос (400)", cardDoctor.getTextNotification());
         assertEquals(word, section.getTextSection());
         assertEquals(word, DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
@@ -260,8 +267,9 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void deleteSection() {
         Section section = cardDoctor.getSection();
-        section.clickButtonDeleteTitle();
-        section.getSection().shouldNot(Condition.exist);
+        section.verifySection()
+                .clickButtonDeleteTitle()
+                .getSection().shouldNot(Condition.exist);
         cardDoctor.getEmptyListSection().shouldBe(Condition.visible);
         assertFalse(cardDoctor.isExistSection());
         assertTrue(cardDoctor.isExistsEmptyListSection());
@@ -277,10 +285,11 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addDescription() {
         Section section = cardDoctor.getSection();
+        section.verifySection();
         AddInfoDoctorWindow addInfoDoctorWindow = section.clickButtonAddDescription();
-        addInfoDoctorWindow.verifyAddDescriptionDoctorWindow();
-        addInfoDoctorWindow.fillFieldText(generateText());
-        addInfoDoctorWindow.clickButtonSaveValue();
+        addInfoDoctorWindow.verifyAddDescriptionDoctorWindow()
+                .fillFieldText(generateText())
+                .clickButtonSaveValue();
         Description description = cardDoctor.getDescription();
         assertTrue(cardDoctor.isExistDescription());
         assertEquals(text, description.getTextDescription());
@@ -295,8 +304,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void addDescriptionEmptyField() {
         Section section = cardDoctor.getSection();
+        section.verifySection();
         AddInfoDoctorWindow addInfoDoctorWindow = section.clickButtonAddDescription();
-        addInfoDoctorWindow.clickButtonSaveValue();
+        addInfoDoctorWindow.verifyAddDescriptionDoctorWindow()
+                .clickButtonSaveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getTextNotification());
         assertFalse(cardDoctor.isExistDescription());
         assertNull(DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()));
@@ -310,9 +321,11 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void cancelAddDescription() {
         Section section = cardDoctor.getSection();
+        section.verifySection();
         AddInfoDoctorWindow addInfoDoctorWindow = section.clickButtonAddDescription();
-        addInfoDoctorWindow.fillFieldText(generateText());
-        addInfoDoctorWindow.clickCancelButtonAddDescriptionDoctor();
+        addInfoDoctorWindow.verifyAddDescriptionDoctorWindow()
+                .fillFieldText(generateText())
+                .clickCancelButtonAddDescriptionDoctor();
         assertFalse(addInfoDoctorWindow.isWindowAppearDescription());
         section.clickButtonAddDescription();
         assertEquals("", addInfoDoctorWindow.getValueField());
@@ -326,11 +339,11 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editDescription() {
         Description description = cardDoctor.getDescription();
-        description.verifyDescription();
-        description.clickButtonEditSaveDescription();
-        description.fillDescriptionField(generateText());
-        description.clickButtonEditSaveDescription();
-        description.getDescription().shouldHave(Condition.text(text));
+        description.verifyDescription()
+                .clickButtonEditSaveDescription()
+                .fillDescriptionField(generateText())
+                .clickButtonEditSaveDescription()
+                .getDescription().shouldHave(Condition.text(text));
         assertEquals(text, description.getTextDescription());
         assertEquals(text, DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
         assertEquals("DOCTOR_EXPERTISE_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
@@ -343,9 +356,10 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editDescriptionEmptyField() {
         Description description = cardDoctor.getDescription();
-        description.clickButtonEditSaveDescription();
-        description.clearDescriptionField();
-        description.clickButtonEditSaveDescription();
+        description.verifyDescription()
+                .clickButtonEditSaveDescription()
+                .clearDescriptionField()
+                .clickButtonEditSaveDescription();
         assertEquals("Неверный запрос (400)", cardDoctor.getTextNotification());
         assertEquals(text, description.getTextDescription());
         assertEquals(text, DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
@@ -358,8 +372,9 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void deleteDescription() {
         Description description = cardDoctor.getDescription();
-        description.clickButtonDeleteDescription();
-        description.getDescription().shouldNot(Condition.exist);
+        description.verifyDescription()
+                .clickButtonDeleteDescription()
+                .getDescription().shouldNot(Condition.exist);
         cardDoctor.getEmptyListDescription().shouldBe(Condition.visible);
         assertFalse(cardDoctor.isExistDescription());
         assertTrue(cardDoctor.isExistsEmptyListDescription());
@@ -375,8 +390,9 @@ public class CardDoctorPageTest extends BaseTest {
     void addFeedbackCurrentMonth() {
         cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
-        addFeedbackWindow.fillFieldFio(generateNamePatient());
-        addFeedbackWindow.fillFieldTextFeedback(generateText());
+        addFeedbackWindow.verifyAddFeedbackWindow()
+                .fillFieldFio(generateNamePatient())
+                .fillFieldTextFeedback(generateText());
         assertEquals(getCurrentDate(), addFeedbackWindow.getCurrentDateButton());
         Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.verifyCalendar();
@@ -407,8 +423,9 @@ public class CardDoctorPageTest extends BaseTest {
     void addFeedbackFutureMonth() {
         cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
-        addFeedbackWindow.fillFieldFio(generateNamePatient());
-        addFeedbackWindow.fillFieldTextFeedback(generateText());
+        addFeedbackWindow.verifyAddFeedbackWindow()
+                .fillFieldFio(generateNamePatient())
+                .fillFieldTextFeedback(generateText());
         Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.verifyCalendar();
         calendar.switchFutureMonth();
@@ -439,8 +456,9 @@ public class CardDoctorPageTest extends BaseTest {
     void addFeedbackPreviousMonth() {
         cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
-        addFeedbackWindow.fillFieldFio(generateNamePatient());
-        addFeedbackWindow.fillFieldTextFeedback(generateText());
+        addFeedbackWindow.verifyAddFeedbackWindow()
+                .fillFieldFio(generateNamePatient())
+                .fillFieldTextFeedback(generateText());
         Calendar calendar = addFeedbackWindow.openCalendarAddFeedback();
         calendar.verifyCalendar();
         calendar.switchPreviousMonth();
@@ -470,10 +488,10 @@ public class CardDoctorPageTest extends BaseTest {
     void addFeedbackTodayNotUseCalendar() {
         cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
-        addFeedbackWindow.verifyAddFeedbackWindow();
-        addFeedbackWindow.fillFieldFio(generateNamePatient());
-        addFeedbackWindow.fillFieldTextFeedback(generateText());
-        addFeedbackWindow.clickButtonPublishFeedbackButton();
+        addFeedbackWindow.verifyAddFeedbackWindow()
+                .fillFieldFio(generateNamePatient())
+                .fillFieldTextFeedback(generateText())
+                .clickButtonPublishFeedbackButton();
         cardDoctor.checkSelectUnpublishedFeedback();
         cardDoctor.checkNoSelectPublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
@@ -497,8 +515,9 @@ public class CardDoctorPageTest extends BaseTest {
     void clearFioFieldWindowAddFeedbackThroughButtonClear() {
         cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
-        addFeedbackWindow.fillFieldFio(generateNamePatient());
-        addFeedbackWindow.clickClearButtonFioField();
+        addFeedbackWindow.verifyAddFeedbackWindow()
+                .fillFieldFio(generateNamePatient())
+                .clickClearButtonFioField();
         assertEquals("", addFeedbackWindow.getValueFioField());
     }
 
@@ -509,9 +528,10 @@ public class CardDoctorPageTest extends BaseTest {
     void closeWindowAddNewFeedback() {
         cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
-        addFeedbackWindow.fillFieldFio(generateNamePatient());
-        addFeedbackWindow.fillFieldTextFeedback(generateText());
-        addFeedbackWindow.closeWindowAddFeedback();
+        addFeedbackWindow.verifyAddFeedbackWindow()
+                .fillFieldFio(generateNamePatient())
+                .fillFieldTextFeedback(generateText())
+                .closeWindowAddFeedback();
         assertFalse(addFeedbackWindow.isWindowAppear());
         cardDoctor.clickButtonAddFeedback();
         assertEquals("", addFeedbackWindow.getValueFioField());
@@ -525,7 +545,8 @@ public class CardDoctorPageTest extends BaseTest {
     void addFeedbackEmptyFieldFio() {
         cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
-        addFeedbackWindow.fillFieldTextFeedback(generateText());
+        addFeedbackWindow.verifyAddFeedbackWindow()
+                .fillFieldTextFeedback(generateText());
         assertFalse(addFeedbackWindow.isEnabledPublishButton());
     }
 
@@ -537,7 +558,8 @@ public class CardDoctorPageTest extends BaseTest {
     void addFeedbackEmptyFieldText() {
         cardDoctor.scrollPageDown("500");
         AddFeedbackWindow addFeedbackWindow = cardDoctor.clickButtonAddFeedback();
-        addFeedbackWindow.fillFieldFio(generateNamePatient());
+        addFeedbackWindow.verifyAddFeedbackWindow()
+                .fillFieldFio(generateNamePatient());
         assertFalse(addFeedbackWindow.isEnabledPublishButton());
     }
 
@@ -556,9 +578,9 @@ public class CardDoctorPageTest extends BaseTest {
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackUnpublished();
         EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
-        editFeedback.verifyChangeFeedbackWindow();
-        editFeedback.fillFieldText(generateText());
-        editFeedback.clickButtonSaveChanges();
+        editFeedback.verifyChangeFeedbackWindow()
+                .fillFieldText(generateText())
+                .clickButtonSaveChanges();
         feedback.verifyFeedbackUnpublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getTextNotification());
         assertEquals(text, feedback.getTextFeedback());
@@ -579,9 +601,9 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.scrollPageDown("500");
         cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
-        feedback.verifyFeedbackUnpublished();
-        feedback.clickButtonPublicationFeedback();
-        feedback.verifyFeedbackPublished();
+        feedback.verifyFeedbackUnpublished()
+                .clickButtonPublicationFeedback()
+                .verifyFeedbackPublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getTextNotification());
         assertEquals(text, feedback.getTextFeedback());
         assertEquals(text, DataBaseQuery.selectFeedback().getContent());
@@ -603,9 +625,9 @@ public class CardDoctorPageTest extends BaseTest {
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackPublished();
         EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
-        editFeedback.verifyChangeFeedbackWindow();
-        editFeedback.fillFieldText(generateText());
-        editFeedback.clickButtonSaveChanges();
+        editFeedback.verifyChangeFeedbackWindow()
+                .fillFieldText(generateText())
+                .clickButtonSaveChanges();
         feedback.verifyFeedbackPublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getTextNotification());
         assertEquals(text, feedback.getTextFeedback());
@@ -625,9 +647,9 @@ public class CardDoctorPageTest extends BaseTest {
     void withdrawalPublicationFeedback() {
         cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
-        feedback.verifyFeedbackPublished();
-        feedback.clickButtonWithdrawalPublication();
-        feedback.verifyFeedbackUnpublished();
+        feedback.verifyFeedbackPublished()
+                .clickButtonWithdrawalPublication()
+                .verifyFeedbackUnpublished();
         assertEquals("Отзыв успешно изменен", cardDoctor.getTextNotification());
         assertEquals(text, feedback.getTextFeedback());
         assertEquals(text, DataBaseQuery.selectFeedback().getContent());
@@ -645,8 +667,9 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
         EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
-        editFeedback.fillFieldText(generateNamePatient());
-        editFeedback.closeWindowChangeFeedback();
+        editFeedback.verifyChangeFeedbackWindow()
+                .fillFieldText(generateNamePatient())
+                .closeWindowChangeFeedback();
         assertFalse(editFeedback.isWindowAppear());
         feedback.clickButtonEditFeedback();
         assertEquals(text, editFeedback.getValueTextFeedbackField());
@@ -662,7 +685,8 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
         EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
-        editFeedback.clearTextField();
+        editFeedback.verifyChangeFeedbackWindow()
+                .clearTextField();
         assertFalse(editFeedback.isEnabledSaveButton());
     }
 
@@ -676,8 +700,8 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.scrollPageDown("500");
         cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
-        feedback.verifyFeedbackUnpublished();
-        feedback.clickButtonDeleteFeedback();
+        feedback.verifyFeedbackUnpublished()
+                .clickButtonDeleteFeedback();
         assertEquals("Отзыв успешно удален", cardDoctor.getTextNotification());
         assertFalse(cardDoctor.isExistFeedback());
         assertNull(DataBaseQuery.selectFeedback());
@@ -712,8 +736,8 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void closeNavigateMenu() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();
-        navigateMenu.verifyNavigateMenu();
-        navigateMenu.closeNavigateMenu();
+        navigateMenu.verifyNavigateMenu()
+                .closeNavigateMenu();
         navigateMenu.getTabFeedbackNavigateMenu().shouldNotBe(Condition.visible);
         assertFalse(navigateMenu.isNavigateMenuDisplayed());
     }

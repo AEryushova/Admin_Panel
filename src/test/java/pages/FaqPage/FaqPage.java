@@ -15,15 +15,16 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class FaqPage extends BasePage {
 
-    private final SelenideElement TAB_NAME = $x("//a[text()='FAQ']");
-    private final SelenideElement SEARCH_FAQ = $x("//input[@placeholder='Поиск по FAQ']");
-    private final SelenideElement ADD_QUESTION = $x("//span[text()='Добавить вопрос']//parent::div//parent::button");
-    private final ElementsCollection QUESTION_CARDS = $$x("//div[@class='dc4P']");
-    private final SelenideElement QUESTION_CARD = $x("//div[@class='dc4P']");
-    private final SelenideElement EMPTY_LIST_FAQ = $x("//span[text()='Список Пуст']");
-    private final ElementsCollection QUESTIONS_FIELDS = $$x("//div[@class='zxOH vkQg']/textarea");
-    private final ElementsCollection ANSWER_FIELDS = $$x("//div[@class='zxOH yCzg']/textarea");
-    private final SelenideElement COUNT_FAQ = $x("//div[@class='wYqZ']/span[2]");
+    private final SelenideElement
+            TAB_NAME = $x("//a[text()='FAQ']"),
+            SEARCH_FAQ = $x("//input[@placeholder='Поиск по FAQ']"),
+            ADD_QUESTION = $x("//span[text()='Добавить вопрос']//parent::div//parent::button"),
+            QUESTION_CARD = $x("//div[@class='dc4P']"),
+            EMPTY_LIST_FAQ = $x("//span[text()='Список Пуст']"),
+            COUNT_FAQ = $x("//div[@class='wYqZ']/span[2]");
+    private final ElementsCollection QUESTIONS_FIELDS = $$x("//div[@class='zxOH vkQg']/textarea"),
+            ANSWER_FIELDS = $$x("//div[@class='zxOH yCzg']/textarea"),
+            QUESTION_CARDS = $$x("//div[@class='dc4P']");
 
     @Step("Верифицировать страницу FAQ")
     public void verifyFaqPage() {
@@ -53,7 +54,7 @@ public class FaqPage extends BasePage {
 
     @Step("Получить вопрос")
     public Question getQuestion() {
-        QUESTION_CARD.shouldBe(Condition.visible,Duration.ofSeconds(5));
+        QUESTION_CARD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return new Question();
     }
 

@@ -10,40 +10,45 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class Description {
-    private final SelenideElement DESCRIPTION = $x("//div[@class='IrCo']");
-    private final SelenideElement NAME_DESCRIPTION = $x("//div[@class='IrCo']");
-    private final SelenideElement EDIT_SAVE_BUTTON = $x("//div[@class='J9zY']");
-    private final SelenideElement FIELD_DESCRIPTION = $x("//input[@class='d7ZA']");
-    private final SelenideElement DELETE_BUTTON = $x("//div[@class='TRfT']");
+    private final SelenideElement
+            DESCRIPTION = $x("//div[@class='IrCo']"),
+            NAME_DESCRIPTION = $x("//div[@class='IrCo']"),
+            EDIT_SAVE_BUTTON = $x("//div[@class='J9zY']"),
+            FIELD_DESCRIPTION = $x("//input[@class='d7ZA']"),
+            DELETE_BUTTON = $x("//div[@class='TRfT']");
 
     @Step("Верифицировать описание")
-    public void verifyDescription() {
+    public Description verifyDescription() {
         DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле описания '{0}'")
-    public void fillDescriptionField(String description){
+    public Description fillDescriptionField(String description) {
         FIELD_DESCRIPTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(description);
+        return this;
     }
 
     @Step("Нажать на кнопку сохранения")
-    public void clickButtonEditSaveDescription() {
+    public Description clickButtonEditSaveDescription() {
         EDIT_SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Очистить поле описания")
-    public void clearDescriptionField(){
+    public Description clearDescriptionField() {
         FIELD_DESCRIPTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");
         FIELD_DESCRIPTION.sendKeys(Keys.BACK_SPACE);
+        return this;
     }
 
     @Step("Получить текст поля описания")
@@ -58,10 +63,11 @@ public class Description {
     }
 
     @Step("Нажать на кнопку удаления")
-    public void clickButtonDeleteDescription() {
+    public Description clickButtonDeleteDescription() {
         DELETE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
 }

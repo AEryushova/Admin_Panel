@@ -11,24 +11,27 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class EditFeedbackWindow {
 
-    private final SelenideElement WINDOW = $x("//div[@class='qJe_ OR_i']");
-    private final SelenideElement TEXT_FIELD = $x("//div[@class='zxOH']/textarea");
-    private final SelenideElement SAVE_BUTTON = $x("//button[text()='Сохранить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf gvNC']");
+    private final SelenideElement
+            WINDOW = $x("//div[@class='qJe_ OR_i']"),
+            TEXT_FIELD = $x("//div[@class='zxOH']/textarea"),
+            SAVE_BUTTON = $x("//button[text()='Сохранить']"),
+            CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf gvNC']");
 
     @Step("Верифицировать окно изменения отзыва")
-    public void verifyChangeFeedbackWindow() {
+    public EditFeedbackWindow verifyChangeFeedbackWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле текста отзыва '{0}'")
-    public void fillFieldText(String text) {
+    public EditFeedbackWindow fillFieldText(String text) {
         TEXT_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(text);
+        return this;
     }
 
     @Step("Нажать на кнопку сохранения")
@@ -46,7 +49,7 @@ public class EditFeedbackWindow {
     }
 
     @Step("Очистить поле текста отзыва")
-    public void clearTextField(){
+    public void clearTextField() {
         TEXT_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");
@@ -54,7 +57,7 @@ public class EditFeedbackWindow {
     }
 
     @Step("Проверить доступность для нажатия кнопки сохранения")
-    public boolean isEnabledSaveButton(){
+    public boolean isEnabledSaveButton() {
         return SAVE_BUTTON.isEnabled();
     }
 

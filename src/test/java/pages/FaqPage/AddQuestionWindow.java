@@ -9,12 +9,13 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class AddQuestionWindow {
-    public final SelenideElement WINDOW = $x("//span[text()='Новый Вопрос']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement HEADER_WINDOW = $x("//span[text()='Новый Вопрос']");
-    private final SelenideElement QUESTION_FIELD = $x("//textarea[@placeholder='Укажите вопрос']");
-    private final SelenideElement ANSWER_FIELD = $x("//textarea[@placeholder='Укажите ответ']");
-    private final SelenideElement ADD_BUTTON = $x("//button[text()='Добавить']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Новый Вопрос']/parent::div/parent::div/preceding-sibling::div");
+    public final SelenideElement
+            WINDOW = $x("//span[text()='Новый Вопрос']//parent::div//parent::div//parent::div[@class='eV2Y']"),
+            HEADER_WINDOW = $x("//span[text()='Новый Вопрос']"),
+            QUESTION_FIELD = $x("//textarea[@placeholder='Укажите вопрос']"),
+            ANSWER_FIELD = $x("//textarea[@placeholder='Укажите ответ']"),
+            ADD_BUTTON = $x("//button[text()='Добавить']"),
+            CLOSE_WINDOW_BUTTON = $x("//span[text()='Новый Вопрос']/parent::div/parent::div/preceding-sibling::div");
 
     @Step("Верифицировать окно добавления нового вопроса")
     public void verifyAddQuestionWindow() {
@@ -22,7 +23,7 @@ public class AddQuestionWindow {
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         QUESTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ANSWER_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        ADD_BUTTON.shouldBe(Condition.visible,Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        ADD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
@@ -48,7 +49,7 @@ public class AddQuestionWindow {
     }
 
     @Step("Проверить доступность для нажатия кнопки добавления вопроса")
-    public boolean isEnabledAddButton(){
+    public boolean isEnabledAddButton() {
         return ADD_BUTTON.isEnabled();
     }
 

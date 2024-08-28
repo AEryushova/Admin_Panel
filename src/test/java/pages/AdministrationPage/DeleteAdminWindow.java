@@ -11,10 +11,11 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class DeleteAdminWindow {
 
-    private final SelenideElement WINDOW = $x("//span[contains(text(), 'хотите удалить администратора')]//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement HEADER_WINDOW = $x("//span[contains(text(), 'хотите удалить администратора')]");
-    private final SelenideElement YES_BUTTON = $x("//button[text()='Да']");
-    private final SelenideElement NO_BUTTON = $x("//button[text()='Нет']");
+    private final SelenideElement
+            WINDOW = $x("//span[contains(text(), 'хотите удалить администратора')]//parent::div//parent::div//parent::div[@class='eV2Y']"),
+            HEADER_WINDOW = $x("//span[contains(text(), 'хотите удалить администратора')]"),
+            YES_BUTTON = $x("//button[text()='Да']"),
+            NO_BUTTON = $x("//button[text()='Нет']");
 
     @Step("Верифицировать окно удаления админа")
     public void verifyDeleteAdminWindow() {
@@ -39,7 +40,7 @@ public class DeleteAdminWindow {
     }
 
     @Step("Проверить отображение админа '{0}' в заголовке окна")
-    public boolean verifyLoginAdmin(String login){
+    public boolean verifyLoginAdmin(String login) {
         return HEADER_WINDOW.has(text("Вы действительно хотите удалить администратора " + login + " ?"));
     }
 

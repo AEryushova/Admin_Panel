@@ -13,11 +13,12 @@ import static com.codeborne.selenide.Selenide.$x;
 
 
 public class EditLogoWindow {
-    private final SelenideElement WINDOW = $x("//span[text()='Установка логотипа приложения']//parent::div//parent::div//parent::div[@class='eV2Y']");
-    private final SelenideElement LOGO_APP = $x("//div[@class='UnAf aZDp HdF2']/img");
-    private final SelenideElement HEADER_WINDOW = $x("//span[text()='Установка логотипа приложения']");
-    private final SelenideElement FILE_INPUT_ELEMENT = $("input[type='file']");
-    private final SelenideElement CLOSE_WINDOW_BUTTON = $x("//span[text()='Установка логотипа приложения']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
+    private final SelenideElement
+            WINDOW = $x("//span[text()='Установка логотипа приложения']//parent::div//parent::div//parent::div[@class='eV2Y']"),
+            LOGO_APP = $x("//div[@class='UnAf aZDp HdF2']/img"),
+            HEADER_WINDOW = $x("//span[text()='Установка логотипа приложения']"),
+            FILE_INPUT_ELEMENT = $("input[type='file']"),
+            CLOSE_WINDOW_BUTTON = $x("//span[text()='Установка логотипа приложения']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно изменения логотипа")
     public void verifyEditLogoWindow() {

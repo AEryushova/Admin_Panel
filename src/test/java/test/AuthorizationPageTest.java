@@ -81,9 +81,9 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Авторизация админа с неверным паролем")
     @Test
     void authAdminWithWrongPassword() {
-        authPage.fillLoginField(LOGIN_ADMIN);
-        authPage.fillPasswordField(generatePassword());
-        authPage.clickToComeIn();
+        authPage.fillLoginField(LOGIN_ADMIN)
+                .fillPasswordField(generatePassword())
+                .clickToComeIn();
         assertTrue(authPage.isEnabledComeInButton());
         assertEquals("Неверный логин или пароль", authPage.getTextNotification());
     }
@@ -92,9 +92,9 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Авторизация несуществующего админа")
     @Test
     void authNonExistentAdmin() {
-        authPage.fillLoginField(generateLogin());
-        authPage.fillPasswordField(generatePassword());
-        authPage.clickToComeIn();
+        authPage.fillLoginField(generateLogin())
+                .fillPasswordField(generatePassword())
+                .clickToComeIn();
         assertTrue(authPage.isEnabledComeInButton());
         assertEquals("AuthorizationAdminClient::SignIn: Ошибка авторизации.", authPage.getTextNotification());
     }
@@ -120,8 +120,8 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Очистка поля логина через кнопку в форме авторизации")
     @Test
     void clearFieldLoginVerifyAuthPageThroughButtonClear() {
-        authPage.fillLoginField(generateLogin());
-        authPage.clickClearButtonLoginField();
+        authPage.fillLoginField(generateLogin())
+                .clickClearButtonLoginField();
         assertEquals("", authPage.getValueLoginField());
         assertEquals("Обязательное поле", authPage.getErrorFieldLogin());
     }
@@ -138,8 +138,8 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Отображение и скрытие введенного пароля в поле пароля")
     @Test
     void showValuePasswordField() {
-        authPage.fillPasswordField(generatePassword());
-        authPage.showPassword();
+        authPage.fillPasswordField(generatePassword())
+                .showPassword();
         assertFalse(authPage.isHidePassword());
         authPage.hidePassword();
         assertTrue(authPage.isHidePassword());
@@ -149,8 +149,8 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Отображение уведомления об обязательности полей")
     @Test
     void displayNotificationAboutRequiredFieldsVerifyAuthPage() {
-        authPage.clickLoginField();
-        authPage.clickPasswordField();
+        authPage.clickLoginField()
+                .clickPasswordField();
         assertEquals("Обязательное поле", authPage.getErrorFieldLogin());
         assertEquals("Обязательное поле", authPage.getErrorFieldPassword());
     }
@@ -229,8 +229,8 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Закрытие уведомления на странице авторизации по таймауту")
     @Test
     void closeNotificationTimeout() {
-        authPage.fillLoginField(LOGIN_ADMIN);
-        authPage.fillPasswordField(generatePassword());
+        authPage.fillLoginField(LOGIN_ADMIN)
+                .fillPasswordField(generatePassword());
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
         basePage.getNotification().should(Condition.visible);
@@ -243,8 +243,8 @@ public class AuthorizationPageTest extends BaseTest {
     @DisplayName("Закрытие уведомления на странице авторизации")
     @Test
     void closeNotification() {
-        authPage.fillLoginField(LOGIN_ADMIN);
-        authPage.fillPasswordField(generatePassword());
+        authPage.fillLoginField(LOGIN_ADMIN)
+                .fillPasswordField(generatePassword());
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
         basePage.getNotification().should(Condition.visible);

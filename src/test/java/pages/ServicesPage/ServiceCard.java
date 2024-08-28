@@ -13,9 +13,10 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class ServiceCard {
 
-    private final SelenideElement NAME_SERVICE =$x("//div[@class='HsQQ']/span");
-    private final SelenideElement CODE_SERVICE =$x("//div[@class='j95E']//following-sibling::span");
-    private final SelenideElement SERVICE_BUTTON = $x("//div[@class='j95E']");
+    private final SelenideElement
+            NAME_SERVICE = $x("//div[@class='HsQQ']/span"),
+            CODE_SERVICE = $x("//div[@class='j95E']//following-sibling::span"),
+            SERVICE_BUTTON = $x("//div[@class='j95E']");
 
     @Step("Верифицировать карточку услуг")
     public void verifyServiceCard() {
@@ -24,19 +25,19 @@ public class ServiceCard {
     }
 
     @Step("Получить имя услуги")
-    public String getNameService(){
+    public String getNameService() {
         NAME_SERVICE.shouldBe(Condition.visible);
         return NAME_SERVICE.getText();
     }
 
     @Step("Получить код услуги")
-    public String getCodeService(){
+    public String getCodeService() {
         CODE_SERVICE.shouldBe(Condition.visible);
         return CODE_SERVICE.getText();
     }
 
     @Step("Нажать на кнопку открытия информации об услуге")
-    public ServiceWindow clickButtonOpenServiceInfo(){
+    public ServiceWindow clickButtonOpenServiceInfo() {
         SERVICE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();

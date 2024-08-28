@@ -13,11 +13,12 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CategoryCard {
-    private final SelenideElement ADD_SECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button/parent::div[@class='nwH0']");
+    private final SelenideElement
+            ADD_SECTION_BUTTON = $x("//span[text()='Добавить раздел']//parent::div//parent::button/parent::div[@class='nwH0']"),
+            SECTION = $x("//div[@class='CtIw' and @draggable='true']/div"),
+            EMPTY_LIST_SECTION = $x("//div[@class='kblo']/span"),
+            SERVICE = $x("//div[@class='hzR2' and @draggable='false']");
     private final ElementsCollection CONTAINER_SECTIONS = $$x("//div[@class='OurO']/span");
-    private final SelenideElement SECTION = $x("//div[@class='CtIw' and @draggable='true']/div");
-    private final SelenideElement EMPTY_LIST_SECTION = $x("//div[@class='kblo']/span");
-    private final SelenideElement SERVICE = $x("//div[@class='hzR2' and @draggable='false']");
 
 
     @Step("Верифицировать карточку категории")
@@ -62,8 +63,8 @@ public class CategoryCard {
     }
 
     @Step("Найти раздел с названием '{0}'")
-    public SelenideElement searchSection(String sectionName){
-        SelenideElement SECTION =$x("//span[text()='" + sectionName + "']//parent::div//parent::div[@class='K9Fo']");
+    public SelenideElement searchSection(String sectionName) {
+        SelenideElement SECTION = $x("//span[text()='" + sectionName + "']//parent::div//parent::div[@class='K9Fo']");
         SECTION.shouldBe(Condition.visible);
         return SECTION;
     }
@@ -76,7 +77,7 @@ public class CategoryCard {
     }
 
     @Step("Проверить отображение раздела")
-    public boolean isExistSectionCard(){
+    public boolean isExistSectionCard() {
         return SECTION.isDisplayed();
     }
 
@@ -89,7 +90,7 @@ public class CategoryCard {
     @Step("Проверить отображение услуги")
     public boolean isExistService(String nameService) {
         SelenideElement SERVICE = $x("//span[text()='" + nameService + "']/parent::div/parent::div[@class='hzR2']");
-       return SERVICE.isDisplayed();
+        return SERVICE.isDisplayed();
     }
 
 }
