@@ -1,8 +1,7 @@
 package test;
 
-import pages.BasePage.BasePage;
+
 import pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
-import pages.DoctorsPage.DoctorsPage;
 import com.codeborne.selenide.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -23,10 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Страница Врачи")
 public class DoctorPageTest extends BaseTest {
 
-    private DoctorsPage doctorsPage;
-    private BasePage basePage;
-
-
     @BeforeAll
     static void setUpAuth() {
         BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
@@ -35,8 +30,6 @@ public class DoctorPageTest extends BaseTest {
     @BeforeEach
     void setUp() {
         BaseTest.openAdminPanel();
-        doctorsPage = new DoctorsPage();
-        basePage = new BasePage();
         doctorsPage.verifyDoctorsPage();
     }
 
@@ -44,6 +37,7 @@ public class DoctorPageTest extends BaseTest {
     void closeWebDriver() {
         Selenide.closeWebDriver();
     }
+
 
     @Feature("Открытие карточки врача")
     @Story("Открытие карточки врача и возврат к списку врачей")
@@ -83,6 +77,9 @@ public class DoctorPageTest extends BaseTest {
         int countAllDoctors = doctorsPage.getCountDoctors();
         doctorsPage.searchDoctor(DOCTOR_SPECIALIZATION_SEARCH);
         Selenide.sleep(5000);
+        doctorsPage.scrollPageDown("3000");
+        Selenide.sleep(5000);
+        doctorsPage.scrollPageDown("3000");
         int countResult = doctorsPage.getCountDoctors();
         ElementsCollection specializationDoctors = doctorsPage.getSpecializationDoctors();
         specializationDoctors.shouldHave(CollectionCondition.size(countResult));

@@ -1,8 +1,6 @@
 package test;
 
-import pages.HeaderMenu.HeaderMenu;
 import pages.SettingPage.BugReport;
-import pages.SettingPage.SettingPage;
 import pages.SettingPage.EditLogoWindow;
 import utils.preparationDataTests.setting.AddBugReportDecorator;
 import utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
@@ -28,10 +26,6 @@ import static utils.otherUtils.TestHelper.getCurrentDateRuYear;
 @DisplayName("Страница Настройки")
 public class SettingPageTest extends BaseTest {
 
-    private  SettingPage settingPage;
-    private  HeaderMenu headerMenu;
-
-
     @BeforeAll
     static void setUpAuth() {
         BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
@@ -40,9 +34,7 @@ public class SettingPageTest extends BaseTest {
     @BeforeEach
     void setUp() {
         BaseTest.openAdminPanel();
-        headerMenu = new HeaderMenu();
         headerMenu.clickSettingTab();
-        settingPage = new SettingPage();
         settingPage.verifySettingPage();
     }
 
@@ -50,6 +42,7 @@ public class SettingPageTest extends BaseTest {
     void closeWebDriver() {
         Selenide.closeWebDriver();
     }
+
 
     @Feature("Сообщения об ошибках")
     @Story("Отображение баг-репорта в админ-панели после отправки пациентом")

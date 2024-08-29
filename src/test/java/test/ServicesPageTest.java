@@ -26,8 +26,6 @@ import static utils.otherUtils.DataGenerator.*;
 @DisplayName("Страница Услуги")
 public class ServicesPageTest extends BaseTest {
 
-    private ServicesPage servicesPage;
-
     @BeforeAll
     static void setUpAuth() {
         BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
@@ -38,7 +36,6 @@ public class ServicesPageTest extends BaseTest {
         BaseTest.openAdminPanel();
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickServicesTab();
-        servicesPage = new ServicesPage();
         servicesPage.verifyServicesPage();
     }
 
@@ -46,6 +43,7 @@ public class ServicesPageTest extends BaseTest {
     void closeWebDriver() {
         Selenide.closeWebDriver();
     }
+
 
     @Feature("Управление правилами подготовки")
     @Story("Успешное добавление правила подготовки к категории")

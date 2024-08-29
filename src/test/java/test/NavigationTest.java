@@ -4,7 +4,6 @@ import com.codeborne.selenide.WebDriverRunner;
 import pages.AdministrationPage.AdministrationPage;
 import pages.DoctorsPage.DoctorsPage;
 import pages.FaqPage.FaqPage;
-import pages.HeaderMenu.HeaderMenu;
 import pages.ServicesPage.ServicesPage;
 import pages.SettingPage.SettingPage;
 import com.codeborne.selenide.Selenide;
@@ -21,8 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName("Навигационное меню")
 public class NavigationTest extends BaseTest {
 
-    private HeaderMenu headerMenu;
-
     @BeforeAll
     static void setUpAuth() {
         BaseTest.authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
@@ -31,7 +28,6 @@ public class NavigationTest extends BaseTest {
     @BeforeEach
     void setUp() {
         BaseTest.openAdminPanel();
-        headerMenu = new HeaderMenu();
         headerMenu.verifyHeaderBarSuperAdmin();
     }
 
@@ -39,6 +35,7 @@ public class NavigationTest extends BaseTest {
     void closeWebDriver() {
         Selenide.closeWebDriver();
     }
+
 
     @Feature("Навигация")
     @Story("Переход на вкладку докторов")

@@ -1,9 +1,7 @@
 package test;
 
 
-import pages.BasePage.BasePage;
 import pages.HeaderMenu.ChangeMinePasswordWindow;
-import pages.HeaderMenu.HeaderMenu;
 import pages.HeaderMenu.UserPanel;
 import utils.dbUtils.DataBaseQuery;
 import utils.preparationDataTests.headerMenu.ReturnPasswordAdmin;
@@ -25,9 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName("Юзер панель")
 public class HeaderMenuTest extends BaseTest {
 
-    private HeaderMenu headerMenu;
-    private BasePage basePage;
-
     @BeforeAll
     static void setUpAuth() {
         BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
@@ -36,8 +31,6 @@ public class HeaderMenuTest extends BaseTest {
     @BeforeEach
     void setUp() {
         BaseTest.openAdminPanel();
-        headerMenu = new HeaderMenu();
-        basePage = new BasePage();
         headerMenu.verifyHeaderBarAdmin();
     }
 
@@ -45,6 +38,7 @@ public class HeaderMenuTest extends BaseTest {
     void closeWebDriver() {
         Selenide.closeWebDriver();
     }
+
 
     @Feature("Смена своего пароля админом")
     @Story("Успешная замена своего пароля")

@@ -10,7 +10,6 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import lombok.Getter;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,9 +28,6 @@ import static utils.otherUtils.TestHelper.*;
 @DisplayName("Карточка врача")
 public class CardDoctorPageTest extends BaseTest {
 
-    @Getter
-    private static CardDoctorPage cardDoctor;
-
     @BeforeAll
     static void setUpAuth() {
         BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
@@ -43,7 +39,6 @@ public class CardDoctorPageTest extends BaseTest {
         DoctorsPage doctorsPage = new DoctorsPage();
         doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
         doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION, DOCTOR);
-        cardDoctor = new CardDoctorPage();
         cardDoctor.verifyDoctorCardPage();
     }
 

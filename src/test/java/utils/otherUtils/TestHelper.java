@@ -120,7 +120,7 @@ public class TestHelper {
     }
 
 
-    //Возвращает день недели и дату которая наступит в следующем месяце в формате "Choose понедельник, 2 декабря 2024 г."//
+    //Возвращает день недели и дату которая наступит в следующем месяце + 2 дня в формате "Choose понедельник, 2 декабря 2024 г."//
     public static String getDayFutureMonth() {
         LocalDate currentDate = LocalDate.now();
         LocalDate futureDate = currentDate.plusMonths(1).plusDays(2);
@@ -160,35 +160,17 @@ public class TestHelper {
     //Возвращает дату, которая наступит в следующем месяце + 2 дня от текущей даты в русской локали в формате "03 Май 2024"//
     public static String getNextMonthDate() {
         LocalDate currentDate = LocalDate.now();
-        LocalDate futureDate = currentDate.plusDays(2);
-        int futureMonth = futureDate.getMonthValue();
-        int futureYear = futureDate.getYear();
-
-        if (futureMonth == 12) {
-            futureMonth = 1;
-            futureYear++;
-        } else {
-            futureMonth++;
-        }
-        LocalDate nextMonthDate = LocalDate.of(futureYear, futureMonth, futureDate.getDayOfMonth());
+        LocalDate futureDate = currentDate.plusMonths(1).plusDays(2);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU"));
-        return nextMonthDate.format(formatter);
+        return futureDate.format(formatter);
     }
 
     //Возвращает дату, вычесленную от текущей + 2 дня прошлого месяца в русской локали в формате "03 Марта 2024"//
     public static String getPreviousMonthDate() {
         LocalDate currentDate = LocalDate.now();
-        LocalDate futureDate = currentDate.plusDays(2);
-        int prevMonth = futureDate.getMonthValue() - 1;
-        int prevYear = futureDate.getYear();
-
-        if (prevMonth == 0) {
-            prevMonth = 12;
-            prevYear--;
-        }
-        LocalDate prevMonthDate = LocalDate.of(prevYear, prevMonth, futureDate.getDayOfMonth());
+        LocalDate previousMonthDate = currentDate.minusMonths(1).plusDays(2);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU"));
-        return prevMonthDate.format(formatter);
+        return previousMonthDate.format(formatter);
     }
 }
 

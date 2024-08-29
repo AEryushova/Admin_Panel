@@ -30,8 +30,6 @@ import static utils.otherUtils.TestHelper.*;
 @DisplayName("Страница Администрирования")
 public class AdministrationPageTest extends BaseTest {
 
-    private AdministrationPage adminPage;
-
     @BeforeAll
     static void setUpAuth() {
         BaseTest.authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
@@ -42,7 +40,6 @@ public class AdministrationPageTest extends BaseTest {
         BaseTest.openAdminPanel();
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickAdministrationTab();
-        adminPage = new AdministrationPage();
         adminPage.verifyAdminPage();
     }
 
@@ -50,6 +47,7 @@ public class AdministrationPageTest extends BaseTest {
     void closeWebDriver() {
         Selenide.closeWebDriver();
     }
+
 
     @Feature("Добавление нового админа")
     @Story("Успешное добавление нового админа")
@@ -281,8 +279,8 @@ public class AdministrationPageTest extends BaseTest {
     @DisplayName("Очистка полей через кнопку в окне добавления админа")
     @Test
     void clearFieldsWindowAddingAdminThroughButtonClear() {
-        NewAdminWindow newAdminWindow = adminPage.clickButtonAddNewAdmin()
-                .verifyNewAdminWindow()
+        NewAdminWindow newAdminWindow = adminPage.clickButtonAddNewAdmin();
+        newAdminWindow.verifyNewAdminWindow()
                 .fillFieldNewAdminLogin(generateLogin())
                 .clickClearButtonLoginField()
                 .fillFieldNewAdminPassword(generatePassword())
@@ -789,7 +787,7 @@ public class AdministrationPageTest extends BaseTest {
                 .uploadPrice("src/test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
         PriceErrorsWindow priceErrorsWindow = updatePriceWindow.priceErrorsWindow();
         priceErrorsWindow.verifyPriceErrorsWindow();
-        assertEquals("Ошибка формата стоимости услуги, код: 'А26.30.004.002', стоимость: '1000'.", priceErrorsWindow.getErrorInfo());
+        assertEquals("Ошибка формата стоимости услуги, код: 'А26.30.004.002', стоимость: 'Ы'.", priceErrorsWindow.getErrorInfo());
     }
 
     @Feature("Документация")

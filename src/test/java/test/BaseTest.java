@@ -1,6 +1,15 @@
 package test;
 
 
+import pages.AdministrationPage.AdministrationPage;
+import pages.AuthorizationPage.AuthorizationPage;
+import pages.BasePage.BasePage;
+import pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
+import pages.DoctorsPage.DoctorsPage;
+import pages.FaqPage.FaqPage;
+import pages.HeaderMenu.HeaderMenu;
+import pages.ServicesPage.ServicesPage;
+import pages.SettingPage.SettingPage;
 import utils.preparationDataTests.general.AllureTestListeners;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -25,12 +34,22 @@ import static io.restassured.RestAssured.given;
 @ExtendWith(AllureTestListeners.class)
 public class BaseTest {
 
+    AdministrationPage adminPage = new AdministrationPage();
+    AuthorizationPage authPage = new AuthorizationPage();
+    HeaderMenu headerMenu = new HeaderMenu();
+    BasePage basePage = new BasePage();
+    CardDoctorPage cardDoctor = new CardDoctorPage();
+    DoctorsPage doctorsPage = new DoctorsPage();
+    FaqPage faqPage = new FaqPage();
+    ServicesPage servicesPage = new ServicesPage();
+    SettingPage settingPage = new SettingPage();
+
     @Setter
     @Getter
     public static String token;
 
 
-    public static void openBrowser(){
+    public static void openBrowser() {
         Configuration.browser = System.getProperty("selenide.browser");
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));

@@ -1,6 +1,6 @@
 package test;
 
-import pages.BasePage.BasePage;
+
 import pages.HeaderMenu.UserPanel;
 import utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Condition;
@@ -11,7 +11,6 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import pages.AuthorizationPage.AuthorizationPage;
 import pages.DoctorsPage.DoctorsPage;
-import pages.HeaderMenu.HeaderMenu;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -28,16 +27,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Страница Авторизации")
 public class AuthorizationPageTest extends BaseTest {
 
-    private AuthorizationPage authPage;
-    private HeaderMenu headerMenu;
-    private BasePage basePage;
-
     @BeforeEach
     void setUp() {
         BaseTest.openBrowser();
-        authPage = new AuthorizationPage();
-        headerMenu = new HeaderMenu();
-        basePage = new BasePage();
         authPage.verifyAuthPage();
     }
 
@@ -45,6 +37,7 @@ public class AuthorizationPageTest extends BaseTest {
     void closeWebDriver() {
         Selenide.closeWebDriver();
     }
+
 
     @Story("Успешная авторизация супер-админа")
     @DisplayName("Успешная авторизация супер-админа")

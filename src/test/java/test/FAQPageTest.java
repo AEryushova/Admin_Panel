@@ -26,8 +26,6 @@ import static utils.otherUtils.DataGenerator.*;
 @DisplayName("Страница FAQ")
 public class FAQPageTest extends BaseTest {
 
-    private FaqPage faqPage;
-
     @BeforeAll
     static void setUpAuth() {
         BaseTest.authAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
@@ -38,7 +36,6 @@ public class FAQPageTest extends BaseTest {
         BaseTest.openAdminPanel();
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickFaqTab();
-        faqPage=new FaqPage();
         faqPage.verifyFaqPage();
     }
 
