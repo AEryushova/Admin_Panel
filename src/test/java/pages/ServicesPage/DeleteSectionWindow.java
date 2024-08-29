@@ -21,13 +21,14 @@ public class DeleteSectionWindow {
             CLOSE_WINDOW_BUTTON = $x("//span[text()='Удалить Раздел']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно удаления раздела")
-    public void verifyDeleteSectionWindow() {
+    public DeleteSectionWindow verifyDeleteSectionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Нажать кнопку удаления")

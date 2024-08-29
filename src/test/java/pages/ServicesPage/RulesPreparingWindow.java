@@ -22,11 +22,12 @@ public class RulesPreparingWindow {
     private final ElementsCollection RULES = $$x("//div[@class='A7Gv']/span");
 
     @Step("Верифицировать окно правил подготовки")
-    public void verifyRulesPreparingWindow() {
+    public RulesPreparingWindow verifyRulesPreparingWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_ALL_RULES_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Нажать кнопку добавления нового правила")
@@ -54,10 +55,11 @@ public class RulesPreparingWindow {
     }
 
     @Step("Нажать кнопку удаления всех правил")
-    public void clickButtonDeleteAllRules() {
+    public RulesPreparingWindow clickButtonDeleteAllRules() {
         DELETE_ALL_RULES_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Закрыть окно правил подготовки")

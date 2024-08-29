@@ -18,18 +18,20 @@ public class EditSectionWindow {
             CLOSE_WINDOW_BUTTON = $x("//input[@name='edit-category-name']/parent::div//following-sibling::div[@class='V5So']");
 
     @Step("Верифицировать окно изменения раздела")
-    public void verifyEditSectionWindow() {
+    public EditSectionWindow verifyEditSectionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле названия '{0}'")
-    public void fillNameField(String name) {
+    public EditSectionWindow fillNameField(String name) {
         NAME_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(name);
+        return this;
     }
 
     @Step("Нажать кнопку сохранения")
@@ -40,11 +42,12 @@ public class EditSectionWindow {
     }
 
     @Step("Очистить поле названия")
-    public void clearNameField() {
+    public EditSectionWindow clearNameField() {
         NAME_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");
         NAME_FIELD.sendKeys(Keys.BACK_SPACE);
+        return this;
     }
 
     @Step("Закрыть окно изменения раздела")

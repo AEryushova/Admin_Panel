@@ -88,8 +88,8 @@ public class SettingPageTest extends BaseTest {
     void changeLogo() {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
-        editLogoWindow.verifyEditLogoWindow();
-        editLogoWindow.uploadLogo("src/test/resources/images/visa.png");
+        editLogoWindow.verifyEditLogoWindow()
+                .uploadLogo("src/test/resources/images/visa.png");
         Selenide.Wait().until(condition -> settingPage.getHeightLogo() != oldHeightLogo);
         assertNotEquals(oldHeightLogo, settingPage.getHeightLogo());
         assertNotEquals(oldHeightLogo, headerMenu.getHeightLogo());
@@ -103,8 +103,8 @@ public class SettingPageTest extends BaseTest {
     void changeLogoInvalidLogoFormat() {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
-        editLogoWindow.verifyEditLogoWindow();
-        editLogoWindow.uploadLogo("src/test/resources/images/Photo 3,7mbJpeg.jpg");
+        editLogoWindow.verifyEditLogoWindow()
+                .uploadLogo("src/test/resources/images/Photo 3,7mbJpeg.jpg");
         assertEquals("Неверный запрос (400)", settingPage.getTextNotification());
         assertEquals(oldHeightLogo, settingPage.getHeightLogo());
     }
@@ -116,8 +116,8 @@ public class SettingPageTest extends BaseTest {
     void changeLogoWeightMoreThan4mb() {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
-        editLogoWindow.verifyEditLogoWindow();
-        editLogoWindow.uploadLogo("src/test/resources/images/Photo-6_8mbPng.png");
+        editLogoWindow.verifyEditLogoWindow()
+                .uploadLogo("src/test/resources/images/Photo-6_8mbPng.png");
         assertEquals("Допускаются файлы размером не выше 4Мб", settingPage.getTextNotification());
         assertEquals(oldHeightLogo, settingPage.getHeightLogo());
     }
@@ -131,8 +131,8 @@ public class SettingPageTest extends BaseTest {
     void changeLogoInvalidFormat(String path) {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
         int oldHeightLogo = settingPage.getHeightLogo();
-        editLogoWindow.verifyEditLogoWindow();
-        editLogoWindow.uploadLogo(path);
+        editLogoWindow.verifyEditLogoWindow()
+                .uploadLogo(path);
         assertEquals("Допускаются файлы с расширением jpg jpeg png", settingPage.getTextNotification());
         assertEquals(oldHeightLogo, settingPage.getHeightLogo());
     }
@@ -143,7 +143,8 @@ public class SettingPageTest extends BaseTest {
     @Test
     void closeWindowEditLogo() {
         EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
-        editLogoWindow.closeWindowEditLogo();
+        editLogoWindow.verifyEditLogoWindow()
+                .closeWindowEditLogo();
         assertFalse(editLogoWindow.isWindowAppear());
     }
 

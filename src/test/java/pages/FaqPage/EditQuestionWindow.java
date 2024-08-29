@@ -19,35 +19,39 @@ public class EditQuestionWindow {
             CLOSE_WINDOW_BUTTON = $x("//div[@class='UnAf hwSa Er9P']");
 
     @Step("Верифицировать окно изменения вопроса")
-    public void verifyChangeQuestionWindow() {
+    public EditQuestionWindow verifyChangeQuestionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         QUESTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ANSWER_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле вопроса '{0}'")
-    public void fillQuestionField(String question) {
+    public EditQuestionWindow fillQuestionField(String question) {
         QUESTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(question);
+        return this;
     }
 
     @Step("Ввести в поле ответа '{0}'")
-    public void fillAnswerField(String answer) {
+    public EditQuestionWindow fillAnswerField(String answer) {
         ANSWER_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(answer);
+        return this;
     }
 
     @Step("Очистить поле вопроса")
-    public void clearQuestionField() {
+    public EditQuestionWindow clearQuestionField() {
         QUESTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");
         QUESTION_FIELD.sendKeys(Keys.BACK_SPACE);
+        return this;
     }
 
     @Step("Очистить поле ответа")

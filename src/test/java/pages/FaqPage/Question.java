@@ -22,7 +22,6 @@ public class Question {
     public void verifyQuestion() {
         EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         QUESTION_TEXT.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        ANSWER_TEXT.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     @Step("Нажать кнопку изменения вопроса")

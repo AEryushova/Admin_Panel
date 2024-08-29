@@ -33,7 +33,7 @@ public class ServiceWindow {
             CLOSE_WINDOW_BUTTON = $x("//div[text()='Общая информация']/parent::div/parent::div/preceding-sibling::div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать вкладку общей информации окна услуги")
-    public void verifyServiceWindowGeneralInfo() {
+    public ServiceWindow verifyServiceWindowGeneralInfo() {
         GENERAL_INFO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SERVICE_TRANSFER.shouldBe(Condition.visible, Duration.ofSeconds(5));
         RULES_PREPARING.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -42,20 +42,22 @@ public class ServiceWindow {
         PATH_TO_SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CODE_SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Верифицировать вкладку переноса услуг окна услуги")
-    public void verifyServiceWindowServiceTransfer() {
+    public ServiceWindow verifyServiceWindowServiceTransfer() {
         GENERAL_INFO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SERVICE_TRANSFER.shouldBe(Condition.visible, Duration.ofSeconds(5));
         RULES_PREPARING.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_SERVICE.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_CATEGORY.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Верифицировать вкладку правил подготовки окна услуги")
-    public void verifyServiceWindowRulesPreparing() {
+    public ServiceWindow verifyServiceWindowRulesPreparing() {
         GENERAL_INFO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SERVICE_TRANSFER.shouldBe(Condition.visible, Duration.ofSeconds(5));
         RULES_PREPARING.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -64,27 +66,31 @@ public class ServiceWindow {
         TITLE_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DESCRIPTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_RULE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
+        return this;
     }
 
     @Step("Нажать вкладку переноса услуг")
-    public void clickServiceTransferTab() {
+    public ServiceWindow clickServiceTransferTab() {
         SERVICE_TRANSFER.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать вкладку правил подготовки")
-    public void clickRulesPreparingTab() {
+    public ServiceWindow clickRulesPreparingTab() {
         RULES_PREPARING.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать вкладку общей информации")
-    public void clickGeneralInfoTab() {
+    public ServiceWindow clickGeneralInfoTab() {
         GENERAL_INFO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Получить заголовок окна")
@@ -119,11 +125,12 @@ public class ServiceWindow {
     }
 
     @Step("Выбрать категорию для переноса")
-    public void clickCategoryForTransfer(String nameCategory) {
+    public ServiceWindow clickCategoryForTransfer(String nameCategory) {
         SelenideElement CATEGORY = $x("//span[text()='" + nameCategory + "']//parent::div[@class='ZbgC']");
         CATEGORY.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать кнопку переноса услуги в категорию Иные услуги")
@@ -138,17 +145,19 @@ public class ServiceWindow {
     }
 
     @Step("Ввести в поле заголовка '{0}'")
-    public void fillFieldTitle(String header) {
+    public ServiceWindow fillFieldTitle(String header) {
         TITLE_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(header);
+        return this;
     }
 
     @Step("Ввести в поле описания '{0}'")
-    public void fillFieldDescription(String description) {
+    public ServiceWindow fillFieldDescription(String description) {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(description);
+        return this;
     }
 
     @Step("Нажать кнопку добавления")

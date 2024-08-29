@@ -22,26 +22,29 @@ public class ChangeMinePasswordWindow {
             ERROR_FIELD_NEW_PASSWORD = $x("//input[@name='newPassword']/following-sibling::div");
 
     @Step("Верифицировать окно замены своего пароля")
-    public void verifyChangeMinePasswordWindow() {
+    public ChangeMinePasswordWindow verifyChangeMinePasswordWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         OLD_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NEW_PASSWORD_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CHANGE_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле старого пароля '{0}'")
-    public void fillFieldOldPassword(String login) {
+    public ChangeMinePasswordWindow fillFieldOldPassword(String login) {
         OLD_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(login);
+        return this;
     }
 
     @Step("Ввести в поле нового пароля '{0}'")
-    public void fillFieldNewPassword(String password) {
+    public ChangeMinePasswordWindow fillFieldNewPassword(String password) {
         NEW_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(password);
+        return this;
     }
 
     @Step("Нажать кнопку изменения")
@@ -65,10 +68,11 @@ public class ChangeMinePasswordWindow {
     }
 
     @Step("Нажать на поле старого пароля")
-    public void clickFieldOldPassword() {
+    public ChangeMinePasswordWindow clickFieldOldPassword() {
         OLD_PASSWORD_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать на поле нового пароля")
@@ -79,11 +83,12 @@ public class ChangeMinePasswordWindow {
     }
 
     @Step("Нажать на кнопку очищения поля старого пароля")
-    public void clickClearButtonOldPasswordField() {
+    public ChangeMinePasswordWindow clickClearButtonOldPasswordField() {
         CLEAR_FIELD_OLD_PASSWORD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         OLD_PASSWORD_FIELD.shouldHave((Condition.empty), Duration.ofSeconds(15));
+        return this;
     }
 
     @Step("Нажать на кнопку очищения поля нового пароля")

@@ -21,11 +21,12 @@ public class EditLogoWindow {
             CLOSE_WINDOW_BUTTON = $x("//span[text()='Установка логотипа приложения']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно изменения логотипа")
-    public void verifyEditLogoWindow() {
+    public EditLogoWindow verifyEditLogoWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         LOGO_APP.shouldHave(attribute("src")).shouldNotBe(attribute("src", ""));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Загрузить файл '{0}'")

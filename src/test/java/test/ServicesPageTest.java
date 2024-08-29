@@ -57,10 +57,10 @@ public class ServicesPageTest extends BaseTest {
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
         rulePreparingWindow.verifyRulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
-        addRuleWindow.verifyAddRuleWindow();
-        addRuleWindow.fillFieldTitle(generateWord());
-        addRuleWindow.fillFieldDescription(generateText());
-        addRuleWindow.clickSaveButton();
+        addRuleWindow.verifyAddRuleWindow()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickSaveButton();
         rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
@@ -82,10 +82,12 @@ public class ServicesPageTest extends BaseTest {
     void addRulePreparingCategoryEmptyFieldTitle() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
-        addRuleWindow.fillFieldDescription(generateText());
-        addRuleWindow.clickSaveButton();
-        addRuleWindow.clickButtonReturnRulesList();
+        addRuleWindow.verifyAddRuleWindow()
+                .fillFieldDescription(generateText())
+                .clickSaveButton()
+                .clickButtonReturnRulesList();
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
@@ -99,10 +101,12 @@ public class ServicesPageTest extends BaseTest {
     void addRulePreparingCategoryEmptyFieldDescription() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
-        addRuleWindow.fillFieldTitle(generateWord());
-        addRuleWindow.clickSaveButton();
-        addRuleWindow.clickButtonReturnRulesList();
+        addRuleWindow.verifyAddRuleWindow()
+                .fillFieldTitle(generateWord())
+                .clickSaveButton()
+                .clickButtonReturnRulesList();
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
@@ -116,9 +120,11 @@ public class ServicesPageTest extends BaseTest {
     void addRulePreparingCategoryEmptyFields() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
-        addRuleWindow.clickSaveButton();
-        addRuleWindow.clickButtonReturnRulesList();
+        addRuleWindow.verifyAddRuleWindow()
+                .clickSaveButton()
+                .clickButtonReturnRulesList();
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
@@ -132,10 +138,12 @@ public class ServicesPageTest extends BaseTest {
     void closeWindowAddRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
-        addRuleWindow.fillFieldTitle(generateWord());
-        addRuleWindow.fillFieldDescription(generateText());
-        addRuleWindow.closeWindowAddRule();
+        addRuleWindow.verifyAddRuleWindow()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .closeWindowAddRule();
         assertFalse(addRuleWindow.isWindowAppear());
         assertFalse(rulePreparingWindow.isWindowAppear());
         servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
@@ -152,10 +160,12 @@ public class ServicesPageTest extends BaseTest {
     void comebackRulesListFromWindowAddRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
-        addRuleWindow.fillFieldTitle(generateWord());
-        addRuleWindow.fillFieldDescription(generateText());
-        addRuleWindow.clickButtonReturnRulesList();
+        addRuleWindow.verifyAddRuleWindow()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickButtonReturnRulesList();
         assertFalse(addRuleWindow.isWindowAppear());
         assertTrue(rulePreparingWindow.isWindowAppear());
         rulePreparingWindow.clickButtonAddRules();
@@ -171,12 +181,13 @@ public class ServicesPageTest extends BaseTest {
     void editRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.verifyEditRuleWindow();
-        editRuleWindow.fillFieldTitle(generateWord());
-        editRuleWindow.fillFieldDescription(generateText());
-        editRuleWindow.clickButtonChangeRules();
+        editRuleWindow.verifyEditRuleWindow()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickButtonChangeRules();
         rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(categoryName);
@@ -195,12 +206,14 @@ public class ServicesPageTest extends BaseTest {
     void editRulePreparingCategoryEmptyFieldTitle() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.clearTitleField();
-        editRuleWindow.fillFieldDescription(generateNamePatient());
-        editRuleWindow.clickButtonChangeRules();
-        editRuleWindow.closeWindowEditRule();
+        editRuleWindow.verifyEditRuleWindow()
+                .clearTitleField()
+                .fillFieldDescription(generateNamePatient())
+                .clickButtonChangeRules()
+                .closeWindowEditRule();
         rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(categoryName);
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
@@ -218,12 +231,14 @@ public class ServicesPageTest extends BaseTest {
     void editRulePreparingCategoryEmptyFieldDescription() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.fillFieldTitle(generateNamePatient());
-        editRuleWindow.clearDescriptionField();
-        editRuleWindow.clickButtonChangeRules();
-        editRuleWindow.closeWindowEditRule();
+        editRuleWindow.verifyEditRuleWindow()
+                .fillFieldTitle(generateNamePatient())
+                .clearDescriptionField()
+                .clickButtonChangeRules()
+                .closeWindowEditRule();
         rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(categoryName);
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
@@ -241,12 +256,14 @@ public class ServicesPageTest extends BaseTest {
     void editRulePreparingCategoryEmptyFields() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.clearTitleField();
-        editRuleWindow.clearDescriptionField();
-        editRuleWindow.clickButtonChangeRules();
-        editRuleWindow.closeWindowEditRule();
+        editRuleWindow.verifyEditRuleWindow()
+                .clearTitleField()
+                .clearDescriptionField()
+                .clickButtonChangeRules()
+                .closeWindowEditRule();
         rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(categoryName);
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
@@ -264,9 +281,11 @@ public class ServicesPageTest extends BaseTest {
     void saveRulePreparingCategoryNotChange() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.clickButtonChangeRules();
+        editRuleWindow.verifyEditRuleWindow()
+                .clickButtonChangeRules();
         rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(categoryName);
         assertEquals(word, editRuleWindow.getTitleRule());
@@ -283,11 +302,13 @@ public class ServicesPageTest extends BaseTest {
     void closeWindowEditRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.fillFieldTitle(generateNamePatient());
-        editRuleWindow.fillFieldDescription(generateQuestion());
-        editRuleWindow.closeWindowEditRule();
+        editRuleWindow.verifyEditRuleWindow()
+                .fillFieldTitle(generateNamePatient())
+                .fillFieldDescription(generateQuestion())
+                .closeWindowEditRule();
         rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(categoryName);
@@ -305,9 +326,11 @@ public class ServicesPageTest extends BaseTest {
     void deleteRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.clickButtonDeleteRules();
+        editRuleWindow.verifyEditRuleWindow()
+                .clickButtonDeleteRules();
         rulePreparingWindow.getEmptyList().shouldBe(Condition.visible);
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
@@ -323,8 +346,9 @@ public class ServicesPageTest extends BaseTest {
     void deleteAllRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
-        rulePreparingWindow.clickButtonDeleteAllRules();
-        rulePreparingWindow.getEmptyList().shouldBe(Condition.visible);
+        rulePreparingWindow.verifyRulesPreparingWindow()
+                .clickButtonDeleteAllRules()
+                .getEmptyList().shouldBe(Condition.visible);
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
         assertEquals("[]", DataBaseQuery.selectServicesCategories(categoryName).getPreparing_description());
@@ -342,10 +366,12 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = sectionCard.clickButtonOpenRulesPreparingSection();
+        rulePreparingWindow.verifyRulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
-        addRuleWindow.fillFieldTitle(generateWord());
-        addRuleWindow.fillFieldDescription(generateText());
-        addRuleWindow.clickSaveButton();
+        addRuleWindow.verifyAddRuleWindow()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickSaveButton();
         rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
@@ -369,12 +395,13 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = sectionCard.clickButtonOpenRulesPreparingSection();
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.verifyEditRuleWindow();
-        editRuleWindow.fillFieldTitle(generateWord());
-        editRuleWindow.fillFieldDescription(generateText());
-        editRuleWindow.clickButtonChangeRules();
+        editRuleWindow.verifyEditRuleWindow()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickButtonChangeRules();
         rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(sectionName);
@@ -396,9 +423,11 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = sectionCard.clickButtonOpenRulesPreparingSection();
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.clickButtonDeleteRules();
+        editRuleWindow.verifyEditRuleWindow()
+                .clickButtonDeleteRules();
         rulePreparingWindow.getEmptyList().shouldBe(Condition.visible);
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
@@ -417,8 +446,9 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = sectionCard.clickButtonOpenRulesPreparingSection();
-        rulePreparingWindow.clickButtonDeleteAllRules();
-        rulePreparingWindow.getEmptyList().shouldBe(Condition.visible);
+        rulePreparingWindow.verifyRulesPreparingWindow()
+                .clickButtonDeleteAllRules()
+                .getEmptyList().shouldBe(Condition.visible);
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
         assertEquals("[]", DataBaseQuery.selectServicesCategories(sectionName).getPreparing_description());
@@ -439,10 +469,12 @@ public class ServicesPageTest extends BaseTest {
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = subsectionCard.clickButtonOpenRulesPreparingSubsection();
+        rulePreparingWindow.verifyRulesPreparingWindow();
         AddRuleWindow addRuleWindow = rulePreparingWindow.clickButtonAddRules();
-        addRuleWindow.fillFieldTitle(generateWord());
-        addRuleWindow.fillFieldDescription(generateText());
-        addRuleWindow.clickSaveButton();
+        addRuleWindow.verifyAddRuleWindow()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickSaveButton();
         rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         assertTrue(rulePreparingWindow.isExistRule());
         Rule rule = rulePreparingWindow.getRule();
@@ -469,12 +501,13 @@ public class ServicesPageTest extends BaseTest {
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = subsectionCard.clickButtonOpenRulesPreparingSubsection();
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.verifyEditRuleWindow();
-        editRuleWindow.fillFieldTitle(generateWord());
-        editRuleWindow.fillFieldDescription(generateText());
-        editRuleWindow.clickButtonChangeRules();
+        editRuleWindow.verifyEditRuleWindow()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickButtonChangeRules();
         rulePreparingWindow.getRuleByTitle(word).shouldBe(Condition.visible);
         rule.clickButtonEditRule();
         ServiceCategories preparingDescription = DataBaseQuery.selectServicesCategories(subSectionName);
@@ -499,9 +532,11 @@ public class ServicesPageTest extends BaseTest {
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = subsectionCard.clickButtonOpenRulesPreparingSubsection();
+        rulePreparingWindow.verifyRulesPreparingWindow();
         Rule rule = rulePreparingWindow.getRule();
         EditRuleWindow editRuleWindow = rule.clickButtonEditRule();
-        editRuleWindow.clickButtonDeleteRules();
+        editRuleWindow.verifyEditRuleWindow()
+                .clickButtonDeleteRules();
         rulePreparingWindow.getEmptyList().shouldBe(Condition.visible);
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
@@ -523,8 +558,9 @@ public class ServicesPageTest extends BaseTest {
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = subsectionCard.clickButtonOpenRulesPreparingSubsection();
-        rulePreparingWindow.clickButtonDeleteAllRules();
-        rulePreparingWindow.getEmptyList().shouldBe(Condition.visible);
+        rulePreparingWindow.verifyRulesPreparingWindow()
+                .clickButtonDeleteAllRules()
+                .getEmptyList().shouldBe(Condition.visible);
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
         assertEquals("[]", DataBaseQuery.selectServicesCategories(subSectionName).getPreparing_description());
@@ -539,7 +575,8 @@ public class ServicesPageTest extends BaseTest {
     void closeWindowRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
         RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
-        rulePreparingWindow.closeWindowRulesPreparing();
+        rulePreparingWindow.verifyRulesPreparingWindow()
+                .closeWindowRulesPreparing();
         assertFalse(rulePreparingWindow.isWindowAppear());
     }
 
@@ -572,11 +609,12 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickRulesPreparingTab();
-        serviceWindow.verifyServiceWindowRulesPreparing();
-        serviceWindow.fillFieldTitle(generateWord());
-        serviceWindow.fillFieldDescription(generateText());
-        serviceWindow.clickAddButton();
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickRulesPreparingTab()
+                .verifyServiceWindowRulesPreparing()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickAddButton();
         serviceWindow.getFieldTitle().shouldHave(value(word));
         serviceWindow.getFieldDescription().shouldHave(value(text));
         serviceWindow.getEditRuleButton().shouldBe(Condition.visible).shouldBe(Condition.enabled);
@@ -607,9 +645,10 @@ public class ServicesPageTest extends BaseTest {
         ServiceCard serviceCard = subsectionCard.getService();
         servicesPage.scrollPageDown("500");
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickRulesPreparingTab();
-        serviceWindow.fillFieldDescription(generateText());
-        serviceWindow.clickAddButton();
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickRulesPreparingTab()
+                .fillFieldDescription(generateText())
+                .clickAddButton();
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertTrue(serviceWindow.isEnabledAddButton());
     }
@@ -631,8 +670,9 @@ public class ServicesPageTest extends BaseTest {
         ServiceCard serviceCard = subsectionCard.getService();
         servicesPage.scrollPageDown("500");
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickRulesPreparingTab();
-        serviceWindow.fillFieldTitle(generateWord());
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickRulesPreparingTab()
+                .fillFieldTitle(generateWord());
         assertFalse(serviceWindow.isEnabledAddButton());
     }
 
@@ -653,11 +693,12 @@ public class ServicesPageTest extends BaseTest {
         ServiceCard serviceCard = subsectionCard.getService();
         servicesPage.scrollPageDown("500");
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickRulesPreparingTab();
-        serviceWindow.fillFieldTitle(generateWord());
-        serviceWindow.fillFieldDescription(generateText());
-        serviceWindow.clickGeneralInfoTab();
-        serviceWindow.clickRulesPreparingTab();
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickRulesPreparingTab()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickGeneralInfoTab()
+                .clickRulesPreparingTab();
         assertEquals("", serviceWindow.getValueTitleField());
         assertEquals("", serviceWindow.getValueDescriptionField());
     }
@@ -680,10 +721,11 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickRulesPreparingTab();
-        serviceWindow.fillFieldTitle(generateWord());
-        serviceWindow.fillFieldDescription(generateText());
-        serviceWindow.clickChangeButton();
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickRulesPreparingTab()
+                .fillFieldTitle(generateWord())
+                .fillFieldDescription(generateText())
+                .clickChangeButton();
         serviceWindow.getFieldTitle().shouldHave(value(word));
         serviceWindow.getFieldDescription().shouldHave(value(text));
         PreparingDescriptions preparingDescription = DataBaseQuery.selectDescriptionService(codeService);
@@ -712,8 +754,9 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickRulesPreparingTab();
-        serviceWindow.clickChangeButton();
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickRulesPreparingTab()
+                .clickChangeButton();
         PreparingDescriptions preparingDescription = DataBaseQuery.selectDescriptionService(codeService);
         assertEquals(word, serviceWindow.getValueTitleField());
         assertEquals(text, serviceWindow.getValueDescriptionField());
@@ -739,8 +782,9 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickRulesPreparingTab();
-        serviceWindow.clickDeleteButton();
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickRulesPreparingTab()
+                .clickDeleteButton();
         serviceWindow.getAddRuleButton().shouldBe(Condition.visible).shouldNotBe(Condition.enabled);
         assertTrue(serviceWindow.isExistEmptyList());
         assertFalse(serviceWindow.isEnabledAddButton());
@@ -759,9 +803,9 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         categoryCard.verifyCategoryCard();
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
-        addSectionWindow.verifyAddSectionWindow();
-        addSectionWindow.fillNameSectionField(generateSectionName());
-        addSectionWindow.clickButtonAddSection();
+        addSectionWindow.verifyAddSectionWindow()
+                .fillNameSectionField(generateSectionName())
+                .clickButtonAddSection();
         addSectionWindow.getAddSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         servicesPage.scrollPageDown("500");
@@ -783,8 +827,9 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
-        addSectionWindow.fillNameSectionField(generateSectionName());
-        addSectionWindow.closeWindowAddSection();
+        addSectionWindow.verifyAddSectionWindow()
+                .fillNameSectionField(generateSectionName())
+                .closeWindowAddSection();
         assertFalse(addSectionWindow.isWindowAppear());
         categoryCard.clickButtonAddSection();
         assertEquals("", addSectionWindow.getValueNameField());
@@ -799,7 +844,8 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
-        addSectionWindow.clickFieldName();
+        addSectionWindow.verifyAddSectionWindow()
+                .clickFieldName();
         assertFalse(addSectionWindow.isEnabledAddButton());
         assertEquals("Обязательное поле", addSectionWindow.getErrorFieldName());
     }
@@ -813,8 +859,9 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
-        addSectionWindow.fillNameSectionField(generateSectionName());
-        addSectionWindow.clearButtonNameField();
+        addSectionWindow.verifyAddSectionWindow()
+                .fillNameSectionField(generateSectionName())
+                .clearButtonNameField();
         assertEquals("", addSectionWindow.getValueNameField());
         assertEquals("Обязательное поле", addSectionWindow.getErrorFieldName());
     }
@@ -828,7 +875,8 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         AddSectionWindow addSectionWindow = categoryCard.clickButtonAddSection();
-        addSectionWindow.clickCancelButtonAddSection();
+        addSectionWindow.verifyAddSectionWindow()
+                .clickCancelButtonAddSection();
         assertFalse(addSectionWindow.isWindowAppear());
         assertFalse(categoryCard.isExistSectionCard());
     }
@@ -844,9 +892,9 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         sectionCard.verifySectionCard();
         EditSectionWindow editSectionWindow = sectionCard.clickButtonEditSection();
-        editSectionWindow.verifyEditSectionWindow();
-        editSectionWindow.fillNameField(generateSectionName());
-        editSectionWindow.clickButtonSaveChange();
+        editSectionWindow.verifyEditSectionWindow()
+                .fillNameField(generateSectionName())
+                .clickButtonSaveChange();
         editSectionWindow.getEditSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         servicesPage.scrollPageDown("500");
@@ -867,8 +915,9 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.clickButtonEditSection();
-        editSectionWindow.fillNameField(generateWord());
-        editSectionWindow.closeWindowEditSection();
+        editSectionWindow.verifyEditSectionWindow()
+                .fillNameField(generateWord())
+                .closeWindowEditSection();
         assertFalse(editSectionWindow.isWindowAppear());
         assertEquals(sectionName, sectionCard.getNameSection());
         assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
@@ -884,7 +933,8 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.clickButtonEditSection();
-        editSectionWindow.clickButtonSaveChange();
+        editSectionWindow.verifyEditSectionWindow()
+                .clickButtonSaveChange();
         editSectionWindow.getEditSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         servicesPage.scrollPageDown("500");
@@ -903,8 +953,9 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         EditSectionWindow editSectionWindow = sectionCard.clickButtonEditSection();
-        editSectionWindow.clearNameField();
-        editSectionWindow.clickButtonSaveChange();
+        editSectionWindow.verifyEditSectionWindow()
+                .clearNameField()
+                .clickButtonSaveChange();
         assertTrue(editSectionWindow.isWindowAppear());
         assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
     }
@@ -942,7 +993,8 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         DeleteSectionWindow deleteSectionWindow = sectionCard.clickButtonDeleteSection();
-        deleteSectionWindow.clickCancelButtonDeleteSection();
+        deleteSectionWindow.verifyDeleteSectionWindow()
+                .clickCancelButtonDeleteSection();
         assertFalse(deleteSectionWindow.isWindowAppear());
         assertTrue(categoryCard.isExistSectionCard());
         assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
@@ -958,7 +1010,8 @@ public class ServicesPageTest extends BaseTest {
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
         SectionCard sectionCard = categoryCard.getSection();
         DeleteSectionWindow deleteSectionWindow = sectionCard.clickButtonDeleteSection();
-        deleteSectionWindow.closeWindowDeleteSection();
+        deleteSectionWindow.verifyDeleteSectionWindow()
+                .closeWindowDeleteSection();
         assertFalse(deleteSectionWindow.isWindowAppear());
         assertTrue(categoryCard.isExistSectionCard());
         assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
@@ -976,8 +1029,9 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         sectionCard.clickButtonOpenSection();
         AddSectionWindow addSectionWindow = sectionCard.clickButtonAddSubsection();
-        addSectionWindow.fillNameSectionField(generateSubSectionName());
-        addSectionWindow.clickButtonAddSection();
+        addSectionWindow.verifyAddSectionWindow()
+                .fillNameSectionField(generateSubSectionName())
+                .clickButtonAddSection();
         addSectionWindow.getAddSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         servicesPage.scrollPageDown("500");
@@ -1006,8 +1060,9 @@ public class ServicesPageTest extends BaseTest {
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         subsectionCard.verifySubsectionCard();
         EditSectionWindow editSectionWindow = subsectionCard.clickButtonEditSubsection();
-        editSectionWindow.fillNameField(generateSubSectionName());
-        editSectionWindow.clickButtonSaveChange();
+        editSectionWindow.verifyEditSectionWindow()
+                .fillNameField(generateSubSectionName())
+                .clickButtonSaveChange();
         editSectionWindow.getEditSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         servicesPage.scrollPageDown("500");
@@ -1033,6 +1088,7 @@ public class ServicesPageTest extends BaseTest {
         sectionCard.clickButtonOpenSection();
         SubsectionCard subsectionCard = sectionCard.getSubsection();
         DeleteSectionWindow deleteSectionWindow = subsectionCard.clickButtonDeleteSubsection();
+        deleteSectionWindow.verifyDeleteSectionWindow();
         assertTrue(deleteSectionWindow.verifyNameSection(subSectionName));
         deleteSectionWindow.clickButtonDeleteSection();
         deleteSectionWindow.getDeleteSectionWindow().shouldNotBe(Condition.visible);
@@ -1077,7 +1133,8 @@ public class ServicesPageTest extends BaseTest {
         SectionCard sectionCard = categoryCard.getSection();
         servicesPage.scrollPageDown("500");
         DeleteSectionWindow deleteSectionWindow = sectionCard.clickButtonDeleteSection();
-        deleteSectionWindow.clickButtonDeleteSection();
+        deleteSectionWindow.verifyDeleteSectionWindow()
+                .clickButtonDeleteSection();
         assertEquals("Нельзя удалить категорию, т.к. имеются дочерние объекты", servicesPage.getTextNotification());
         assertTrue(sectionCard.isExistSubsectionCard());
         assertFalse(sectionCard.isExistEmptyList());
@@ -1129,10 +1186,11 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickServiceTransferTab();
-        serviceWindow.verifyServiceWindowServiceTransfer();
-        serviceWindow.clickCategoryForTransfer(NAME_OTHER_SERVICE_CATEGORY);
-        serviceWindow.clickButtonTransferServiceToOtherServices();
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickServiceTransferTab()
+                .verifyServiceWindowServiceTransfer()
+                .clickCategoryForTransfer(NAME_OTHER_SERVICE_CATEGORY)
+                .clickButtonTransferServiceToOtherServices();
         serviceWindow.getServiceWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         servicesPage.scrollPageDown("500");
@@ -1167,7 +1225,8 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.scrollPageDown("500");
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickButtonDeleteService();
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickButtonDeleteService();
         serviceWindow.getServiceWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         servicesPage.scrollPageDown("500");
@@ -1204,7 +1263,8 @@ public class ServicesPageTest extends BaseTest {
         String codeService = serviceCard.getCodeService();
         subsectionCard.clickButtonCloseSubsection(subSectionName);
         DeleteSectionWindow deleteSectionWindow = subsectionCard.clickButtonDeleteSubsection();
-        deleteSectionWindow.clickButtonDeleteSection();
+        deleteSectionWindow.verifyDeleteSectionWindow()
+                .clickButtonDeleteSection();
         deleteSectionWindow.getDeleteSectionWindow().shouldNotBe(Condition.visible);
         servicesPage.getCategoryByName(categoryName).shouldBe(Condition.visible);
         servicesPage.scrollPageDown("500");
@@ -1228,9 +1288,10 @@ public class ServicesPageTest extends BaseTest {
         ServiceCard serviceCard = categoryCard.getService();
         String codeService = serviceCard.getCodeService();
         ServiceWindow serviceWindow = serviceCard.clickButtonOpenServiceInfo();
-        serviceWindow.clickServiceTransferTab();
-        serviceWindow.clickCategoryForTransfer(NAME_OTHER_SERVICE_CATEGORY);
-        serviceWindow.clickButtonTransferServiceToOtherServices();
+        serviceWindow.verifyServiceWindowGeneralInfo()
+                .clickServiceTransferTab()
+                .clickCategoryForTransfer(NAME_OTHER_SERVICE_CATEGORY)
+                .clickButtonTransferServiceToOtherServices();
         assertEquals("Категории источника и приёмника для переноса не должны совпадать", servicesPage.getTextNotification());
         serviceWindow.closeWindowInfoService();
         assertFalse(serviceWindow.isWindowAppear());

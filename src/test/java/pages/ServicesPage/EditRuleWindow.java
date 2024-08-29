@@ -20,34 +20,38 @@ public class EditRuleWindow {
             CLOSE_WINDOW_BUTTON = $x("//div[@class='TW3C']/preceding-sibling::div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно изменения правила")
-    public void verifyEditRuleWindow() {
+    public EditRuleWindow verifyEditRuleWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TITLE_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DESCRIPTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле заголовка '{0}'")
-    public void fillFieldTitle(String header) {
+    public EditRuleWindow fillFieldTitle(String header) {
         TITLE_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(header);
+        return this;
     }
 
     @Step("Ввести в поле описания '{0}'")
-    public void fillFieldDescription(String description) {
+    public EditRuleWindow fillFieldDescription(String description) {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(description);
+        return this;
     }
 
     @Step("Нажать кнопку изменения")
-    public void clickButtonChangeRules() {
+    public EditRuleWindow clickButtonChangeRules() {
         EDIT_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать кнопку удаления")
@@ -58,19 +62,21 @@ public class EditRuleWindow {
     }
 
     @Step("Очистить поле заголовка")
-    public void clearTitleField() {
+    public EditRuleWindow clearTitleField() {
         TITLE_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");
         TITLE_FIELD.sendKeys(Keys.BACK_SPACE);
+        return this;
     }
 
     @Step("Очистить поле описания")
-    public void clearDescriptionField() {
+    public EditRuleWindow clearDescriptionField() {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .sendKeys(Keys.CONTROL, "a");
         DESCRIPTION_FIELD.sendKeys(Keys.BACK_SPACE);
+        return this;
     }
 
     @Step("Получить значение поля заголовка")

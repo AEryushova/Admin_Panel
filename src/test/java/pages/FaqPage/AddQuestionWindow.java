@@ -18,27 +18,30 @@ public class AddQuestionWindow {
             CLOSE_WINDOW_BUTTON = $x("//span[text()='Новый Вопрос']/parent::div/parent::div/preceding-sibling::div");
 
     @Step("Верифицировать окно добавления нового вопроса")
-    public void verifyAddQuestionWindow() {
+    public AddQuestionWindow verifyAddQuestionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         QUESTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ANSWER_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле вопроса '{0}'")
-    public void fillQuestionField(String question) {
+    public AddQuestionWindow  fillQuestionField(String question) {
         QUESTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(question);
+        return this;
     }
 
     @Step("Ввести в поле ответа '{0}'")
-    public void fillAnswerField(String answer) {
+    public AddQuestionWindow  fillAnswerField(String answer) {
         ANSWER_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(answer);
+        return this;
     }
 
     @Step("Нажать кнопку добавления")

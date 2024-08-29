@@ -18,34 +18,38 @@ public class AddRuleWindow {
             CLOSE_WINDOW_BUTTON = $x("//span[text()='вернуться назад']/parent::div/parent::div/parent::div/parent::div/preceding-sibling::div[@class='UnAf Ee5G']");
 
     @Step("Верифицировать окно добавления нового правила")
-    public void verifyAddRuleWindow() {
+    public AddRuleWindow verifyAddRuleWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         RETURN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TITLE_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DESCRIPTION_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SAVE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле заголовка '{0}'")
-    public void fillFieldTitle(String header) {
+    public AddRuleWindow fillFieldTitle(String header) {
         TITLE_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(header);
+        return this;
     }
 
     @Step("Ввести в поле описания '{0}'")
-    public void fillFieldDescription(String description) {
+    public AddRuleWindow fillFieldDescription(String description) {
         DESCRIPTION_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(description);
+        return this;
     }
 
     @Step("Нажать кнопку сохранения")
-    public void clickSaveButton() {
+    public AddRuleWindow clickSaveButton() {
         SAVE_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Получить значение поля заголовка")

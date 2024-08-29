@@ -21,20 +21,22 @@ public class AddSectionWindow {
             ERROR_FIELD_NAME = $x("//input[@name='name']/following-sibling::div");
 
     @Step("Верифицировать окно добавления нового раздела")
-    public void verifyAddSectionWindow() {
+    public AddSectionWindow verifyAddSectionWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         NAME_FIELD.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CANCEL_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ADD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5)).shouldBe(Condition.disabled);
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Ввести в поле названия '{0}'")
-    public void fillNameSectionField(String name) {
+    public AddSectionWindow  fillNameSectionField(String name) {
         NAME_FIELD.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .setValue(name);
+        return this;
     }
 
     @Step("Нажать кнопку добавления")
