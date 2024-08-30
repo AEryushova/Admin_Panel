@@ -16,7 +16,9 @@ public class UnpublishedFeedbacksWindow {
             HEADER_WINDOW = $x("//div[@id='popap_window']/div/div/div/div/div/span[text()='Неопубликованные отзывы']"),
             CLOSE_WINDOW_BUTTON = $x("//span[text()='Неопубликованные отзывы']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']"),
             CLEAR_FIELD_NEW_PASSWORD_BUTTON = $x("//button[text()='Очистить']"),
-            CALENDAR_BUTTON=$x("//div[@class='RMs0']");
+            CALENDAR_BUTTON=$x("//div[@class='RMs0']"),
+            FEEDBACK = $x("//div[@class='qoxW']");
+
 
     @Step("Верифицировать окно неопубликованных отзывов")
     public UnpublishedFeedbacksWindow verifyUnpublishedFeedbacksWindow() {
@@ -49,6 +51,17 @@ public class UnpublishedFeedbacksWindow {
                 .click();
     }
 
+    @Step("Получить отзыв")
+    public UnpublishedFeedback getUnpublishedFeedback() {
+        FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return new UnpublishedFeedback();
+    }
+
+    @Step("Проверить отображение отзыва")
+    public boolean isExistUnpublishedFeedback() {
+        return FEEDBACK.isDisplayed();
+    }
+
     @Step("Закрыть окно неопубликованных отзывов")
     public void closeWindowUnpublishedFeedbacksWindow() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
@@ -58,7 +71,7 @@ public class UnpublishedFeedbacksWindow {
     }
 
     @Step("Проверить отображение окна неопубликованных отзывов")
-    public boolean isWindowAppear() {
+    public boolean isWindowAppears() {
         return WINDOW.isDisplayed();
     }
 

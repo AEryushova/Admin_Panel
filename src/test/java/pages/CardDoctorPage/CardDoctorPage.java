@@ -1,4 +1,4 @@
-package pages.DoctorsPage.CardDoctorPage;
+package pages.CardDoctorPage;
 
 import com.codeborne.selenide.*;
 import pages.BasePage.BasePage;
@@ -12,6 +12,7 @@ public class CardDoctorPage extends BasePage {
 
     private final SelenideElement
             RETURN_BUTTON = $x("//span[text()='Вернуться назад']"),
+            DOCTOR_NAME=$x("//div[@class='TcXm']/span"),
             DOCTOR_PHOTO = $x("//div[@class='zzfM']/img"),
             EDIT_PHOTO_BUTTON = $x("//div[@class='ctFG']/div"),
             DELETE_PHOTO_BUTTON = $x("//div[@class='ctFG']/div/following-sibling::div"),
@@ -33,6 +34,7 @@ public class CardDoctorPage extends BasePage {
     @Step("Верифицировать раздел фото")
     public void verifyDoctorCardPage() {
         RETURN_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        DOCTOR_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DOCTOR_PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EDIT_PHOTO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_PHOTO_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -40,6 +42,11 @@ public class CardDoctorPage extends BasePage {
         ADD_FEEDBACK.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
+    @Step("Получить имя врача")
+    public String getNameDoctor(){
+        DOCTOR_NAME.shouldBe(Condition.visible);
+        return DOCTOR_NAME.getText();
+    }
 
     @Step("Нажать кнопку изменения фотографии")
     public EditPhotoDoctorWindow clickButtonEditPhoto() {

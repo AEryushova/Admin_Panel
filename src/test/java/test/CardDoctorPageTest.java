@@ -1,6 +1,6 @@
 package test;
 
-import pages.DoctorsPage.CardDoctorPage.*;
+import pages.CardDoctorPage.*;
 import pages.DoctorsPage.DoctorsPage;
 import pages.Calendar.Calendar;
 import utils.preparationDataTests.doctors.*;

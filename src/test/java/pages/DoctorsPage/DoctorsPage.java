@@ -1,7 +1,7 @@
 package pages.DoctorsPage;
 
 import pages.BasePage.BasePage;
-import pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
+import pages.CardDoctorPage.CardDoctorPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
@@ -28,7 +28,7 @@ public class DoctorsPage extends BasePage {
             OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']"),
             OPTION_YES = $x("//div[@class='U2Xk']/div[text()='Есть']"),
             SHOW_DOCTOR_WITHOUT_DESCRIPTION = $x("//span[text()='Показать']//parent::button"),
-            UNPUBLISHED_FEEDBACKS_LIST =$x("//button[text()='Показать']"),
+            SHOW_UNPUBLISHED_FEEDBACKS_LIST =$x("//button[text()='Показать']"),
             COUNT_DOCTORS = $x("//div[@class='wYqZ']/span[2]");
     private final ElementsCollection
             NAMES_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[1]"),
@@ -42,6 +42,7 @@ public class DoctorsPage extends BasePage {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SHOW_DOCTOR_WITHOUT_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CARD_DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        SHOW_UNPUBLISHED_FEEDBACKS_LIST.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
     @Step("Нажать на кнопку редактирования информации о враче с именем '{1}' и специализацией '{0}'")
@@ -60,7 +61,7 @@ public class DoctorsPage extends BasePage {
 
     @Step("Нажать кнопку просмотра неопубликованных отзывов")
     public UnpublishedFeedbacksWindow clickShowUnpublishedFeedbacks() {
-        UNPUBLISHED_FEEDBACKS_LIST.shouldBe(Condition.visible)
+        SHOW_UNPUBLISHED_FEEDBACKS_LIST.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new UnpublishedFeedbacksWindow();

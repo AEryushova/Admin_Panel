@@ -4,7 +4,7 @@ package test;
 import pages.AdministrationPage.AdministrationPage;
 import pages.AuthorizationPage.AuthorizationPage;
 import pages.BasePage.BasePage;
-import pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
+import pages.CardDoctorPage.CardDoctorPage;
 import pages.DoctorsPage.DoctorsPage;
 import pages.FaqPage.FaqPage;
 import pages.HeaderMenu.HeaderMenu;

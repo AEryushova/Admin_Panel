@@ -1,12 +1,17 @@
 package test;
 
 
-import pages.DoctorsPage.CardDoctorPage.CardDoctorPage;
+import org.junit.jupiter.api.extension.ExtendWith;
+import pages.CardDoctorPage.CardDoctorPage;
 import com.codeborne.selenide.*;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
+import pages.CardDoctorPage.Feedback;
+import pages.DoctorsPage.UnpublishedFeedback;
+import pages.DoctorsPage.UnpublishedFeedbacksWindow;
+import utils.preparationDataTests.doctors.AddDeleteFeedbackDecorator;
 
 import java.util.List;
 import static data.TestData.DataTest.*;
@@ -47,8 +52,33 @@ public class DoctorPageTest extends BaseTest {
         doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
         CardDoctorPage cardDoctor = doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION,DOCTOR);
         cardDoctor.scrollPageUp("500");
+        assertEquals(DOCTOR,cardDoctor.getNameDoctor());
         cardDoctor.clickButtonComebackDoctorsPage();
         doctorsPage.verifyDoctorsPage();
+    }
+
+    @Feature("Обработка неопубликованных отзывов")
+    @Story("Просмотр неопубликованного отзыва в карточке врача")
+    @DisplayName("Просмотр неопубликованного отзыва в карточке врача")
+    @ExtendWith(AddDeleteFeedbackDecorator.class)
+    @Test
+    void openUnpublishedFeedbackInCardDoctor() {
+        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow=doctorsPage.clickShowUnpublishedFeedbacks();
+        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        UnpublishedFeedback unpublishedFeedback= unpublishedFeedbacksWindow.getUnpublishedFeedback();
+        unpublishedFeedback.verifyUnpublishedFeedback();
+        String nameDoctor=unpublishedFeedback.getNameDoctorFeedback();
+        String nameAuthor=unpublishedFeedback.getNameAuthorFeedback();
+        String dateFeedback=unpublishedFeedback.getDateFeedback();
+        String textFeedback=unpublishedFeedback.getTextFeedback();
+        CardDoctorPage cardDoctor=unpublishedFeedback.clickButtonOpenCardDoctor();
+        assertEquals(nameDoctor,cardDoctor.getNameDoctor());
+        cardDoctor.scrollPageDown("500");
+        cardDoctor.clickButtonUnpublishedFeedback();
+        Feedback feedback= cardDoctor.getFeedback();
+        assertEquals(nameAuthor,feedback.getNameAuthorFeedback());
+        assertEquals(dateFeedback, feedback.getDateFeedback());
+        assertEquals(textFeedback,feedback.getTextFeedback());
     }
 
     @Feature("Поиск по врачам")
@@ -67,7 +97,6 @@ public class DoctorPageTest extends BaseTest {
         }
         assertTrue(countResult < countAllDoctors);
     }
-
 
     @Feature("Поиск по врачам")
     @Story("Поиск врачей по специальности")

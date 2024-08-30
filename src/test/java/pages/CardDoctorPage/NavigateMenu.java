@@ -1,4 +1,4 @@
-package pages.DoctorsPage.CardDoctorPage;
+package pages.CardDoctorPage;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;

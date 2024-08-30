@@ -41,8 +41,8 @@ public class TestData {
         public static String subSectionName;
 
         public static final String
-                DOCTOR = "Fer3 Копия Тест",
-                DOCTOR_SPECIALIZATION = "врач-терапевт",
+                DOCTOR = "Тестов Стоматолог Самгму",
+                DOCTOR_SPECIALIZATION = "врач-стоматолог",
                 DEFAULT_PHOTO = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg",
                 NAME_OTHER_SERVICE_CATEGORY = "Иные услуги";
         public static final File

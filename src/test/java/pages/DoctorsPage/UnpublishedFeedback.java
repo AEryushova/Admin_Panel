@@ -3,6 +3,7 @@ package pages.DoctorsPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import pages.CardDoctorPage.CardDoctorPage;
 
 import java.time.Duration;
 
@@ -41,8 +42,8 @@ public class UnpublishedFeedback {
 
     @Step("Получить ФИО врача")
     public String getNameDoctorFeedback() {
-        AUTHOR.shouldBe(Condition.visible);
-        return AUTHOR.getText();
+        DOCTOR.shouldBe(Condition.visible);
+        return DOCTOR.getText();
     }
 
     @Step("Получить дату отзыва")
@@ -66,10 +67,11 @@ public class UnpublishedFeedback {
     }
 
     @Step("Нажать на кнопку перехода на карточку врача")
-    public void clickButtonOpenCardDoctor() {
+    public CardDoctorPage clickButtonOpenCardDoctor() {
         OPEN_CARD_DOCTOR.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return new CardDoctorPage();
     }
 
     @Step("Нажать на кнопку публикации")
