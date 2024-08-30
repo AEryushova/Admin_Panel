@@ -28,6 +28,7 @@ public class DoctorsPage extends BasePage {
             OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']"),
             OPTION_YES = $x("//div[@class='U2Xk']/div[text()='Есть']"),
             SHOW_DOCTOR_WITHOUT_DESCRIPTION = $x("//span[text()='Показать']//parent::button"),
+            UNPUBLISHED_FEEDBACKS_LIST =$x("//button[text()='Показать']"),
             COUNT_DOCTORS = $x("//div[@class='wYqZ']/span[2]");
     private final ElementsCollection
             NAMES_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[1]"),
@@ -55,6 +56,14 @@ public class DoctorsPage extends BasePage {
     @Step("Получить кнопку редактирования карточки врача по имени '{1}' и специализации '{0}' ")
     public SelenideElement searchCardDoctor(String specialization, String doctorName) {
         return $x("//span[text()='" + specialization + "']/preceding-sibling::span[text()='" + doctorName + "'] /parent::div/following-sibling::button[text()='Редактировать']");
+    }
+
+    @Step("Нажать кнопку просмотра неопубликованных отзывов")
+    public UnpublishedFeedbacksWindow clickShowUnpublishedFeedbacks() {
+        UNPUBLISHED_FEEDBACKS_LIST.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        return new UnpublishedFeedbacksWindow();
     }
 
     @Step("Нажать на кнопку сортировки врачей без фотографии")

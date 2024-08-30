@@ -119,12 +119,11 @@ public class NewAdminWindow {
     }
 
     @Step("Нажать на кнопку очищения поля подтверждения пароля")
-    public NewAdminWindow clickClearButtonConfirmPasswordField() {
+    public void clickClearButtonConfirmPasswordField() {
         CLEAR_FIELD_CONFIRM_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         CONFIRM_PASSWORD_FIELD.shouldHave((Condition.empty), Duration.ofSeconds(15));
-        return this;
     }
 
     @Step("Получить значение поля логина")

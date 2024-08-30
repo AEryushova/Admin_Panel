@@ -25,7 +25,7 @@ public class UpdatePriceWindow {
             FILE_INPUT_ELEMENT = $("input[type='file']"),
             UPLOAD_BUTTON = $x("//span[text()='Загрузить']"),
             CLOSE_WINDOW_BUTTON = $x("//span[text()='Обновить прайс']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']"),
-            TODAY_BUTTON = $x("//div[@class='zMyf']");
+            CALENDAR_BUTTON = $x("//div[@class='zMyf']");
 
 
     public UpdatePriceWindow() {
@@ -37,7 +37,7 @@ public class UpdatePriceWindow {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         ACTIVATIONS_DATES_LIST.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        TODAY_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        CALENDAR_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         UPLOAD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         return this;
@@ -45,7 +45,7 @@ public class UpdatePriceWindow {
 
     @Step("Открыть календарь")
     public Calendar openCalendarUpdatePrice() {
-        TODAY_BUTTON.shouldBe(Condition.visible)
+        CALENDAR_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
         return new Calendar();
@@ -64,8 +64,8 @@ public class UpdatePriceWindow {
 
     @Step("Получить текущую дату с календаря")
     public String getValuesButtonToday() {
-        TODAY_BUTTON.shouldBe(Condition.visible);
-        return TODAY_BUTTON.getText();
+        CALENDAR_BUTTON.shouldBe(Condition.visible);
+        return CALENDAR_BUTTON.getText();
     }
 
     @SuppressWarnings("unused")

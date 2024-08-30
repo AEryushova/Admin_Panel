@@ -60,8 +60,8 @@ public class Feedback {
         return date.getText();
     }
 
-    @Step("Получить автора отзыва")
-    public String getAuthorFeedback() {
+    @Step("Получить ФИО автора отзыва")
+    public String getNameAuthorFeedback() {
         AUTHOR.shouldBe(Condition.visible);
         return AUTHOR.getText();
     }
