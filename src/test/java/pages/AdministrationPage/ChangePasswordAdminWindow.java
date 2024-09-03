@@ -12,8 +12,8 @@ public class ChangePasswordAdminWindow {
 
     private final SelenideElement
             WINDOW = $x("//div[@class='ya9N CXVi']"),
-            NEW_PASSWORD_FIELD = $x("//input[@name=\"newPassword\"]"),
-            CONFIRM_PASSWORD_FIELD = $x("//input[@name=\"confirmPassword\"]"),
+            NEW_PASSWORD_FIELD = $x("//input[@name='newPassword']"),
+            CONFIRM_PASSWORD_FIELD = $x("//input[@name='confirmPassword']"),
             SAVE_BUTTON = $x("//button[text()='Сохранить']"),
             CLOSE_WINDOW_BUTTON = $x("//div[@class='Yimd']"),
             CLEAR_FIELD_NEW_PASSWORD_BUTTON = $x("//input[@name='newPassword']//preceding-sibling::div[@class='m4oD']"),

@@ -15,9 +15,9 @@ public class NewAdminWindow {
     private final SelenideElement
             WINDOW = $x("//span[text()='Добавить Администратора']//parent::div//parent::div//parent::div[@class='eV2Y']"),
             HEADER_WINDOW = $x("//span[text()='Добавить Администратора']"),
-            LOGIN_FIELD = $x("//div[@id='popap_window']//input[@name=\"login\"]"),
-            PASSWORD_FIELD = $x("//div[@id='popap_window']//input[@name=\"password\"]"),
-            CONFIRM_PASSWORD_FIELD = $x("//div[@id='popap_window']//input[@name=\"confirmPassword\"]"),
+            LOGIN_FIELD = $x("//div[@id='popap_window']//input[@name='login']"),
+            PASSWORD_FIELD = $x("//div[@id='popap_window']//input[@name='password']"),
+            CONFIRM_PASSWORD_FIELD = $x("//div[@id='popap_window']//input[@name='confirmPassword']"),
             ADD_BUTTON = $x("//div[@id='popap_window']//button[text()='Добавить']"),
             CLOSE_WINDOW_BUTTON = $x("//span[text()='Добавить Администратора']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']"),
             CLEAR_FIELD_LOGIN_BUTTON = $x("//input[@name='login']//preceding-sibling::div[@class='m4oD']"),

@@ -29,7 +29,7 @@ public class AuthorizationPageTest extends BaseTest {
 
     @BeforeEach
     void setUp() {
-        BaseTest.openBrowser();
+        openBrowser();
         authPage.verifyAuthPage();
     }
 

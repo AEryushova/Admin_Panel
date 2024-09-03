@@ -30,12 +30,12 @@ public class CardDoctorPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        BaseTest.openAdminPanel();
+        openAdminPanel();
         DoctorsPage doctorsPage = new DoctorsPage();
         doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
         doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION, DOCTOR);

@@ -28,12 +28,12 @@ public class ServicesPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        BaseTest.openAdminPanel();
+        openAdminPanel();
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickServicesTab();
         servicesPage.verifyServicesPage();

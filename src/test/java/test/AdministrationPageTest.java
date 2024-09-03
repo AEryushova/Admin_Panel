@@ -32,12 +32,12 @@ public class AdministrationPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
+        authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        BaseTest.openAdminPanel();
+        openAdminPanel();
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickAdministrationTab();
         adminPage.verifyAdminPage();
@@ -52,6 +52,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Добавление нового админа")
     @Story("Успешное добавление нового админа")
     @DisplayName("Успешное добавление нового админа")
+    @Tag("CRITICAL")
     @ExtendWith(AdminDeleteDecorator.class)
     @Test
     void addNewAdmin() {
@@ -178,7 +179,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Добавление нового админа")
     @Story("Ввод валидных граничных значений логина из 31 и 32 символов")
     @DisplayName("Ввод валидных граничных значений логина из 31 и 32 символов")
-    @ParameterizedTest
+    @ParameterizedTest()
     @ValueSource(strings = {"ANNA_TEST_ADMIN123456789_ANNA_1", "ANNA_TEST_ADMIN123456789_ANNA_12"})
     void fillLimitValidValuesLoginAddingNewAdmin_31_32_Symbol(String login) {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddNewAdmin()

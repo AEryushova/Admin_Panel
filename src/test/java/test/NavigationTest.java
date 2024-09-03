@@ -22,12 +22,12 @@ public class NavigationTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        BaseTest.authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
+        authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        BaseTest.openAdminPanel();
+        openAdminPanel();
         headerMenu.verifyHeaderBarSuperAdmin();
     }
 
