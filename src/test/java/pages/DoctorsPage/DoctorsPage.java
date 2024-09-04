@@ -45,7 +45,7 @@ public class DoctorsPage extends BasePage {
         SHOW_UNPUBLISHED_FEEDBACKS_LIST.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 
-    @Step("Нажать на кнопку редактирования информации о враче с именем '{1}' и специализацией '{0}'")
+    @Step("Нажать на кнопку редактирования информации о враче со специализацией '{0}' и именем '{1}'")
     public CardDoctorPage clickButtonEditInfoDoctor(String specialization, String doctorName) {
         SelenideElement edit_button = searchCardDoctor(specialization, doctorName);
         edit_button.shouldBe(Condition.visible)

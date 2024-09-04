@@ -1,15 +1,10 @@
 package utils.dbUtils;
 
-
-
 import lombok.SneakyThrows;
-
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import utils.dbUtils.dbaseData.*;
-
+import java.sql.Timestamp;
 import java.util.UUID;
-
-import static utils.otherUtils.TestHelper.*;
 
 public class DataBaseQuery {
 
@@ -21,7 +16,6 @@ public class DataBaseQuery {
             return DataBaseManager.queryRunner("platform_db").query(connection, selectAdmin, new BeanHandler<>(Admins.class), login);
         }
     }
-
 
     @SneakyThrows
     public static DoctorCard selectInfoDoctor(String doctorName, String doctorSpecialization) {
@@ -35,22 +29,8 @@ public class DataBaseQuery {
         }
     }
 
-
     @SneakyThrows
-    public static void setDefaultPhotoDoctor(String doctorName, String doctorSpecialization, String defaultPhoto) {
-        var setDefaultPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
-        try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            String[] nameParts = doctorName.split(" ");
-            String firstName = nameParts[1];
-            String secondName = nameParts[0];
-            String middleName = nameParts[2];
-            DataBaseManager.queryRunner("cab_lab_db").update(connection, setDefaultPhoto, defaultPhoto, doctorSpecialization, firstName, secondName, middleName);
-        }
-    }
-
-
-    @SneakyThrows
-    public static void setPhotoDoctor(String urlPhoto, String doctorName, String doctorSpecialization) {
+    public static void setPhotoDoctor(String doctorName, String doctorSpecialization, String urlPhoto) {
         var setPhoto = "UPDATE employee_cards SET photo_uri = ? WHERE job = ? AND first_name = ? AND second_name = ? AND middle_name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             String[] nameParts = doctorName.split(" ");
@@ -65,18 +45,14 @@ public class DataBaseQuery {
     public static Section selectSection(UUID doctorId) {
         var selectSection = "SELECT * FROM employee_details WHERE employee_card_employee_id = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            //noinspection deprecation
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectSection, doctorId, new BeanHandler<>(Section.class));
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectSection, new BeanHandler<>(Section.class), doctorId);
         }
     }
 
     @SneakyThrows
-    public static void addSection(UUID doctorId, String title, int sequence) {
+    public static void addSection(UUID doctorId, String title, int sequence, Timestamp created_at, Timestamp updated_at, UUID employee_details_id) {
         var addSection = "INSERT INTO employee_details (employee_details_id,title,employee_card_employee_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var employee_details_id = generateUuid();
-            var created_at = getDateTime();
-            var updated_at = getDateTime();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addSection, employee_details_id, title, doctorId, sequence, created_at, updated_at);
         }
     }
@@ -97,14 +73,10 @@ public class DataBaseQuery {
         }
     }
 
-
     @SneakyThrows
-    public static void addDescription(UUID sectionId, String title, int sequence) {
+    public static void addDescription(UUID sectionId, String title, int sequence, Timestamp created_at, Timestamp updated_at, UUID employee_expertises_id ) {
         var addDescription = "INSERT INTO employee_expertises (employee_expertises_id,title,employee_details_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var employee_expertises_id = generateUuid();
-            var created_at = getDateTime();
-            var updated_at = getDateTime();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addDescription, employee_expertises_id, title, sectionId, sequence, created_at, updated_at);
         }
     }
@@ -126,11 +98,9 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addBugReport(String message, String email, String author) {
+    public static void addBugReport(String message, String email, String author, Timestamp created_at, UUID id ) {
         var addBugReport = "INSERT INTO bug_reports (id,message,email,author,created_at ) VALUES (?, ?, ?, ?, ?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var created_at = getDateTime();
-            var id = generateUuid();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addBugReport, id, message, email, author, created_at);
         }
     }
@@ -159,25 +129,9 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addFaq(int sequence, String question, String answer) {
+    public static void addFaq(int sequence, String question, String answer, Timestamp created_at, Timestamp updated_at, UUID id, UUID group_id ) {
         var addFaq = "INSERT INTO faq (id,question,answer,created_at,updated_at, group_id, sequence ) VALUES (?, ?, ?, ?, ?,?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var id = generateUuid();
-            var created_at = getDateTime();
-            var updated_at = getDateTime();
-            var group_id = generateUuid();
-            DataBaseManager.queryRunner("cab_lab_db").update(connection, addFaq, id, question, answer, created_at, updated_at, group_id, sequence);
-        }
-    }
-
-    @SneakyThrows
-    public static void addFaqSome(int sequence, String question, String answer) {
-        var addFaq = "INSERT INTO faq (id,question,answer,created_at,updated_at, group_id, sequence ) VALUES (?, ?, ?, ?, ?,?,?)";
-        try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            var id = generateUuid();
-            var created_at = getDateTime();
-            var updated_at = getDateTime();
-            var group_id = generateUuid();
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFaq, id, question, answer, created_at, updated_at, group_id, sequence);
         }
     }
@@ -198,22 +152,8 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addFeedback(UUID doctorId, String author, String content, Boolean is_published) {
+    public static void addFeedback(UUID doctorId, String author, String content, Boolean is_published,Timestamp created_at, Timestamp updated_at, UUID id) {
         var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
-        var id = generateUuid();
-        var created_at = getDateTime();
-        var updated_at = getDateTime();
-        try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            DataBaseManager.queryRunner("cab_lab_db").update(connection, addFeedback, id, doctorId, author, content, created_at, updated_at, is_published);
-        }
-    }
-
-    @SneakyThrows
-    public static void addYesterdayFeedback(UUID doctorId, String author, String content, Boolean is_published) {
-        var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
-        var id = generateUuid();
-        var created_at = getPreviousDateTime();
-        var updated_at = getPreviousDateTime();
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFeedback, id, doctorId, author, content, created_at, updated_at, is_published);
         }
@@ -234,7 +174,6 @@ public class DataBaseQuery {
         }
     }
 
-
     @SneakyThrows
     public static ServiceCategories selectServicesCategories(String nameCategorySection) {
         var selectInfo = "SELECT * FROM service_categories WHERE name = ? ";
@@ -250,7 +189,6 @@ public class DataBaseQuery {
             return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, new BeanHandler<>(PreparingDescriptions.class), codeService);
         }
     }
-
 
     @SneakyThrows
     public static AllServices selectAllService(String codeService) {

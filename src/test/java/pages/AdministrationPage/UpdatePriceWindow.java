@@ -5,7 +5,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.SelenideElement;
 import pages.Calendar.Calendar;
-import utils.otherUtils.TestHelper;
+import utils.testsUtils.TestHelper;
 import io.qameta.allure.Step;
 
 import java.io.File;

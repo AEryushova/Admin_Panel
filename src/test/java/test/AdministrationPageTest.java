@@ -5,9 +5,9 @@ import pages.AdministrationPage.*;
 import pages.Calendar.Calendar;
 import pages.HeaderMenu.HeaderMenu;
 import utils.dbUtils.DataBaseQuery;
-import utils.preparationDataTests.administration.AdminAddDecorator;
-import utils.preparationDataTests.administration.AdminAddDeleteDecorator;
-import utils.preparationDataTests.administration.AdminDeleteDecorator;
+import utils.preparationData.administration.AdminAddDecorator;
+import utils.preparationData.administration.AdminAddDeleteDecorator;
+import utils.preparationData.administration.AdminDeleteDecorator;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -20,10 +20,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static data.TestData.DataTest.login;
 import static data.TestData.DataTest.password;
 import static data.TestData.UserData.*;
-import static utils.otherUtils.DataGenerator.generateLogin;
-import static utils.otherUtils.DataGenerator.generatePassword;
+import static utils.testsUtils.DataGenerator.generateLogin;
+import static utils.testsUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;
-import static utils.otherUtils.TestHelper.*;
+import static utils.testsUtils.TestHelper.*;
 
 
 @Epic("Администрирование")
@@ -579,7 +579,8 @@ public class AdministrationPageTest extends BaseTest {
         Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.verifyCalendar();
         assertEquals(getNameCurrentMonth(), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getDayCurrentMonth());
+        calendar.clickDateActivation(getDayCurrentMonthYear());
+        assertFalse(calendar.isCalendarAppear());
         updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -593,9 +594,11 @@ public class AdministrationPageTest extends BaseTest {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.verifyUpdateOrderWindow();
         Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
-        calendar.switchFutureMonth();
+        calendar.verifyCalendar()
+                .switchFutureMonth();
         assertEquals(getNameFutureMonth(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDayFutureMonth());
+        assertFalse(calendar.isCalendarAppear());
         updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -609,9 +612,11 @@ public class AdministrationPageTest extends BaseTest {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.verifyUpdateOrderWindow();
         Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
-        calendar.switchPreviousMonth();
+        calendar.verifyCalendar()
+                .switchPreviousMonth();
         assertEquals(getNamePreviousMonth(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDayPreviousMonth());
+        assertFalse(calendar.isCalendarAppear());
         updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -652,7 +657,8 @@ public class AdministrationPageTest extends BaseTest {
         Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.verifyCalendar();
         assertEquals(getNameCurrentMonth(), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getDayCurrentMonth());
+        calendar.clickDateActivation(getDayCurrentMonthYear());
+        assertFalse(calendar.isCalendarAppear());
         updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -666,10 +672,11 @@ public class AdministrationPageTest extends BaseTest {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow();
         Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
-        calendar.verifyCalendar();
-        calendar.switchFutureMonth();
+        calendar.verifyCalendar()
+                .switchFutureMonth();
         assertEquals(getNameFutureMonth(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDayFutureMonth());
+        assertFalse(calendar.isCalendarAppear());
         updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -683,10 +690,11 @@ public class AdministrationPageTest extends BaseTest {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow();
         Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
-        calendar.verifyCalendar();
-        calendar.switchPreviousMonth();
+        calendar.verifyCalendar()
+                .switchPreviousMonth();
         assertEquals(getNamePreviousMonth(), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDayPreviousMonth());
+        assertFalse(calendar.isCalendarAppear());
         updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());

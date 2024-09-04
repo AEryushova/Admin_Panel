@@ -5,7 +5,7 @@ import pages.ServicesPage.*;
 import utils.dbUtils.DataBaseQuery;
 import utils.dbUtils.dbaseData.PreparingDescriptions;
 import utils.dbUtils.dbaseData.ServiceCategories;
-import utils.preparationDataTests.services.*;
+import utils.preparationData.services.*;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -19,7 +19,7 @@ import static com.codeborne.selenide.Condition.value;
 import static data.TestData.DataTest.*;
 import static data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static utils.otherUtils.DataGenerator.*;
+import static utils.testsUtils.DataGenerator.*;
 
 
 @Epic("Услуги")

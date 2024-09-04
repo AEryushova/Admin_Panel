@@ -13,6 +13,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class Calendar {
 
     private final SelenideElement
+            CALENDAR = $x("//div[@class='react-datepicker-popper']"),
             HEADER_CURRENT_MONTH = $x("//div[@class='react-datepicker__current-month']"),
             SWITCH_PREVIOUS_MONTH_BUTTON = $x("//button[@aria-label='Previous Month']"),
             SWITCH_NEXT_MONTH_BUTTON = $x("//button[@aria-label='Next Month']");
@@ -20,10 +21,12 @@ public class Calendar {
 
 
     @Step("Верифицировать окно календаря")
-    public void verifyCalendar() {
+    public Calendar verifyCalendar() {
+        CALENDAR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_CURRENT_MONTH.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SWITCH_PREVIOUS_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SWITCH_NEXT_MONTH_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
 
@@ -43,16 +46,22 @@ public class Calendar {
     }
 
     @Step("Нажать на кнопку переключения на предыдущий месяц")
-    public void switchPreviousMonth() {
+    public Calendar switchPreviousMonth() {
         SWITCH_PREVIOUS_MONTH_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Получить название текущего месяца в календаре")
     public String getNameCurrentMonth() {
         HEADER_CURRENT_MONTH.shouldBe(Condition.visible);
         return HEADER_CURRENT_MONTH.getText();
+    }
+
+    @Step("Проверить отображение окна календаря")
+    public boolean isCalendarAppear() {
+        return CALENDAR.isDisplayed();
     }
 
     @Step("Получить дату '{0}' из календаря")

@@ -10,7 +10,7 @@ import pages.FaqPage.FaqPage;
 import pages.HeaderMenu.HeaderMenu;
 import pages.ServicesPage.ServicesPage;
 import pages.SettingPage.SettingPage;
-import utils.preparationDataTests.general.AllureTestListeners;
+import utils.preparationData.general.AllureTestListeners;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;

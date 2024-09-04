@@ -17,17 +17,17 @@ public class UnpublishedFeedbacksWindow {
             CLOSE_WINDOW_BUTTON = $x("//span[text()='Неопубликованные отзывы']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']"),
             CLEAR_FIELD_NEW_PASSWORD_BUTTON = $x("//button[text()='Очистить']"),
             CALENDAR_BUTTON=$x("//div[@class='RMs0']"),
-            FEEDBACK = $x("//div[@class='qoxW']");
+            FEEDBACK = $x("//div[@class='qoxW']"),
+            EMPTY_LIST_FEEDBACK=$x("//span[text()='Нет отзывов']");
 
 
     @Step("Верифицировать окно неопубликованных отзывов")
-    public UnpublishedFeedbacksWindow verifyUnpublishedFeedbacksWindow() {
+    public void verifyUnpublishedFeedbacksWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CALENDAR_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLEAR_FIELD_NEW_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        return this;
     }
 
     @Step("Открыть календарь")
@@ -62,6 +62,16 @@ public class UnpublishedFeedbacksWindow {
         return FEEDBACK.isDisplayed();
     }
 
+    @Step("Получить информацию о пустом списке неопубликованных отзывов")
+    public SelenideElement getEmptyListFeedback() {
+        return EMPTY_LIST_FEEDBACK;
+    }
+
+    @Step("Проверить отображение информации о пустом списке неопубликованных отзывов")
+    public boolean isExistsEmptyListFeedback() {
+        return EMPTY_LIST_FEEDBACK.isDisplayed();
+    }
+
     @Step("Закрыть окно неопубликованных отзывов")
     public void closeWindowUnpublishedFeedbacksWindow() {
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible)
@@ -71,7 +81,7 @@ public class UnpublishedFeedbacksWindow {
     }
 
     @Step("Проверить отображение окна неопубликованных отзывов")
-    public boolean isWindowAppears() {
+    public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }
 

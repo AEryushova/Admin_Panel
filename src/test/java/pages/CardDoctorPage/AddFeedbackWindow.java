@@ -106,7 +106,7 @@ public class AddFeedbackWindow {
         WINDOW.shouldNotBe(Condition.visible, Duration.ofSeconds(15));
     }
 
-    @Step("Проверить отображение окна добавления отызва")
+    @Step("Проверить отображение окна добавления отзыва")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
     }

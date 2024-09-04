@@ -18,8 +18,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.time.Duration;
 
 import static data.TestData.UserData.*;
-import static utils.otherUtils.DataGenerator.generateLogin;
-import static utils.otherUtils.DataGenerator.generatePassword;
+import static utils.testsUtils.DataGenerator.generateLogin;
+import static utils.testsUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Авторизация")

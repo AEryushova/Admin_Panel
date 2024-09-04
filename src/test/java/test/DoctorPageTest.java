@@ -2,6 +2,7 @@ package test;
 
 
 import org.junit.jupiter.api.extension.ExtendWith;
+import pages.Calendar.Calendar;
 import pages.CardDoctorPage.CardDoctorPage;
 import com.codeborne.selenide.*;
 import io.qameta.allure.Epic;
@@ -11,7 +12,9 @@ import org.junit.jupiter.api.*;
 import pages.CardDoctorPage.Feedback;
 import pages.DoctorsPage.UnpublishedFeedback;
 import pages.DoctorsPage.UnpublishedFeedbacksWindow;
-import utils.preparationDataTests.doctors.AddDeleteFeedbackDecorator;
+import utils.dbUtils.DataBaseQuery;
+import utils.preparationData.doctors.AddDeleteFeedbackDecorator;
+import utils.preparationData.doctors.AddDeleteOldFeedbackDecorator;
 
 import java.util.List;
 import static data.TestData.DataTest.*;
@@ -22,6 +25,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.*;
+import static utils.testsUtils.DataGenerator.generateText;
+import static utils.testsUtils.TestHelper.*;
 
 @Epic("Врачи")
 @DisplayName("Страница Врачи")
@@ -80,6 +85,118 @@ public class DoctorPageTest extends BaseTest {
         assertEquals(dateFeedback, feedback.getDateFeedback());
         assertEquals(textFeedback,feedback.getTextFeedback());
     }
+
+    @Feature("Обработка неопубликованных отзывов")
+    @Story("Публикация неопубликованного отзыва")
+    @DisplayName("Публикация неопубликованного отзыва")
+    @ExtendWith(AddDeleteFeedbackDecorator.class)
+    @Test
+    void publishedUnpublishedFeedback() {
+        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow=doctorsPage.clickShowUnpublishedFeedbacks();
+        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        UnpublishedFeedback unpublishedFeedback= unpublishedFeedbacksWindow.getUnpublishedFeedback();
+        unpublishedFeedback.verifyUnpublishedFeedback()
+                .clickButtonPublicationFeedback();
+        unpublishedFeedbacksWindow.getEmptyListFeedback().shouldBe(Condition.visible);
+        assertFalse(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
+        assertTrue(unpublishedFeedbacksWindow.isExistsEmptyListFeedback());
+        unpublishedFeedbacksWindow.closeWindowUnpublishedFeedbacksWindow();
+        assertFalse(unpublishedFeedbacksWindow.isWindowAppear());
+        doctorsPage.searchDoctor(DOCTOR_SURNAME);
+        doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
+        doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION,DOCTOR);
+        cardDoctor.scrollPageDown("500");
+        Feedback feedback = cardDoctor.getFeedback();
+        feedback.verifyFeedbackPublished();
+        assertEquals(getCurrentDateTextRu(), feedback.getDateFeedback());
+        assertEquals(namePatient,feedback.getNameAuthorFeedback());
+        assertEquals(text,feedback.getTextFeedback());
+        assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(text, DataBaseQuery.selectFeedback().getContent());
+        assertEquals(true, DataBaseQuery.selectFeedback().getIs_published());
+    }
+
+    @Feature("Обработка неопубликованных отзывов")
+    @Story("Публикация отредактированного неопубликованного отзыва")
+    @DisplayName("Публикация отредактированного неопубликованного отзыва")
+    @ExtendWith(AddDeleteFeedbackDecorator.class)
+    @Test
+    void publishedChangedUnpublishedFeedback() {
+        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow=doctorsPage.clickShowUnpublishedFeedbacks();
+        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        UnpublishedFeedback unpublishedFeedback= unpublishedFeedbacksWindow.getUnpublishedFeedback();
+        unpublishedFeedback.verifyUnpublishedFeedback()
+                .fillFieldText(generateText())
+                .clickButtonPublicationFeedback();
+        unpublishedFeedbacksWindow.getEmptyListFeedback().shouldBe(Condition.visible);
+        assertFalse(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
+        assertTrue(unpublishedFeedbacksWindow.isExistsEmptyListFeedback());
+        unpublishedFeedbacksWindow.closeWindowUnpublishedFeedbacksWindow();
+        doctorsPage.searchDoctor(DOCTOR_SURNAME);
+        doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
+        doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION,DOCTOR);
+        cardDoctor.scrollPageDown("500");
+        Feedback feedback = cardDoctor.getFeedback();
+        feedback.verifyFeedbackPublished();
+        assertEquals(getCurrentDateTextRu(), feedback.getDateFeedback());
+        assertEquals(namePatient,feedback.getNameAuthorFeedback());
+        assertEquals(text,feedback.getTextFeedback());
+        assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
+        assertEquals(text, DataBaseQuery.selectFeedback().getContent());
+        assertEquals(true, DataBaseQuery.selectFeedback().getIs_published());
+    }
+
+
+    @Feature("Обработка неопубликованных отзывов")
+    @Story("Просмотр неопубликованных отзывов за прошедший период")
+    @DisplayName("Просмотр неопубликованных отзывов за прошедший период")
+    @ExtendWith(AddDeleteOldFeedbackDecorator.class)
+    @Test
+    void openUnpublishedFeedbackPreviousPeriod() {
+        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow=doctorsPage.clickShowUnpublishedFeedbacks();
+        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        unpublishedFeedbacksWindow.clickClearFilter();
+        Calendar calendar=unpublishedFeedbacksWindow.openCalendarSelectPeriod();
+        calendar.verifyCalendar()
+                .switchPreviousMonth()
+                .switchPreviousMonth();
+        assertEquals(getNameDoublePreviousMonth(), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getFirstDayTwoMonthsAgo());
+        calendar.clickDateActivation(getLastDayTwoMonthsAgo());
+        assertFalse(calendar.isCalendarAppear());
+        UnpublishedFeedback unpublishedFeedback= unpublishedFeedbacksWindow.getUnpublishedFeedback();
+        unpublishedFeedback.verifyUnpublishedFeedback();
+        assertEquals(getPreviousPeriod(), unpublishedFeedbacksWindow.getValuesButtonPeriod());
+        assertEquals(namePatient,unpublishedFeedback.getNameAuthorFeedback());
+        assertEquals(text,unpublishedFeedback.getTextFeedback());
+    }
+
+
+
+    @Feature("Обработка неопубликованных отзывов")
+    @Story("Очистка фильтра по дате")
+    @DisplayName("Очистка фильтра по дате")
+    @ExtendWith(AddDeleteOldFeedbackDecorator.class)
+    @Test
+    void clearFilterUnpublishedFeedback() {
+        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow=doctorsPage.clickShowUnpublishedFeedbacks();
+        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        assertTrue(unpublishedFeedbacksWindow.isExistsEmptyListFeedback());
+        unpublishedFeedbacksWindow.clickClearFilter();
+        assertFalse(unpublishedFeedbacksWindow.isExistsEmptyListFeedback());
+        assertTrue(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     @Feature("Поиск по врачам")
     @Story("Поиск врачей по имени")

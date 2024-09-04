@@ -4,7 +4,7 @@ package test;
 import pages.HeaderMenu.ChangeMinePasswordWindow;
 import pages.HeaderMenu.UserPanel;
 import utils.dbUtils.DataBaseQuery;
-import utils.preparationDataTests.headerMenu.ReturnPasswordAdmin;
+import utils.preparationData.headerMenu.ReturnPasswordAdmin;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -15,7 +15,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static data.TestData.UserData.*;
-import static utils.otherUtils.DataGenerator.generatePassword;
+import static utils.testsUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

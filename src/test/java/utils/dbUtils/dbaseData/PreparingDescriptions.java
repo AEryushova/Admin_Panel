@@ -1,6 +1,6 @@
 package utils.dbUtils.dbaseData;
 
-import utils.otherUtils.TestHelper;
+import utils.testsUtils.TestHelper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

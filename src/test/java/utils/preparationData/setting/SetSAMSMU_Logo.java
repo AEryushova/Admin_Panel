@@ -1,0 +1,16 @@
+package utils.preparationData.setting;
+
+import utils.APIUtils.PreparationDataSettingTest;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+
+import static data.TestData.DataTest.LOGO;
+
+public class SetSAMSMU_Logo implements AfterEachCallback {
+
+
+    @Override
+    public void afterEach(ExtensionContext context) throws Exception {
+        PreparationDataSettingTest.uploadLogo(LOGO);
+    }
+}

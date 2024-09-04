@@ -3,7 +3,7 @@ package test;
 import pages.FaqPage.*;
 import pages.HeaderMenu.HeaderMenu;
 import utils.dbUtils.DataBaseQuery;
-import utils.preparationDataTests.faq.*;
+import utils.preparationData.faq.*;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -19,7 +19,7 @@ import static data.TestData.DataTest.*;
 import static data.TestData.UserData.*;
 import static data.TestData.DataSearch.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static utils.otherUtils.DataGenerator.*;
+import static utils.testsUtils.DataGenerator.*;
 
 
 @Epic("FAQ")

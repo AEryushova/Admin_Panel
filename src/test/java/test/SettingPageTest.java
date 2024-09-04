@@ -2,9 +2,9 @@ package test;
 
 import pages.SettingPage.BugReport;
 import pages.SettingPage.EditLogoWindow;
-import utils.preparationDataTests.setting.AddBugReportDecorator;
-import utils.preparationDataTests.setting.AddDeleteBugReportDecorator;
-import utils.preparationDataTests.setting.SetSAMSMU_Logo;
+import utils.preparationData.setting.AddBugReportDecorator;
+import utils.preparationData.setting.AddDeleteBugReportDecorator;
+import utils.preparationData.setting.SetSAMSMU_Logo;
 import utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
@@ -20,7 +20,7 @@ import static data.TestData.DataTest.email;
 import static data.TestData.DataTest.namePatient;
 import static data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static utils.otherUtils.TestHelper.getCurrentDateRuYear;
+import static utils.testsUtils.TestHelper.getCurrentDateRuYear;
 
 @Epic("Настройки")
 @DisplayName("Страница Настройки")
