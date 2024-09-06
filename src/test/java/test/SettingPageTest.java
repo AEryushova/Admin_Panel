@@ -2,8 +2,8 @@ package test;
 
 import pages.SettingPage.BugReport;
 import pages.SettingPage.EditLogoWindow;
-import utils.preparationData.setting.AddBugReportDecorator;
-import utils.preparationData.setting.AddDeleteBugReportDecorator;
+import utils.preparationData.setting.AddBugReport;
+import utils.preparationData.setting.AddDeleteBugReport;
 import utils.preparationData.setting.SetSAMSMU_Logo;
 import utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Selenide;
@@ -47,7 +47,7 @@ public class SettingPageTest extends BaseTest {
     @Feature("Сообщения об ошибках")
     @Story("Отображение баг-репорта в админ-панели после отправки пациентом")
     @DisplayName("Отображение баг-репорта в админ-панели после отправки пациентом")
-    @ExtendWith(AddDeleteBugReportDecorator.class)
+    @ExtendWith(AddDeleteBugReport.class)
     @Test
     void checkBugReport() {
         BugReport bugReport = settingPage.getBugReportCard();
@@ -61,7 +61,7 @@ public class SettingPageTest extends BaseTest {
     @Feature("Сообщения об ошибках")
     @Story("Успешное удаление баг-репорта")
     @DisplayName("Успешное удаление баг-репорта")
-    @ExtendWith(AddBugReportDecorator.class)
+    @ExtendWith(AddBugReport.class)
     @Test
     void deleteBugReport() {
         BugReport bugReport = settingPage.getBugReportCard();

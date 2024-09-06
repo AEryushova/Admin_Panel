@@ -11,33 +11,32 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
 import static data.TestData.DataTest.*;
-import static utils.testsUtils.DataGenerator.generateNamePatient;
-import static utils.testsUtils.DataGenerator.generateText;
+import static utils.testsUtils.DataGenerator.generateWord;
 import static utils.testsUtils.TestHelper.generateUuid;
 import static utils.testsUtils.TestHelper.getDateTime;
 
-public class AddPublishedDeleteFeedback implements BeforeEachCallback, AfterEachCallback {
+public class DeleteDescription implements BeforeEachCallback, AfterEachCallback {
 
     @Setter
     @Getter
     public static UUID doctorId;
     @Setter
     @Getter
-    public static UUID feedbackId;
+    public static UUID sectionId;
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
-        DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), true, getDateTime(), getDateTime(),generateUuid());
-        UUID feedbackId = DataBaseQuery.selectFeedback().getId();
-        setFeedbackId(feedbackId);
-        DataBaseQuery.publishedFeedback(feedbackId);
+        DataBaseQuery.clearSection(doctorId);
+        DataBaseQuery.addSection(doctorId, generateWord(),0,getDateTime(),getDateTime(),generateUuid());
+        UUID sectionId = DataBaseQuery.selectSection(doctorId).getEmployee_details_id();
+        setSectionId(sectionId);
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        DataBaseQuery.clearAllFeedback();
+        DataBaseQuery.clearDescription(sectionId);
+        DataBaseQuery.clearSection(doctorId);
     }
 }

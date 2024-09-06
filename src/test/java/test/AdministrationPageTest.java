@@ -5,9 +5,8 @@ import pages.AdministrationPage.*;
 import pages.Calendar.Calendar;
 import pages.HeaderMenu.HeaderMenu;
 import utils.dbUtils.DataBaseQuery;
-import utils.preparationData.administration.AdminAddDecorator;
-import utils.preparationData.administration.AdminAddDeleteDecorator;
-import utils.preparationData.administration.AdminDeleteDecorator;
+import utils.preparationData.administration.AdminAdd;
+import utils.preparationData.administration.AdminAddDelete;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -16,6 +15,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import utils.preparationData.administration.AdminDelete;
 
 import static data.TestData.DataTest.login;
 import static data.TestData.DataTest.password;
@@ -53,7 +53,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Успешное добавление нового админа")
     @DisplayName("Успешное добавление нового админа")
     @Tag("CRITICAL")
-    @ExtendWith(AdminDeleteDecorator.class)
+    @ExtendWith(AdminDelete.class)
     @Test
     void addNewAdmin() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddNewAdmin();
@@ -74,7 +74,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Добавление нового админа")
     @Story("Добавление нового админа с уже существующим логином")
     @DisplayName("Добавление нового админа с уже существующим логином")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void addNewAdminIfAdminAlreadyExisting() {
         NewAdminWindow newAdminWindow = adminPage.clickButtonAddNewAdmin();
@@ -318,7 +318,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Успешная замена пароля админу")
     @DisplayName("Успешная замена пароля админу")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void changePasswordAdmin() {
         adminPage.scrollToCardAdmin(login)
@@ -336,7 +336,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Замена пароля админу с пустым полем пароля")
     @DisplayName("Замена пароля админу с пустым полем пароля")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void changePasswordAdminEmptyFieldPassword() {
         adminPage.scrollToCardAdmin(login);
@@ -350,7 +350,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Смена пароля админу")
     @Story("Замена пароля админу с пустым полем подтверждения пароля")
     @DisplayName("Замена пароля админу с пустым полем подтверждения пароля")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void changePasswordAdminEmptyFieldConfirmPassword() {
         adminPage.scrollToCardAdmin(login);
@@ -363,7 +363,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Отображение уведомления об обязательности полей")
     @DisplayName("Отображение уведомления об обязательности полей")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void displayNotificationAboutRequiredFieldsWindowChangingPasswordAdmin() {
         adminPage.scrollToCardAdmin(login);
@@ -378,7 +378,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Ввод не соответствующего пароля при подтверждении")
     @DisplayName("Ввод не соответствующего пароля при подтверждении")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void fillInvalidValuesConfirmPasswordChangingPasswordAdmin() {
         adminPage.scrollToCardAdmin(login);
@@ -395,7 +395,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Ввод не валидных граничных значений пароля из 7 символов")
     @DisplayName("Ввод не валидных граничных значений пароля из 7 символов")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void fillLimitInvalidValuesPasswordChainingPasswordAdmin_7_Symbol() {
         adminPage.scrollToCardAdmin(login);
@@ -408,7 +408,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Ввод валидных граничных значений пароля из 8,9,24 и 25 символов")
     @DisplayName("Ввод валидных граничных значений пароля из 8,9,24 и 25 символов")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @ParameterizedTest
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
     void fillLimitValidValuesPasswordChainingPasswordAdmin_8_9_24_25_Symbol(String password) {
@@ -423,7 +423,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Ввод не валидных граничных значений пароля из 26 символов")
     @DisplayName("Ввод не валидных граничных значений пароля из 26 символов")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void fillLimitInvalidValuesPasswordChainingPasswordAdmin_26_Symbol() {
         adminPage.scrollToCardAdmin(login);
@@ -436,7 +436,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Ввод не валидного пароля")
     @DisplayName("Ввод не валидного пароля")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @ParameterizedTest
     @ValueSource(strings = {"123456789!", "123456789Ss", "123456789!ss", "123456789!SS", "WwqqLLpp!!", "Wwqq 123456 #"})
     void fillInvalidValuesPasswordChainingPasswordAdmin(String password) {
@@ -450,7 +450,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Очистка полей через кнопку в окне изменения пароля админу")
     @DisplayName("Очистка полей через кнопку в окне изменения пароля админу")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void clearFieldsWindowChainingPasswordThroughButtonClear() {
         adminPage.scrollToCardAdmin(login);
@@ -469,7 +469,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Замена пароля админу")
     @Story("Сброс значений полей в окне смены пароля админу после закрытия окна")
     @DisplayName("Сброс значений полей в окне смены пароля админу после закрытия окна")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void closeWindowChainingPasswordAdmin() {
         adminPage.scrollToCardAdmin(login);
@@ -487,7 +487,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Удаление админа")
     @Story("Отмена удаления админа")
     @DisplayName("Отмена удаления админа")
-    @ExtendWith(AdminAddDeleteDecorator.class)
+    @ExtendWith(AdminAddDelete.class)
     @Test
     void cancelDeleteAdmin() {
         adminPage.scrollToCardAdmin(login)
@@ -503,7 +503,7 @@ public class AdministrationPageTest extends BaseTest {
     @Feature("Удаление админа")
     @Story("Успешное удаление админа")
     @DisplayName("Успешное удаление админа")
-    @ExtendWith(AdminAddDecorator.class)
+    @ExtendWith(AdminAdd.class)
     @Test
     void deleteAdmin() {
         adminPage.scrollToCardAdmin(login)

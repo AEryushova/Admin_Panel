@@ -6,6 +6,9 @@ import io.qameta.allure.Step;
 import pages.Calendar.Calendar;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -22,12 +25,13 @@ public class UnpublishedFeedbacksWindow {
 
 
     @Step("Верифицировать окно неопубликованных отзывов")
-    public void verifyUnpublishedFeedbacksWindow() {
+    public UnpublishedFeedbacksWindow verifyUnpublishedFeedbacksWindow() {
         WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         HEADER_WINDOW.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CALENDAR_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLEAR_FIELD_NEW_PASSWORD_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CLOSE_WINDOW_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        return this;
     }
 
     @Step("Открыть календарь")
@@ -45,10 +49,11 @@ public class UnpublishedFeedbacksWindow {
     }
 
     @Step("Очистить фильтр по дате")
-    public void clickClearFilter() {
+    public UnpublishedFeedbacksWindow clickClearFilter() {
         CLEAR_FIELD_NEW_PASSWORD_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Получить отзыв")
@@ -70,6 +75,17 @@ public class UnpublishedFeedbacksWindow {
     @Step("Проверить отображение информации о пустом списке неопубликованных отзывов")
     public boolean isExistsEmptyListFeedback() {
         return EMPTY_LIST_FEEDBACK.isDisplayed();
+    }
+
+    @Step("Проверить является присутствует ли в периоде дата")
+    public boolean isDateInThisPeriod(String date, String period){
+        DateTimeFormatter periodFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter feedbackFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("ru"));
+        String[] periodDates = period.split(" - ");
+        LocalDate startDate = LocalDate.parse(periodDates[0], periodFormatter);
+        LocalDate endDate = LocalDate.parse(periodDates[1], periodFormatter);
+        LocalDate feedbackDate = LocalDate.parse(date, feedbackFormatter);
+        return !feedbackDate.isBefore(startDate) && !feedbackDate.isAfter(endDate);
     }
 
     @Step("Закрыть окно неопубликованных отзывов")

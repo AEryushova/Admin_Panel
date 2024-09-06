@@ -28,8 +28,9 @@ public class DoctorsPage extends BasePage {
             OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']"),
             OPTION_YES = $x("//div[@class='U2Xk']/div[text()='Есть']"),
             SHOW_DOCTOR_WITHOUT_DESCRIPTION = $x("//span[text()='Показать']//parent::button"),
-            SHOW_UNPUBLISHED_FEEDBACKS_LIST =$x("//button[text()='Показать']"),
-            COUNT_DOCTORS = $x("//div[@class='wYqZ']/span[2]");
+            SHOW_UNPUBLISHED_FEEDBACKS_LIST = $x("//button[text()='Показать']"),
+            COUNT_DOCTORS = $x("//div[@class='wYqZ']/span[2]"),
+            COUNT_UNPUBLISHED_FEEDBACKS = $x("//span[text()='Неопубликованные отзывы:']/span");
     private final ElementsCollection
             NAMES_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[1]"),
             SPECIALIZATIONS_DOCTORS = $$x("//div[@class='eF30']/div[@class='jPnI']/span[2]"),
@@ -153,6 +154,12 @@ public class DoctorsPage extends BasePage {
     public int getCountDoctors() {
         COUNT_DOCTORS.shouldBe(Condition.visible);
         return Integer.parseInt(COUNT_DOCTORS.getText().split(" ")[0]);
+    }
+
+    @Step("Получить количество неопубликованных отзывов")
+    public String getCountUnpublishedFeedback() {
+        COUNT_UNPUBLISHED_FEEDBACKS.shouldBe(Condition.visible);
+        return COUNT_UNPUBLISHED_FEEDBACKS.getText();
     }
 
 }

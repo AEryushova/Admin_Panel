@@ -51,7 +51,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Добавление фотографии врачу")
     @Story("Успешное добавление фотографии врачу в формате Jpeg и Png")
     @DisplayName("Успешное добавление фотографии врачу в формате Jpeg и Png")
-    @ExtendWith(DeletePhotoDoctorDecorator.class)
+    @ExtendWith(DeletePhotoDoctor.class)
     @ParameterizedTest
     @ValueSource(strings = {"src/test/resources/images/Photo 3,7mbJpeg.jpg", "src/test/resources/images/Photo 3,2mbPng.png"})
     void addPhotoDoctor(String path) {
@@ -69,7 +69,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Замена фотографии врачу")
     @Story("Успешная замена фотографии врачу")
     @DisplayName("Успешная замена фотографии врачу")
-    @ExtendWith(AddDeletePhotoDoctorDecorator.class)
+    @ExtendWith(AddDeletePhotoDoctor.class)
     @Test
     void changePhotoDoctor() {
         cardDoctor.scrollPageUp("500");
@@ -146,7 +146,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Замена фотографии врачу")
     @Story("Успешное удаление фотографии врача")
     @DisplayName("Успешное удаление фотографии врача")
-    @ExtendWith(AddPhotoDoctorDecorator.class)
+    @ExtendWith(AddPhotoDoctor.class)
     @Test
     void deletePhoto() {
         cardDoctor.scrollPageUp("500");
@@ -162,7 +162,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Замена фотографии врачу")
     @Story("Удаление дефолтной фотографии врача")
     @DisplayName("Удаление дефолтной фотографии врача")
-    @ExtendWith(DeletePhotoDoctorDecorator.class)
+    @ExtendWith(DeletePhotoDoctor.class)
     @Test
     void deleteDefaultPhoto() {
         cardDoctor.scrollPageUp("500");
@@ -175,7 +175,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Информация о враче")
     @Story("Успешное добавление раздела в инфо о враче")
     @DisplayName("Успешное добавление раздела в инфо о враче")
-    @ExtendWith(DeleteSectionDecorator.class)
+    @ExtendWith(DeleteSection.class)
     @Test
     void addSection() {
         AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
@@ -185,14 +185,14 @@ public class CardDoctorPageTest extends BaseTest {
         Section section = cardDoctor.getSection();
         assertTrue(cardDoctor.isExistSection());
         assertEquals(word, section.getTextSection());
-        assertEquals(word, DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()).getTitle());
+        assertEquals(word, DataBaseQuery.selectSection(DeleteSection.getDoctorId()).getTitle());
         assertEquals("DOCTOR_GROUP_EXPERTISE_CREATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Информация о враче")
     @Story("Добавление пустого раздела в инфо о враче")
     @DisplayName("Добавление пустого раздела в инфо о враче")
-    @ExtendWith(DeleteSectionDecorator.class)
+    @ExtendWith(DeleteSection.class)
     @Test
     void addSectionEmptyField() {
         AddInfoDoctorWindow addInfoDoctorWindow = cardDoctor.clickButtonAddSection();
@@ -201,7 +201,7 @@ public class CardDoctorPageTest extends BaseTest {
         addInfoDoctorWindow.clickCancelButtonAddSectionDoctor();
         assertEquals("Неверный запрос (400)", cardDoctor.getTextNotification());
         assertFalse(cardDoctor.isExistSection());
-        assertNull(DataBaseQuery.selectSection(DeleteSectionDecorator.getDoctorId()));
+        assertNull(DataBaseQuery.selectSection(DeleteSection.getDoctorId()));
     }
 
 
@@ -223,7 +223,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Информация о враче")
     @Story("Успешное редактирование раздела в инфо о враче")
     @DisplayName("Успешное редактирование раздела в инфо о враче")
-    @ExtendWith(AddDeleteSectionDecorator.class)
+    @ExtendWith(AddDeleteSection.class)
     @Test
     void editSection() {
         Section section = cardDoctor.getSection();
@@ -233,14 +233,14 @@ public class CardDoctorPageTest extends BaseTest {
                 .clickButtonEditSaveTitle()
                 .getSection().shouldHave(Condition.text(word));
         assertEquals(word, section.getTextSection());
-        assertEquals(word, DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
+        assertEquals(word, DataBaseQuery.selectSection(AddDeleteSection.getDoctorId()).getTitle());
         assertEquals("DOCTOR_GROUP_EXPERTISE_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Информация о враче")
     @Story("Редактирование раздела в инфо о враче с пустым полем")
     @DisplayName("Редактирование раздела в инфо о враче с пустым полем")
-    @ExtendWith(AddDeleteSectionDecorator.class)
+    @ExtendWith(AddDeleteSection.class)
     @Test
     void editSectionEmptyField() {
         Section section = cardDoctor.getSection();
@@ -250,14 +250,14 @@ public class CardDoctorPageTest extends BaseTest {
                 .clickButtonEditSaveTitle();
         assertEquals("Неверный запрос (400)", cardDoctor.getTextNotification());
         assertEquals(word, section.getTextSection());
-        assertEquals(word, DataBaseQuery.selectSection(AddDeleteSectionDecorator.getDoctorId()).getTitle());
+        assertEquals(word, DataBaseQuery.selectSection(AddDeleteSection.getDoctorId()).getTitle());
     }
 
 
     @Feature("Информация о враче")
     @Story("Успешное удаление раздела в инфо о враче")
     @DisplayName("Успешное удаление раздела в инфо о враче")
-    @ExtendWith(AddSectionDecorator.class)
+    @ExtendWith(AddSection.class)
     @Test
     void deleteSection() {
         Section section = cardDoctor.getSection();
@@ -267,7 +267,7 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.getEmptyListSection().shouldBe(Condition.visible);
         assertFalse(cardDoctor.isExistSection());
         assertTrue(cardDoctor.isExistsEmptyListSection());
-        assertNull(DataBaseQuery.selectSection(AddSectionDecorator.getDoctorId()));
+        assertNull(DataBaseQuery.selectSection(AddSection.getDoctorId()));
         assertEquals("DOCTOR_GROUP_EXPERTISE_DELETED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
@@ -275,7 +275,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Информация о враче")
     @Story("Успешное добавление описания к разделу в инфо о враче")
     @DisplayName("Успешное добавление описания к разделу в инфо о враче")
-    @ExtendWith(DeleteDescriptionDecorator.class)
+    @ExtendWith(DeleteDescription.class)
     @Test
     void addDescription() {
         Section section = cardDoctor.getSection();
@@ -287,14 +287,14 @@ public class CardDoctorPageTest extends BaseTest {
         Description description = cardDoctor.getDescription();
         assertTrue(cardDoctor.isExistDescription());
         assertEquals(text, description.getTextDescription());
-        assertEquals(text, DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()).getTitle());
+        assertEquals(text, DataBaseQuery.selectDescription(DeleteDescription.getSectionId()).getTitle());
         assertEquals("DOCTOR_EXPERTISE_CREATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Информация о враче")
     @Story("Добавление пустого описания к разделу в инфо о враче")
     @DisplayName("Добавление пустого описания к разделу в инфо о враче")
-    @ExtendWith(DeleteDescriptionDecorator.class)
+    @ExtendWith(DeleteDescription.class)
     @Test
     void addDescriptionEmptyField() {
         Section section = cardDoctor.getSection();
@@ -304,14 +304,14 @@ public class CardDoctorPageTest extends BaseTest {
                 .clickButtonSaveValue();
         assertEquals("Неверный запрос (400)", cardDoctor.getTextNotification());
         assertFalse(cardDoctor.isExistDescription());
-        assertNull(DataBaseQuery.selectDescription(DeleteDescriptionDecorator.getSectionId()));
+        assertNull(DataBaseQuery.selectDescription(DeleteDescription.getSectionId()));
     }
 
 
     @Feature("Информация о враче")
     @Story("Отмена добавления описания к разделу в инфо о враче и зануление полей")
     @DisplayName("Отмена добавления описания к разделу в инфо о враче и зануление полей")
-    @ExtendWith(DeleteDescriptionDecorator.class)
+    @ExtendWith(DeleteDescription.class)
     @Test
     void cancelAddDescription() {
         Section section = cardDoctor.getSection();
@@ -329,7 +329,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Информация о враче")
     @Story("Успешное редактирование описания к разделу в инфо о враче")
     @DisplayName("Успешное редактирование описания к разделу в инфо о враче")
-    @ExtendWith(AddDeleteDescriptionDecorator.class)
+    @ExtendWith(AddDeleteDescription.class)
     @Test
     void editDescription() {
         Description description = cardDoctor.getDescription();
@@ -339,14 +339,14 @@ public class CardDoctorPageTest extends BaseTest {
                 .clickButtonEditSaveDescription()
                 .getDescription().shouldHave(Condition.text(text));
         assertEquals(text, description.getTextDescription());
-        assertEquals(text, DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
+        assertEquals(text, DataBaseQuery.selectDescription(AddDeleteDescription.getSectionId()).getTitle());
         assertEquals("DOCTOR_EXPERTISE_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Информация о враче")
     @Story("Редактирование описания в инфо о враче с пустым полем")
     @DisplayName("Редактирование описания в инфо о враче с пустым полем")
-    @ExtendWith(AddDeleteDescriptionDecorator.class)
+    @ExtendWith(AddDeleteDescription.class)
     @Test
     void editDescriptionEmptyField() {
         Description description = cardDoctor.getDescription();
@@ -356,13 +356,13 @@ public class CardDoctorPageTest extends BaseTest {
                 .clickButtonEditSaveDescription();
         assertEquals("Неверный запрос (400)", cardDoctor.getTextNotification());
         assertEquals(text, description.getTextDescription());
-        assertEquals(text, DataBaseQuery.selectDescription(AddDeleteDescriptionDecorator.getSectionId()).getTitle());
+        assertEquals(text, DataBaseQuery.selectDescription(AddDeleteDescription.getSectionId()).getTitle());
     }
 
     @Feature("Информация о враче")
     @Story("Успешное удаление описания к разделу в инфо о враче")
     @DisplayName("Успешное удаление описания к разделу в инфо о враче")
-    @ExtendWith(AddDescriptionDecorator.class)
+    @ExtendWith(AddDescription.class)
     @Test
     void deleteDescription() {
         Description description = cardDoctor.getDescription();
@@ -372,7 +372,7 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.getEmptyListDescription().shouldBe(Condition.visible);
         assertFalse(cardDoctor.isExistDescription());
         assertTrue(cardDoctor.isExistsEmptyListDescription());
-        assertNull(DataBaseQuery.selectDescription(AddDescriptionDecorator.getSectionId()));
+        assertNull(DataBaseQuery.selectDescription(AddDescription.getSectionId()));
         assertEquals("DOCTOR_EXPERTISE_DELETED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
@@ -380,7 +380,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
     @DisplayName("Успешное добавление отзыва о врачу датой в текущем месяце")
-    @ExtendWith(DeleteFeedbackDecorator.class)
+    @ExtendWith(DeleteFeedback.class)
     @Test
     void addFeedbackCurrentMonth() {
         cardDoctor.scrollPageDown("500");
@@ -414,7 +414,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в следующем месяце")
     @DisplayName("Успешное добавление отзыва о враче датой в следующем месяце")
-    @ExtendWith(DeleteFeedbackDecorator.class)
+    @ExtendWith(DeleteFeedback.class)
     @Test
     void addFeedbackFutureMonth() {
         cardDoctor.scrollPageDown("500");
@@ -448,7 +448,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в предыдущем месяце")
     @DisplayName("Успешное добавление отзыва о враче датой в предыдущем месяце")
-    @ExtendWith(DeleteFeedbackDecorator.class)
+    @ExtendWith(DeleteFeedback.class)
     @Test
     void addFeedbackPreviousMonth() {
         cardDoctor.scrollPageDown("500");
@@ -481,7 +481,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче текущей датой")
     @DisplayName("Успешное добавление отзыва о враче текущей датой")
-    @ExtendWith(DeleteFeedbackDecorator.class)
+    @ExtendWith(DeleteFeedback.class)
     @Test
     void addFeedbackTodayNotUseCalendar() {
         cardDoctor.scrollPageDown("500");
@@ -564,7 +564,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование неопубликованного отзыва о враче")
     @DisplayName("Успешное редактирование неопубликованного отзыва о враче")
-    @ExtendWith(AddDeleteFeedbackDecorator.class)
+    @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void editUnpublishedFeedback() {
         cardDoctor.scrollPageDown("500");
@@ -596,7 +596,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Успешная публикация неопубликованного отзыва о враче")
     @DisplayName("Успешная публикация неопубликованного отзыва о враче")
-    @ExtendWith(AddDeleteFeedbackDecorator.class)
+    @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void publicationUnpublishedFeedback() {
         cardDoctor.scrollPageDown("500");
@@ -671,7 +671,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Сохранение значений полей в окне редактирования отзыва после закрытия окна")
     @DisplayName("Сохранение значений полей в окне редактирования отзыва после закрытия окна")
-    @ExtendWith(AddPublishedDeleteFeedback.class)
+    @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void closeWindowEditFeedback() {
         cardDoctor.scrollPageDown("500");
@@ -689,7 +689,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Редактирование отзыва с пустым полем отзыва")
     @DisplayName("Редактирование отзыва с пустым полем отзыва")
-    @ExtendWith(AddPublishedDeleteFeedback.class)
+    @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void editFeedbackEmptyFieldText() {
         cardDoctor.scrollPageDown("500");
@@ -704,7 +704,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Успешное удаление неопубликованного отзыва о враче")
     @DisplayName("Успешное удаление неопубликованного отзыва о враче")
-    @ExtendWith(AddFeedbackDecorator.class)
+    @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void deleteUnpublishedFeedback() {
         cardDoctor.scrollPageDown("500");
@@ -721,7 +721,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Feature("Отзывы о враче")
     @Story("Сортировка неопубликованных отзывов о враче")
     @DisplayName("Сортировка неопубликованных отзывов о враче")
-    @ExtendWith(AddTwoFeedbackDecorator.class)
+    @ExtendWith(AddTwoFeedback.class)
     @Test
     void sortingUnpublishedFeedbacks() {
         cardDoctor.scrollPageDown("500");

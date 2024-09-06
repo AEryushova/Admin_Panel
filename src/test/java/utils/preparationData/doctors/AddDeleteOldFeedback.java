@@ -1,39 +1,33 @@
 package utils.preparationData.doctors;
 
-
-import utils.dbUtils.DataBaseQuery;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import utils.dbUtils.DataBaseQuery;
 
 import java.util.UUID;
 
-import static data.TestData.DataTest.*;
+import static data.TestData.DataTest.DOCTOR;
+import static data.TestData.DataTest.DOCTOR_SPECIALIZATION;
 import static utils.testsUtils.DataGenerator.generateNamePatient;
 import static utils.testsUtils.DataGenerator.generateText;
 import static utils.testsUtils.TestHelper.generateUuid;
-import static utils.testsUtils.TestHelper.getDateTime;
+import static utils.testsUtils.TestHelper.getPreviousMonthDateTime;
 
-public class AddPublishedDeleteFeedback implements BeforeEachCallback, AfterEachCallback {
+public class AddDeleteOldFeedback implements BeforeEachCallback, AfterEachCallback {
 
     @Setter
     @Getter
     public static UUID doctorId;
-    @Setter
-    @Getter
-    public static UUID feedbackId;
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), true, getDateTime(), getDateTime(),generateUuid());
-        UUID feedbackId = DataBaseQuery.selectFeedback().getId();
-        setFeedbackId(feedbackId);
-        DataBaseQuery.publishedFeedback(feedbackId);
+        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), false, getPreviousMonthDateTime(), getPreviousMonthDateTime(),generateUuid());
     }
 
     @Override

@@ -39,10 +39,11 @@ public class Calendar {
     }
 
     @Step("Нажать на кнопку переключения на следующий месяц")
-    public void switchFutureMonth() {
+    public Calendar switchFutureMonth() {
         SWITCH_NEXT_MONTH_BUTTON.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
+        return this;
     }
 
     @Step("Нажать на кнопку переключения на предыдущий месяц")

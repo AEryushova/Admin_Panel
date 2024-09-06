@@ -48,7 +48,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное добавление правила подготовки к категории")
     @DisplayName("Успешное добавление правила подготовки к категории")
-    @ExtendWith(DeleteRuleCategoryDecorator.class)
+    @ExtendWith(DeleteRuleCategory.class)
     @Test
     void addRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
@@ -75,7 +75,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Добавление правила подготовки к категории с пустым полем заголовка")
     @DisplayName("Добавление правила подготовки к категории с пустым полем заголовка")
-    @ExtendWith(DeleteRuleCategoryDecorator.class)
+    @ExtendWith(DeleteRuleCategory.class)
     @Test
     void addRulePreparingCategoryEmptyFieldTitle() {
         servicesPage.scrollPageDown("500");
@@ -94,7 +94,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Добавление правила подготовки к категории с пустым полем описания")
     @DisplayName("Добавление правила подготовки к категории с пустым полем описания")
-    @ExtendWith(DeleteRuleCategoryDecorator.class)
+    @ExtendWith(DeleteRuleCategory.class)
     @Test
     void addRulePreparingCategoryEmptyFieldDescription() {
         servicesPage.scrollPageDown("500");
@@ -113,7 +113,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Добавление правила подготовки к категории с пустыми полями заголовка и описания")
     @DisplayName("Добавление правила подготовки к категории с пустыми полями заголовка и описания")
-    @ExtendWith(DeleteRuleCategoryDecorator.class)
+    @ExtendWith(DeleteRuleCategory.class)
     @Test
     void addRulePreparingCategoryEmptyFields() {
         servicesPage.scrollPageDown("500");
@@ -131,7 +131,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Сброс значений полей в окне добавления правила подготовки к категории после закрытия окна")
     @DisplayName("Сброс значений полей в окне добавления правила подготовки к категории после закрытия окна")
-    @ExtendWith(DeleteRuleCategoryDecorator.class)
+    @ExtendWith(DeleteRuleCategory.class)
     @Test
     void closeWindowAddRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
@@ -153,7 +153,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Отмена добавления правила подготовки после возврата к списку правил")
     @DisplayName("Отмена добавления правила подготовки после возврата к списку правил")
-    @ExtendWith(DeleteRuleCategoryDecorator.class)
+    @ExtendWith(DeleteRuleCategory.class)
     @Test
     void comebackRulesListFromWindowAddRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
@@ -174,7 +174,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное редактирование правила подготовки к категории")
     @DisplayName("Успешное редактирование правила подготовки к категории")
-    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
+    @ExtendWith(AddDeleteCategoryRule.class)
     @Test
     void editRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
@@ -199,7 +199,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Редактирование правила подготовки к категории с пустым полем заголовка")
     @DisplayName("Редактирование правила подготовки к категории с пустым полем заголовка")
-    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
+    @ExtendWith(AddDeleteCategoryRule.class)
     @Test
     void editRulePreparingCategoryEmptyFieldTitle() {
         servicesPage.scrollPageDown("500");
@@ -224,7 +224,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Редактирование правила подготовки к категории с пустым полем описания")
     @DisplayName("Редактирование правила подготовки к категории с пустым полем описания")
-    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
+    @ExtendWith(AddDeleteCategoryRule.class)
     @Test
     void editRulePreparingCategoryEmptyFieldDescription() {
         servicesPage.scrollPageDown("500");
@@ -249,7 +249,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Редактирование правила подготовки к категории с пустыми полями")
     @DisplayName("Редактирование правила подготовки к категории с пустыми полями")
-    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
+    @ExtendWith(AddDeleteCategoryRule.class)
     @Test
     void editRulePreparingCategoryEmptyFields() {
         servicesPage.scrollPageDown("500");
@@ -274,7 +274,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Сохранение правила подготовки к категории без изменений")
     @DisplayName("Сохранение правила подготовки к категории без изменений")
-    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
+    @ExtendWith(AddDeleteCategoryRule.class)
     @Test
     void saveRulePreparingCategoryNotChange() {
         servicesPage.scrollPageDown("500");
@@ -295,7 +295,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Сохранение значений в окне редактирования правила подготовки к категории после закрытия окна")
     @DisplayName("Сохранение значений в окне редактирования правила подготовки к категории после закрытия окна")
-    @ExtendWith(AddDeleteCategoryRuleDecorator.class)
+    @ExtendWith(AddDeleteCategoryRule.class)
     @Test
     void closeWindowEditRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
@@ -319,7 +319,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное удаление правила подготовки к категории")
     @DisplayName("Успешное удаление правила подготовки к категории")
-    @ExtendWith(AddRuleCategoryDecorator.class)
+    @ExtendWith(AddRuleCategory.class)
     @Test
     void deleteRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
@@ -339,7 +339,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное удаление всех правил подготовки к категории")
     @DisplayName("Успешное удаление всех правил подготовки к категории")
-    @ExtendWith(AddRuleCategoryDecorator.class)
+    @ExtendWith(AddRuleCategory.class)
     @Test
     void deleteAllRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
@@ -356,7 +356,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное добавление правила подготовки к разделу")
     @DisplayName("Успешное добавление правила подготовки к разделу")
-    @ExtendWith(AddDeleteSectionDecorator.class)
+    @ExtendWith(AddDeleteSection.class)
     @Test
     void addRulePreparingSection() {
         servicesPage.scrollPageDown("500");
@@ -385,7 +385,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное редактирование правила подготовки к разделу")
     @DisplayName("Успешное редактирование правила подготовки к разделу")
-    @ExtendWith(AddDeleteSectionRuleDecorator.class)
+    @ExtendWith(AddDeleteSectionRule.class)
     @Test
     void editRulePreparingSection() {
         servicesPage.scrollPageDown("500");
@@ -413,7 +413,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное удаление правила подготовки к разделу")
     @DisplayName("Успешное удаление правила подготовки к разделу")
-    @ExtendWith(AddDeleteSectionRuleDecorator.class)
+    @ExtendWith(AddDeleteSectionRule.class)
     @Test
     void deleteRulePreparingSection() {
         servicesPage.scrollPageDown("500");
@@ -436,7 +436,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное удаление всех правил подготовки к разделу")
     @DisplayName("Успешное удаление всех правил подготовки к разделу")
-    @ExtendWith(AddDeleteSectionRuleDecorator.class)
+    @ExtendWith(AddDeleteSectionRule.class)
     @Test
     void deleteAllRulePreparingSection() {
         servicesPage.scrollPageDown("500");
@@ -456,7 +456,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное добавление правила подготовки к подразделу")
     @DisplayName("Успешное добавление правила подготовки к подразделу")
-    @ExtendWith(AddDeleteSubsectionDecorator.class)
+    @ExtendWith(AddDeleteSubsection.class)
     @Test
     void addRulePreparingSubsection() {
         servicesPage.scrollPageDown("500");
@@ -488,7 +488,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное редактирование правила подготовки к подразделу")
     @DisplayName("Успешное редактирование правила подготовки к подразделу")
-    @ExtendWith(AddDeleteSubsectionRuleDecorator.class)
+    @ExtendWith(AddDeleteSubsectionRule.class)
     @Test
     void editRulePreparingSubsection() {
         servicesPage.scrollPageDown("500");
@@ -519,7 +519,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное удаление правила подготовки к подразделу")
     @DisplayName("Успешное удаление правила подготовки к подразделу")
-    @ExtendWith(AddDeleteSubsectionRuleDecorator.class)
+    @ExtendWith(AddDeleteSubsectionRule.class)
     @Test
     void deleteRulePreparingSubsection() {
         servicesPage.scrollPageDown("500");
@@ -545,7 +545,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное удаление всех правил подготовки к подразделу")
     @DisplayName("Успешное удаление всех правил подготовки к подразделу")
-    @ExtendWith(AddDeleteSubsectionRuleDecorator.class)
+    @ExtendWith(AddDeleteSubsectionRule.class)
     @Test
     void deleteAllRulePreparingSubsection() {
         servicesPage.scrollPageDown("500");
@@ -568,7 +568,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Закрытие окна правил подготовки к категории")
     @DisplayName("Закрытие окна правил подготовки к категории")
-    @ExtendWith(DeleteRuleCategoryDecorator.class)
+    @ExtendWith(DeleteRuleCategory.class)
     @Test
     void closeWindowRulePreparingCategory() {
         servicesPage.scrollPageDown("500");
@@ -592,7 +592,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное добавление правила подготовки к услуге")
     @DisplayName("Успешное добавление правила подготовки к услуге")
-    @ExtendWith(AddServiceInNewCategoryDecorator.class)
+    @ExtendWith(AddServiceInNewCategory.class)
     @Test
     void addRulePreparingService() {
         servicesPage.scrollPageDown("500");
@@ -629,7 +629,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Добавление правила подготовки к услуге с пустым полем заголовка")
     @DisplayName("Добавление правила подготовки к услуге с пустым полем заголовка")
-    @ExtendWith(AddServiceInNewCategoryDecorator.class)
+    @ExtendWith(AddServiceInNewCategory.class)
     @Test
     void addRulePreparingServiceEmptyFieldTitle() {
         servicesPage.scrollPageDown("500");
@@ -654,7 +654,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Добавление правила подготовки к услуге с пустым полем описания")
     @DisplayName("Добавление правила подготовки к услуге с пустым полем описания")
-    @ExtendWith(AddServiceInNewCategoryDecorator.class)
+    @ExtendWith(AddServiceInNewCategory.class)
     @Test
     void addRulePreparingServiceEmptyFieldDescription() {
         servicesPage.scrollPageDown("500");
@@ -677,7 +677,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Сброс значений полей в окне добавления правила подготовки к услуге при переключении окна")
     @DisplayName("Сброс значений полей в окне добавления правила подготовки к услуге при переключении окна")
-    @ExtendWith(AddServiceInNewCategoryDecorator.class)
+    @ExtendWith(AddServiceInNewCategory.class)
     @Test
     void closePreparingDescriptionsService() {
         servicesPage.scrollPageDown("500");
@@ -704,7 +704,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Успешное редактирование правила подготовки к услуге")
     @DisplayName("Успешное редактирование правила подготовки к услуге")
-    @ExtendWith(AddDeleteRuleServiceDecorator.class)
+    @ExtendWith(AddDeleteRuleService.class)
     @Test
     void editRulePreparingService() {
         servicesPage.scrollPageDown("500");
@@ -737,7 +737,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Сохранение значений полей заголовка и описания правила подготовки без изменений данных")
     @DisplayName("Сохранение значений полей заголовка и описания правила подготовки без изменений данных")
-    @ExtendWith(AddDeleteRuleServiceDecorator.class)
+    @ExtendWith(AddDeleteRuleService.class)
     @Test
     void saveRulePreparingServiceNotChange() {
         servicesPage.scrollPageDown("500");
@@ -765,7 +765,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление правилами подготовки")
     @Story("Удаление правила подготовки к услуге")
     @DisplayName("Удаление правила подготовки к услуге")
-    @ExtendWith(AddRuleServiceDecorator.class)
+    @ExtendWith(AddRuleService.class)
     @Test
     void deleteRulePreparingService() {
         servicesPage.scrollPageDown("500");
@@ -794,7 +794,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Успешное добавление раздела в категорию")
     @DisplayName("Успешное добавление раздела в категорию")
-    @ExtendWith(AddDeleteCategorySectionDecorator.class)
+    @ExtendWith(AddDeleteCategorySection.class)
     @Test
     void addSectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -812,14 +812,14 @@ public class ServicesPageTest extends BaseTest {
         assertTrue(categoryCard.isExistSectionCard());
         assertEquals(sectionName, sectionCard.getNameSection());
         assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
-        assertEquals(AddDeleteCategorySectionDecorator.getCategoryId(), DataBaseQuery.selectServicesCategories(sectionName).getParent_id());
+        assertEquals(AddDeleteCategorySection.getCategoryId(), DataBaseQuery.selectServicesCategories(sectionName).getParent_id());
         assertEquals("CATEGORY_CREATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Управление категориями")
     @Story("Сброс значений полей в окне добавления раздела в категорию при закрытии окна")
     @DisplayName("Сброс значений полей в окне добавления раздела в категорию при закрытии окна")
-    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @ExtendWith(AddDeleteCategory.class)
     @Test
     void closeWindowAddSection() {
         servicesPage.scrollPageDown("500");
@@ -836,7 +836,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Отображение уведомления об обязательности поля")
     @DisplayName("Отображение уведомления об обязательности поля")
-    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @ExtendWith(AddDeleteCategory.class)
     @Test
     void displayNotificationAboutRequiredFieldsWindowAddSection() {
         servicesPage.scrollPageDown("500");
@@ -851,7 +851,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Очистка поля имени раздела через кнопку в окне добавления раздела")
     @DisplayName("Очистка поля имени раздела через кнопку в окне добавления раздела")
-    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @ExtendWith(AddDeleteCategory.class)
     @Test
     void clearFieldWindowAddSectionThroughButtonClear() {
         servicesPage.scrollPageDown("500");
@@ -867,7 +867,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Отмена добавления раздела в категорию")
     @DisplayName("Отмена добавления раздела в категорию")
-    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @ExtendWith(AddDeleteCategory.class)
     @Test
     void cancelAddSectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -882,7 +882,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Успешное редактирование раздела в категории")
     @DisplayName("Успешное редактирование раздела в категории")
-    @ExtendWith(AddDeleteSectionDecorator.class)
+    @ExtendWith(AddDeleteSection.class)
     @Test
     void editSectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -899,14 +899,14 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.clickButtonOpenCategory(categoryName);
         assertEquals(sectionName, sectionCard.getNameSection());
         assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
-        assertEquals(AddDeleteSectionDecorator.getCategoryId(), DataBaseQuery.selectServicesCategories(sectionName).getParent_id());
+        assertEquals(AddDeleteSection.getCategoryId(), DataBaseQuery.selectServicesCategories(sectionName).getParent_id());
         assertEquals("CATEGORY_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Управление категориями")
     @Story("Сохранение значений поля в окне редактирования раздела после закрытия окна")
     @DisplayName("Сохранение значений поля в окне редактирования раздела после закрытия окна")
-    @ExtendWith(AddDeleteSectionDecorator.class)
+    @ExtendWith(AddDeleteSection.class)
     @Test
     void closeWindowEditSectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -924,7 +924,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Сохранение значений поля названия раздела без изменений данных")
     @DisplayName("Сохранение значений поля названия раздела без изменений данных")
-    @ExtendWith(AddDeleteSectionDecorator.class)
+    @ExtendWith(AddDeleteSection.class)
     @Test
     void saveSectionInCategoryNotChange() {
         servicesPage.scrollPageDown("500");
@@ -944,7 +944,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Редактирование названия раздела с пустым полем")
     @DisplayName("Редактирование названия раздела с пустым полем")
-    @ExtendWith(AddDeleteSectionDecorator.class)
+    @ExtendWith(AddDeleteSection.class)
     @Test
     void editSectionInCategoryEmptyFieldName() {
         servicesPage.scrollPageDown("500");
@@ -961,7 +961,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Успешное удаление раздела из категории")
     @DisplayName("Успешное удаление раздела из категории")
-    @ExtendWith(AddSectionDecorator.class)
+    @ExtendWith(AddSection.class)
     @Test
     void deleteSectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -984,7 +984,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Отмена удаления раздела из категории")
     @DisplayName("Отмена удаления раздела из категории")
-    @ExtendWith(AddDeleteSectionDecorator.class)
+    @ExtendWith(AddDeleteSection.class)
     @Test
     void cancelDeleteSectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -1001,7 +1001,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Закрытие окна удаления раздела из категории")
     @DisplayName("Закрытие окна удаления раздела из категории")
-    @ExtendWith(AddDeleteSectionDecorator.class)
+    @ExtendWith(AddDeleteSection.class)
     @Test
     void closeWindowDeleteSectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -1018,7 +1018,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Успешное добавление подраздела в раздел")
     @DisplayName("Успешное добавление подраздела в раздел")
-    @ExtendWith(AddDeleteSectionSubsectionDecorator.class)
+    @ExtendWith(AddDeleteSectionSubsection.class)
     @Test
     void addSubsectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -1040,14 +1040,14 @@ public class ServicesPageTest extends BaseTest {
         assertTrue(sectionCard.isExistSubsectionCard());
         assertEquals(subSectionName, subsectionCard.getNameSubsection());
         assertNotNull(DataBaseQuery.selectServicesCategories(subSectionName));
-        assertEquals(AddDeleteSectionSubsectionDecorator.getSectionId(), DataBaseQuery.selectServicesCategories(subSectionName).getParent_id());
+        assertEquals(AddDeleteSectionSubsection.getSectionId(), DataBaseQuery.selectServicesCategories(subSectionName).getParent_id());
         assertEquals("CATEGORY_CREATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Управление категориями")
     @Story("Успешное редактирование подраздела в разделе")
     @DisplayName("Успешное редактирование подраздела в разделе")
-    @ExtendWith(AddDeleteSubsectionDecorator.class)
+    @ExtendWith(AddDeleteSubsection.class)
     @Test
     void editSubsectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -1069,14 +1069,14 @@ public class ServicesPageTest extends BaseTest {
         sectionCard.clickButtonOpenSection();
         assertEquals(subSectionName, subsectionCard.getNameSubsection());
         assertNotNull(DataBaseQuery.selectServicesCategories(subSectionName));
-        assertEquals(AddDeleteSubsectionDecorator.getSectionId(), DataBaseQuery.selectServicesCategories(subSectionName).getParent_id());
+        assertEquals(AddDeleteSubsection.getSectionId(), DataBaseQuery.selectServicesCategories(subSectionName).getParent_id());
         assertEquals("CATEGORY_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
     @Feature("Управление категориями")
     @Story("Успешное удаление подраздела из раздела")
     @DisplayName("Успешное удаление подраздела из раздела")
-    @ExtendWith(AddSubsectionDecorator.class)
+    @ExtendWith(AddSubsection.class)
     @Test
     void deleteSubsectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -1105,7 +1105,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Смена последовательности отображения категории Иные услуги")
     @DisplayName("Смена последовательности отображения категории Иные услуги")
-    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @ExtendWith(AddDeleteCategory.class)
     @Test
     void changeSequenceDisplayCategoriesCategoryOtherServices() {
         servicesPage.scrollPageDown("500");
@@ -1123,7 +1123,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Удаление раздела, имеющего подраздел")
     @DisplayName("Удаление раздела, имеющего подраздел")
-    @ExtendWith(AddDeleteSubsectionDecorator.class)
+    @ExtendWith(AddDeleteSubsection.class)
     @Test
     void deleteSectionThatHasSubsectionInCategory() {
         servicesPage.scrollPageDown("500");
@@ -1142,7 +1142,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление услугами")
     @Story("Открытие карточки услуги")
     @DisplayName("Открытие карточки услуги")
-    @ExtendWith(AddServiceInNewCategoryDecorator.class)
+    @ExtendWith(AddServiceInNewCategory.class)
     @Test
     void openCardService() {
         servicesPage.scrollPageDown("500");
@@ -1169,7 +1169,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление услугами")
     @Story("Успешный перенос услуги в категорию Иные услуги")
     @DisplayName("Успешный перенос услуги в категорию Иные услуги")
-    @ExtendWith(AddServiceInNewCategoryForTransferDecorator.class)
+    @ExtendWith(AddServiceInNewCategoryForTransfer.class)
     @Test
     void transferServiceToOtherServices() {
         servicesPage.scrollPageDown("500");
@@ -1208,7 +1208,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление услугами")
     @Story("Успешное удаление услуги из категории")
     @DisplayName("Успешное удаление услуги из категории")
-    @ExtendWith(AddServiceInNewCategoryForTransferDecorator.class)
+    @ExtendWith(AddServiceInNewCategoryForTransfer.class)
     @Test
     void deleteServiceFromCategory() {
         servicesPage.scrollPageDown("500");
@@ -1299,7 +1299,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Сворачивание дерева иерархии")
     @DisplayName("Сворачивание дерева иерархии")
-    @ExtendWith(AddServiceInNewCategoryDecorator.class)
+    @ExtendWith(AddServiceInNewCategory.class)
     @Test
     void closeCategory() {
         servicesPage.scrollPageDown("500");
@@ -1321,7 +1321,7 @@ public class ServicesPageTest extends BaseTest {
     @Feature("Управление категориями")
     @Story("Смена последовательности отображения категорий")
     @DisplayName("Смена последовательности отображения категорий")
-    @ExtendWith(AddDeleteCategoryDecorator.class)
+    @ExtendWith(AddDeleteCategory.class)
     @Test
     void changeSequenceDisplayCategoriesCategories() {
         servicesPage.scrollPageDown("500");

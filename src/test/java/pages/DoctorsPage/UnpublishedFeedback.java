@@ -66,6 +66,14 @@ public class UnpublishedFeedback {
         return this;
     }
 
+    @Step("Ввести в поле текста отзыва '{0}'")
+    public UnpublishedFeedback clearFieldText() {
+        TEXT.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .clear();
+        return this;
+    }
+
     @Step("Нажать на кнопку перехода на карточку врача")
     public CardDoctorPage clickButtonOpenCardDoctor() {
         OPEN_CARD_DOCTOR.shouldBe(Condition.visible)
