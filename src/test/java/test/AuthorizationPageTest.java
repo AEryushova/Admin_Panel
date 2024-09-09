@@ -54,7 +54,6 @@ public class AuthorizationPageTest extends BaseTest {
         assertEquals("SIGN_IN_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
-
     @Story("Успешная авторизация админа")
     @DisplayName("Успешная авторизация админа")
     @Test
@@ -91,7 +90,6 @@ public class AuthorizationPageTest extends BaseTest {
         assertTrue(authPage.isEnabledComeInButton());
         assertEquals("AuthorizationAdminClient::SignIn: Ошибка авторизации.", authPage.getTextNotification());
     }
-
 
     @Story("Авторизация админа с пустым полем логина")
     @DisplayName("Авторизация админа с пустым полем логина")
@@ -187,7 +185,6 @@ public class AuthorizationPageTest extends BaseTest {
         assertFalse(authPage.isEnabledComeInButton());
     }
 
-
     @Story("Ввод валидных граничных значений пароля из 8,9,24 и 25 символов")
     @DisplayName("Ввод валидных граничных значений пароля из 8,9,24 и 25 символов")
     @ParameterizedTest
@@ -246,7 +243,6 @@ public class AuthorizationPageTest extends BaseTest {
         assertFalse(basePage.isNotificationAppear());
     }
 
-
     @Story("Успешный выход из админ-панели")
     @DisplayName("Успешный выход из админ-панели")
     @Test
@@ -258,5 +254,4 @@ public class AuthorizationPageTest extends BaseTest {
         authPage.verifyAuthPage();
         assertEquals("SIGN_OUT_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
-
 }

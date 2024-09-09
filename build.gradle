@@ -67,7 +67,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    systemProperty 'selenide.headless', System.getProperty('selenide.headless', 'false')
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless', 'true')
     systemProperty 'selenide.browser', System.getProperty('selenide.browser', 'chrome')
     systemProperty 'environment', System.getProperty('environment', 'stg')
     systemProperty 'cab.lab.db.name', System.getProperty('cab.lab.db.name', 'cab_lab_collection')

@@ -13,8 +13,7 @@ import java.util.UUID;
 import static data.TestData.DataTest.*;
 import static utils.testsUtils.DataGenerator.generateNamePatient;
 import static utils.testsUtils.DataGenerator.generateText;
-import static utils.testsUtils.TestHelper.generateUuid;
-import static utils.testsUtils.TestHelper.getDateTime;
+import static utils.testsUtils.TestHelper.*;
 
 public class AddPublishedDeleteFeedback implements BeforeEachCallback, AfterEachCallback {
 
@@ -30,7 +29,7 @@ public class AddPublishedDeleteFeedback implements BeforeEachCallback, AfterEach
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), true, getDateTime(), getDateTime(),generateUuid());
+        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), true, generateDate("now"), generateDate("now"),generateUuid());
         UUID feedbackId = DataBaseQuery.selectFeedback().getId();
         setFeedbackId(feedbackId);
         DataBaseQuery.publishedFeedback(feedbackId);

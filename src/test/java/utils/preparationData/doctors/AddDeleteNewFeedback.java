@@ -26,7 +26,7 @@ public class AddDeleteNewFeedback implements BeforeEachCallback, AfterEachCallba
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), false, getFutureMonthDateTime(), getFutureMonthDateTime(),generateUuid());
+        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), false, generateDate("new"), generateDate("new"),generateUuid());
     }
 
     @Override

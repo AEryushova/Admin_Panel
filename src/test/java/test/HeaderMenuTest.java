@@ -57,7 +57,6 @@ public class HeaderMenuTest extends BaseTest {
         assertEquals("CHANGE_PASSWORD_ADMIN_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
-
     @Feature("Смена своего пароля админом")
     @Story("Успешная замена своего пароля при совпадающем старом и новом пароле")
     @DisplayName("Успешная замена своего пароля при совпадающем старом и новом пароле")
@@ -111,7 +110,6 @@ public class HeaderMenuTest extends BaseTest {
         assertFalse(changeMinePassWindow.isEnabledChangeButton());
     }
 
-
     @Feature("Смена своего пароля админом")
     @Story("Отображение уведомления об обязательности полей")
     @DisplayName("Отображение уведомления об обязательности полей")
@@ -126,7 +124,6 @@ public class HeaderMenuTest extends BaseTest {
         assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldOldPassword());
         assertEquals("Обязательное поле", changeMinePassWindow.getErrorFieldNewPassword());
     }
-
 
     @Feature("Смена своего пароля админом")
     @Story("Ввод не валидных граничных значений старого пароля из 7 и 26 символов")
@@ -206,7 +203,6 @@ public class HeaderMenuTest extends BaseTest {
         assertEquals("Пароль не валиден", changeMinePassWindow.getErrorFieldNewPassword());
     }
 
-
     @Feature("Смена своего пароля админом")
     @Story("Очистка полей через кнопку в окне изменения своего пароля")
     @DisplayName("Очистка полей через кнопку в окне изменения своего пароля")
@@ -224,7 +220,6 @@ public class HeaderMenuTest extends BaseTest {
         assertEquals("", changeMinePassWindow.getValueOldPasswordField());
         assertEquals("", changeMinePassWindow.getValueNewPasswordField());
     }
-
 
     @Feature("Смена своего пароля админом")
     @Story("Сброс значений полей в окне изменения своего пароля после закрытия окна")
@@ -244,7 +239,6 @@ public class HeaderMenuTest extends BaseTest {
         assertEquals("", changeMinePassWindow.getValueOldPasswordField());
         assertEquals("", changeMinePassWindow.getValueNewPasswordField());
     }
-
 
     @Story("Закрытие панели пользователя")
     @DisplayName("Закрытие панели пользователя")

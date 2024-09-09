@@ -88,7 +88,6 @@ public class SettingPageTest extends BaseTest {
         assertNotEquals(oldHeightLogo, headerMenu.getHeightLogo());
     }
 
-
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа в формате JPEG")
     @DisplayName("Замена логотипа в формате JPEG")
@@ -115,7 +114,6 @@ public class SettingPageTest extends BaseTest {
         assertEquals(oldHeightLogo, settingPage.getHeightLogo());
     }
 
-
     @Feature("Настройки личного кабинета")
     @Story("Замена логотипа с файлом в невалидном формате")
     @DisplayName("Замена логотипа с файлом в невалидном формате")
@@ -140,6 +138,5 @@ public class SettingPageTest extends BaseTest {
                 .closeWindowEditLogo();
         assertFalse(editLogoWindow.isWindowAppear());
     }
-
 }
 

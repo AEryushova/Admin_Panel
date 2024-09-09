@@ -12,8 +12,7 @@ import java.util.UUID;
 
 import static data.TestData.DataTest.*;
 import static utils.testsUtils.DataGenerator.generateWord;
-import static utils.testsUtils.TestHelper.generateUuid;
-import static utils.testsUtils.TestHelper.getDateTime;
+import static utils.testsUtils.TestHelper.*;
 
 public class DeleteDescription implements BeforeEachCallback, AfterEachCallback {
 
@@ -29,7 +28,7 @@ public class DeleteDescription implements BeforeEachCallback, AfterEachCallback 
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearSection(doctorId);
-        DataBaseQuery.addSection(doctorId, generateWord(),0,getDateTime(),getDateTime(),generateUuid());
+        DataBaseQuery.addSection(doctorId, generateWord(),0, generateDate("now"), generateDate("now"),generateUuid());
         UUID sectionId = DataBaseQuery.selectSection(doctorId).getEmployee_details_id();
         setSectionId(sectionId);
     }

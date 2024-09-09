@@ -588,7 +588,6 @@ public class ServicesPageTest extends BaseTest {
         assertEquals("Категория не найдена", servicesPage.getTextNotification());
     }
 
-
     @Feature("Управление правилами подготовки")
     @Story("Успешное добавление правила подготовки к услуге")
     @DisplayName("Успешное добавление правила подготовки к услуге")
@@ -789,7 +788,6 @@ public class ServicesPageTest extends BaseTest {
         assertEquals("[]", DataBaseQuery.selectDescriptionService(codeService).getDescription());
         assertEquals("SERVICE_PREPARING_DESCRIPTION_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
-
 
     @Feature("Управление категориями")
     @Story("Успешное добавление раздела в категорию")
@@ -1239,7 +1237,6 @@ public class ServicesPageTest extends BaseTest {
         servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
         assertTrue(categoryCard.isExistService(codeService));
         assertEquals("SERVICE_TRANSFER_LOCATION_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
-
     }
 
     @Feature("Управление услугами")
@@ -1364,7 +1361,6 @@ public class ServicesPageTest extends BaseTest {
         assertEquals("CATEGORY_SWAP_LOCATION_IN_LIST_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
-
     @Feature("Управление категориями")
     @Story("Смена последовательности отображения подразделов")
     @DisplayName("Смена последовательности отображения подразделов")
@@ -1431,6 +1427,5 @@ public class ServicesPageTest extends BaseTest {
         assertEquals("SERVICE_SWAP_LOCATION_IN_LIST_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
 
     }
-
 }
 

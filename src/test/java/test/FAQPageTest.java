@@ -126,7 +126,6 @@ public class FAQPageTest extends BaseTest {
         assertFalse(addQuestionWindow.isEnabledAddButton());
     }
 
-
     @Feature("Добавление нового faq-вопроса")
     @Story("Добавление нового faq-вопроса с пустым полем ответа")
     @DisplayName("Добавление нового faq-вопроса с пустым полем ответа")
@@ -334,7 +333,6 @@ public class FAQPageTest extends BaseTest {
         assertTrue(countResult<countAllFaq);
     }
 
-
     @Feature("Поиск по faq")
     @Story("Сброс поискового результата вопроса после очистки поля")
     @DisplayName("Сброс поискового результата вопроса после очистки поля")
@@ -409,6 +407,5 @@ public class FAQPageTest extends BaseTest {
         }
         assertTrue(countResult<countAllFaq);
     }
-
 }
 

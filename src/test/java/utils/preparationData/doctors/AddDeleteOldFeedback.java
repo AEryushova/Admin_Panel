@@ -13,8 +13,7 @@ import static data.TestData.DataTest.DOCTOR;
 import static data.TestData.DataTest.DOCTOR_SPECIALIZATION;
 import static utils.testsUtils.DataGenerator.generateNamePatient;
 import static utils.testsUtils.DataGenerator.generateText;
-import static utils.testsUtils.TestHelper.generateUuid;
-import static utils.testsUtils.TestHelper.getPreviousMonthDateTime;
+import static utils.testsUtils.TestHelper.*;
 
 public class AddDeleteOldFeedback implements BeforeEachCallback, AfterEachCallback {
 
@@ -27,7 +26,7 @@ public class AddDeleteOldFeedback implements BeforeEachCallback, AfterEachCallba
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), false, getPreviousMonthDateTime(), getPreviousMonthDateTime(),generateUuid());
+        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), false, generateDate("old"), generateDate("old"),generateUuid());
     }
 
     @Override

@@ -165,7 +165,6 @@ public class DoctorPageTest extends BaseTest {
         assertFalse(unpublishedFeedbacksWindow.isDateInThisPeriod(unpublishedFeedback.getDateFeedback(), period));
     }
 
-
     @Feature("Обработка неопубликованных отзывов")
     @Story("Просмотр неопубликованных отзывов за прошедший период")
     @DisplayName("Просмотр неопубликованных отзывов за прошедший период")
@@ -254,7 +253,6 @@ public class DoctorPageTest extends BaseTest {
         assertTrue(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
     }
 
-
     @Feature("Обработка неопубликованных отзывов")
     @Story("Удаление неопубликованного отзыва")
     @DisplayName("Удаление неопубликованного отзыва")
@@ -289,7 +287,6 @@ public class DoctorPageTest extends BaseTest {
         Selenide.refresh();
         assertEquals(Integer.parseInt(countFeedbacks), Integer.parseInt(doctorsPage.getCountUnpublishedFeedback()));
     }
-
 
     @Feature("Поиск по врачам")
     @Story("Поиск врачей по имени")

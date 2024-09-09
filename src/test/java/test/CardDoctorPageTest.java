@@ -48,6 +48,7 @@ public class CardDoctorPageTest extends BaseTest {
         Selenide.closeWebDriver();
     }
 
+
     @Feature("Добавление фотографии врачу")
     @Story("Успешное добавление фотографии врачу в формате Jpeg и Png")
     @DisplayName("Успешное добавление фотографии врачу в формате Jpeg и Png")
@@ -98,7 +99,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
     }
 
-
     @Feature("Замена фотографии врачу")
     @Story("Замена фотографии врачу с файлом весом более 4mb")
     @DisplayName("Замена фотографии врачу с файлом весом более 4mb")
@@ -129,7 +129,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
     }
-
 
     @Feature("Замена фотографии врачу")
     @Story("Закрытие окна смены фотографии")
@@ -204,7 +203,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertNull(DataBaseQuery.selectSection(DeleteSection.getDoctorId()));
     }
 
-
     @Feature("Информация о враче")
     @Story("Отмена добавления раздела в инфо о враче и зануление полей")
     @DisplayName("Отмена добавления раздела в инфо о враче и зануление полей")
@@ -218,7 +216,6 @@ public class CardDoctorPageTest extends BaseTest {
         cardDoctor.clickButtonAddSection();
         assertEquals("", addInfoDoctorWindow.getValueField());
     }
-
 
     @Feature("Информация о враче")
     @Story("Успешное редактирование раздела в инфо о враче")
@@ -253,7 +250,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(word, DataBaseQuery.selectSection(AddDeleteSection.getDoctorId()).getTitle());
     }
 
-
     @Feature("Информация о враче")
     @Story("Успешное удаление раздела в инфо о враче")
     @DisplayName("Успешное удаление раздела в инфо о враче")
@@ -270,7 +266,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertNull(DataBaseQuery.selectSection(AddSection.getDoctorId()));
         assertEquals("DOCTOR_GROUP_EXPERTISE_DELETED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
-
 
     @Feature("Информация о враче")
     @Story("Успешное добавление описания к разделу в инфо о враче")
@@ -307,7 +302,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertNull(DataBaseQuery.selectDescription(DeleteDescription.getSectionId()));
     }
 
-
     @Feature("Информация о враче")
     @Story("Отмена добавления описания к разделу в инфо о враче и зануление полей")
     @DisplayName("Отмена добавления описания к разделу в инфо о враче и зануление полей")
@@ -324,7 +318,6 @@ public class CardDoctorPageTest extends BaseTest {
         section.clickButtonAddDescription();
         assertEquals("", addInfoDoctorWindow.getValueField());
     }
-
 
     @Feature("Информация о враче")
     @Story("Успешное редактирование описания к разделу в инфо о враче")
@@ -376,7 +369,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals("DOCTOR_EXPERTISE_DELETED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
-
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о врачу датой в текущем месяце")
     @DisplayName("Успешное добавление отзыва о врачу датой в текущем месяце")
@@ -410,7 +402,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertFalse(cardDoctor.isSelectPublishedFeedback());
     }
 
-
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в следующем месяце")
     @DisplayName("Успешное добавление отзыва о враче датой в следующем месяце")
@@ -443,7 +434,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertTrue(cardDoctor.isSelectUnPublishedFeedback());
         assertFalse(cardDoctor.isSelectPublishedFeedback());
     }
-
 
     @Feature("Отзывы о враче")
     @Story("Успешное добавление отзыва о враче датой в предыдущем месяце")
@@ -548,7 +538,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertFalse(addFeedbackWindow.isEnabledPublishButton());
     }
 
-
     @Feature("Отзывы о враче")
     @Story("Добавление нового отзыва с пустым полем отзыва")
     @DisplayName("Добавление нового отзыва с пустым полем отзыва")
@@ -592,7 +581,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertFalse(cardDoctor.isSelectPublishedFeedback());
     }
 
-
     @Feature("Отзывы о враче")
     @Story("Успешная публикация неопубликованного отзыва о враче")
     @DisplayName("Успешная публикация неопубликованного отзыва о враче")
@@ -615,7 +603,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertFalse(cardDoctor.isSelectUnPublishedFeedback());
         assertTrue(cardDoctor.isSelectPublishedFeedback());
     }
-
 
     @Feature("Отзывы о враче")
     @Story("Успешное редактирование опубликованного отзыва о враче")
@@ -644,7 +631,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertFalse(cardDoctor.isSelectUnPublishedFeedback());
         assertTrue(cardDoctor.isSelectPublishedFeedback());
     }
-
 
     @Feature("Отзывы о враче")
     @Story("Успешное снятие с публикации опубликованного отзыва о враче")
@@ -675,6 +661,7 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void closeWindowEditFeedback() {
         cardDoctor.scrollPageDown("500");
+        cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
         editFeedback.verifyChangeFeedbackWindow()
@@ -693,13 +680,13 @@ public class CardDoctorPageTest extends BaseTest {
     @Test
     void editFeedbackEmptyFieldText() {
         cardDoctor.scrollPageDown("500");
+        cardDoctor.clickButtonUnpublishedFeedback();
         Feedback feedback = cardDoctor.getFeedback();
         EditFeedbackWindow editFeedback = feedback.clickButtonEditFeedback();
         editFeedback.verifyChangeFeedbackWindow()
                 .clearTextField();
         assertFalse(editFeedback.isEnabledSaveButton());
     }
-
 
     @Feature("Отзывы о враче")
     @Story("Успешное удаление неопубликованного отзыва о враче")
@@ -740,7 +727,6 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(dateFeedbackYesterday, feedback.getDateFeedbackByIndex(1));
     }
 
-
     @Story("Закрытие навигационного меню")
     @DisplayName("Закрытие навигационного меню")
     @Test
@@ -751,6 +737,5 @@ public class CardDoctorPageTest extends BaseTest {
         navigateMenu.getTabFeedbackNavigateMenu().shouldNotBe(Condition.visible);
         assertFalse(navigateMenu.isNavigateMenuDisplayed());
     }
-
 }
 

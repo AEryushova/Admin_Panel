@@ -8,15 +8,14 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import static utils.testsUtils.DataGenerator.generateQuestion;
 import static utils.testsUtils.DataGenerator.generateText;
-import static utils.testsUtils.TestHelper.generateUuid;
-import static utils.testsUtils.TestHelper.getDateTime;
+import static utils.testsUtils.TestHelper.*;
 
 public class AddDeleteFaq implements BeforeEachCallback, AfterEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllFaq();
-        DataBaseQuery.addFaq(0, generateQuestion(), generateText(),getDateTime(), getDateTime(),generateUuid(),generateUuid());
+        DataBaseQuery.addFaq(0, generateQuestion(), generateText(), generateDate("now"), generateDate("now"),generateUuid(),generateUuid());
     }
 
     @Override

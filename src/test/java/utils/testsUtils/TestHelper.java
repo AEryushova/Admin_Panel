@@ -27,42 +27,20 @@ public class TestHelper {
         return UUID.randomUUID();
     }
 
-    //Генерирует и возвращает дату и время в формате Timestamp для SQL-запросов//
-    public static Timestamp getDateTime() {
-        return Timestamp.valueOf(LocalDateTime.now());
-    }
-
-    //Генерирует старую дату ( - 2 месяца) и возвращает дату и время в формате Timestamp для SQL-запросов//
-    public static Timestamp getPreviousMonthDateTime() {
-        LocalDate previousMonthDate = LocalDate.now().minusMonths(2);
-        return Timestamp.valueOf(previousMonthDate.atStartOfDay());
-    }
-
-
-    public static Timestamp getPreviousMonthDateTime(String date) {
-        LocalDate monthDate;
-
-        if (date.equals("old")) {
-            monthDate = LocalDate.now().minusMonths(2);
-        } else if (date.equals("new")) {
-            monthDate = LocalDate.now().plusMonths(2);
-        } else {
-            throw new IllegalArgumentException("Некорректное значение аргумента: " + date);
+    //Генерирует дату в зависимости от параметра и возвращает дату и время в формате Timestamp для SQL-запросов//
+    public static Timestamp generateDate(String time) {
+        switch (time) {
+            case "old":
+                return Timestamp.valueOf(LocalDate.now().minusMonths(2).atStartOfDay());
+            case "new":
+                return Timestamp.valueOf(LocalDate.now().plusMonths(2).atStartOfDay());
+            case "now":
+                return Timestamp.valueOf(LocalDateTime.now());
+            case "yesterday":
+                return Timestamp.valueOf(LocalDateTime.now().minusDays(1));
+            default:
+                throw new IllegalArgumentException("Invalid argument value: " + time);
         }
-
-        return Timestamp.valueOf(monthDate.atStartOfDay());
-    }
-
-    //Генерирует новую дату ( + 2 месяца) и возвращает дату и время в формате Timestamp для SQL-запросов//
-    public static Timestamp getFutureMonthDateTime() {
-        LocalDate futureMonthDate = LocalDate.now().plusMonths(2);
-        return Timestamp.valueOf(futureMonthDate.atStartOfDay());
-    }
-
-    //Генерирует и возвращает дату и время - 1 день от текущей даты в формате Timestamp для SQL-запросов//
-    public static Timestamp getPreviousDateTime() {
-        LocalDateTime oneDaysAgo = LocalDateTime.now().minusDays(1);
-        return Timestamp.valueOf(oneDaysAgo);
     }
 
     //Получает значение по ключу из json-объекта и возвращает его//

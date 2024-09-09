@@ -70,7 +70,6 @@ public class AdministrationPageTest extends BaseTest {
         assertTrue(adminPage.isVisibleAdminCard(login));
     }
 
-
     @Feature("Добавление нового админа")
     @Story("Добавление нового админа с уже существующим логином")
     @DisplayName("Добавление нового админа с уже существующим логином")
@@ -86,7 +85,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("{\"error\":\"Пользователь уже существует, логин: " + login + "\",\"innerError\":null,\"exception\":\"AlreadyExistException\"}", adminPage.getTextNotification());
         assertTrue(adminPage.isVisibleAdminCard(login));
     }
-
 
     @Feature("Добавление нового админа")
     @Story("Добавление нового администратора с пустым полем логина")
@@ -124,7 +122,6 @@ public class AdministrationPageTest extends BaseTest {
                 .fillFieldNewAdminPassword(generatePassword());
         assertFalse(newAdminWindow.isEnabledAddButton());
     }
-
 
     @Feature("Добавление нового админа")
     @Story("Добавление нового администратора с пустым полем логина и пароля")
@@ -188,7 +185,6 @@ public class AdministrationPageTest extends BaseTest {
         assertFalse(newAdminWindow.isErrorLoginAppear());
     }
 
-
     @Feature("Добавление нового админа")
     @Story("Ввод не валидных граничных значений логина из 33 символов")
     @DisplayName("Ввод не валидных граничных значений логина из 33 символов")
@@ -212,7 +208,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Первый символ должен быть латинской буквой или \"_\"", newAdminWindow.getErrorFieldLogin());
     }
 
-
     @Feature("Добавление нового админа")
     @Story("Ввод не валидного логина")
     @DisplayName("Ввод не валидного логина")
@@ -224,7 +219,6 @@ public class AdministrationPageTest extends BaseTest {
                 .fillFieldNewAdminLogin(login);
         assertEquals("Доступны только числа, латиница и \"_\"", newAdminWindow.getErrorFieldLogin());
     }
-
 
     @Feature("Добавление нового админа")
     @Story("Ввод не валидных граничных значений пароля из 7 и 26 символов")
@@ -296,7 +290,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("", newAdminWindow.getValueConfirmPasswordField());
     }
 
-
     @Feature("Добавление нового админа")
     @Story("Сброс значений полей в окне добавления админа после закрытия окна")
     @DisplayName("Сброс значений полей в окне добавления админа после закрытия окна")
@@ -313,7 +306,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("", newAdminWindow.getValueLoginField());
         assertEquals("", newAdminWindow.getValuePasswordField());
     }
-
 
     @Feature("Замена пароля админу")
     @Story("Успешная замена пароля админу")
@@ -418,7 +410,6 @@ public class AdministrationPageTest extends BaseTest {
                 .fillFieldNewPassword(password);
         assertFalse(changePasswordAdminWindow.isErrorPasswordAppear());
     }
-
 
     @Feature("Замена пароля админу")
     @Story("Ввод не валидных граничных значений пароля из 26 символов")
@@ -568,7 +559,6 @@ public class AdministrationPageTest extends BaseTest {
         assertFalse(updateLegalDocWindow.isWindowAppear());
     }
 
-
     @Feature("Документация")
     @Story("Успешное обновление приказа с даты в текущем месяце")
     @DisplayName("Успешное обновление приказа с даты в текущем месяце")
@@ -621,7 +611,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
-
 
     @Feature("Документация")
     @Story("Успешное обновление приказа с текущей даты")
@@ -700,7 +689,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
-
     @Feature("Документация")
     @Story("Успешное обновление прайса с текущей даты")
     @DisplayName("Успешное обновление прайса с текущей даты")
@@ -737,7 +725,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Допускаются файлы с расширением PDF", adminPage.getTextNotification());
     }
 
-
     @Feature("Документация")
     @Story("Обновление политики обработки с не валидным файлом")
     @DisplayName("Обновление политики обработки с не валидным файлом")
@@ -749,7 +736,6 @@ public class AdministrationPageTest extends BaseTest {
                 .uploadDoc(path);
         assertEquals("Допускаются файлы с расширением PDF", adminPage.getTextNotification());
     }
-
 
     @Feature("Документация")
     @Story("Обновление приказа с ошибкой в строке")
@@ -773,7 +759,6 @@ public class AdministrationPageTest extends BaseTest {
                 .uploadOrder(path);
         assertEquals("Допускаются файлы с расширением xlsx", adminPage.getTextNotification());
     }
-
 
     @Feature("Документация")
     @Story("Обновление прайса с ошибкой в строке")
@@ -842,7 +827,6 @@ public class AdministrationPageTest extends BaseTest {
         assertFalse(priceErrorsWindow.isWindowAppear());
     }
 
-
     @Feature("Документация")
     @Story("Обновление прайса с не валидным файлом")
     @DisplayName("Обновление прайса с не валидным файлом")
@@ -855,7 +839,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("Допускаются файлы с расширением xlsx", adminPage.getTextNotification());
 
     }
-
 }
 
 
