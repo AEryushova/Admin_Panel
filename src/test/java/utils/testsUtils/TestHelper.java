@@ -28,8 +28,8 @@ public class TestHelper {
     }
 
     //Генерирует дату в зависимости от параметра и возвращает дату и время в формате Timestamp для SQL-запросов//
-    public static Timestamp generateDate(String time) {
-        switch (time) {
+    public static Timestamp generateDate(String period) {
+        switch (period) {
             case "old":
                 return Timestamp.valueOf(LocalDate.now().minusMonths(2).atStartOfDay());
             case "new":
@@ -39,7 +39,7 @@ public class TestHelper {
             case "yesterday":
                 return Timestamp.valueOf(LocalDateTime.now().minusDays(1));
             default:
-                throw new IllegalArgumentException("Invalid argument value: " + time);
+                throw new IllegalArgumentException("Invalid argument value: " + period);
         }
     }
 
@@ -56,47 +56,56 @@ public class TestHelper {
         return null;
     }
 
-    //Возвращает текущую дату в формате "17.06.2024"//
-    public static String getCurrentDate() {
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+
+    //Возвращает текущую дату в русской локали в формате, указанном в параметрах //
+   public static String getCurrentDate(String pattern){
+       switch (pattern) {
+           case "dd.MM.yyyy":
+               return LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+           case "dd MMMM yyyy":
+               return LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU")));
+           case "d MMMM yyyy 'г.'":
+               return LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy 'г.'", new Locale("ru", "RU")));
+           default:
+               throw new IllegalArgumentException("Invalid argument value: " + pattern);
+       }
+   }
+
+
+    //Возвращает название месяца в зависимости от входящего параметра в руссукой локали в формате "март 2024"//
+    public static String getNameMonth(String period) {
+        LocalDate month;
+        switch (period) {
+            case "current":
+                month = LocalDate.now();
+                break;
+            case "previous":
+                month = LocalDate.now().minusMonths(1);
+                break;
+            case "future":
+                month = LocalDate.now().plusMonths(1);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid argument value: " + period);
+        }
+        return month.format(DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"))).toLowerCase();
     }
 
-    //Возвращает текущую дату в русской локали в формате "01 Апреля 2024"//
-    public static String getCurrentDateTextRu() {
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru", "RU")));
-    }
 
-    //Возвращает текущую дату в русской локали в формате "01 Апреля 2024 + г."//
-    public static String getCurrentDateRuYear() {
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy 'г.'", new Locale("ru", "RU")));
-    }
-
-    //Возвращает название текущего месяца и год в русской локали в формате "апрель 2024"
-    public static String getNameCurrentMonth() {
-        String formattedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU")));
-        return formattedDate.toLowerCase();
-    }
-
-    //Возвращает название следующего месяца и год в русской локали в формате "май 2024"
-    public static String getNameFutureMonth() {
-        LocalDate nextMonthDate = LocalDate.now().plusMonths(1);
-        return nextMonthDate.format(DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"))).toLowerCase();
-    }
-
-    //Возвращает название предыдущего месяца и год в русской локали в формате "март 2024"//
-    public static String getNamePreviousMonth() {
-        LocalDate previousMonthDate = LocalDate.now().minusMonths(1);
-        return previousMonthDate.format(DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"))).toLowerCase();
-    }
-
-    //Возвращает название месяца 2 месяца назад и год в русской локали в формате "март 2024"//
-    public static String getNameDoublePreviousMonth() {
-        return LocalDate.now().minusMonths(2).format(DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"))).toLowerCase();
-    }
-
-    //Возвращает название месяца, который наступит через 2 месяца и год в русской локали в формате "май 2024"//
-    public static String getNameDoubleFutureMonth() {
-        return LocalDate.now().plusMonths(2).format(DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"))).toLowerCase();
+    //Возвращает название месяца ( +- 2 месяца от текущего ) в зависимости от входящего параметра в руссукой локали в формате "март 2024"//
+    public static String getDoubleNameMonth(String period) {
+        LocalDate month;
+        switch (period) {
+            case "previous":
+                month = LocalDate.now().minusMonths(2);
+                break;
+            case "future":
+                month = LocalDate.now().plusMonths(2);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid argument value: " + period);
+        }
+        return month.format(DateTimeFormatter.ofPattern("LLLL yyyy", new Locale("ru", "RU"))).toLowerCase();
     }
 
     //Возвращает день недели и дату которая наступит через 2 дня от текущей даты в формате "Choose пятница, 1 ноября 2024 г."//
@@ -179,6 +188,38 @@ public class TestHelper {
         return "Choose " + dayOfWeek + ", " + formattedDate;
     }
 
+
+    public static String getFormattedDay(String period, String dayType) {
+        LocalDate month;
+        switch (period) {
+            case "previous":
+                month = LocalDate.now().minusMonths(2);
+                break;
+            case "future":
+                month = LocalDate.now().plusMonths(2);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid period: " + period);
+        }
+
+        // Определяем первый или последний день месяца
+        LocalDate targetDate;
+        if (dayType.equals("first")) {
+            targetDate = month.withDayOfMonth(1);
+        } else if (dayType.equals("last")) {
+            targetDate = month.withDayOfMonth(month.lengthOfMonth());
+        } else {
+            throw new IllegalArgumentException("Invalid day type: " + dayType);
+        }
+
+        // Форматируем дату
+        String dayOfWeek = targetDate.format(DateTimeFormatter.ofPattern("EEEE", new Locale("ru")));
+        String formattedDate = targetDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy 'г.'", new Locale("ru")));
+
+        return "Choose " + dayOfWeek + ", " + formattedDate;
+    }
+
+
     //Возвращает день недели и первый день месяца 2 месяца назад в формате "Choose вторник, 1 октября 2024 г."//
     public static String getPeriodCurrentMonthThirtyDaysAgo() {
         String beginPeriod = LocalDate.now().minusDays(30).format(DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("ru")));
@@ -186,19 +227,22 @@ public class TestHelper {
         return beginPeriod + " - " + endPeriod;
     }
 
-    //Возвращает период от 1 и до последнего дня месяца 2 месяца назад в формате 01.09.2024-30.09.2024"//
-    public static String getPreviousPeriod() {
-        LocalDate previousMonthDate = LocalDate.now().minusMonths(2);
-        String lastDay = previousMonthDate.withDayOfMonth(previousMonthDate.lengthOfMonth()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("ru")));
-        String firstDay = previousMonthDate.withDayOfMonth(1).format(DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("ru")));
-        return firstDay + " - " + lastDay;
-    }
-
-    //Возвращает период от 1 и до последнего дня месяца, который наступит через 2 месяца в формате 01.09.2024-30.09.2024"//
-    public static String getFuturePeriod() {
-        LocalDate previousMonthDate = LocalDate.now().plusMonths(2);
-        String lastDay = previousMonthDate.withDayOfMonth(previousMonthDate.lengthOfMonth()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("ru")));
-        String firstDay = previousMonthDate.withDayOfMonth(1).format(DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("ru")));
+    //Возвращает период от 1 и до последнего дня месяца в зависимости от входящего параметра в формате 01.09.2024-30.09.2024"//
+    public static String getPeriod(String period) {
+        LocalDate month;
+        switch (period) {
+            case "previous":
+                month = LocalDate.now().minusMonths(2);
+                break;
+            case "future":
+                month = LocalDate.now().plusMonths(2);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid argument value: " + period);
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("ru"));
+        String firstDay = month.withDayOfMonth(1).format(formatter);
+        String lastDay = month.withDayOfMonth(month.lengthOfMonth()).format(formatter);
         return firstDay + " - " + lastDay;
     }
 }

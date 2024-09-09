@@ -20,7 +20,7 @@ import static data.TestData.DataTest.email;
 import static data.TestData.DataTest.namePatient;
 import static data.TestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static utils.testsUtils.TestHelper.getCurrentDateRuYear;
+import static utils.testsUtils.TestHelper.*;
 
 @Epic("Настройки")
 @DisplayName("Страница Настройки")
@@ -55,7 +55,7 @@ public class SettingPageTest extends BaseTest {
         assertEquals(namePatient, bugReport.getAuthorText());
         assertEquals(email, bugReport.getEmailAuthorText());
         assertEquals(text, bugReport.getReportText());
-        assertEquals(getCurrentDateRuYear(), bugReport.getDateText());
+        assertEquals(getCurrentDate("d MMMM yyyy 'г.'"), bugReport.getDateText());
     }
 
     @Feature("Сообщения об ошибках")

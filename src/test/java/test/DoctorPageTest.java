@@ -107,7 +107,7 @@ public class DoctorPageTest extends BaseTest {
         cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackPublished();
-        assertEquals(getCurrentDateTextRu(), feedback.getDateFeedback());
+        assertEquals(getCurrentDate("dd MMMM yyyy"), feedback.getDateFeedback());
         assertEquals(namePatient, feedback.getNameAuthorFeedback());
         assertEquals(text, feedback.getTextFeedback());
         assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
@@ -136,7 +136,7 @@ public class DoctorPageTest extends BaseTest {
         cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackPublished();
-        assertEquals(getCurrentDateTextRu(), feedback.getDateFeedback());
+        assertEquals(getCurrentDate("dd MMMM yyyy"), feedback.getDateFeedback());
         assertEquals(namePatient, feedback.getNameAuthorFeedback());
         assertEquals(text, feedback.getTextFeedback());
         assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
@@ -179,13 +179,13 @@ public class DoctorPageTest extends BaseTest {
         calendar.verifyCalendar()
                 .switchPreviousMonth()
                 .switchPreviousMonth();
-        assertEquals(getNameDoublePreviousMonth(), calendar.getNameCurrentMonth());
+        assertEquals(getDoubleNameMonth("previous"), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getFirstDayTwoMonthsAgo());
         calendar.clickDateActivation(getLastDayTwoMonthsAgo());
         assertFalse(calendar.isCalendarAppear());
         UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
         unpublishedFeedback.verifyUnpublishedFeedback();
-        assertEquals(getPreviousPeriod(), unpublishedFeedbacksWindow.getValuesButtonPeriod());
+        assertEquals(getPeriod("previous"), unpublishedFeedbacksWindow.getValuesButtonPeriod());
         assertTrue(unpublishedFeedbacksWindow.isDateInThisPeriod(unpublishedFeedback.getDateFeedback(), unpublishedFeedbacksWindow.getValuesButtonPeriod()));
     }
 
@@ -203,13 +203,13 @@ public class DoctorPageTest extends BaseTest {
         calendar.verifyCalendar()
                 .switchFutureMonth()
                 .switchFutureMonth();
-        assertEquals(getNameDoubleFutureMonth(), calendar.getNameCurrentMonth());
+        assertEquals(getDoubleNameMonth("future"), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getFirstDayTwoMonthsFuture());
         calendar.clickDateActivation(getLastDayTwoMonthsFuture());
         assertFalse(calendar.isCalendarAppear());
         UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
         unpublishedFeedback.verifyUnpublishedFeedback();
-        assertEquals(getFuturePeriod(), unpublishedFeedbacksWindow.getValuesButtonPeriod());
+        assertEquals(getPeriod("future"), unpublishedFeedbacksWindow.getValuesButtonPeriod());
         assertTrue(unpublishedFeedbacksWindow.isDateInThisPeriod(unpublishedFeedback.getDateFeedback(), unpublishedFeedbacksWindow.getValuesButtonPeriod()));
     }
 
