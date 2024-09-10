@@ -5,6 +5,8 @@ import com.github.javafaker.Faker;
 
 import java.security.SecureRandom;
 import java.util.Locale;
+import java.util.Random;
+import java.util.UUID;
 
 public class DataGenerator {
 
@@ -108,5 +110,22 @@ public class DataGenerator {
         String name= FAKER_RU.address().streetName();
         TestData.DataTest.setSubSectionName(name);
         return name;
+    }
+
+    public static String generatePhone() {
+        String phone= FAKER_RU.phoneNumber().phoneNumber();
+        TestData.DataTest.setPhone(phone);
+        return phone;
+    }
+
+    public static String generateAgentId() {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(10);
+        for (int i = 0; i < 10; i++) {
+            sb.append(random.nextInt(10));
+        }
+        String agentId=sb.toString();
+        TestData.DataTest.setAgentId(agentId);
+        return agentId;
     }
 }

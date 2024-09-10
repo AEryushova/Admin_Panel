@@ -11,8 +11,7 @@ import java.util.UUID;
 
 import static data.TestData.DataTest.DOCTOR;
 import static data.TestData.DataTest.DOCTOR_SPECIALIZATION;
-import static utils.testsUtils.DataGenerator.generateNamePatient;
-import static utils.testsUtils.DataGenerator.generateText;
+import static utils.testsUtils.DataGenerator.*;
 import static utils.testsUtils.TestHelper.*;
 
 public class AddFeedbackDifferentDate implements BeforeEachCallback, AfterEachCallback {

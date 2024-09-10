@@ -3,6 +3,7 @@ package utils.dbUtils;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import utils.dbUtils.dbaseData.*;
+
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -74,7 +75,7 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addDescription(UUID sectionId, String title, int sequence, Timestamp created_at, Timestamp updated_at, UUID employee_expertises_id ) {
+    public static void addDescription(UUID sectionId, String title, int sequence, Timestamp created_at, Timestamp updated_at, UUID employee_expertises_id) {
         var addDescription = "INSERT INTO employee_expertises (employee_expertises_id,title,employee_details_id,sequence,created_at,updated_at ) VALUES (?, ?, ?, ?, ?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addDescription, employee_expertises_id, title, sectionId, sequence, created_at, updated_at);
@@ -98,10 +99,10 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addBugReport(String message, String email, String author, Timestamp created_at, UUID id ) {
-        var addBugReport = "INSERT INTO bug_reports (id,message,email,author,created_at ) VALUES (?, ?, ?, ?, ?)";
+    public static void addBugReport(String message, String email, String author, Timestamp created_at, UUID id, String phone, String agentId) {
+        var addBugReport = "INSERT INTO bug_reports (id,message,email,author,created_at, phone,agent_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            DataBaseManager.queryRunner("cab_lab_db").update(connection, addBugReport, id, message, email, author, created_at);
+            DataBaseManager.queryRunner("cab_lab_db").update(connection, addBugReport, id, message, email, author, created_at, phone, agentId);
         }
     }
 
@@ -129,7 +130,7 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addFaq(int sequence, String question, String answer, Timestamp created_at, Timestamp updated_at, UUID id, UUID group_id ) {
+    public static void addFaq(int sequence, String question, String answer, Timestamp created_at, Timestamp updated_at, UUID id, UUID group_id) {
         var addFaq = "INSERT INTO faq (id,question,answer,created_at,updated_at, group_id, sequence ) VALUES (?, ?, ?, ?, ?,?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFaq, id, question, answer, created_at, updated_at, group_id, sequence);
@@ -152,7 +153,7 @@ public class DataBaseQuery {
     }
 
     @SneakyThrows
-    public static void addFeedback(UUID doctorId, String author, String content, Boolean is_published,Timestamp created_at, Timestamp updated_at, UUID id) {
+    public static void addFeedback(UUID doctorId, String author, String content, Boolean is_published, Timestamp created_at, Timestamp updated_at, UUID id) {
         var addFeedback = "INSERT INTO feedbacks_employees (id,employees_id,author,content,created_at,updated_at,is_published ) VALUES (?,?,?,?,?,?,?)";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
             DataBaseManager.queryRunner("cab_lab_db").update(connection, addFeedback, id, doctorId, author, content, created_at, updated_at, is_published);
@@ -178,7 +179,7 @@ public class DataBaseQuery {
     public static ServiceCategories selectServicesCategories(String nameCategorySection) {
         var selectInfo = "SELECT * FROM service_categories WHERE name = ? ";
         try (var connection = DataBaseManager.getConnection("cab_lab_db")) {
-            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, new BeanHandler<>(ServiceCategories.class),nameCategorySection);
+            return DataBaseManager.queryRunner("cab_lab_db").query(connection, selectInfo, new BeanHandler<>(ServiceCategories.class), nameCategorySection);
         }
     }
 
@@ -202,7 +203,7 @@ public class DataBaseQuery {
     public static Logs selectLog(String userName) {
         var selectInfo = "SELECT * FROM logs WHERE user_name=? ORDER BY log_time DESC LIMIT 1";
         try (var connection = DataBaseManager.getConnection("lod_db")) {
-            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo,new BeanHandler<>(Logs.class), userName);
+            return DataBaseManager.queryRunner("lod_db").query(connection, selectInfo, new BeanHandler<>(Logs.class), userName);
         }
     }
 

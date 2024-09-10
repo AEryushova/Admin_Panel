@@ -15,4 +15,6 @@ public class BugReports {
     private String email;
     private String author;
     private Timestamp created_at;
+    private String phone;
+    private String agent_id;
 }

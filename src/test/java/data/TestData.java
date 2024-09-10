@@ -30,6 +30,10 @@ public class TestData {
         @Setter
         public static String email;
         @Setter
+        public static String phone;
+        @Setter
+        public static String agentId;
+        @Setter
         public static String namePatient;
         @Setter
         public static String questionFaq;

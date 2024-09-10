@@ -11,8 +11,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
 import static data.TestData.DataTest.*;
-import static utils.testsUtils.DataGenerator.generateNamePatient;
-import static utils.testsUtils.DataGenerator.generateText;
+import static utils.testsUtils.DataGenerator.*;
 import static utils.testsUtils.TestHelper.*;
 
 public class AddTwoFeedback implements BeforeEachCallback, AfterEachCallback {
