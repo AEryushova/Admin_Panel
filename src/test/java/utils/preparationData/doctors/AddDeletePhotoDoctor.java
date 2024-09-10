@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+import static appData.AppData.URI_PERSONAL_AREA;
 import static data.TestData.DataTest.*;
 
 public class AddDeletePhotoDoctor implements BeforeEachCallback, AfterEachCallback {
@@ -14,7 +15,7 @@ public class AddDeletePhotoDoctor implements BeforeEachCallback, AfterEachCallba
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         PreparationDataSettingTest.uploadPhotoToStorage(PHOTO);
-        String photoUri= TestHelper.urlPhotoBuilder();
+        String photoUri= URI_PERSONAL_AREA + PreparationDataSettingTest.getLocation();
         DataBaseQuery.setPhotoDoctor(DOCTOR, DOCTOR_SPECIALIZATION, photoUri);
     }
 

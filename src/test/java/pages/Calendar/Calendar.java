@@ -32,8 +32,8 @@ public class Calendar {
 
     @Step("Нажать на дату '{0}' в календаре")
     public void clickDateActivation(String date) {
-        SelenideElement date_activation = getDate(date);
-        date_activation.shouldBe(Condition.visible)
+        SelenideElement dateActivation = getDate(date);
+        dateActivation.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }

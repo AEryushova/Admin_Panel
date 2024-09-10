@@ -55,7 +55,7 @@ public class SettingPageTest extends BaseTest {
         assertEquals(namePatient, bugReport.getAuthorText());
         assertEquals(email, bugReport.getEmailAuthorText());
         assertEquals(text, bugReport.getReportText());
-        assertEquals(getCurrentDate("d MMMM yyyy 'г.'"), bugReport.getDateText());
+        assertEquals(getDate("current",0,0,"d MMMM yyyy 'г.'"), bugReport.getDateText());
     }
 
     @Feature("Сообщения об ошибках")

@@ -27,7 +27,7 @@ public class AddTwoFeedback implements BeforeEachCallback, AfterEachCallback {
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), false, generateDate("now"), generateDate("now"),generateUuid());
+        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), false, generateDate("current"), generateDate("current"),generateUuid());
         DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), false, generateDate("yesterday"), generateDate("yesterday"),generateUuid());
     }
 

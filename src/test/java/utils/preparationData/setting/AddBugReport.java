@@ -12,6 +12,6 @@ public class AddBugReport implements BeforeEachCallback {
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllBugReports();
-        DataBaseQuery.addBugReport(generateText(), generateEmail(),generateNamePatient(), generateDate("now"),generateUuid());
+        DataBaseQuery.addBugReport(generateText(), generateEmail(),generateNamePatient(), generateDate("current"),generateUuid());
     }
 }

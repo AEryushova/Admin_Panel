@@ -15,7 +15,7 @@ public class AddDeleteFaq implements BeforeEachCallback, AfterEachCallback {
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         DataBaseQuery.clearAllFaq();
-        DataBaseQuery.addFaq(0, generateQuestion(), generateText(), generateDate("now"), generateDate("now"),generateUuid(),generateUuid());
+        DataBaseQuery.addFaq(0, generateQuestion(), generateText(), generateDate("current"), generateDate("current"),generateUuid(),generateUuid());
     }
 
     @Override

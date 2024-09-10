@@ -1,11 +1,7 @@
 package pages.AdministrationPage;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.FileDownloadMode;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import pages.Calendar.Calendar;
-import utils.testsUtils.TestHelper;
 import io.qameta.allure.Step;
 
 import java.io.File;
@@ -21,16 +17,12 @@ public class UpdatePriceWindow {
             WINDOW = $x("//span[text()='Обновить прайс']//parent::div//parent::div//parent::div[@class='eV2Y']"),
             HEADER_WINDOW = $x("//div[@id='popap_window']/div/div/div/div/div/span[text()='Обновить прайс']"),
             ACTIVATIONS_DATES_LIST = $x("//span[text()='Даты активации']//parent::div"),
-            ACTIVATION_DATES_DOWNLOAD,
             FILE_INPUT_ELEMENT = $("input[type='file']"),
             UPLOAD_BUTTON = $x("//span[text()='Загрузить']"),
             CLOSE_WINDOW_BUTTON = $x("//span[text()='Обновить прайс']//parent::div//parent::div/parent::*/div[@class='UnAf Ee5G']"),
             CALENDAR_BUTTON = $x("//div[@class='zMyf']");
+    private final ElementsCollection ACTIVATION_DATES_DOWNLOAD = $$x("//div[@class='wDKS']/span");
 
-
-    public UpdatePriceWindow() {
-        this.ACTIVATION_DATES_DOWNLOAD = $x("//span[text()='" + TestHelper.getActivationDateCurrentMonth() + "']/parent::div");
-    }
 
     @Step("Верифицировать окно добавления прайса")
     public UpdatePriceWindow verifyUpdatePriceWindow() {
@@ -69,14 +61,24 @@ public class UpdatePriceWindow {
     }
 
     @SuppressWarnings("unused")
-    public File downloadPriceDateActivation() {
-        ACTIVATIONS_DATES_LIST.click();
-        ACTIVATION_DATES_DOWNLOAD.shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldBe(Condition.enabled);
+    @Step("Нажать на кнопку раскрытия списка с датами активации")
+    public void openActivationList() {
+        ACTIVATIONS_DATES_LIST.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
+    @SuppressWarnings("unused")
+    @Step("Нажать на дату '{0}' в списке дат активации")
+    public File clickDateActivationInList(String date) {
+        SelenideElement dateDownload = getDate(date);
+        dateDownload.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         File downloadedFile;
         try {
-            downloadedFile = ACTIVATION_DATES_DOWNLOAD.download(withExtension("xlsx"));
+            downloadedFile = dateDownload.download(withExtension("xlsx"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -94,5 +96,15 @@ public class UpdatePriceWindow {
     @Step("Проверить отображение окна добавления прайса")
     public boolean isWindowAppear() {
         return WINDOW.isDisplayed();
+    }
+
+    @Step("Получить дату '{0}' из списка дат активации")
+    private SelenideElement getDate(String date) {
+        for (SelenideElement element : ACTIVATION_DATES_DOWNLOAD) {
+            if (element != null && element.getText().equals(date)) {
+                return element;
+            }
+        }
+        throw new IllegalArgumentException("Date not found: " + date);
     }
 }

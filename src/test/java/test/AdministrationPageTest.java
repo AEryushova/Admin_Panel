@@ -568,8 +568,8 @@ public class AdministrationPageTest extends BaseTest {
         updateOrderWindow.verifyUpdateOrderWindow();
         Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.verifyCalendar();
-        assertEquals(getNameMonth("current"), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getDayCurrentMonthYear());
+        assertEquals(getDate("current",0,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDay("current",null,0,2));
         assertFalse(calendar.isCalendarAppear());
         updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
@@ -586,8 +586,8 @@ public class AdministrationPageTest extends BaseTest {
         Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.verifyCalendar()
                 .switchFutureMonth();
-        assertEquals(getNameMonth("future"), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getDayFutureMonth());
+        assertEquals(getDate("future",1,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDay("future",null,1,2));
         assertFalse(calendar.isCalendarAppear());
         updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
@@ -604,8 +604,8 @@ public class AdministrationPageTest extends BaseTest {
         Calendar calendar = updateOrderWindow.openCalendarUpdateOrder();
         calendar.verifyCalendar()
                 .switchPreviousMonth();
-        assertEquals(getNameMonth("previous"), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getDayPreviousMonth());
+        assertEquals(getDate("previous",1,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDay("previous",null,1,2));
         assertFalse(calendar.isCalendarAppear());
         updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
@@ -619,7 +619,7 @@ public class AdministrationPageTest extends BaseTest {
     void updateOrderTodayNotUseCalendar() {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.verifyUpdateOrderWindow();
-        assertEquals(getCurrentDate("dd.MM.yyyy"), updateOrderWindow.getValuesButtonToday());
+        assertEquals(getDate("current",0,0,"dd.MM.yyyy"), updateOrderWindow.getValuesButtonToday());
         updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -645,8 +645,8 @@ public class AdministrationPageTest extends BaseTest {
         updatePriceWindow.verifyUpdatePriceWindow();
         Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.verifyCalendar();
-        assertEquals(getNameMonth("current"), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getDayCurrentMonthYear());
+        assertEquals(getDate("current",0,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDay("current",null,0,2));
         assertFalse(calendar.isCalendarAppear());
         updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
@@ -663,8 +663,8 @@ public class AdministrationPageTest extends BaseTest {
         Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.verifyCalendar()
                 .switchFutureMonth();
-        assertEquals(getNameMonth("future"), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getDayFutureMonth());
+        assertEquals(getDate("future",1,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDay("future",null,1,2));
         assertFalse(calendar.isCalendarAppear());
         updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
@@ -681,8 +681,8 @@ public class AdministrationPageTest extends BaseTest {
         Calendar calendar = updatePriceWindow.openCalendarUpdatePrice();
         calendar.verifyCalendar()
                 .switchPreviousMonth();
-        assertEquals(getNameMonth("previous"), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getDayPreviousMonth());
+        assertEquals(getDate("previous",1,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDay("previous",null,1,2));
         assertFalse(calendar.isCalendarAppear());
         updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
@@ -696,7 +696,7 @@ public class AdministrationPageTest extends BaseTest {
     void clickButtonUpdatePriceTodayNotUseCalendar() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow();
-        assertEquals(getCurrentDate("dd.MM.yyyy"), updatePriceWindow.getValuesButtonToday());
+        assertEquals(getDate("current",0,0,"dd.MM.yyyy"), updatePriceWindow.getValuesButtonToday());
         updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());

@@ -68,15 +68,15 @@ public class DoctorPageTest extends BaseTest {
     @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void openUnpublishedFeedbackInCardDoctor() {
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
-        UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
-        unpublishedFeedback.verifyUnpublishedFeedback();
-        String nameDoctor = unpublishedFeedback.getNameDoctorFeedback();
-        String nameAuthor = unpublishedFeedback.getNameAuthorFeedback();
-        String dateFeedback = unpublishedFeedback.getDateFeedback();
-        String textFeedback = unpublishedFeedback.getTextFeedback();
-        CardDoctorPage cardDoctor = unpublishedFeedback.clickButtonOpenCardDoctor();
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        UnpublishedFeedback unFeedback = unFeedbacksWindow.getUnpublishedFeedback();
+        unFeedback.verifyUnpublishedFeedback();
+        String nameDoctor = unFeedback.getNameDoctorFeedback();
+        String nameAuthor = unFeedback.getNameAuthorFeedback();
+        String dateFeedback = unFeedback.getDateFeedback();
+        String textFeedback = unFeedback.getTextFeedback();
+        CardDoctorPage cardDoctor = unFeedback.clickButtonOpenCardDoctor();
         assertEquals(nameDoctor, cardDoctor.getNameDoctor());
         cardDoctor.scrollPageDown("500");
         cardDoctor.clickButtonUnpublishedFeedback();
@@ -92,22 +92,22 @@ public class DoctorPageTest extends BaseTest {
     @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void publishedUnpublishedFeedback() {
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
-        UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
-        unpublishedFeedback.verifyUnpublishedFeedback()
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        UnpublishedFeedback unFeedback = unFeedbacksWindow.getUnpublishedFeedback();
+        unFeedback.verifyUnpublishedFeedback()
                 .clickButtonPublicationFeedback();
-        unpublishedFeedbacksWindow.getEmptyListFeedback().shouldBe(Condition.visible);
-        assertFalse(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
-        unpublishedFeedbacksWindow.closeWindowUnpublishedFeedbacksWindow();
-        assertFalse(unpublishedFeedbacksWindow.isWindowAppear());
+        unFeedbacksWindow.getEmptyListFeedback().shouldBe(Condition.visible);
+        assertFalse(unFeedbacksWindow.isExistUnpublishedFeedback());
+        unFeedbacksWindow.closeWindowUnpublishedFeedbacksWindow();
+        assertFalse(unFeedbacksWindow.isWindowAppear());
         doctorsPage.searchDoctor(DOCTOR_SURNAME);
         doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
         doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION, DOCTOR);
         cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackPublished();
-        assertEquals(getCurrentDate("dd MMMM yyyy"), feedback.getDateFeedback());
+        assertEquals(getDate("current",0,0,"dd MMMM yyyy"), feedback.getDateFeedback());
         assertEquals(namePatient, feedback.getNameAuthorFeedback());
         assertEquals(text, feedback.getTextFeedback());
         assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
@@ -121,22 +121,22 @@ public class DoctorPageTest extends BaseTest {
     @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void publishedChangedUnpublishedFeedback() {
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
-        UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
-        unpublishedFeedback.verifyUnpublishedFeedback()
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        UnpublishedFeedback unFeedback = unFeedbacksWindow.getUnpublishedFeedback();
+        unFeedback.verifyUnpublishedFeedback()
                 .fillFieldText(generateText())
                 .clickButtonPublicationFeedback();
-        unpublishedFeedbacksWindow.getEmptyListFeedback().shouldBe(Condition.visible);
-        assertFalse(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
-        unpublishedFeedbacksWindow.closeWindowUnpublishedFeedbacksWindow();
+        unFeedbacksWindow.getEmptyListFeedback().shouldBe(Condition.visible);
+        assertFalse(unFeedbacksWindow.isExistUnpublishedFeedback());
+        unFeedbacksWindow.closeWindowUnpublishedFeedbacksWindow();
         doctorsPage.searchDoctor(DOCTOR_SURNAME);
         doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
         doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION, DOCTOR);
         cardDoctor.scrollPageDown("500");
         Feedback feedback = cardDoctor.getFeedback();
         feedback.verifyFeedbackPublished();
-        assertEquals(getCurrentDate("dd MMMM yyyy"), feedback.getDateFeedback());
+        assertEquals(getDate("current",0,0,"dd MMMM yyyy"), feedback.getDateFeedback());
         assertEquals(namePatient, feedback.getNameAuthorFeedback());
         assertEquals(text, feedback.getTextFeedback());
         assertEquals(namePatient, DataBaseQuery.selectFeedback().getAuthor());
@@ -151,18 +151,18 @@ public class DoctorPageTest extends BaseTest {
     @ExtendWith(AddDeleteOldFeedback.class)
     @Test
     void clearFilterPeriodUnpublishedFeedback() {
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
-        String period = unpublishedFeedbacksWindow.getValuesButtonPeriod();
-        assertEquals(getPeriodCurrentMonthThirtyDaysAgo(), period);
-        assertFalse(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
-        unpublishedFeedbacksWindow.clickClearFilter();
-        unpublishedFeedbacksWindow.getEmptyListFeedback().shouldNotBe(Condition.visible);
-        UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
-        unpublishedFeedback.verifyUnpublishedFeedback();
-        assertTrue(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
-        assertEquals("Укажите даты", unpublishedFeedbacksWindow.getValuesButtonPeriod());
-        assertFalse(unpublishedFeedbacksWindow.isDateInThisPeriod(unpublishedFeedback.getDateFeedback(), period));
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        String period = unFeedbacksWindow.getValuesButtonPeriod();
+        assertEquals(getPeriod(null,0,true), period);
+        assertFalse(unFeedbacksWindow.isExistUnpublishedFeedback());
+        unFeedbacksWindow.clickClearFilter();
+        unFeedbacksWindow.getEmptyListFeedback().shouldNotBe(Condition.visible);
+        UnpublishedFeedback unFeedback = unFeedbacksWindow.getUnpublishedFeedback();
+        unFeedback.verifyUnpublishedFeedback();
+        assertTrue(unFeedbacksWindow.isExistUnpublishedFeedback());
+        assertEquals("Укажите даты", unFeedbacksWindow.getValuesButtonPeriod());
+        assertFalse(unFeedbacksWindow.isDateInThisPeriod(unFeedback.getDateFeedback(), period));
     }
 
     @Feature("Обработка неопубликованных отзывов")
@@ -171,22 +171,22 @@ public class DoctorPageTest extends BaseTest {
     @ExtendWith(AddDeleteOldFeedback.class)
     @Test
     void openUnpublishedFeedbackPreviousPeriod() {
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
-        assertFalse(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
-        unpublishedFeedbacksWindow.clickClearFilter();
-        Calendar calendar = unpublishedFeedbacksWindow.openCalendarSelectPeriod();
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        assertFalse(unFeedbacksWindow.isExistUnpublishedFeedback());
+        unFeedbacksWindow.clickClearFilter();
+        Calendar calendar = unFeedbacksWindow.openCalendarSelectPeriod();
         calendar.verifyCalendar()
                 .switchPreviousMonth()
                 .switchPreviousMonth();
-        assertEquals(getDoubleNameMonth("previous"), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getFirstDayTwoMonthsAgo());
-        calendar.clickDateActivation(getLastDayTwoMonthsAgo());
+        assertEquals(getDate("previous",2,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDay("previous","first",2,0));
+        calendar.clickDateActivation(getDay("previous","last",2,0));
         assertFalse(calendar.isCalendarAppear());
-        UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
-        unpublishedFeedback.verifyUnpublishedFeedback();
-        assertEquals(getPeriod("previous"), unpublishedFeedbacksWindow.getValuesButtonPeriod());
-        assertTrue(unpublishedFeedbacksWindow.isDateInThisPeriod(unpublishedFeedback.getDateFeedback(), unpublishedFeedbacksWindow.getValuesButtonPeriod()));
+        UnpublishedFeedback unFeedback = unFeedbacksWindow.getUnpublishedFeedback();
+        unFeedback.verifyUnpublishedFeedback();
+        assertEquals(getPeriod("previous",2,false), unFeedbacksWindow.getValuesButtonPeriod());
+        assertTrue(unFeedbacksWindow.isDateInThisPeriod(unFeedback.getDateFeedback(), unFeedbacksWindow.getValuesButtonPeriod()));
     }
 
     @Feature("Обработка неопубликованных отзывов")
@@ -195,22 +195,22 @@ public class DoctorPageTest extends BaseTest {
     @ExtendWith(AddDeleteNewFeedback.class)
     @Test
     void openUnpublishedFeedbackFuturePeriod() {
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
-        assertFalse(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
-        unpublishedFeedbacksWindow.clickClearFilter();
-        Calendar calendar = unpublishedFeedbacksWindow.openCalendarSelectPeriod();
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        assertFalse(unFeedbacksWindow.isExistUnpublishedFeedback());
+        unFeedbacksWindow.clickClearFilter();
+        Calendar calendar = unFeedbacksWindow.openCalendarSelectPeriod();
         calendar.verifyCalendar()
                 .switchFutureMonth()
                 .switchFutureMonth();
-        assertEquals(getDoubleNameMonth("future"), calendar.getNameCurrentMonth());
-        calendar.clickDateActivation(getFirstDayTwoMonthsFuture());
-        calendar.clickDateActivation(getLastDayTwoMonthsFuture());
+        assertEquals(getDate("future",2,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
+        calendar.clickDateActivation(getDay("future","first",2,0));
+        calendar.clickDateActivation(getDay("future","last",2,0));
         assertFalse(calendar.isCalendarAppear());
-        UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
-        unpublishedFeedback.verifyUnpublishedFeedback();
-        assertEquals(getPeriod("future"), unpublishedFeedbacksWindow.getValuesButtonPeriod());
-        assertTrue(unpublishedFeedbacksWindow.isDateInThisPeriod(unpublishedFeedback.getDateFeedback(), unpublishedFeedbacksWindow.getValuesButtonPeriod()));
+        UnpublishedFeedback unFeedback = unFeedbacksWindow.getUnpublishedFeedback();
+        unFeedback.verifyUnpublishedFeedback();
+        assertEquals(getPeriod("future",2,false), unFeedbacksWindow.getValuesButtonPeriod());
+        assertTrue(unFeedbacksWindow.isDateInThisPeriod(unFeedback.getDateFeedback(), unFeedbacksWindow.getValuesButtonPeriod()));
     }
 
     @Feature("Обработка неопубликованных отзывов")
@@ -219,11 +219,11 @@ public class DoctorPageTest extends BaseTest {
     @ExtendWith(AddPublishedDeleteFeedback.class)
     @Test
     void filterFeedbackPublicationStatus() {
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow()
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow()
                 .clickClearFilter();
-        assertFalse(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
-        unpublishedFeedbacksWindow.closeWindowUnpublishedFeedbacksWindow();
+        assertFalse(unFeedbacksWindow.isExistUnpublishedFeedback());
+        unFeedbacksWindow.closeWindowUnpublishedFeedbacksWindow();
         doctorsPage.searchDoctor(DOCTOR_SURNAME);
         doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
         doctorsPage.clickButtonEditInfoDoctor(DOCTOR_SPECIALIZATION, DOCTOR);
@@ -235,7 +235,7 @@ public class DoctorPageTest extends BaseTest {
         cardDoctor.scrollPageUp("500");
         cardDoctor.clickButtonComebackDoctorsPage();
         doctorsPage.clickShowUnpublishedFeedbacks();
-        assertTrue(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
+        assertTrue(unFeedbacksWindow.isExistUnpublishedFeedback());
     }
 
     @Feature("Обработка неопубликованных отзывов")
@@ -244,13 +244,13 @@ public class DoctorPageTest extends BaseTest {
     @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void publishedEmptyUnpublishedFeedback() {
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
-        UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
-        unpublishedFeedback.verifyUnpublishedFeedback()
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        UnpublishedFeedback unFeedback = unFeedbacksWindow.getUnpublishedFeedback();
+        unFeedback.verifyUnpublishedFeedback()
                 .clearFieldText()
                 .clickButtonPublicationFeedback();
-        assertTrue(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
+        assertTrue(unFeedbacksWindow.isExistUnpublishedFeedback());
     }
 
     @Feature("Обработка неопубликованных отзывов")
@@ -259,14 +259,14 @@ public class DoctorPageTest extends BaseTest {
     @ExtendWith(AddUnpublishedFeedback.class)
     @Test
     void deleteUnpublishedFeedback() {
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
-        UnpublishedFeedback unpublishedFeedback = unpublishedFeedbacksWindow.getUnpublishedFeedback();
-        unpublishedFeedback.verifyUnpublishedFeedback()
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow();
+        UnpublishedFeedback unFeedback = unFeedbacksWindow.getUnpublishedFeedback();
+        unFeedback.verifyUnpublishedFeedback()
                 .clickButtonDeleteFeedback();
-        unpublishedFeedbacksWindow.getEmptyListFeedback().shouldBe(Condition.visible);
-        assertFalse(unpublishedFeedbacksWindow.isExistUnpublishedFeedback());
-        assertTrue(unpublishedFeedbacksWindow.isExistsEmptyListFeedback());
+        unFeedbacksWindow.getEmptyListFeedback().shouldBe(Condition.visible);
+        assertFalse(unFeedbacksWindow.isExistUnpublishedFeedback());
+        assertTrue(unFeedbacksWindow.isExistsEmptyListFeedback());
         assertEquals("Отзыв успешно удален", cardDoctor.getTextNotification());
         assertNull(DataBaseQuery.selectFeedback());
         assertEquals("FEEDBACK_DELETED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
@@ -279,8 +279,8 @@ public class DoctorPageTest extends BaseTest {
     @Test
     void changeCountUnpublishedFeedback() {
         String countFeedbacks = doctorsPage.getCountUnpublishedFeedback();
-        UnpublishedFeedbacksWindow unpublishedFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
-        unpublishedFeedbacksWindow.verifyUnpublishedFeedbacksWindow()
+        UnpublishedFeedbacksWindow unFeedbacksWindow = doctorsPage.clickShowUnpublishedFeedbacks();
+        unFeedbacksWindow.verifyUnpublishedFeedbacksWindow()
                 .clickClearFilter()
                 .closeWindowUnpublishedFeedbacksWindow();
         assertNotEquals(Integer.parseInt(countFeedbacks), Integer.parseInt(doctorsPage.getCountUnpublishedFeedback()));

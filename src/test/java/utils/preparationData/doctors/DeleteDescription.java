@@ -28,7 +28,7 @@ public class DeleteDescription implements BeforeEachCallback, AfterEachCallback 
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearSection(doctorId);
-        DataBaseQuery.addSection(doctorId, generateWord(),0, generateDate("now"), generateDate("now"),generateUuid());
+        DataBaseQuery.addSection(doctorId, generateWord(),0, generateDate("current"), generateDate("current"),generateUuid());
         UUID sectionId = DataBaseQuery.selectSection(doctorId).getEmployee_details_id();
         setSectionId(sectionId);
     }

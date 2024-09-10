@@ -29,7 +29,7 @@ public class AddPublishedDeleteFeedback implements BeforeEachCallback, AfterEach
         UUID doctorId = DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getEmployee_id();
         setDoctorId(doctorId);
         DataBaseQuery.clearAllFeedback();
-        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), true, generateDate("now"), generateDate("now"),generateUuid());
+        DataBaseQuery.addFeedback(doctorId, generateNamePatient(), generateText(), true, generateDate("current"), generateDate("current"),generateUuid());
         UUID feedbackId = DataBaseQuery.selectFeedback().getId();
         setFeedbackId(feedbackId);
         DataBaseQuery.publishedFeedback(feedbackId);
