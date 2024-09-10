@@ -6,7 +6,6 @@ import utils.dbUtils.DataBaseQuery;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import static utils.testsUtils.DataGenerator.*;
 import static utils.testsUtils.TestHelper.*;
 
 
