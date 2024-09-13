@@ -113,8 +113,9 @@ public class DataGenerator {
 
     public static String generatePhone() {
         String phone= FAKER_RU.phoneNumber().phoneNumber();
-        TestData.DataTest.setPhone(phone);
-        return phone;
+        String phoneNumber = phone.replaceAll("[+\\-()\\s]", "");
+        TestData.DataTest.setPhone(phoneNumber);
+        return phoneNumber;
     }
 
     public static String generateAgentId() {

@@ -28,12 +28,12 @@ public class FAQPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        authAdminPanel(LOGIN_ADMIN,PASSWORD_ADMIN);
+        getAuthToken(LOGIN_ADMIN,PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp(){
-        openAdminPanel();
+        openAuthAdminPanel();
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickFaqTab();
         faqPage.verifyFaqPage();
@@ -41,7 +41,7 @@ public class FAQPageTest extends BaseTest {
 
     @AfterEach()
     void closeWebDriver() {
-        Selenide.closeWebDriver();
+        closeDriver();
     }
 
 

@@ -28,19 +28,19 @@ public class SettingPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        getAuthToken(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        openAdminPanel();
+        openAuthAdminPanel();
         headerMenu.clickSettingTab();
         settingPage.verifySettingPage();
     }
 
     @AfterEach()
     void closeWebDriver() {
-        Selenide.closeWebDriver();
+        closeDriver();
     }
 
 

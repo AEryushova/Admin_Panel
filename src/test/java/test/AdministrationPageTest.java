@@ -7,7 +7,6 @@ import pages.HeaderMenu.HeaderMenu;
 import utils.dbUtils.DataBaseQuery;
 import utils.preparationData.administration.AdminAdd;
 import utils.preparationData.administration.AdminAddDelete;
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -32,12 +31,12 @@ public class AdministrationPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
+        getAuthToken(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        openAdminPanel();
+        openAuthAdminPanel();
         HeaderMenu headerMenu = new HeaderMenu();
         headerMenu.clickAdministrationTab();
         adminPage.verifyAdminPage();
@@ -45,7 +44,7 @@ public class AdministrationPageTest extends BaseTest {
 
     @AfterEach()
     void closeWebDriver() {
-        Selenide.closeWebDriver();
+        closeDriver();
     }
 
 

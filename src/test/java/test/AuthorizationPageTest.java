@@ -4,7 +4,6 @@ package test;
 import pages.HeaderMenu.UserPanel;
 import utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -29,13 +28,13 @@ public class AuthorizationPageTest extends BaseTest {
 
     @BeforeEach
     void setUp() {
-        openBrowser();
+        openAdminPanel();
         authPage.verifyAuthPage();
     }
 
     @AfterEach()
     void closeWebDriver() {
-        Selenide.closeWebDriver();
+        closeDriver();
     }
 
 
@@ -223,9 +222,9 @@ public class AuthorizationPageTest extends BaseTest {
                 .fillPasswordField(generatePassword());
         assertTrue(authPage.isEnabledComeInButton());
         authPage.clickToComeIn();
-        basePage.getNotification().should(Condition.visible);
+        basePage.getNotification().shouldBe(Condition.visible);
         assertTrue(basePage.isNotificationAppear());
-        basePage.getNotification().should(Condition.disappear, Duration.ofSeconds(7));
+        basePage.getNotification().shouldBe(Condition.disappear, Duration.ofSeconds(7));
         assertFalse(basePage.isNotificationAppear());
     }
 

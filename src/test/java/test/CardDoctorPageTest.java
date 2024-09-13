@@ -6,7 +6,6 @@ import pages.Calendar.Calendar;
 import utils.preparationData.doctors.*;
 import utils.dbUtils.DataBaseQuery;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -30,12 +29,12 @@ public class CardDoctorPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        getAuthToken(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        openAdminPanel();
+        openAuthAdminPanel();
         DoctorsPage doctorsPage = new DoctorsPage();
         doctorsPage.searchDoctor(DOCTOR_SURNAME);
         doctorsPage.scrollToCard(doctorsPage.searchCardDoctor(DOCTOR_SPECIALIZATION, DOCTOR));
@@ -45,7 +44,7 @@ public class CardDoctorPageTest extends BaseTest {
 
     @AfterEach()
     void closeWebDriver() {
-        Selenide.closeWebDriver();
+        closeDriver();
     }
 
 

@@ -1,6 +1,9 @@
 package test;
 
 
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import pages.AdministrationPage.AdministrationPage;
 import pages.AuthorizationPage.AuthorizationPage;
 import pages.BasePage.BasePage;
@@ -48,17 +51,7 @@ public class BaseTest {
     @Getter
     public static String token;
 
-
-    public static void openBrowser() {
-        Configuration.browser = System.getProperty("selenide.browser");
-        Configuration.browserSize = "1920x1080";
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
-        open(URI_ADMIN_PANEL);
-        localStorage().setItem("Environment", ENVIRONMENT);
-        clearBrowserCookies();
-    }
-
-    public static void authAdminPanel(String login, String password) {
+    public static void getAuthToken(String login, String password) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("password", password);
@@ -76,18 +69,69 @@ public class BaseTest {
         token = response.getBody().jsonPath().getString("accessToken");
     }
 
-    public static void openAdminPanel() {
-        Configuration.browser = System.getProperty("selenide.browser");
+    protected static void openAdminPanel() {
+        configureBrowser();
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
         open(URI_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
-        clearBrowserCookies();
-        localStorage().removeItem("accessToken");
+    }
+
+    protected static void openAuthAdminPanel() {
+        configureBrowser();
+        Configuration.browserSize = "1920x1080";
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
+        open(URI_ADMIN_PANEL);
+        localStorage().setItem("Environment", ENVIRONMENT);
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
         localStorage().setItem("accessToken", token);
         WebDriverRunner.getWebDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
         Selenide.refresh();
+    }
+
+    protected static void closeDriver(){
+        clearBrowserLocalStorage();
+        clearBrowserCookies();
+        Selenide.closeWebDriver();
+    }
+
+    private static void configureBrowser() {
+        String browser=System.getProperty("selenide.browser");
+        Configuration.browser = browser;
+        switch (browser) {
+            case "firefox":
+                configFirefox();
+                break;
+            case "chrome":
+                configChrome();
+                break;
+            case "edge":
+                configEdge();
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported browser: " + browser);
+        }
+    }
+
+    private static void configFirefox() {
+        FirefoxOptions options = new FirefoxOptions();
+        options.addPreference("browser.cache.disk.enable", false);
+        options.addPreference("browser.cache.memory.enable", false);
+        options.addPreference("browser.cache.offline.enable", false);
+        options.addPreference("network.http.use-cache", false);
+        Configuration.browserCapabilities = options;
+    }
+
+    private static void configChrome() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-cache", "--disk-cache-size=0");
+        Configuration.browserCapabilities = options;
+    }
+
+    private static void configEdge() {
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--disable-cache", "--disk-cache-size=0");
+        Configuration.browserCapabilities = options;
     }
 
 }

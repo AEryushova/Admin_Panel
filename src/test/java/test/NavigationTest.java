@@ -6,7 +6,6 @@ import pages.DoctorsPage.DoctorsPage;
 import pages.FaqPage.FaqPage;
 import pages.ServicesPage.ServicesPage;
 import pages.SettingPage.SettingPage;
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -22,18 +21,18 @@ public class NavigationTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        authAdminPanel(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
+        getAuthToken(LOGIN_SUPER_ADMIN, PASSWORD_SUPER_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        openAdminPanel();
+        openAuthAdminPanel();
         headerMenu.verifyHeaderBarSuperAdmin();
     }
 
     @AfterEach()
     void closeWebDriver() {
-        Selenide.closeWebDriver();
+        closeDriver();
     }
 
 

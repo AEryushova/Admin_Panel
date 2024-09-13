@@ -34,18 +34,18 @@ public class DoctorPageTest extends BaseTest {
 
     @BeforeAll
     static void setUpAuth() {
-        authAdminPanel(LOGIN_ADMIN, PASSWORD_ADMIN);
+        getAuthToken(LOGIN_ADMIN, PASSWORD_ADMIN);
     }
 
     @BeforeEach
     void setUp() {
-        openAdminPanel();
+        openAuthAdminPanel();
         doctorsPage.verifyDoctorsPage();
     }
 
     @AfterEach()
     void closeWebDriver() {
-        Selenide.closeWebDriver();
+        closeDriver();
     }
 
 
