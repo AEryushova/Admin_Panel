@@ -51,8 +51,8 @@ public class TestData {
                 DEFAULT_PHOTO = "https://lk.mdapp.online/api/storage/img-2a680928-03b0-4ccb-ae99-9be7b4b879c0.jpg",
                 NAME_OTHER_SERVICE_CATEGORY = "Иные услуги";
         public static final File
-                PHOTO = new File("src/ru.adminlk.clinica.samsmu.test.test/resources/images/Photo 3,7mbJpeg.jpg"),
-                LOGO = new File("src/ru.adminlk.clinica.samsmu.test.test/resources/images/logo.png");
+                PHOTO = new File("src/test/resources/images/Photo 3,7mbJpeg.jpg"),
+                LOGO = new File("src/test/resources/images/logo.png");
     }
 
 

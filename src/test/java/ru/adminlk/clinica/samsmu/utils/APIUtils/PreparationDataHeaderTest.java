@@ -22,7 +22,7 @@ public class PreparationDataHeaderTest {
                 .header("Authorization", "Bearer " + tokenAdmin)
                 .header("Environment",ENVIRONMENT)
                 .when()
-                .get("/api/admins/admin-ru.adminlk.clinica.samsmu.data.data")
+                .get("/api/admins/admin-data")
                 .then()
                 .statusCode(200);
     }

@@ -517,7 +517,7 @@ public class AdministrationPageTest extends BaseTest {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateOffer();
         updateLegalDocWindow.verifyUploadDocWindow();
         String srcDoc = updateLegalDocWindow.getSrcDoc();
-        updateLegalDocWindow.uploadDoc("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта.pdf");
+        updateLegalDocWindow.uploadDoc("src/test/resources/files/Оферта.pdf");
         adminPage.clickButtonUpdateOffer();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
         assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -531,7 +531,7 @@ public class AdministrationPageTest extends BaseTest {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateProcessingPolicy();
         updateLegalDocWindow.verifyUploadDocWindow();
         String srcDoc = updateLegalDocWindow.getSrcDoc();
-        updateLegalDocWindow.uploadDoc("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Политика обработки персональных данных.pdf");
+        updateLegalDocWindow.uploadDoc("src/test/resources/files/Политика обработки персональных данных.pdf");
         adminPage.clickButtonUpdateProcessingPolicy();
         assertEquals(srcDoc, updateLegalDocWindow.getSrcDoc());
         assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
@@ -571,7 +571,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(getDate("current",0,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDay("current",null,0,2));
         assertFalse(calendar.isCalendarAppear());
-        updateOrderWindow.uploadOrder("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Приказ.xlsx");
+        updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
@@ -589,7 +589,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(getDate("future",1,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDay("future",null,1,2));
         assertFalse(calendar.isCalendarAppear());
-        updateOrderWindow.uploadOrder("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Приказ.xlsx");
+        updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
@@ -607,7 +607,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(getDate("previous",1,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDay("previous",null,1,2));
         assertFalse(calendar.isCalendarAppear());
-        updateOrderWindow.uploadOrder("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Приказ.xlsx");
+        updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
@@ -620,7 +620,7 @@ public class AdministrationPageTest extends BaseTest {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.verifyUpdateOrderWindow();
         assertEquals(getDate("current",0,0,"dd.MM.yyyy"), updateOrderWindow.getValuesButtonToday());
-        updateOrderWindow.uploadOrder("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Приказ.xlsx");
+        updateOrderWindow.uploadOrder("src/test/resources/files/Приказ.xlsx");
         assertEquals("Федеральный приказ успешно обновлен", adminPage.getTextNotification());
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
@@ -648,7 +648,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(getDate("current",0,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDay("current",null,0,2));
         assertFalse(calendar.isCalendarAppear());
-        updatePriceWindow.uploadPrice("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Прайс.xlsx");
+        updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
@@ -666,7 +666,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(getDate("future",1,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDay("future",null,1,2));
         assertFalse(calendar.isCalendarAppear());
-        updatePriceWindow.uploadPrice("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Прайс.xlsx");
+        updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
@@ -684,7 +684,7 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals(getDate("previous",1,0,"LLLL yyyy"), calendar.getNameCurrentMonth());
         calendar.clickDateActivation(getDay("previous",null,1,2));
         assertFalse(calendar.isCalendarAppear());
-        updatePriceWindow.uploadPrice("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Прайс.xlsx");
+        updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
@@ -697,7 +697,7 @@ public class AdministrationPageTest extends BaseTest {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow();
         assertEquals(getDate("current",0,0,"dd.MM.yyyy"), updatePriceWindow.getValuesButtonToday());
-        updatePriceWindow.uploadPrice("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Прайс.xlsx");
+        updatePriceWindow.uploadPrice("src/test/resources/files/Прайс.xlsx");
         assertEquals("Прайс успешно обновлен", adminPage.getTextNotification());
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
@@ -717,7 +717,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Обновление оферты с не валидным файлом")
     @DisplayName("Обновление оферты с не валидным файлом")
     @ParameterizedTest
-    @ValueSource(strings = {"src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта,Политика обработки docx.docx", "src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта, Политика обработки .xlsx.xlsx", "src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта, Политика обработки jpeg.jpg",})
+    @ValueSource(strings = {"src/test/resources/files/Оферта,Политика обработки docx.docx", "src/test/resources/files/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/files/Оферта, Политика обработки jpeg.jpg",})
     void updateOfferInvalidFormat(String path) {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateOffer();
         updateLegalDocWindow.verifyUploadDocWindow()
@@ -729,7 +729,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Обновление политики обработки с не валидным файлом")
     @DisplayName("Обновление политики обработки с не валидным файлом")
     @ParameterizedTest
-    @ValueSource(strings = {"src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта,Политика обработки docx.docx", "src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта, Политика обработки .xlsx.xlsx", "src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта, Политика обработки jpeg.jpg"})
+    @ValueSource(strings = {"src/test/resources/files/Оферта,Политика обработки docx.docx", "src/test/resources/files/Оферта, Политика обработки .xlsx.xlsx", "src/test/resources/files/Оферта, Политика обработки jpeg.jpg"})
     void updateProcessingPolicyInvalidFormat(String path) {
         UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateProcessingPolicy();
         updateLegalDocWindow.verifyUploadDocWindow()
@@ -744,7 +744,7 @@ public class AdministrationPageTest extends BaseTest {
     void updateOrderWithStringError() {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.verifyUpdateOrderWindow()
-                .uploadOrder("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Приказ с ошибкой в строке 10858.xlsx");
+                .uploadOrder("src/test/resources/files/Приказ с ошибкой в строке 10858.xlsx");
         assertEquals("Ошибка в 10858 строке", adminPage.getTextNotification());
     }
 
@@ -752,7 +752,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Обновление приказа с не валидным файлом")
     @DisplayName("Обновление приказа с не валидным файлом")
     @ParameterizedTest
-    @ValueSource(strings = {"src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта,Политика обработки docx.docx", "src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта, Политика обработки jpeg.jpg", "src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта.pdf"})
+    @ValueSource(strings = {"src/test/resources/files/Оферта,Политика обработки docx.docx", "src/test/resources/files/Оферта, Политика обработки jpeg.jpg", "src/test/resources/files/Оферта.pdf"})
     void updateOrderInvalidFormat(String path) {
         UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
         updateOrderWindow.verifyUpdateOrderWindow()
@@ -767,7 +767,7 @@ public class AdministrationPageTest extends BaseTest {
     void clickButtonUpdatePriceWithStringError() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow()
-                .uploadPrice("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Прайс с ошибкой в строке 1398.xlsx");
+                .uploadPrice("src/test/resources/files/Прайс с ошибкой в строке 1398.xlsx");
         assertEquals("Ошибка в 1398 строке", adminPage.getTextNotification());
     }
 
@@ -778,7 +778,7 @@ public class AdministrationPageTest extends BaseTest {
     void clickButtonUpdatePriceFormatPriceServiceError() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow()
-                .uploadPrice("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
+                .uploadPrice("src/test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
         PriceErrorsWindow priceErrorsWindow = updatePriceWindow.priceErrorsWindow();
         priceErrorsWindow.verifyPriceErrorsWindow();
         assertEquals("Ошибка формата стоимости услуги, код: 'А26.30.004.002', стоимость: 'Ы'.", priceErrorsWindow.getErrorInfo());
@@ -791,7 +791,7 @@ public class AdministrationPageTest extends BaseTest {
     void openAdjustmentRulesPrice() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow()
-                .uploadPrice("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
+                .uploadPrice("src/test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
         PriceErrorsWindow priceErrorsWindow = updatePriceWindow.priceErrorsWindow();
         priceErrorsWindow.verifyPriceErrorsWindow()
                 .clickAdjustmentRulesTab();
@@ -805,7 +805,7 @@ public class AdministrationPageTest extends BaseTest {
     void openErrorsPrice() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow()
-                .uploadPrice("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
+                .uploadPrice("src/test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
         PriceErrorsWindow priceErrorsWindow = updatePriceWindow.priceErrorsWindow();
         priceErrorsWindow.verifyPriceErrorsWindow()
                 .clickAdjustmentRulesTab()
@@ -820,7 +820,7 @@ public class AdministrationPageTest extends BaseTest {
     void closeWindowErrorsPrice() {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow()
-                .uploadPrice("src/ru.adminlk.clinica.samsmu.test.test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
+                .uploadPrice("src/test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
         PriceErrorsWindow priceErrorsWindow = updatePriceWindow.priceErrorsWindow();
         priceErrorsWindow.verifyPriceErrorsWindow()
                 .closeWindowPriceErrors();
@@ -831,7 +831,7 @@ public class AdministrationPageTest extends BaseTest {
     @Story("Обновление прайса с не валидным файлом")
     @DisplayName("Обновление прайса с не валидным файлом")
     @ParameterizedTest
-    @ValueSource(strings = {"src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта,Политика обработки docx.docx", "src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта, Политика обработки jpeg.jpg", "src/ru.adminlk.clinica.samsmu.test.test/resources/files/Оферта.pdf"})
+    @ValueSource(strings = {"src/test/resources/files/Оферта,Политика обработки docx.docx", "src/test/resources/files/Оферта, Политика обработки jpeg.jpg", "src/test/resources/files/Оферта.pdf"})
     void clickButtonUpdatePriceInvalidFormat(String path) {
         UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
         updatePriceWindow.verifyUpdatePriceWindow()

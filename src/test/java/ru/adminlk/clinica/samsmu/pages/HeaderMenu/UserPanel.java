@@ -12,10 +12,10 @@ import static com.codeborne.selenide.Selenide.$x;
 public class UserPanel {
     private final SelenideElement
             WINDOW = $x("//div[@class='iJul uLXf']"),
-            ROLE_STATUS = $x("//div[@ru.adminlk.clinica.samsmu.data.data-locator='admin-role']/span"),
-            LOGIN = $x("//div[@ru.adminlk.clinica.samsmu.data.data-locator='admin-login']/span"),
-            EXIT_BUTTON = $x("//span[@ru.adminlk.clinica.samsmu.data.data-locator='logout-btn']"),
-            CHANGE_PASSWORD_BUTTON = $x("//span[@ru.adminlk.clinica.samsmu.data.data-locator='change-password-btn']");
+            ROLE_STATUS = $x("//div[@data-locator='admin-role']/span"),
+            LOGIN = $x("//div[@data-locator='admin-login']/span"),
+            EXIT_BUTTON = $x("//span[@data-locator='logout-btn']"),
+            CHANGE_PASSWORD_BUTTON = $x("//span[@data-locator='change-password-btn']");
 
     @Step("Верифицировать юзер-панели для Суперадмина")
     public void verifyUserPanelSuperAdmin() {
