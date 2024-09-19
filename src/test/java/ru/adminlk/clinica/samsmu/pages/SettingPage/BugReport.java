@@ -13,6 +13,7 @@ public class BugReport {
     private final SelenideElement
             AUTHOR = $x("//div[@class='CYEV']/span"),
             EMAIL_AUTHOR = $x("//div[@class='A23y']/span"),
+            PHONE_AUTHOR =$x("//div[@class='wrxz']/span"),
             DATE_REPORT = $x("//div[@class='PEGd']/span"),
             TEXT_REPORT = $x("//div[@class='fEEm']/span"),
             DELETE_BUTTON = $x("//div[@class='wXIR']");
@@ -21,6 +22,7 @@ public class BugReport {
     public void verifyBugReport() {
         AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         EMAIL_AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        PHONE_AUTHOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DATE_REPORT.shouldBe(Condition.visible, Duration.ofSeconds(5));
         TEXT_REPORT.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DELETE_BUTTON.shouldBe(Condition.visible, Duration.ofSeconds(5));
@@ -33,19 +35,25 @@ public class BugReport {
     }
 
     @Step("Получить email автора сообщения об ошибке")
-    public String getEmailAuthorText() {
+    public String getEmailAuthor() {
         EMAIL_AUTHOR.shouldBe(Condition.visible);
         return EMAIL_AUTHOR.getText();
     }
 
+    @Step("Получить номер телефна сообщения об ошибке")
+    public String getPhoneAuthor() {
+        PHONE_AUTHOR.shouldBe(Condition.visible);
+        return PHONE_AUTHOR.getText();
+    }
+
     @Step("Получить дату сообщения об ошибке")
-    public String getDateText() {
+    public String getDateReport() {
         DATE_REPORT.shouldBe(Condition.visible);
         return DATE_REPORT.getText();
     }
 
     @Step("Получить текст сообщения об ошибке")
-    public String getReportText() {
+    public String getTextReport() {
         TEXT_REPORT.shouldBe(Condition.visible);
         return TEXT_REPORT.getText();
     }

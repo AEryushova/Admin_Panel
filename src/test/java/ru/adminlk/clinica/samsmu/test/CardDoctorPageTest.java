@@ -17,10 +17,13 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.Duration;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.*;
-import static ru.adminlk.clinica.samsmu.data.TestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.namePatient;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.word;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.*;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.TestHelper.getDate;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.TestHelper.getDay;
 

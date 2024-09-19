@@ -16,11 +16,10 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.*;
-import static ru.adminlk.clinica.samsmu.data.TestData.UserData.*;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataSearch.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.SearchData.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.*;
 
 

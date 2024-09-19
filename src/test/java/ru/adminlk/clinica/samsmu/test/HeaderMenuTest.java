@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.UserData.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

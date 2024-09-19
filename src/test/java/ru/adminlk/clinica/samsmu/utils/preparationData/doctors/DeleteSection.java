@@ -8,8 +8,8 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.UUID;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.DOCTOR;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.DOCTOR_SPECIALIZATION;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.DOCTOR;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.DOCTOR_SPECIALIZATION;
 
 public class DeleteSection implements BeforeEachCallback, AfterEachCallback {
 

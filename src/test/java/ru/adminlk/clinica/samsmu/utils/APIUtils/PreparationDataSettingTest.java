@@ -5,7 +5,7 @@ import ru.adminlk.clinica.samsmu.test.BaseTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.Getter;
-import static ru.adminlk.clinica.samsmu.appData.AppData.*;
+import static ru.adminlk.clinica.samsmu.data.AppData.*;
 
 import java.io.File;
 
@@ -19,7 +19,7 @@ public class PreparationDataSettingTest {
 
     public static void uploadPhotoToStorage(File file) {
         Response response = given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)
@@ -35,7 +35,7 @@ public class PreparationDataSettingTest {
 
     public static void deleteImageInStorage() {
                  given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .when()
@@ -47,7 +47,7 @@ public class PreparationDataSettingTest {
 
     public static void uploadLogo(File file) {
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.MULTIPART)

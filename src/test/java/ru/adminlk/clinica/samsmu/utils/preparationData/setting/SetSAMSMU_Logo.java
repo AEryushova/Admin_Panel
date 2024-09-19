@@ -4,7 +4,7 @@ import ru.adminlk.clinica.samsmu.utils.APIUtils.PreparationDataSettingTest;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.LOGO;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.LOGO;
 
 public class SetSAMSMU_Logo implements AfterEachCallback {
 

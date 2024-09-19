@@ -17,15 +17,16 @@ import ru.adminlk.clinica.samsmu.utils.preparationData.doctors.*;
 
 import java.util.List;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.*;
-import static ru.adminlk.clinica.samsmu.data.TestData.UserData.*;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataSearch.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.SearchData.*;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.generateText;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.TestHelper.*;
 
 @Epic("Врачи")
@@ -442,8 +443,8 @@ public class DoctorPageTest extends BaseTest {
     }
 
     @Feature("Сортировка по врачам")
-    @Story("Сортировка по всем врачам")
-    @DisplayName("Сортировка по всем врачам")
+    @Story("Сортировка по всем врачам по фотографии")
+    @DisplayName("Сортировка по всем врачам по фотографии")
     @Test
     void sortingWithAndWithoutPhoto() {
         int countAllDoctors = doctorsPage.getCountDoctors();

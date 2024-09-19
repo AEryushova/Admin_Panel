@@ -11,8 +11,8 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 
-import static ru.adminlk.clinica.samsmu.appData.AppData.URI_ADMIN_PANEL;
-import static ru.adminlk.clinica.samsmu.data.TestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.AppData.URL_ADMIN_PANEL;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.UserData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Навигационное меню")
@@ -44,7 +44,7 @@ public class NavigationTest extends BaseTest {
         headerMenu.clickServicesTab();
         DoctorsPage doctorsPage = headerMenu.clickDoctorsTab();
         doctorsPage.verifyDoctorsPage();
-        assertEquals(URI_ADMIN_PANEL + "/doctors", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/doctors", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -56,7 +56,7 @@ public class NavigationTest extends BaseTest {
         DoctorsPage doctorsPage = headerMenu.clickDoctorsTab();
         headerMenu.clickDoctorsTab();
         doctorsPage.verifyDoctorsPage();
-        assertEquals(URI_ADMIN_PANEL + "/doctors", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/doctors", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -66,7 +66,7 @@ public class NavigationTest extends BaseTest {
     void openServicesPage() {
         ServicesPage servicesPage = headerMenu.clickServicesTab();
         servicesPage.verifyServicesPage();
-        assertEquals(URI_ADMIN_PANEL + "/services", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/services", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -77,7 +77,7 @@ public class NavigationTest extends BaseTest {
         ServicesPage servicesPage = headerMenu.clickServicesTab();
         headerMenu.clickServicesTab();
         servicesPage.verifyServicesPage();
-        assertEquals(URI_ADMIN_PANEL + "/services", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/services", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -87,7 +87,7 @@ public class NavigationTest extends BaseTest {
     void openFaqPage() {
         FaqPage faqPage = headerMenu.clickFaqTab();
         faqPage.verifyFaqPage();
-        assertEquals(URI_ADMIN_PANEL + "/faq", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/faq", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -98,7 +98,7 @@ public class NavigationTest extends BaseTest {
         FaqPage faqPage = headerMenu.clickFaqTab();
         headerMenu.clickFaqTab();
         faqPage.verifyFaqPage();
-        assertEquals(URI_ADMIN_PANEL + "/faq", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/faq", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -108,7 +108,7 @@ public class NavigationTest extends BaseTest {
     void openSettingPage() {
         SettingPage settingPage = headerMenu.clickSettingTab();
         settingPage.verifySettingPage();
-        assertEquals(URI_ADMIN_PANEL + "/settings", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/settings", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -119,7 +119,7 @@ public class NavigationTest extends BaseTest {
         SettingPage settingPage = headerMenu.clickSettingTab();
         headerMenu.clickSettingTab();
         settingPage.verifySettingPage();
-        assertEquals(URI_ADMIN_PANEL + "/settings", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/settings", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -129,7 +129,7 @@ public class NavigationTest extends BaseTest {
     void openAdministrationPage() {
         AdministrationPage adminPage = headerMenu.clickAdministrationTab();
         adminPage.verifyAdminPage();
-        assertEquals(URI_ADMIN_PANEL + "/admins", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/admins", WebDriverRunner.url());
     }
 
     @Feature("Навигация")
@@ -140,6 +140,6 @@ public class NavigationTest extends BaseTest {
         AdministrationPage adminPage = headerMenu.clickAdministrationTab();
         headerMenu.clickAdministrationTab();
         adminPage.verifyAdminPage();
-        assertEquals(URI_ADMIN_PANEL + "/admins", WebDriverRunner.url());
+        assertEquals(URL_ADMIN_PANEL + "/admins", WebDriverRunner.url());
     }
 }

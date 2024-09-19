@@ -6,7 +6,7 @@ import ru.adminlk.clinica.samsmu.utils.APIUtils.PreparationDataHeaderTest;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.UserData.*;
 
 public class ReturnPasswordAdmin implements AfterEachCallback {
 

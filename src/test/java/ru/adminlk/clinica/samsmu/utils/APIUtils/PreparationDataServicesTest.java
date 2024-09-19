@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-import static ru.adminlk.clinica.samsmu.appData.AppData.*;
+import static ru.adminlk.clinica.samsmu.data.AppData.*;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class PreparationDataServicesTest {
         jsonObject.addProperty("id", id.toString());
         jsonObject.add("sections", sections);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
@@ -49,7 +49,7 @@ public class PreparationDataServicesTest {
         jsonObject.addProperty("id", id.toString());
         jsonObject.add("sections", sections);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
@@ -70,7 +70,7 @@ public class PreparationDataServicesTest {
         jsonObject.addProperty("code", code);
         jsonObject.add("sections", sections);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
@@ -86,7 +86,7 @@ public class PreparationDataServicesTest {
         jsonObject.addProperty("code", code);
         jsonObject.add("sections", sections);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
@@ -102,7 +102,7 @@ public class PreparationDataServicesTest {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", nameCategory);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
@@ -116,7 +116,7 @@ public class PreparationDataServicesTest {
 
     public static void deleteCategory(UUID id) {
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .queryParam("categoryId", id.toString())
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
@@ -131,7 +131,7 @@ public class PreparationDataServicesTest {
         jsonObject.addProperty("parentId", parentId.toString());
         jsonObject.addProperty("name", nameSection);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
@@ -145,7 +145,7 @@ public class PreparationDataServicesTest {
 
     private static Response getAllServices() {
         return given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .when()
@@ -187,7 +187,7 @@ public class PreparationDataServicesTest {
         jsonObject.addProperty("sourceId", sourceId);
         jsonObject.addProperty("destinationId", targetId);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)

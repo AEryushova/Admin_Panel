@@ -8,7 +8,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.NAME_OTHER_SERVICE_CATEGORY;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.NAME_OTHER_SERVICE_CATEGORY;
 
 public class DeleteSectionWindow {
 

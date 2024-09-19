@@ -9,8 +9,7 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.UUID;
-
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.*;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.generateCategoryName;
 
 public class AddDeleteCategorySection implements BeforeEachCallback, AfterEachCallback {

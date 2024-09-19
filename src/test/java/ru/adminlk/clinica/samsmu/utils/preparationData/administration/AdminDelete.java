@@ -5,7 +5,7 @@ import ru.adminlk.clinica.samsmu.utils.APIUtils.PreparationDataAdminTest;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.login;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.login;
 
 
 public class AdminDelete implements AfterEachCallback {

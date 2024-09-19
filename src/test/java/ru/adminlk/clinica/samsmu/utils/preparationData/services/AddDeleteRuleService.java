@@ -10,8 +10,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.UUID;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.*;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.NAME_OTHER_SERVICE_CATEGORY;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.NAME_OTHER_SERVICE_CATEGORY;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.*;
 
 public class AddDeleteRuleService implements BeforeEachCallback, AfterEachCallback {

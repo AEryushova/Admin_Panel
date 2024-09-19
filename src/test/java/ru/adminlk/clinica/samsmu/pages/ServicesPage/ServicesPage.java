@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.NAME_OTHER_SERVICE_CATEGORY;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.NAME_OTHER_SERVICE_CATEGORY;
 
 public class ServicesPage extends BasePage {
 

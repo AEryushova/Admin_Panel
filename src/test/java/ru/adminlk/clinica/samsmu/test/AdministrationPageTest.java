@@ -1,6 +1,5 @@
 package ru.adminlk.clinica.samsmu.test;
 
-import ru.adminlk.clinica.samsmu.data.TestData;
 import ru.adminlk.clinica.samsmu.pages.AdministrationPage.*;
 import ru.adminlk.clinica.samsmu.pages.Calendar.Calendar;
 import ru.adminlk.clinica.samsmu.pages.HeaderMenu.HeaderMenu;
@@ -15,10 +14,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.adminlk.clinica.samsmu.utils.preparationData.administration.AdminDelete;
-
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.login;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.password;
-import static ru.adminlk.clinica.samsmu.data.TestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.login;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.password;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.generateLogin;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;
@@ -405,7 +403,7 @@ public class AdministrationPageTest extends BaseTest {
     @ValueSource(strings = {"Wwqq123#", "Wwqq1234#", "Wwqq123456789#QQgg123456", "Wwqq123456789#QQgg1234567"})
     void fillLimitValidValuesPasswordChainingPasswordAdmin_8_9_24_25_Symbol(String password) {
         adminPage.scrollToCardAdmin(login);
-        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(TestData.DataTest.login)
+        ChangePasswordAdminWindow changePasswordAdminWindow = adminPage.clickButtonChangePassword(login)
                 .verifyChangePasswordAdminWindow()
                 .fillFieldNewPassword(password);
         assertFalse(changePasswordAdminWindow.isErrorPasswordAppear());

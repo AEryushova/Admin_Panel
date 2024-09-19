@@ -28,8 +28,8 @@ import org.openqa.selenium.Cookie;
 import java.time.Duration;
 
 
-import static ru.adminlk.clinica.samsmu.appData.AppData.ENVIRONMENT;
-import static ru.adminlk.clinica.samsmu.appData.AppData.URI_ADMIN_PANEL;
+import static ru.adminlk.clinica.samsmu.data.AppData.ENVIRONMENT;
+import static ru.adminlk.clinica.samsmu.data.AppData.URL_ADMIN_PANEL;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.localStorage;
 import static io.restassured.RestAssured.given;
@@ -56,7 +56,7 @@ public class BaseTest {
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("password", password);
         Response response = given()
-                .baseUri(URI_ADMIN_PANEL)
+                .baseUri(URL_ADMIN_PANEL)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())
@@ -73,7 +73,7 @@ public class BaseTest {
         configureBrowser();
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
-        open(URI_ADMIN_PANEL);
+        open(URL_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
     }
 
@@ -81,7 +81,7 @@ public class BaseTest {
         configureBrowser();
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
-        open(URI_ADMIN_PANEL);
+        open(URL_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
         localStorage().setItem("accessToken", token);

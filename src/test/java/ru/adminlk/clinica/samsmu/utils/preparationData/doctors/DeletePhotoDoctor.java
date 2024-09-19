@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.*;
 
 public class DeletePhotoDoctor implements BeforeEachCallback , AfterEachCallback {
 

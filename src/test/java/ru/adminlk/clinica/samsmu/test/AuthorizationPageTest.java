@@ -16,7 +16,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.Duration;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.UserData.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.generateLogin;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.generatePassword;
 import static org.junit.jupiter.api.Assertions.*;

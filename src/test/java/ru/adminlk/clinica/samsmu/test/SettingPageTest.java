@@ -14,11 +14,8 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.text;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.email;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.namePatient;
-import static ru.adminlk.clinica.samsmu.data.TestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.UserData.*;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.TestHelper.getDate;
 
@@ -53,9 +50,10 @@ public class SettingPageTest extends BaseTest {
         BugReport bugReport = settingPage.getBugReportCard();
         bugReport.verifyBugReport();
         assertEquals(namePatient, bugReport.getAuthorText());
-        assertEquals(email, bugReport.getEmailAuthorText());
-        assertEquals(text, bugReport.getReportText());
-        assertEquals(getDate("current",0,0,"d MMMM yyyy 'г.'"), bugReport.getDateText());
+        assertEquals(email, bugReport.getEmailAuthor());
+        assertEquals(phone,bugReport.getPhoneAuthor());
+        assertEquals(text, bugReport.getTextReport());
+        assertEquals(getDate("current",0,0,"d MMMM yyyy 'г.'"), bugReport.getDateReport());
     }
 
     @Feature("Сообщения об ошибках")

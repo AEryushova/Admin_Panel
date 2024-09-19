@@ -6,7 +6,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.Getter;
 
-import static ru.adminlk.clinica.samsmu.appData.AppData.*;
+import static ru.adminlk.clinica.samsmu.data.AppData.*;
 import static io.restassured.RestAssured.given;
 
 public class PreparationDataHeaderTest {
@@ -18,7 +18,7 @@ public class PreparationDataHeaderTest {
     public static void authAdmin(String login, String password) {
         tokenGetAuthAdmin(login, password);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + tokenAdmin)
                 .header("Environment",ENVIRONMENT)
                 .when()
@@ -32,7 +32,7 @@ public class PreparationDataHeaderTest {
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("password", password);
         Response response = given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)
                 .body(jsonObject.toString())
@@ -51,7 +51,7 @@ public class PreparationDataHeaderTest {
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("newPassword", newPassword);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .header("Authorization", "Bearer " + tokenAdmin)
                 .header("Environment", ENVIRONMENT)
                 .contentType(ContentType.JSON)

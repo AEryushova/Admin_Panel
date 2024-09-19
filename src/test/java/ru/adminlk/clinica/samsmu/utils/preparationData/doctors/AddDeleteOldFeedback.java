@@ -9,8 +9,8 @@ import ru.adminlk.clinica.samsmu.utils.dbUtils.DataBaseQuery;
 
 import java.util.UUID;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.DOCTOR;
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.DOCTOR_SPECIALIZATION;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.DOCTOR;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.DOCTOR_SPECIALIZATION;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.TestHelper.*;
 

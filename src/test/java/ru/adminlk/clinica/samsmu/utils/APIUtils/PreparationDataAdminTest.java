@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import io.restassured.http.ContentType;
 
 
-import static ru.adminlk.clinica.samsmu.appData.AppData.*;
+import static ru.adminlk.clinica.samsmu.data.AppData.*;
 import static io.restassured.RestAssured.given;
 
 public class PreparationDataAdminTest {
@@ -17,7 +17,7 @@ public class PreparationDataAdminTest {
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("password", password);
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment", ENVIRONMENT)
@@ -31,7 +31,7 @@ public class PreparationDataAdminTest {
 
     public static void deleteAdmin(String login) {
         given()
-                .baseUri(URI_BACK)
+                .baseUri(URL_BACK)
                 .queryParam("login", login)
                 .header("Authorization", "Bearer " + BaseTest.token)
                 .header("Environment",ENVIRONMENT)

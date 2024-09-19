@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.UUID;
 
-import static ru.adminlk.clinica.samsmu.data.TestData.DataTest.*;
+import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.*;
 
 public class AddServiceInNewCategory implements BeforeEachCallback, AfterEachCallback {

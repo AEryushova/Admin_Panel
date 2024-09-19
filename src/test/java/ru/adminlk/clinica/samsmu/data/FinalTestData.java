@@ -1,12 +1,10 @@
 package ru.adminlk.clinica.samsmu.data;
 
 import lombok.Data;
-import lombok.Setter;
-
-
 import java.io.File;
 
-public class TestData {
+@Data
+public class FinalTestData {
 
     @Data
     public static class UserData {
@@ -18,32 +16,7 @@ public class TestData {
     }
 
     @Data
-    public static class DataTest {
-        @Setter
-        public static String login;
-        @Setter
-        public static String password;
-        @Setter
-        public static String text;
-        @Setter
-        public static String word;
-        @Setter
-        public static String email;
-        @Setter
-        public static String phone;
-        @Setter
-        public static String agentId;
-        @Setter
-        public static String namePatient;
-        @Setter
-        public static String questionFaq;
-        @Setter
-        public static String categoryName;
-        @Setter
-        public static String sectionName;
-        @Setter
-        public static String subSectionName;
-
+    public static class TestData {
         public static final String
                 DOCTOR = "Тестов Стоматолог Самгму",
                 DOCTOR_SURNAME = "Тестов",
@@ -55,9 +28,8 @@ public class TestData {
                 LOGO = new File("src/test/resources/images/logo.png");
     }
 
-
     @Data
-    public static class DataSearch {
+    public static class SearchData {
         public static final String
                 DOCTOR_NAME_SEARCH = "Надежда",
                 DOCTOR_SPECIALIZATION_SEARCH = "гинеколог",

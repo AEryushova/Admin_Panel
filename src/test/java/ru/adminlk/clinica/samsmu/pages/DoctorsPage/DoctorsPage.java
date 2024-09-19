@@ -24,10 +24,13 @@ public class DoctorsPage extends BasePage {
             SEARCH_DOCTOR = $x("//input[@placeholder='Поиск по врачам']"),
             CARD_DOCTOR = $x("//div[@class='eF30']"),
             DROP_DOWN_PHOTO = $x("//span[text()='Фотография']/following-sibling::button[@class='MxFR']"),
-            OPTION_ALL = $x("//div[@data-locator='all-description']"),
-            OPTION_NO = $x("//div[@data-locator='empty-description']"),
-            OPTION_YES = $x("//div[@data-locator='description']"),
-            SHOW_DOCTOR_WITHOUT_DESCRIPTION = $x("//span[text()='Показать']//parent::button"),
+            OPTION_ALL_PHOTO = $x("//div[@data-locator='all-photos']"),
+            OPTION_NO_PHOTO = $x("//div[@data-locator='empty-photos']"),
+            OPTION_YES_PHOTO = $x("//div[@data-locator='photos']"),
+            DROP_DOWN_DESCRIPTION=$x("//span[text()='Описание']/following-sibling::button[@class='MxFR']"),
+            OPTION_ALL_DESCRIPTION = $x("//div[@data-locator='all-description']"),
+            OPTION_NO_DESCRIPTION = $x("//div[@data-locator='empty-photos']"),
+            OPTION_YES_DESCRIPTION = $x("//div[@data-locator='description']"),
             SHOW_UNPUBLISHED_FEEDBACKS_LIST = $x("//button[text()='Показать']"),
             COUNT_DOCTORS = $x("//div[@class='wYqZ']/span[2]"),
             COUNT_UNPUBLISHED_FEEDBACKS = $x("//span[text()='Неопубликованные отзывы:']/span");
@@ -41,6 +44,7 @@ public class DoctorsPage extends BasePage {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SEARCH_DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DROP_DOWN_PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        DROP_DOWN_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CARD_DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SHOW_UNPUBLISHED_FEEDBACKS_LIST.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
@@ -72,7 +76,7 @@ public class DoctorsPage extends BasePage {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        OPTION_NO.shouldBe(Condition.visible)
+        OPTION_NO_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
@@ -82,29 +86,53 @@ public class DoctorsPage extends BasePage {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        OPTION_YES.shouldBe(Condition.visible)
+        OPTION_YES_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
-    @Step("Нажать на кнопку сортировки всех врачей")
+    @Step("Нажать на кнопку сортировки всех врачей по фотографии")
     public void clickSortingPhotoAll() {
         DROP_DOWN_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
-        OPTION_ALL.shouldBe(Condition.visible)
+        OPTION_ALL_PHOTO.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
     @SuppressWarnings("unused")
     @Step("Нажать на кнопку сортировки врачей без описания")
-    public void showDoctorCardNoDescription() {
-        SHOW_DOCTOR_WITHOUT_DESCRIPTION.shouldBe(Condition.visible)
+    public void clickSortingDescriptionNo() {
+        DROP_DOWN_DESCRIPTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        OPTION_NO_DESCRIPTION.shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled)
                 .click();
     }
 
+    @SuppressWarnings("unused")
+    @Step("Нажать на кнопку сортировки врачей с описанием")
+    public void clickSortingDescriptionYes() {
+        DROP_DOWN_DESCRIPTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        OPTION_YES_DESCRIPTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
+
+    @SuppressWarnings("unused")
+    @Step("Нажать на кнопку сортировки всех врачей по описанию")
+    public void clickSortingDescriptionAll() {
+        DROP_DOWN_DESCRIPTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+        OPTION_ALL_DESCRIPTION.shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled)
+                .click();
+    }
 
     @Step("Ввести в поле поиска '{0}'")
     public void searchDoctor(String textSearch) {
