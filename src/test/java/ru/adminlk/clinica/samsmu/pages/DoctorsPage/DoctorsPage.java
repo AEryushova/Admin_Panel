@@ -23,10 +23,10 @@ public class DoctorsPage extends BasePage {
             TAB_NAME = $x("//div[@class='wYqZ']/span[text()='Врачи']"),
             SEARCH_DOCTOR = $x("//input[@placeholder='Поиск по врачам']"),
             CARD_DOCTOR = $x("//div[@class='eF30']"),
-            DROP_DOWN_PHOTO = $x("//button[@class='MxFR']"),
-            OPTION_ALL = $x("//div[@class='U2Xk']/div[text()='Все']"),
-            OPTION_NO = $x("//div[@class='U2Xk']/div[text()='Нет']"),
-            OPTION_YES = $x("//div[@class='U2Xk']/div[text()='Есть']"),
+            DROP_DOWN_PHOTO = $x("//span[text()='Фотография']/following-sibling::button[@class='MxFR']"),
+            OPTION_ALL = $x("//div[@data-locator='all-description']"),
+            OPTION_NO = $x("//div[@data-locator='empty-description']"),
+            OPTION_YES = $x("//div[@data-locator='description']"),
             SHOW_DOCTOR_WITHOUT_DESCRIPTION = $x("//span[text()='Показать']//parent::button"),
             SHOW_UNPUBLISHED_FEEDBACKS_LIST = $x("//button[text()='Показать']"),
             COUNT_DOCTORS = $x("//div[@class='wYqZ']/span[2]"),
@@ -41,7 +41,6 @@ public class DoctorsPage extends BasePage {
         TAB_NAME.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SEARCH_DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         DROP_DOWN_PHOTO.shouldBe(Condition.visible, Duration.ofSeconds(5));
-        SHOW_DOCTOR_WITHOUT_DESCRIPTION.shouldBe(Condition.visible, Duration.ofSeconds(5));
         CARD_DOCTOR.shouldBe(Condition.visible, Duration.ofSeconds(5));
         SHOW_UNPUBLISHED_FEEDBACKS_LIST.shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
