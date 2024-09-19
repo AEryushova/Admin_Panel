@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.*;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.*;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.*;
 
 public class AddServiceInNewCategoryForTransfer implements BeforeEachCallback, AfterEachCallback {
     @Setter

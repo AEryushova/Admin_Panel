@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import static ru.adminlk.clinica.samsmu.data.FinalTestData.TestData.NAME_OTHER_SERVICE_CATEGORY;
 import static ru.adminlk.clinica.samsmu.utils.testsUtils.DataGenerator.*;
+import static ru.adminlk.clinica.samsmu.data.GeneratedTestData.*;
 
 public class AddTwoServices implements BeforeEachCallback, AfterEachCallback {
 
