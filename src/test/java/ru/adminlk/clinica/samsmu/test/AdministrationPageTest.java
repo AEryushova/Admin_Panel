@@ -535,27 +535,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("LEGAL_DOCUMENT_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
-    @Feature("Документация")
-    @Story("Закрытие окна обновления оферты")
-    @DisplayName("Закрытие окна обновления оферты")
-    @Test
-    void closeWindowUpdateOffer() {
-        UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateOffer();
-        updateLegalDocWindow.verifyUploadDocWindow()
-                .closeWindowUpdateLegalDoc();
-        assertFalse(updateLegalDocWindow.isWindowAppear());
-    }
-
-    @Feature("Документация")
-    @Story("Закрытие окна обновления политики обработки")
-    @DisplayName("Закрытие окна обновления политики обработки")
-    @Test
-    void closeWindowUpdateProcessingPolicy() {
-        UpdateLegalDocWindow updateLegalDocWindow = adminPage.clickButtonUpdateProcessingPolicy();
-        updateLegalDocWindow.verifyUploadDocWindow()
-                .closeWindowUpdateLegalDoc();
-        assertFalse(updateLegalDocWindow.isWindowAppear());
-    }
 
     @Feature("Документация")
     @Story("Успешное обновление приказа с даты в текущем месяце")
@@ -623,16 +602,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("FEDERAL_SERVICES_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
-    @Feature("Документация")
-    @Story("Закрытие окна обновления приказа")
-    @DisplayName("Закрытие окна обновления приказа")
-    @Test
-    void closeWindowUpdateOrder() {
-        UpdateOrderWindow updateOrderWindow = adminPage.clickButtonUpdateOrder();
-        updateOrderWindow.verifyUpdateOrderWindow()
-                .closeWindowUpdateOrder();
-        assertFalse(updateOrderWindow.isWindowAppear());
-    }
 
     @Feature("Документация")
     @Story("Успешное обновление прайса с даты в текущем месяце")
@@ -700,16 +669,6 @@ public class AdministrationPageTest extends BaseTest {
         assertEquals("PRICE_UPDATED_SUCCESS", DataBaseQuery.selectLog(LOGIN_SUPER_ADMIN).getCode());
     }
 
-    @Feature("Документация")
-    @Story("Закрытие окна обновления прайса")
-    @DisplayName("Закрытие окна обновления прайса")
-    @Test
-    void closeWindowClickButtonUpdatePrice() {
-        UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
-        updatePriceWindow.verifyUpdatePriceWindow()
-                .closeWindowUpdatePrice();
-        assertFalse(updatePriceWindow.isWindowAppear());
-    }
 
     @Feature("Документация")
     @Story("Обновление оферты с не валидным файлом")
@@ -721,6 +680,8 @@ public class AdministrationPageTest extends BaseTest {
         updateLegalDocWindow.verifyUploadDocWindow()
                 .uploadDoc(path);
         assertEquals("Допускаются файлы с расширением PDF", adminPage.getTextNotification());
+        updateLegalDocWindow.closeWindowUpdateLegalDoc();
+        assertFalse(updateLegalDocWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -733,6 +694,8 @@ public class AdministrationPageTest extends BaseTest {
         updateLegalDocWindow.verifyUploadDocWindow()
                 .uploadDoc(path);
         assertEquals("Допускаются файлы с расширением PDF", adminPage.getTextNotification());
+        updateLegalDocWindow.closeWindowUpdateLegalDoc();
+        assertFalse(updateLegalDocWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -756,6 +719,8 @@ public class AdministrationPageTest extends BaseTest {
         updateOrderWindow.verifyUpdateOrderWindow()
                 .uploadOrder(path);
         assertEquals("Допускаются файлы с расширением xlsx", adminPage.getTextNotification());
+        updateOrderWindow.closeWindowUpdateOrder();
+        assertFalse(updateOrderWindow.isWindowAppear());
     }
 
     @Feature("Документация")
@@ -809,21 +774,10 @@ public class AdministrationPageTest extends BaseTest {
                 .clickAdjustmentRulesTab()
                 .clickErrorPriceTab();
         assertTrue(priceErrorsWindow.isErrorInfoAppear());
-    }
-
-    @Feature("Документация")
-    @Story("Закрытие окна ошибок файла прайса")
-    @DisplayName("Закрытие окна ошибок файла прайса")
-    @Test
-    void closeWindowErrorsPrice() {
-        UpdatePriceWindow updatePriceWindow = adminPage.clickButtonUpdatePrice();
-        updatePriceWindow.verifyUpdatePriceWindow()
-                .uploadPrice("src/test/resources/files/Прайс с ошибкой формата в услуге А26.30.004.002.xlsx");
-        PriceErrorsWindow priceErrorsWindow = updatePriceWindow.priceErrorsWindow();
-        priceErrorsWindow.verifyPriceErrorsWindow()
-                .closeWindowPriceErrors();
+        priceErrorsWindow.closeWindowPriceErrors();
         assertFalse(priceErrorsWindow.isWindowAppear());
     }
+
 
     @Feature("Документация")
     @Story("Обновление прайса с не валидным файлом")
@@ -835,6 +789,8 @@ public class AdministrationPageTest extends BaseTest {
         updatePriceWindow.verifyUpdatePriceWindow()
                 .uploadPrice(path);
         assertEquals("Допускаются файлы с расширением xlsx", adminPage.getTextNotification());
+        updatePriceWindow .closeWindowUpdatePrice();
+        assertFalse(updatePriceWindow.isWindowAppear());
 
     }
 }

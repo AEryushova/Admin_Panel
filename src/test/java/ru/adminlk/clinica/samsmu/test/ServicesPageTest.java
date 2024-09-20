@@ -89,6 +89,8 @@ public class ServicesPageTest extends BaseTest {
         assertEquals("Неверный запрос (400)", servicesPage.getTextNotification());
         assertFalse(rulePreparingWindow.isExistRule());
         assertTrue(rulePreparingWindow.isExistsEmptyListRules());
+        rulePreparingWindow.closeWindowRulesPreparing();
+        assertFalse(rulePreparingWindow.isWindowAppear());
     }
 
     @Feature("Управление правилами подготовки")
@@ -565,18 +567,6 @@ public class ServicesPageTest extends BaseTest {
         assertEquals("CATEGORY_PREPARING_DESCRIPTION_CHANGED_SUCCESS", DataBaseQuery.selectLog(LOGIN_ADMIN).getCode());
     }
 
-    @Feature("Управление правилами подготовки")
-    @Story("Закрытие окна правил подготовки к категории")
-    @DisplayName("Закрытие окна правил подготовки к категории")
-    @ExtendWith(DeleteRuleCategory.class)
-    @Test
-    void closeWindowRulePreparingCategory() {
-        servicesPage.scrollPageDown("500");
-        RulesPreparingWindow rulePreparingWindow = servicesPage.clickButtonOpenRulesPreparingCategory(categoryName);
-        rulePreparingWindow.verifyRulesPreparingWindow()
-                .closeWindowRulesPreparing();
-        assertFalse(rulePreparingWindow.isWindowAppear());
-    }
 
     @Feature("Управление правилами подготовки")
     @Story("Открытие правил подготовки к категории Иные услуги")
@@ -994,24 +984,11 @@ public class ServicesPageTest extends BaseTest {
         assertFalse(deleteSectionWindow.isWindowAppear());
         assertTrue(categoryCard.isExistSectionCard());
         assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
+        sectionCard.clickButtonDeleteSection();
+        deleteSectionWindow.closeWindowDeleteSection();
+        assertFalse(deleteSectionWindow.isWindowAppear());
     }
 
-    @Feature("Управление категориями")
-    @Story("Закрытие окна удаления раздела из категории")
-    @DisplayName("Закрытие окна удаления раздела из категории")
-    @ExtendWith(AddDeleteSection.class)
-    @Test
-    void closeWindowDeleteSectionInCategory() {
-        servicesPage.scrollPageDown("500");
-        CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(categoryName);
-        SectionCard sectionCard = categoryCard.getSection();
-        DeleteSectionWindow deleteSectionWindow = sectionCard.clickButtonDeleteSection();
-        deleteSectionWindow.verifyDeleteSectionWindow()
-                .closeWindowDeleteSection();
-        assertFalse(deleteSectionWindow.isWindowAppear());
-        assertTrue(categoryCard.isExistSectionCard());
-        assertNotNull(DataBaseQuery.selectServicesCategories(sectionName));
-    }
 
     @Feature("Управление категориями")
     @Story("Успешное добавление подраздела в раздел")

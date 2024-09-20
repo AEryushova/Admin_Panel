@@ -237,6 +237,7 @@ public class HeaderMenuTest extends BaseTest {
         userPanel.clickButtonChangePassword();
         assertEquals("", changeMinePassWindow.getValueOldPasswordField());
         assertEquals("", changeMinePassWindow.getValueNewPasswordField());
+
     }
 
     @Story("Закрытие панели пользователя")
