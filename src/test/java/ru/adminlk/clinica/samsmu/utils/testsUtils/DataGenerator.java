@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class DataGenerator {
 
-    private final static Faker FAKER_RU = new Faker(new Locale("ru"));
-    private final static Faker FAKER_ENG = new Faker(Locale.ENGLISH);
+    private static final Faker FAKER_RU = new Faker(new Locale("ru"));
+    private static final Faker FAKER_ENG = new Faker(Locale.ENGLISH);
 
     private static final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String LOWER = "abcdefghijklmnopqrstuvwxyz";

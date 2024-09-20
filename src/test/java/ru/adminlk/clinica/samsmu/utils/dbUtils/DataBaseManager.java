@@ -11,13 +11,13 @@ import java.util.Map;
 
 
 public class DataBaseManager {
-    private static final Map<String, DataSource> dataSourceMap = new HashMap<>();
+    private static final Map<String, DataSource> DATA_SOURCE_MAP = new HashMap<>();
 
     private DataBaseManager() {
     }
 
     public static Connection getConnection(String dataSourceKey) throws SQLException {
-        DataSource dataSource = dataSourceMap.computeIfAbsent(dataSourceKey, DataBaseManager::createDataSourceForKey);
+        DataSource dataSource = DATA_SOURCE_MAP.computeIfAbsent(dataSourceKey, DataBaseManager::createDataSourceForKey);
         return dataSource.getConnection();
     }
 
@@ -63,6 +63,6 @@ public class DataBaseManager {
     }
 
     private static DataSource getDataSource(String dataSourceKey) {
-        return dataSourceMap.get(dataSourceKey);
+        return DATA_SOURCE_MAP.get(dataSourceKey);
     }
 }
