@@ -1,48 +1,69 @@
 package ru.adminlk.clinica.samsmu.utils.APIUtils;
 
-
 import com.google.gson.JsonObject;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import lombok.Getter;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+
 import static ru.adminlk.clinica.samsmu.data.AppData.*;
-import static io.restassured.RestAssured.given;
 
 public class PreparationDataHeaderTest {
+
+    private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder()
+            .connectTimeout(Duration.ofSeconds(10))
+            .build();
 
     @Getter
     private static String tokenAdmin;
 
-
     public static void authAdmin(String login, String password) {
         tokenGetAuthAdmin(login, password);
-        given()
-                .baseUri(URL_BACK)
-                .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment",ENVIRONMENT)
-                .when()
-                .get("/api/admins/admin-data")
-                .then()
-                .statusCode(200);
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .GET()
+                    .uri(URI.create(URL_BACK + "/api/admins/admin-data"))
+                    .header("Authorization", "Bearer " + tokenAdmin)
+                    .header("Environment", ENVIRONMENT)
+                    .build();
+            HttpResponse<String> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                System.out.println("Admin has been successfully authorized");
+            } else {
+                System.out.println("Failed to log in as administrator. Status code: " + response.statusCode());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
 
     private static void tokenGetAuthAdmin(String login, String password) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("password", password);
-        Response response = given()
-                .baseUri(URL_BACK)
-                .header("Environment", ENVIRONMENT)
-                .contentType(ContentType.JSON)
-                .body(jsonObject.toString())
-                .when()
-                .post("/api/admins/sign-in")
-                .then()
-                .statusCode(200)
-                .extract()
-                .response();
-        tokenAdmin = response.getBody().jsonPath().getString("accessToken");
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .POST(HttpRequest.BodyPublishers.ofString(jsonObject.toString()))
+                    .uri(URI.create(URL_BACK + "/api/admins/sign-in"))
+                    .header("Environment", ENVIRONMENT)
+                    .header("Content-Type", "application/json")
+                    .build();
+            HttpResponse<String> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                System.out.println("Token successfully received");
+                JsonObject jsonResponse = com.google.gson.JsonParser.parseString(response.body()).getAsJsonObject();
+                tokenAdmin = jsonResponse.get("accessToken").getAsString();
+            } else {
+                System.out.println("Failed to get token. Status code: " + response.statusCode());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -50,17 +71,24 @@ public class PreparationDataHeaderTest {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("login", login);
         jsonObject.addProperty("newPassword", newPassword);
-        given()
-                .baseUri(URL_BACK)
-                .header("Authorization", "Bearer " + tokenAdmin)
-                .header("Environment", ENVIRONMENT)
-                .contentType(ContentType.JSON)
-                .body(jsonObject.toString())
-                .when()
-                .post("/api/admins/reset-password")
-                .then()
-                .statusCode(204);
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .POST(HttpRequest.BodyPublishers.ofString(jsonObject.toString()))
+                    .uri(URI.create(URL_BACK + "/api/admins/reset-password"))
+                    .header("Authorization", "Bearer " + tokenAdmin)
+                    .header("Environment", ENVIRONMENT)
+                    .header("Content-Type", "application/json")
+                    .build();
+            HttpResponse<String> response = HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 204) {
+                System.out.println("Password changed successfully");
+            } else {
+                System.out.println("Failed to change admin password. Status code: " + response.statusCode());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
-
 }
+
 

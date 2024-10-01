@@ -131,19 +131,10 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals("Допускаются файлы с расширением jpg jpeg png", cardDoctor.getTextNotification());
         assertEquals(srcOriginalPhoto, cardDoctor.getSrcPhoto());
         assertEquals(srcOriginalPhoto, DataBaseQuery.selectInfoDoctor(DOCTOR, DOCTOR_SPECIALIZATION).getPhoto_uri());
-    }
-
-    @Feature("Замена фотографии врачу")
-    @Story("Закрытие окна смены фотографии")
-    @DisplayName("Закрытие окна смены фотографии")
-    @Test
-    void closeWindowEditPhoto() {
-        cardDoctor.scrollPageUp("500");
-        EditPhotoDoctorWindow editPhoto = cardDoctor.clickButtonEditPhoto();
-        editPhoto.verifyEditPhotoDoctorWindow()
-                .closeWindowEditPhoto();
+        editPhoto.closeWindowEditPhoto();
         assertFalse(editPhoto.isWindowAppear());
     }
+
 
     @Feature("Замена фотографии врачу")
     @Story("Успешное удаление фотографии врача")
@@ -730,8 +721,9 @@ public class CardDoctorPageTest extends BaseTest {
         assertEquals(dateFeedbackYesterday, feedback.getDateFeedbackByIndex(1));
     }
 
-    @Story("Закрытие навигационного меню")
-    @DisplayName("Закрытие навигационного меню")
+    @SuppressWarnings("unused")
+    @Story("Навигационное меню")
+    @DisplayName("Навигационное меню")
     @Test
     void closeNavigateMenu() {
         NavigateMenu navigateMenu = cardDoctor.openNavigateMenu();

@@ -124,17 +124,9 @@ public class SettingPageTest extends BaseTest {
                 .uploadLogo(path);
         assertEquals("Допускаются файлы с расширением jpg jpeg png", settingPage.getTextNotification());
         assertEquals(oldHeightLogo, settingPage.getHeightLogo());
-    }
-
-    @Feature("Настройки личного кабинета")
-    @Story("Закрытие окна замены логотипа")
-    @DisplayName("Закрытие окна замены логотипа")
-    @Test
-    void closeWindowEditLogo() {
-        EditLogoWindow editLogoWindow = settingPage.clickButtonEditLogo();
-        editLogoWindow.verifyEditLogoWindow()
-                .closeWindowEditLogo();
+        editLogoWindow.closeWindowEditLogo();
         assertFalse(editLogoWindow.isWindowAppear());
     }
+
 }
 

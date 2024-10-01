@@ -47,9 +47,9 @@ public class AddTwoServices implements BeforeEachCallback, AfterEachCallback {
         PreparationDataServicesTest.addSection(generateSubSectionName(), sectionId);
         UUID subsectionId = DataBaseQuery.selectServicesCategories(subSectionName).getId();
         setSubsectionId(subsectionId);
-        String serviceCodeFirst = PreparationDataServicesTest.getRandomService(NAME_OTHER_SERVICE_CATEGORY);
+        String serviceCodeFirst = PreparationDataServicesTest.getRandomService2(NAME_OTHER_SERVICE_CATEGORY);
         setServiceCodeFirst(serviceCodeFirst);
-        String serviceCodeSecond = PreparationDataServicesTest.getRandomService(NAME_OTHER_SERVICE_CATEGORY);
+        String serviceCodeSecond = PreparationDataServicesTest.getRandomService2(NAME_OTHER_SERVICE_CATEGORY);
         setServiceCodeSecond(serviceCodeSecond);
         String parentServiceId = PreparationDataServicesTest.getCategoryIdByName(NAME_OTHER_SERVICE_CATEGORY);
         setParentServiceId(parentServiceId);
