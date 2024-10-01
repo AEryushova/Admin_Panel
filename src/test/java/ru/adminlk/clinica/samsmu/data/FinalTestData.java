@@ -9,7 +9,7 @@ public class FinalTestData {
     @Data
     public static class UserData {
         public static final String
-                LOGIN_SUPER_ADMIN = "SUPER_ADMIN",
+                LOGIN_SUPER_ADMIN = "SUPER_ADMIN_ANNA",
                 PASSWORD_SUPER_ADMIN = "Qqqq123#",
                 LOGIN_ADMIN = "ADMIN_TESTUI",
                 PASSWORD_ADMIN = "WWqq123456!";
