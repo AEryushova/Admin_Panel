@@ -1,0 +1,17 @@
+package ru.adminlk.clinica.utils.dbUtils.dbData;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AllServices {
+    private UUID id;
+    private String code;
+    private String name;
+    private String source;
+    private int sequence;
+}
