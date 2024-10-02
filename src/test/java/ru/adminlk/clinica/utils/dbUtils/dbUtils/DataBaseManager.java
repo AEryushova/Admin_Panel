@@ -22,28 +22,24 @@ public class DataBaseManager {
     }
 
     private static DataSource createDataSourceForKey(String key) {
-        switch (key) {
-            case "cab_lab_db":
-                return createDataSource(
-                        DataBaseConfig.CAB_LAB_DB_URL,
-                        DataBaseConfig.CAB_LAB_DB_USERNAME,
-                        DataBaseConfig.CAB_LAB_DB_PASSWORD
-                );
-            case "platform_db":
-                return createDataSource(
-                        DataBaseConfig.PLATFORM_DB_URL,
-                        DataBaseConfig.PLATFORM_DB_USERNAME,
-                        DataBaseConfig.PLATFORM_DB_PASSWORD
-                );
-            case "lod_db":
-                return createDataSource(
-                        DataBaseConfig.LOG_DB_URL,
-                        DataBaseConfig.LOG_DB_USERNAME,
-                        DataBaseConfig.LOG_DB_PASSWORD
-                );
-            default:
-                throw new IllegalArgumentException("Unsupported datasource key: " + key);
-        }
+        return switch (key) {
+            case "cab_lab_db" -> createDataSource(
+                    DataBaseConfig.CAB_LAB_DB_URL,
+                    DataBaseConfig.CAB_LAB_DB_USERNAME,
+                    DataBaseConfig.CAB_LAB_DB_PASSWORD
+            );
+            case "platform_db" -> createDataSource(
+                    DataBaseConfig.PLATFORM_DB_URL,
+                    DataBaseConfig.PLATFORM_DB_USERNAME,
+                    DataBaseConfig.PLATFORM_DB_PASSWORD
+            );
+            case "lod_db" -> createDataSource(
+                    DataBaseConfig.LOG_DB_URL,
+                    DataBaseConfig.LOG_DB_USERNAME,
+                    DataBaseConfig.LOG_DB_PASSWORD
+            );
+            default -> throw new IllegalArgumentException("Unsupported datasource key: " + key);
+        };
     }
 
     private static DataSource createDataSource(String url, String username, String password) {
