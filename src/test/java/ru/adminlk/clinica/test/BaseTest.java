@@ -126,14 +126,14 @@ public class BaseTest {
         options.addPreference("browser.cache.offline.enable", false);
         options.addPreference("network.http.use-cache", false);
         Configuration.browserCapabilities = options;
-        Configuration.browserVersion="130.0";
+        Configuration.browserVersion="125.0";
     }
 
     private static void configChrome() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-cache", "--disk-cache-size=0");
         Configuration.browserCapabilities = options;
-        Configuration.browserVersion="129.0";
+        Configuration.browserVersion="128.0";
     }
 
     private static void configEdge() {
