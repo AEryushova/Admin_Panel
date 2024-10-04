@@ -1,6 +1,6 @@
 ## Необходимое окружение :
 - Git
-- Java 11
+- Java 17
 - ОС : **Windows 10 64-bit**
 - IDE : **IntelliJ IDEA**
 - Браузер : **Google Chrome**, **Mozilla Firefox**, **Microsoft Edge**
