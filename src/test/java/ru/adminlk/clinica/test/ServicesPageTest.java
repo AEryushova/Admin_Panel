@@ -1253,7 +1253,7 @@ public class ServicesPageTest extends BaseTest {
 
     @Feature("Управление услугами")
     @Story("Перенос услуги при совпадении категории-источника и категории-приемника")
-    @Story("Перенос услуги при совпадении категории-источника и категории-приемника")
+    @DisplayName("Перенос услуги при совпадении категории-источника и категории-приемника")
     @Test
     void transferServiceEqualsSourceCategoryTargetCategory() {
         CategoryCard categoryCard = servicesPage.clickButtonOpenCategory(NAME_OTHER_SERVICE_CATEGORY);
