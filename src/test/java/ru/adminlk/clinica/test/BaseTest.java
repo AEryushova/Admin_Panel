@@ -112,17 +112,10 @@ public class BaseTest {
         String browser=System.getProperty("selenide.browser");
         Configuration.browser = browser;
         switch (browser) {
-            case "firefox":
-                configFirefox();
-                break;
-            case "chrome":
-                configChrome();
-                break;
-            case "edge":
-                configEdge();
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported browser: " + browser);
+            case "firefox" -> configFirefox();
+            case "chrome" -> configChrome();
+            case "edge" -> configEdge();
+            default -> throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
     }
 
@@ -133,18 +126,21 @@ public class BaseTest {
         options.addPreference("browser.cache.offline.enable", false);
         options.addPreference("network.http.use-cache", false);
         Configuration.browserCapabilities = options;
+        Configuration.browserVersion="130.0";
     }
 
     private static void configChrome() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-cache", "--disk-cache-size=0");
         Configuration.browserCapabilities = options;
+        Configuration.browserVersion="129.0";
     }
 
     private static void configEdge() {
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--disable-cache", "--disk-cache-size=0");
         Configuration.browserCapabilities = options;
+        Configuration.browserVersion="129.0";
     }
 
 }
