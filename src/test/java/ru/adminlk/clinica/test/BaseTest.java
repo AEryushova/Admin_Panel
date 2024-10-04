@@ -31,6 +31,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 
 
+import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.localStorage;
 import static ru.adminlk.clinica.data.AppData.*;
@@ -86,15 +87,18 @@ public class BaseTest {
         configureBrowser();
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
+        Configuration.remote = "http://192.168.13.57:8080/wd/hub";
         open(URL_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
     }
 
     protected static void openAuthAdminPanel() {
         configureBrowser();
+        baseUrl = URL_ADMIN_PANEL;
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
-        open(URL_ADMIN_PANEL);
+        Configuration.remote = "http://192.168.13.57:8080/wd/hub";
+        open(baseUrl);
         localStorage().setItem("Environment", ENVIRONMENT);
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
         localStorage().setItem("accessToken", token);
@@ -119,28 +123,28 @@ public class BaseTest {
         }
     }
 
+    private static void configChrome() {
+        ChromeOptions options = new ChromeOptions();
+        Configuration.browserVersion="128.0";
+        options.addArguments("--disable-cache", "--disk-cache-size=0");
+        Configuration.browserCapabilities = options;
+    }
+
     private static void configFirefox() {
         FirefoxOptions options = new FirefoxOptions();
+        Configuration.browserVersion="125.0";
         options.addPreference("browser.cache.disk.enable", false);
         options.addPreference("browser.cache.memory.enable", false);
         options.addPreference("browser.cache.offline.enable", false);
         options.addPreference("network.http.use-cache", false);
         Configuration.browserCapabilities = options;
-        Configuration.browserVersion="125.0";
-    }
-
-    private static void configChrome() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-cache", "--disk-cache-size=0");
-        Configuration.browserCapabilities = options;
-        Configuration.browserVersion="128.0";
     }
 
     private static void configEdge() {
         EdgeOptions options = new EdgeOptions();
+        Configuration.browserVersion="129.0";
         options.addArguments("--disable-cache", "--disk-cache-size=0");
         Configuration.browserCapabilities = options;
-        Configuration.browserVersion="129.0";
     }
 
 }
