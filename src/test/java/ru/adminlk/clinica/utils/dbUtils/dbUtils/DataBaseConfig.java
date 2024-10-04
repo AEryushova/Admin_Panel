@@ -1,18 +1,17 @@
 package ru.adminlk.clinica.utils.dbUtils.dbUtils;
 
 public class DataBaseConfig {
-    public static final String CAB_LAB_DB_URL_DEFAULT="jdbc:postgresql://192.168.6.225:5432/";
-    public static final String CAB_LAB_DB_NAME=System.getProperty("cab.lab.db.name");
-    public static final String CAB_LAB_DB_URL = CAB_LAB_DB_URL_DEFAULT + CAB_LAB_DB_NAME;
-    public static final String CAB_LAB_DB_USERNAME = "username";
-    public static final String CAB_LAB_DB_PASSWORD = "password";
+    protected static final String CAB_LAB_DB_URL_DEFAULT="jdbc:postgresql://192.168.6.225:5432/";
+    protected static final String CAB_LAB_DB_URL = CAB_LAB_DB_URL_DEFAULT + System.getProperty("db");
+    protected static final String CAB_LAB_DB_USERNAME = "username";
+    protected static final String CAB_LAB_DB_PASSWORD = "password";
 
-    public static final String PLATFORM_DB_URL = "jdbc:postgresql://192.168.6.205:49000/lk_platform";
-    public static final String PLATFORM_DB_USERNAME = "postgres";
-    public static final String PLATFORM_DB_PASSWORD = "298180";
+    protected static final String PLATFORM_DB_URL = "jdbc:postgresql://192.168.6.205:49000/lk_platform";
+    protected static final String PLATFORM_DB_USERNAME = "postgres";
+    protected static final String PLATFORM_DB_PASSWORD = "298180";
 
-    public static final String LOG_DB_URL = "jdbc:postgresql://192.168.6.227:15432/logdb";
-    public static final String LOG_DB_USERNAME = "launcher_user_admin";
-    public static final String LOG_DB_PASSWORD = "Aww%zgW@~sh3";
+    protected static final String LOG_DB_URL = "jdbc:postgresql://192.168.6.227:15432/logdb";
+    protected static final String LOG_DB_USERNAME = "launcher_user_admin";
+    protected static final String LOG_DB_PASSWORD = "Aww%zgW@~sh3";
 
 }

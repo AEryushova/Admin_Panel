@@ -14,13 +14,13 @@
 
 
 ## Системные свойства :
-- Для запуска тестов в определенном браузере : _"-Dselenide.browser=firefox"_ ("chrome", "firefox", "edge").
+- Для запуска тестов в определенном браузере : _"-Dselenide.browser=firefox"_ (chrome, firefox, edge).
   По умолчанию "chrome"
-- Для запуска тестов в определенном окружении : _"-Denvironment=freeze"_ ("freeze", "stg").
+- Для запуска тестов в определенном окружении : _"-Denvironment=freeze"_ (freeze, stg).
 По умолчанию "stg"
-- Для запуска тестов в headless-режиме : _"-Dselenide.headless=true"_ ("false", "true").
-  По умолчанию "true"
-- Для запуска тестов с определенной БД cab_lab : _"-Dcab.lab.db.name=freeze_cab_lab_collection"_ ("freeze_cab_lab_collection", "cab_lab_collection").
+- Для запуска тестов в headless-режиме : _"-Dselenide.headless=false"_ (false, true).
+  По умолчанию "false"
+- Для запуска тестов с определенной БД cab_lab : _"-Ddb=freeze_cab_lab_collection"_ (freeze_cab_lab_collection, cab_lab_collection).
 По умолчанию "cab_lab_collection"
 
 

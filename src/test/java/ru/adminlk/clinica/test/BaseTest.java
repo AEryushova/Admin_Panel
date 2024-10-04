@@ -31,7 +31,6 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 
 
-import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.localStorage;
 import static ru.adminlk.clinica.data.AppData.*;
@@ -87,18 +86,17 @@ public class BaseTest {
         configureBrowser();
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
-        Configuration.remote = "http://192.168.13.57:8080/wd/hub";
+        Configuration.remote = System.getProperty("remote");
         open(URL_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
     }
 
     protected static void openAuthAdminPanel() {
         configureBrowser();
-        baseUrl = URL_ADMIN_PANEL;
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
-        Configuration.remote = "http://192.168.13.57:8080/wd/hub";
-        open(baseUrl);
+        Configuration.remote = System.getProperty("remote");
+        open(URL_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
         localStorage().setItem("accessToken", token);
