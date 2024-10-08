@@ -16,7 +16,7 @@ public class DataBaseManager {
     private DataBaseManager() {
     }
 
-    public static Connection getConnection(String dataSourceKey) throws SQLException {
+    protected static Connection getConnection(String dataSourceKey) throws SQLException {
         DataSource dataSource = DATA_SOURCE_MAP.computeIfAbsent(dataSourceKey, DataBaseManager::createDataSourceForKey);
         return dataSource.getConnection();
     }
@@ -50,7 +50,7 @@ public class DataBaseManager {
         return dataSource;
     }
 
-    public static QueryRunner queryRunner(String dataSourceKey) {
+    protected static QueryRunner queryRunner(String dataSourceKey) {
         DataSource dataSource = getDataSource(dataSourceKey);
         if (dataSource == null) {
             throw new IllegalArgumentException("Datasource not found for key: " + dataSourceKey);
