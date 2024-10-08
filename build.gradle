@@ -64,8 +64,9 @@ test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless', 'false')
     systemProperty 'selenide.browser', System.getProperty('selenide.browser', 'chrome')
+    systemProperty 'remote', System.getProperty('remote', 'http://192.168.13.57:8080/wd/hub')
     systemProperty 'environment', System.getProperty('environment', 'stg')
-    systemProperty 'cab.lab.db.name', System.getProperty('cab.lab.db.name', 'cab_lab_collection')
+    systemProperty 'db', System.getProperty('db', 'cab_lab_collection')
 }
 
 

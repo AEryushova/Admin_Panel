@@ -2,8 +2,7 @@ package ru.adminlk.clinica.utils.dbUtils.dbUtils;
 
 public class DataBaseConfig {
     protected static final String CAB_LAB_DB_URL_DEFAULT="jdbc:postgresql://192.168.6.225:5432/";
-    protected static final String CAB_LAB_DB_NAME=System.getProperty("cab.lab.db.name");
-    protected static final String CAB_LAB_DB_URL = CAB_LAB_DB_URL_DEFAULT + CAB_LAB_DB_NAME;
+    protected static final String CAB_LAB_DB_URL = CAB_LAB_DB_URL_DEFAULT + System.getProperty("db");
     protected static final String CAB_LAB_DB_USERNAME = "username";
     protected static final String CAB_LAB_DB_PASSWORD = "password";
 

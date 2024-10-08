@@ -86,6 +86,7 @@ public class BaseTest {
         configureBrowser();
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
+        Configuration.remote = System.getProperty("remote");
         open(URL_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
     }
@@ -94,6 +95,7 @@ public class BaseTest {
         configureBrowser();
         Configuration.browserSize = "1920x1080";
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless"));
+        Configuration.remote = System.getProperty("remote");
         open(URL_ADMIN_PANEL);
         localStorage().setItem("Environment", ENVIRONMENT);
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
@@ -119,28 +121,28 @@ public class BaseTest {
         }
     }
 
+    private static void configChrome() {
+        ChromeOptions options = new ChromeOptions();
+        Configuration.browserVersion="128.0";
+        options.addArguments("--disable-cache", "--disk-cache-size=0");
+        Configuration.browserCapabilities = options;
+    }
+
     private static void configFirefox() {
         FirefoxOptions options = new FirefoxOptions();
+        Configuration.browserVersion="125.0";
         options.addPreference("browser.cache.disk.enable", false);
         options.addPreference("browser.cache.memory.enable", false);
         options.addPreference("browser.cache.offline.enable", false);
         options.addPreference("network.http.use-cache", false);
         Configuration.browserCapabilities = options;
-        Configuration.browserVersion="125.0";
-    }
-
-    private static void configChrome() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-cache", "--disk-cache-size=0");
-        Configuration.browserCapabilities = options;
-        Configuration.browserVersion="128.0";
     }
 
     private static void configEdge() {
         EdgeOptions options = new EdgeOptions();
+        Configuration.browserVersion="129.0";
         options.addArguments("--disable-cache", "--disk-cache-size=0");
         Configuration.browserCapabilities = options;
-        Configuration.browserVersion="129.0";
     }
 
 }
